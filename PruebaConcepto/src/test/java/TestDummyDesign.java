@@ -5,6 +5,11 @@ import org.junit.Test;
 
 public class TestDummyDesign {
 
+	@Test
+	public void testIntegrante1(){
+		assertEquals(1, DummyDesign.integrante1());
+	}
+	
     @Test
     public void testIntegrante3() {
         assertTrue(3 == DummyDesign.Integrante3());

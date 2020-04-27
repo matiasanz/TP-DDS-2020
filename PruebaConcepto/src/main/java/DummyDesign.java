@@ -7,6 +7,10 @@
 
 public class DummyDesign {
 
+	public static int integrante1(){
+		return 1;
+	}
+	
     public static int Integrante3() {
         return 3;
     }
