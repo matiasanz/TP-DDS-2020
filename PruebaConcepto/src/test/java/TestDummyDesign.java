@@ -10,6 +10,11 @@ public class TestDummyDesign {
 		assertEquals(1, DummyDesign.integrante1());
 	}
 	
+	@Test
+    public void testIntegrante2() {
+        assertEquals(2, DummyDesign.Integrante2());
+    }
+	
     @Test
     public void testIntegrante3() {
         assertTrue(3 == DummyDesign.Integrante3());
