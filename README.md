@@ -109,6 +109,7 @@ social).
 * Siguiendo las recomendaciones del OWASP (Proyecto Abierto de Seguridad en Aplicaciones Web), que se ha constituido en un estándar de facto para la seguridad, se pide:
 
 ** Implemente controles contra contraseñas débiles. Cuando el usuario ingrese una nueva clave, la misma puede verificarse contra la lista del Top 10.000 de peores contraseñas.
+
 ** Alinear la política de longitud, complejidad y rotación de contraseñas con las recomendaciones de la Sección 5.1.1 para Secretos Memorizados de la Guía NIST 800-63. Por ahora solamente se deberán implementar tres recomendaciones de esta guía (Por ejemplo, una recomendación puede ser Que la contraseña no lleve caracteres consecutivos como ‘abc123’). Sin embargo el diseño deberá ser lo suficientemente flexible para soportar más recomendaciones a futuro.
 
 ## Entregables requeridos
