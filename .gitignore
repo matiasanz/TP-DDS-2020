@@ -21,3 +21,8 @@ hs_err_pid*
 # Log file
 *.log
 /bin/
+
+#Eclipse
+.classpath
+.project
+./settings
