@@ -4,8 +4,6 @@
 
 Fundación Proyecto Emprender (PROEM) es una organización sin fines de lucro fundada en el año 2003.
 
-1
-
 Su visión reside en contribuir a la obtención del pleno empleo en la República Argentina. En dicho sentido,
 su misión es acompañar la preparación laboral de las personas, promover el desarrollo y generación de
 emprendimientos y fortalecer organizaciones productivas ya constituidas. PROEM promueve la inclusión
@@ -26,10 +24,7 @@ evalúa la posibilidad de implementar un sistema de información de contabilidad
 
 Existe diverso software que resuelve algunas problemáticas que se plantean en el presente trabajo, sin
 embargo, en ocasiones, su implementación es costosa (en términos monetarios o por los recursos
-especializados que requiere), por lo cual no es realizada. Muchos otros productos son enlatados , con la
-2
-
-dificultad de personalizarlos para las complejas realidades de estas organizaciones.
+especializados que requiere), por lo cual no es realizada. Muchos otros productos son enlatados , con la dificultad de personalizarlos para las complejas realidades de estas organizaciones.
 Muchas organizaciones sociales se encuentran en la actualidad implementando una herramienta de primer
 nivel del mercado, propiedad de una de las compañías más importantes en tecnología informática. Sin
 embargo, a pesar de los programas de acceso con licencias gratuitas, no todas las organizaciones tienen
@@ -82,7 +77,7 @@ la necesidad de tener que instalar ningún componente de forma local.
 ## Requerimientos detallados
 En la primera etapa del proyecto se llevará registro de los gastos realizados o previstos. Se plantean los siguientes requerimientos:
 
-###Sobre las operaciones de egreso
+### Sobre las operaciones de egreso
 * Se debe llevar registro de todas las operaciones de egresos de fondos a través de diversos medios de pagos.
 * Aunque es deseable que una operación de egresos tenga asociado un documento comercial
 (factura, ticket, etc.) no es necesariamente lo esperado en esta etapa del proyecto y se debe permitir (excepto ciertas circunstancias que deberán validarse y serán presentadas en próximas iteraciones) que existan operaciones sin su correspondiente sustento documental (o sea, se puede realizar una compra, con diversos ítems, pero no tener factura asociada).
@@ -108,12 +103,13 @@ social).
 * En el caso de empresas, estas se clasifican en Micro, Pequeña, Mediana Tramo 1, Mediana Tramo
 * Dicha clasificación responderá a los criterios estipulados por la AFIP
 
-##Requerimientos de seguridad
+## Requerimientos de seguridad
 
 * Se debe permitir crear usuarios para la aplicación, con dos tipos de usuarios: administrador y estándar. Por el momento, sólo se requiere guardar usuario y contraseña , no se requiere ningún correo electrónico, ni ninguna validación con el correo electrónico al momento de crear el usuario.
 * Siguiendo las recomendaciones del OWASP (Proyecto Abierto de Seguridad en Aplicaciones Web), que se ha constituido en un estándar de facto para la seguridad, se pide:
-	● Implemente controles contra contraseñas débiles. Cuando el usuario ingrese 	  	  	  una nueva clave, la misma puede verificarse contra la lista del Top 10.000 de 	  	  peores contraseñas.
-	● Alinear la política de longitud, complejidad y rotación de contraseñas con 	  	  	  las recomendaciones de la Sección 5.1.1 para Secretos Memorizados de la Guía NIST 	  	  800-63. Por ahora solamente se deberán implementar tres recomendaciones de esta 	  	  guía (Por ejemplo, una recomendación puede ser Que la contraseña no lleve 	  	  caracteres consecutivos como ‘abc123’). Sin embargo el diseño deberá ser lo 	  suficientemente flexible para soportar más recomendaciones a futuro.
+
+** Implemente controles contra contraseñas débiles. Cuando el usuario ingrese una nueva clave, la misma puede verificarse contra la lista del Top 10.000 de peores contraseñas.
+** Alinear la política de longitud, complejidad y rotación de contraseñas con las recomendaciones de la Sección 5.1.1 para Secretos Memorizados de la Guía NIST 800-63. Por ahora solamente se deberán implementar tres recomendaciones de esta guía (Por ejemplo, una recomendación puede ser Que la contraseña no lleve caracteres consecutivos como ‘abc123’). Sin embargo el diseño deberá ser lo suficientemente flexible para soportar más recomendaciones a futuro.
 
 ## Entregables requeridos
 * Modelo de Objetos (Diagrama de clases)
