@@ -1,5 +1,5 @@
 package Entidad;
-import java.util.List;
+import java.util.ArrayList;
 
 public abstract class EntidadJuridica implements Entidad {
 	private String razonSocial;
@@ -7,6 +7,6 @@ public abstract class EntidadJuridica implements Entidad {
 	private int cuit;
 	private String direccionPostal;
 	private int codigoIGJ;
-	private List<EntidadBase> entidadesBase;
+	private ArrayList<EntidadBase> entidadesBase;
 	
 }
