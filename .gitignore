@@ -20,9 +20,13 @@ hs_err_pid*
 *.class
 # Log file
 *.log
-/bin/
 
 #Eclipse
-.classpath
-.project
-./settings
+*.project
+*.classpath
+**/*.classpath
+**/*.project
+
+
+**/.settings/
+**/bin/
