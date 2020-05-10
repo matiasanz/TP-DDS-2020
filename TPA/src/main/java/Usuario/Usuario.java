@@ -38,7 +38,7 @@ public class Usuario {
     }
 
     private boolean evaluarRegex(String regEx, String contrasenia) {
-        // Si tiene 3 caracteres consecutivos repetidos o más debe fallar
+
         Pattern pattern = Pattern.compile(regEx);
         Matcher matcher = pattern.matcher(contrasenia);
 
@@ -46,12 +46,10 @@ public class Usuario {
     }
     private void validarUsuarioSeaDistintoALaContrasenia(String contrasenia) {
 
-        // Lanza excepcion si tiene caracteres o numeros consecutvos
         if (this.username.toLowerCase() == contrasenia.toLowerCase())
         {
             throw new ContraseniaCoincideConNombreException();
         }
-
     }
 
     private void validarCaracteresRepetidos(String contrasenia) {
