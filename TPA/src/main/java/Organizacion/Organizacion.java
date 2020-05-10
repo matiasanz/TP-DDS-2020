@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import Compra.Compra;
 import Entidad.Entidad;
 import Entidad.EntidadJuridica;
+import Usuario.Usuario;
 
 public class Organizacion {
 	private ArrayList<Usuario> usuarios;

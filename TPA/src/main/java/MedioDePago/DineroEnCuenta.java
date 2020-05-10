@@ -1,6 +1,6 @@
 package MedioDePago;
 
-import Organizacion.Usuario;
+import Usuario.Usuario;
 
 public class DineroEnCuenta implements MedioDePago {
 	private Usuario usuario;

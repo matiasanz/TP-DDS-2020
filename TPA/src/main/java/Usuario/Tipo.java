@@ -1,4 +1,4 @@
-package Organizacion;
+package Usuario;
 
 public enum Tipo {
 	ADMINISTRADOR, ESTANDAR
