@@ -1,5 +1,5 @@
 package Entidad;
 
 public enum Clasificacion {
-	Micro, Pequenia, MedianaTramo1, MedianaTramo2
+	MICRO, PEQUENIA, MEDIANATRAMO1, MEDIANATRAMO2
 }
