@@ -18,7 +18,7 @@ public class TestCompra {
     }
 
     @Test
-    public void ObtenerValorTotalDeUnaCompra() {
+    public void obtenerValorTotalDeUnaCompra() {
         assertEquals(compra.getValorTotal(),BigDecimal.valueOf(100.0));
     }
 }

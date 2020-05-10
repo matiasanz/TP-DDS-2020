@@ -1,72 +1,96 @@
 package Usuario;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Usuario {
-	private Tipo tipo;
-	String username;
-	String contrasenia; // Esto obvio no quedaría como string
-	
-	public Usuario (String username, String contrasenia) {
-		
-		validarPassword(contrasenia);
+    private Tipo tipo;
+    private String username;
+    private String contrasenia;
 
-		this.username = username;
-		this.contrasenia = contrasenia;
-	
-	}
+    public String getContrasenia() {
+        return contrasenia;
+    }
 
-	public void cambiarContrasenia(String contrasenia) {
-		validarPassword(contrasenia);
-		this.contrasenia = contrasenia;
-	}
-	
-	void validarPassword(String contrasenia) {
-		
-		entreLasDiezMil(contrasenia);
-//		validacion1(contrasenia);
-//		validacion2(contrasenia);
-//		validacion3(contrasenia);
-	}
+    public Usuario(String username, String contrasenia) {
 
-	private void validacion3(String contrasenia2) {
-		// TODO Auto-generated method stub
-		
-	}
+        this.username = username;
 
-	private void validacion2(String contrasenia2) {
-		// TODO Auto-generated method stub
-		
-	}
+        validarContrasenia(contrasenia);
+        this.contrasenia = contrasenia;
 
-	private void validacion1(String contrasenia2) {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	void entreLasDiezMil(String contrasenia) {
-		
-		File file = new File("10000WorstPasswords.txt");
-		try {
-		    Scanner scanner = new Scanner(file);
-	
-		    while (scanner.hasNextLine()) {
-		        String line = scanner.nextLine();
-		        if(line.equals(contrasenia)) { 
-		           throw new contraseniaEntreLasDiezMilException();
-		        }
-		    }
-			scanner.close();
-			
-		} catch(FileNotFoundException e) { 
-			throw new noEncontroArchivo();
-		}
-	}
-	
+    public void cambiarContrasenia(String contrasenia) {
+        validarContrasenia(contrasenia);
+        this.contrasenia = contrasenia;
+    }
+
+    void validarContrasenia(String contrasenia) {
+
+        validarContraseniaEntreLasDiezMilMasConocidas(contrasenia);
+        validarLongitudMinima(contrasenia);
+        validarCaracteresRepetidos(contrasenia);
+		validarUsuarioSeaDistintoALaContrasenia(contrasenia);
+    }
+
+    private boolean evaluarRegex(String regEx, String contrasenia) {
+        // Si tiene 3 caracteres consecutivos repetidos o más debe fallar
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(contrasenia);
+
+        return matcher.find();
+    }
+    private void validarUsuarioSeaDistintoALaContrasenia(String contrasenia) {
+
+        // Lanza excepcion si tiene caracteres o numeros consecutvos
+        if (this.username.toLowerCase() == contrasenia.toLowerCase())
+        {
+            throw new ContraseniaCoincideConNombreException();
+        }
+
+    }
+
+    private void validarCaracteresRepetidos(String contrasenia) {
+
+        // Lanza excepcion si tiene al menos 2 caracteres repetidos
+        if(!evaluarRegex("^(?!.*(.)\\1)", contrasenia))
+        {
+            throw new ContraseniaTieneCaracteresRepetidos();
+        }
+
+    }
+
+    private void validarLongitudMinima(String contrasenia) {
+
+        int LONGITUD_MINIMA_NIST = 8;
+
+        if (contrasenia.length() < LONGITUD_MINIMA_NIST)
+            throw new ContraseniaNoCumpleLongitudMinimaException(LONGITUD_MINIMA_NIST);
+
+
+    }
+
+    void validarContraseniaEntreLasDiezMilMasConocidas(String contrasenia) {
+
+        File file = new File("10000WorstPasswords.txt");
+        try {
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.equals(contrasenia)) {
+                    throw new ContraseniaEntreLasDiezMilException();
+                }
+            }
+            scanner.close();
+
+        } catch (FileNotFoundException e) {
+            throw new noEncontroArchivo();
+        }
+    }
 }
 
