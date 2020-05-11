@@ -25,16 +25,19 @@ public class Usuario {
     }
 
     public void cambiarContrasenia(String contrasenia) {
+    	
         validarContrasenia(contrasenia);
         this.contrasenia = contrasenia;
+        
     }
 
     void validarContrasenia(String contrasenia) {
-
+    	
         validarContraseniaEntreLasDiezMilMasConocidas(contrasenia);
         validarLongitudMinima(contrasenia);
         validarCaracteresRepetidos(contrasenia);
 		validarUsuarioSeaDistintoALaContrasenia(contrasenia);
+		
     }
 
     private boolean evaluarRegex(String regEx, String contrasenia) {
@@ -43,13 +46,15 @@ public class Usuario {
         Matcher matcher = pattern.matcher(contrasenia);
 
         return matcher.find();
+        
     }
+    
     private void validarUsuarioSeaDistintoALaContrasenia(String contrasenia) {
-
-        if (this.username.toLowerCase() == contrasenia.toLowerCase())
-        {
-            throw new ContraseniaCoincideConNombreException();
+    	
+        if (contrasenia.toLowerCase().contains(this.username.toLowerCase())){
+            throw new ContraseniaTieneNombreDeUsuarioIncluido();
         }
+        
     }
 
     private void validarCaracteresRepetidos(String contrasenia) {

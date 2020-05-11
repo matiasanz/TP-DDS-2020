@@ -30,8 +30,12 @@ public class TestUsuario {
     public void validarCaracteresRepetidosConDosCaracteres() {
         String contraseniaEsperada = "pepeholapp";
         Usuario usuario = new Usuario("carlitos", contraseniaEsperada);
-
-        assertEquals(usuario.getContrasenia(), contraseniaEsperada);
+    }
+    
+    @Test(expected = ContraseniaTieneNombreDeUsuarioIncluido.class)
+    public void validarCaracteresQueIncluyenElNombreDeUsuario() {
+        String contraseniaEsperada = "elmascrackesCarlitos";
+        Usuario usuario = new Usuario("carlitos", contraseniaEsperada);
     }
 
     @Test()
