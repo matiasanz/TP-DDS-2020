@@ -11,6 +11,10 @@ public class Item {
     }
 
     public Item(String descripcion, BigDecimal valor) {
+    	
+    	if (valor.intValue() < 0) {
+    		throw new ValorNegativoEnItemDeCompraException();
+    	}
         this.descripcion = descripcion;
         this.valor = valor;
     }

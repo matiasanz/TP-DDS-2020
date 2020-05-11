@@ -14,6 +14,10 @@ public class Usuario {
     public String getContrasenia() {
         return contrasenia;
     }
+    
+    public String getUsername() {
+    	return username;
+    }
 
     public Usuario(String username, String contrasenia) {
 
