@@ -1,6 +1,6 @@
 # GRUPO 7 - TP ANUAL
 
-## Resolución
+## Resolución Entrega 1
 
 ### Diagrama de clase:
 
