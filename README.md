@@ -2,16 +2,16 @@
 
 ## Resolución
 
-Diagrama de clase:
+### Diagrama de clase:
 
 ![Diagrama](/Diagramas/DiagramaTPAEntrega1.png) 
 
 
-Alternativa 1:
+### Alternativa 1:
 
 ![DiagramaAlternativa1](/Diagramas/DiagramaTPAEntrega1Alternativa1.png) 
 
-Alternativa 2:
+### Alternativa 2:
 
 ![DiagramaAlternativa2](/Diagramas/DiagramaTPAEntrega1Alternativa2.png) 
 
