@@ -56,7 +56,7 @@ public class Usuario {
     private void validarUsuarioSeaDistintoALaContrasenia(String contrasenia) {
     	
         if (contrasenia.toLowerCase().contains(this.username.toLowerCase())){
-            throw new ContraseniaTieneNombreDeUsuarioIncluido();
+            throw new ContraseniaTieneNombreDeUsuarioIncluidoException();
         }
         
     }
@@ -66,7 +66,7 @@ public class Usuario {
         // Lanza excepcion si tiene al menos 2 caracteres repetidos
         if(!evaluarRegex("^(?!.*(.)\\1)", contrasenia))
         {
-            throw new ContraseniaTieneCaracteresRepetidos();
+            throw new ContraseniaTieneCaracteresRepetidosException();
         }
 
     }
@@ -96,7 +96,7 @@ public class Usuario {
             scanner.close();
 
         } catch (FileNotFoundException e) {
-            throw new noEncontroArchivo();
+            throw new NoEncontroArchivoExceptionException();
         }
     }
 }

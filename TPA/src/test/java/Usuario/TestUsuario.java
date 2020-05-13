@@ -16,23 +16,23 @@ public class TestUsuario {
         Usuario usuario = new Usuario("carlitos", "pepe");
     }
 
-    @Test(expected = ContraseniaTieneCaracteresRepetidos.class)
+    @Test(expected = ContraseniaTieneCaracteresRepetidosException.class)
     public void validarCaracteresRepetidosConTresCaracteres() {
         Usuario usuario = new Usuario("carlitos", "pepeholappp");
     }
 
-    @Test(expected = ContraseniaTieneCaracteresRepetidos.class)
+    @Test(expected = ContraseniaTieneCaracteresRepetidosException.class)
     public void validarCaracteresRepetidosConCuatroCaracteres() {
         Usuario usuario = new Usuario("carlitos", "pepeholappppp");
     }
 
-    @Test(expected = ContraseniaTieneCaracteresRepetidos.class)
+    @Test(expected = ContraseniaTieneCaracteresRepetidosException.class)
     public void validarCaracteresRepetidosConDosCaracteres() {
         String contraseniaEsperada = "pepeholapp";
         Usuario usuario = new Usuario("carlitos", contraseniaEsperada);
     }
     
-    @Test(expected = ContraseniaTieneNombreDeUsuarioIncluido.class)
+    @Test(expected = ContraseniaTieneNombreDeUsuarioIncluidoException.class)
     public void validarCaracteresQueIncluyenElNombreDeUsuario() {
         String contraseniaEsperada = "elmascrackesCarlitos";
         Usuario usuario = new Usuario("carlitos", contraseniaEsperada);

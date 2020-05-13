@@ -1,10 +1,9 @@
 package Entidad;
 import java.util.ArrayList;
 
-public abstract class EntidadJuridica implements Entidad {
+public abstract class EntidadJuridica extends Entidad {
 
 	private String razonSocial;
-	private String nombreFicticio;
 	private String cuit;
 	private String direccionPostal;
 	private int codigoIGJ;

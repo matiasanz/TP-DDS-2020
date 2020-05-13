@@ -1,5 +1,5 @@
 package Entidad;
 
-public interface Entidad {
-
+public abstract class Entidad {
+	String nombreFicticio;
 }

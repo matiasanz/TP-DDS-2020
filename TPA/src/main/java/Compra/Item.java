@@ -12,11 +12,15 @@ public class Item {
 
     public Item(String descripcion, BigDecimal valor) {
     	
-    	if (valor.intValue() < 0) {
-    		throw new ValorNegativoEnItemDeCompraException();
-    	}
+    	validarValorPositivo(valor);
         this.descripcion = descripcion;
         this.valor = valor;
     }
+
+	private void validarValorPositivo(BigDecimal valor) {
+		if (valor.intValue() < 0) {
+    		throw new ValorNegativoEnItemDeCompraException();
+    	}
+	}
 
 }
