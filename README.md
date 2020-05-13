@@ -6,15 +6,23 @@
 
 ![Diagrama](/Diagramas/DiagramaTPAEntrega1.png) 
 
+Esta es la alternativa que finalmente decidimos entregar.
+-	La organización se relaciona con un Tipo Entidad. Esta interfaz lo que permite es que tanto la EntidadJuridica como la EntidadBase sean polimórficas para la organización.
+-	Eliminamos el BuilderUusario ya que la construcción del Usuario es sencilla y por ahora puede realizarse sin tener que aplicar al patrón.
+-	El tipo de Usuario es un enum el cual permite acotar los valores.
 
 ### Alternativa 1:
 
 ![DiagramaAlternativa1](/Diagramas/DiagramaTPAEntrega1Alternativa1.png) 
+- BuilderUsuario: en una primera instancia nos pareció buena idea tener este builder para poder utilizarlo durante la construcción y la validación de la contraseña del usuario.
+- Decidimos que la compra tenga la información sobre la organización a la que pertenece.
+-	La organización se relaciona con una entidad jurídica, ésta a su vez posee muchas entidades base y diferentes tipos.
+
 
 ### Alternativa 2:
 
 ![DiagramaAlternativa2](/Diagramas/DiagramaTPAEntrega1Alternativa2.png) 
-
+ - En esta alternativa, realizamos un cambio con respecto a la primera. La relación entre la Organización y la Compra siendo ahora la Organización quien conoce y agrupa las compras.
 
 ## Problemática
 
