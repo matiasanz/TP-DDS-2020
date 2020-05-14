@@ -4,7 +4,7 @@
 
 ### Diagrama de clase:
 
-![Diagrama](/Diagramas/DiagramaTPAEntrega1v2.png) 
+![Diagrama](/Diagramas/DiagramaTPAEntrega1v3.png) 
 
 Esta es la alternativa que finalmente decidimos entregar.
 -	La organización se relaciona con un Tipo Entidad. Esta interfaz lo que permite es que tanto la EntidadJuridica como la EntidadBase sean polimórficas para la organización.
