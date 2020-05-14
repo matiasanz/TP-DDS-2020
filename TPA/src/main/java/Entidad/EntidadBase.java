@@ -1,5 +1,6 @@
 package Entidad;
 
-public class EntidadBase extends Entidad {
+public class EntidadBase implements Entidad {
+	String nombreFicticio;
 	String descripcion;
 }
