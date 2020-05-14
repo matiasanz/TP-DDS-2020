@@ -5,11 +5,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
+import Entidad.Entidad;
 import Entidad.EntidadJuridica;
 import MedioDePago.MedioDePago;
 
 public class Compra {
-	private EntidadJuridica entidadRelacionada;
+	private Entidad entidadRelacionada;
 	//	private Documento documentoComercial;
 	private Proveedor proveedor;
 	private LocalDate fechaOperacion;
