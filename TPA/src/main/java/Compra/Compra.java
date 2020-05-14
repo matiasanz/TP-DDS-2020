@@ -10,12 +10,20 @@ import MedioDePago.MedioDePago;
 
 public class Compra {
 	private EntidadJuridica entidadRelacionada;
-//	private Documento documentoComercial;
+	//	private Documento documentoComercial;
 	private Proveedor proveedor;
 	private LocalDate fechaOperacion;
 	private BigDecimal valorTotal; 
 	private List<Item> items = new ArrayList<>();
 	private MedioDePago medioDePago;
+	
+	public Compra(EntidadJuridica entidad, Proveedor proveedor, LocalDate fecha, MedioDePago medioDePago) {
+		this.entidadRelacionada = entidad;
+		this.proveedor = proveedor;
+		this.fechaOperacion = fecha;
+		this.medioDePago = medioDePago;
+		//this.documentoComercial = documentoComercial;
+	}
 	
 	public BigDecimal getValorTotal() {
 		return items.stream().map(Item::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
