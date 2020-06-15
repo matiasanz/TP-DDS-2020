@@ -31,11 +31,12 @@ public class RepositorioDeMonedasMeli implements RepositorioDeMonedas {
             return null;
         }
 
-        return new Moneda(codigoMoneda, parseGetmonedaResponse(response.getEntity(String.class)));
+        return parseGetmonedaResponse(codigoMoneda, response.getEntity(String.class));
     }
 
-    private String parseGetmonedaResponse(String json) {
+    private  Moneda parseGetmonedaResponse(CodigoMoneda codigoMoneda, String json) {
+
         ReadContext ctx = JsonPath.parse(json);
-        return ctx.read("$.description");
+        return new Moneda(codigoMoneda, ctx.read("$.description"));
     }
 }
