@@ -8,12 +8,14 @@ import Moneda.Moneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
+import Usuario.Usuario;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class Compra {
 	private RepositorioDeMonedas repositorioDeMonedas;
@@ -23,12 +25,20 @@ public class Compra {
 	private MedioDePago medioDePago;
 	private int cantidadMinimaDePresupuestos;
 	private Moneda moneda;
-	private boolean indicadorDeAprobacion;
+	private Estado indicadorDeAprobacion;
 	private List<Item> items;
 	private List<Presupuesto> presupuestosAsociados;
+	private Presupuesto presupuestoElegido;
+	List<Usuario> usuariosValidadores;
 	
-	public Compra(RepositorioDeMonedas repositorioDeMonedas, EntidadJuridica entidad, Proveedor proveedor, LocalDate fecha,
-				  MedioDePago medioDePago, CodigoMoneda codigoMoneda, int cantidadMinimaDePresupuestos) {
+	public Compra(RepositorioDeMonedas repositorioDeMonedas,
+				  EntidadJuridica entidad,
+				  Proveedor proveedor,
+				  LocalDate fecha,
+				  MedioDePago medioDePago,
+				  CodigoMoneda codigoMoneda,
+				  int cantidadMinimaDePresupuestos,
+				  List<Usuario> usuariosValidadores) {
 
 		this.repositorioDeMonedas = repositorioDeMonedas;
 		this.entidadRelacionada = entidad;
@@ -37,9 +47,11 @@ public class Compra {
 		this.medioDePago = medioDePago;
 		this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
 		this.moneda = repositorioDeMonedas.getMoneda(codigoMoneda);
-		this.indicadorDeAprobacion = false;
+		this.indicadorDeAprobacion = Estado.NUEVA;
 		this.items = new ArrayList<>();
 		this.presupuestosAsociados = new ArrayList<>();
+		this.presupuestoElegido = null;
+		this.usuariosValidadores = usuariosValidadores;
 	}
 	
 	public BigDecimal getValorTotal() {
@@ -53,27 +65,35 @@ public class Compra {
 	/*	Elige entre mis presupuestos el más barato
 		Si todavía no tengo los presupuestos suficientes arroja excepcion
 	 */
-	public void elegirPresupuestoMasBarato(){
+	/*public void elegirPresupuestoMasBarato(){
 		validarSuficientesPresupuestos();
 		Presupuesto presupuestoElegido = presupuestosAsociados.stream().min(Comparator.naturalOrder()).orElseThrow(NoHayPresupuestosException::new);
-		setearCompraComoAprobada(presupuestoElegido);
-		int index = presupuestosAsociados.indexOf(presupuestoElegido);
-		presupuestosAsociados.set(index, presupuestoElegido);
+		this.presupuestoElegido = presupuestoElegido;
+		this.presupuestosAsociados.remove(presupuestoElegido);
+		this.indicadorDeAprobacion = Estado.PENDIENTEDEAPROBACION;
+	}*/
+
+	public void elegirPresupuesto(Presupuesto presupuesto){
+		this.presupuestoElegido = presupuesto;
 	}
 
-	private void setearCompraComoAprobada(Presupuesto presupuestoElegido) {
-		presupuestoElegido.setIndicadorDeAprobacion(true);
-		indicadorDeAprobacion = true;
+	public void setIndicadorDeAprobacion(Estado estado){
+		indicadorDeAprobacion = estado;
 	}
 
 	/* Retorna el presupuesto elegido
 		si no hay presupuesto elegido todavía arroja excepcion
 	 */
 	public Presupuesto getPresupuestoElegido(){
-		return presupuestosAsociados.stream().filter(p -> p.isIndicadorDeAprobacion()).findAny().orElseThrow(NoHayPresupuestoElegidoException::new);
+		if(indicadorDeAprobacion != Estado.PENDIENTEDEAPROBACION || indicadorDeAprobacion != Estado.APROBADA) {
+			return presupuestoElegido;
+		}
+		else{
+			throw new NoHayPresupuestoElegidoException();
+		}
 	}
 
-	public boolean getIndicadorDeAprobacion(){
+	public Estado getIndicadorDeAprobacion(){
 		return indicadorDeAprobacion;
 	}
 
@@ -81,9 +101,30 @@ public class Compra {
 		this.items.add(item);
 	}
 
+	public void validar(){
+		validarSuficientesPresupuestos();
+		if (cantidadMinimaDePresupuestos > 0){
+			validarCompraEnBaseDePresupuesto();
+			validarSeleccionDeProveedorSegunCriterio();
+		}
+	}
+
 	public void validarSuficientesPresupuestos(){
 		if (cantidadMinimaDePresupuestos > presupuestosAsociados.size()){
 			throw new NoHayPresupuestosSuficientesException();
+		}
+	}
+
+	public void validarCompraEnBaseDePresupuesto(){
+			if (!(this.presupuestosAsociados.contains(this.presupuestoElegido))){
+				throw new PresupuestoElegidoNoSeEncuentraEntreLosPresupuestosException();
+			}
+	}
+
+	public void validarSeleccionDeProveedorSegunCriterio(){
+		Presupuesto presupuestoElegido = presupuestosAsociados.stream().min(Comparator.naturalOrder()).orElseThrow(NoHayPresupuestosException::new);
+		if (this.presupuestoElegido != presupuestoElegido){
+			throw new PresupuestoElegidoNoCumpleCriterioException();
 		}
 	}
 

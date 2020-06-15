@@ -24,7 +24,7 @@ public class TestCompra {
     @Before
     public void init() {
 
-        compra = new Compra(new RepositorioDeMonedasMock(), entidad, proveedor,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 2);
+        compra = new Compra(new RepositorioDeMonedasMock(), entidad, proveedor,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 2, null);
         compra.agregarItem(new Item("Item 1", 1, BigDecimal.valueOf(50.0)));
         compra.agregarItem(new Item("Item 1", 1, BigDecimal.valueOf(40.5)));
         compra.agregarItem(new Item("Item 1", 1, BigDecimal.valueOf(9.5)));

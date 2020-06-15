@@ -2,6 +2,7 @@ package Repositorios.RepositorioDeLocaciones;
 
 import Proveedor.Pais;
 
+
 public class Locacion {
     private final Pais codigoPais;
     private final String ciudad;

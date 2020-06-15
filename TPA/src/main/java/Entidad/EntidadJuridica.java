@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public abstract class EntidadJuridica implements Entidad {
 	private String razonSocial;
-	String nombreFicticio;
+	private String nombreFicticio;
 	private String cuit;
 	private String direccionPostal;
 	private int codigoIGJ;

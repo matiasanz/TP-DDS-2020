@@ -1,0 +1,35 @@
+public class MainClass {
+    public static void main(String[] args) {
+
+        /*
+
+        GENERAR USUARIOS
+
+        GENERAR COMPRAS
+
+        AGREGAR PRESUPUESTOS
+        compra.generarPresupuesto(Presupuesto)
+
+        DEJAR COMPRAS CON PRESUPUESTOS SUFICIENTES Y OTRAS NO
+
+        ELEGIR PRESUPUESTOS
+        compra.elegirPresupuesto(Presupuesto presupuesto)
+
+        PEDIRLE A USUARIO USER Y CONTRASEÑA
+        scanner o system in ni idea
+
+        VALIDAR EL LOGEO
+
+        FILTER DE COMPRAS A LAS QUE MI USUARIO PUEDE VALIDAR
+        FALTA DEFINIR EL TOSTRING EN COMPRA
+
+        IMPRIMIR POR PANTALLA QUE SE COMENZARÁ A VALIDAR COMPRAS Y CUALES
+
+        CORRER VALIDACION PARA LAS QUE ESTAN CON ESTADO PENDIENTESDEAPROBACION
+        LAS QUE PASAN LA VALIDACION SETEARLAS COMO APROBADAS E IR IMPRIMIENDO
+
+        LAS QUE NO PASAN LA VALIDACION SETEARLAS COMO RECHAZADAS E IR IMPRIMIENDO
+
+         */
+    }
+}

@@ -1,6 +1,6 @@
 package Entidad;
 
 public class EntidadBase implements Entidad {
-	String nombreFicticio;
-	String descripcion;
+	private String nombreFicticio;
+	private String descripcion;
 }
