@@ -15,15 +15,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TestCompra {
-	private ArrayList<EntidadBase> entidadesBase = new ArrayList<>();
-	private EntidadJuridica entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", "Avenida 123", 845, entidadesBase);
-	private Proveedor proveedor = new Proveedor(22222222, 1222222224, "Juan", "Perez", "Razon Social", null);
-	private PagoEnEfectivo medioDePago = new PagoEnEfectivo();
-	private Compra compra;
-    
+    private ArrayList<EntidadBase> entidadesBase = new ArrayList<>();
+    private EntidadJuridica entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", "Avenida 123", 845, entidadesBase);
+    private Proveedor proveedor = new Proveedor(22222222, 1222222224, "Juan", "Perez", "Razon Social", null);
+    private PagoEnEfectivo medioDePago = new PagoEnEfectivo();
+    private Compra compra;
+
     @Before
     public void init() {
-    	compra = new Compra(entidad, proveedor,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 2);
+
+        compra = new Compra(new RepositorioDeMonedasMock(), entidad, proveedor,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 2);
         compra.agregarItem(new Item("Item 1", 1, BigDecimal.valueOf(50.0)));
         compra.agregarItem(new Item("Item 1", 1, BigDecimal.valueOf(40.5)));
         compra.agregarItem(new Item("Item 1", 1, BigDecimal.valueOf(9.5)));

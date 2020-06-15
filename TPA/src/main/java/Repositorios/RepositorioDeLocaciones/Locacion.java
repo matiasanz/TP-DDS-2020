@@ -1,13 +1,13 @@
 package Repositorios.RepositorioDeLocaciones;
 
-import Repositorios.RepositorioDeMonedas.CodigoPais;
+import Proveedor.Pais;
 
 public class Locacion {
-    private final CodigoPais codigoPais;
+    private final Pais codigoPais;
     private final String ciudad;
     private final String provincia;
 
-    public Locacion(CodigoPais codigoPais, String provincia, String ciudad) {
+    public Locacion(Pais codigoPais, String provincia, String ciudad) {
         this.codigoPais = codigoPais;
         this.ciudad = ciudad;
         this.provincia = provincia;
@@ -17,7 +17,7 @@ public class Locacion {
         return provincia;
     }
 
-    public CodigoPais getCodigoPais() {
+    public Pais getCodigoPais() {
         return codigoPais;
     }
 

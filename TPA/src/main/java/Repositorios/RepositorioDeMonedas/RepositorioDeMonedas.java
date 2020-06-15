@@ -1,5 +1,6 @@
 package Repositorios.RepositorioDeMonedas;
-import Repositorios.CodigoMoneda;
+import Moneda.Moneda;
+import Moneda.CodigoMoneda;
 
 public interface RepositorioDeMonedas {
 

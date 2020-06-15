@@ -1,6 +1,7 @@
 package Repositorios;
 
-import Repositorios.RepositorioDeMonedas.CodigoPais;
+import Moneda.CodigoMoneda;
+import Proveedor.Pais;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -22,7 +23,7 @@ public class MeliApi {
         return  llamarServicio(URL);
     }
 
-    public ClientResponse obtenerLocaciones(CodigoPais codigoPais, String codigoPostal) {
+    public ClientResponse obtenerLocaciones(Pais codigoPais, String codigoPostal) {
 
         String URL = String.format("/countries/%s/zip_codes/%s", codigoPais.toString(), codigoPostal);
         return  llamarServicio(URL);

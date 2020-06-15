@@ -1,5 +1,8 @@
 package Proveedor;
 
+import Repositorios.RepositorioDeLocaciones.Locacion;
+import Repositorios.RepositorioDeLocaciones.RepositorioDeLocaciones;
+
 public class Direccion {
     private RepositorioDeLocaciones repositorioDeLocaciones;
     String calle;
@@ -20,20 +23,14 @@ public class Direccion {
         this.piso = piso;
         this.codigoPostal = codigoPostal;
         this.pais = pais;
-        this.provincia = getProvinciaDeRepositorio();
-        this.ciudad = getCiudadDeRepositorio();
+        setLocacion(Pais.AR, codigoPostal);
     }
 
-    public String getProvinciaDeRepositorio(){
-        //TODO falta repositorio
-        //return repositorioDeLocaciones.getLocacion().getProvincia();
-        return null;
-    }
+    private void setLocacion(Pais codigoPais, String codigoPostal) {
 
-    public String getCiudadDeRepositorio(){
-        //TODO falta repositorio
-        //return repositorioDeLocaciones.getLocacion().getCiudad();
-        return null;
+        Locacion locacion = repositorioDeLocaciones.getLocacion(codigoPais, codigoPostal);
+        this.provincia = locacion.getProvincia();
+        this.ciudad = locacion.getCiudad();
     }
 
 

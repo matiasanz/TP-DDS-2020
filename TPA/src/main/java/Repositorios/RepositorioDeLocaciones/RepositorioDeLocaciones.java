@@ -1,6 +1,6 @@
 package Repositorios.RepositorioDeLocaciones;
-import Repositorios.RepositorioDeMonedas.CodigoPais;
+import Proveedor.Pais;
 
 public interface RepositorioDeLocaciones {
-    Locacion getLocacion(CodigoPais codigoPais, String codigoPostal);
+    Locacion getLocacion(Pais codigoPais, String codigoPostal);
 }

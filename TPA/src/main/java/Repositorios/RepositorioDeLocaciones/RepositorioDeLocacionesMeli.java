@@ -1,7 +1,7 @@
 package Repositorios.RepositorioDeLocaciones;
 
+import Proveedor.Pais;
 import Repositorios.MeliApi;
-import Repositorios.RepositorioDeMonedas.CodigoPais;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 import com.sun.jersey.api.client.ClientResponse;
@@ -15,14 +15,14 @@ public class RepositorioDeLocacionesMeli implements RepositorioDeLocaciones {
     }
 
     @Override
-    public Locacion getLocacion(CodigoPais codigoPais, String codigoPostal) {
+    public Locacion getLocacion(Pais codigoPais, String codigoPostal) {
 
         ClientResponse response;
 
         try {
             response = meliApi.obtenerLocaciones(codigoPais, codigoPostal);
-
-            //Locacion Inválida
+            
+            //Locacion Invalida
             if (!response.hasEntity())
                 return null;
 
@@ -33,7 +33,7 @@ public class RepositorioDeLocacionesMeli implements RepositorioDeLocaciones {
         return parseGetLocationResponse(codigoPais, response.getEntity(String.class));
     }
 
-    private Locacion parseGetLocationResponse(CodigoPais codigoPais, String  json) {
+    private Locacion parseGetLocationResponse(Pais codigoPais, String  json) {
 
         ReadContext ctx = JsonPath.parse(json);
         return new Locacion(codigoPais, ctx.read("$.state.name"), ctx.read("$.city.name"));

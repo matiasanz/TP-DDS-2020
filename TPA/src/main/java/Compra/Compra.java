@@ -5,9 +5,9 @@ import Entidad.EntidadJuridica;
 import MedioDePago.MedioDePago;
 import Moneda.CodigoMoneda;
 import Moneda.Moneda;
-import Moneda.RepositorioDeMoneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,7 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Compra {
-	private RepositorioDeMoneda repositorioDeMoneda;
+	private RepositorioDeMonedas repositorioDeMonedas;
 	private Entidad entidadRelacionada;
 	//	private Documento documentoComercial;
 	private LocalDate fechaOperacion;
@@ -27,16 +27,16 @@ public class Compra {
 	private List<Item> items;
 	private List<Presupuesto> presupuestosAsociados;
 	
-	public Compra(EntidadJuridica entidad, Proveedor proveedor, LocalDate fecha,
+	public Compra(RepositorioDeMonedas repositorioDeMonedas, EntidadJuridica entidad, Proveedor proveedor, LocalDate fecha,
 				  MedioDePago medioDePago, CodigoMoneda codigoMoneda, int cantidadMinimaDePresupuestos) {
 
-		//this.repositorioDeMoneda = TODO
+		this.repositorioDeMonedas = repositorioDeMonedas;
 		this.entidadRelacionada = entidad;
 		//this.documentoComercial = documentoComercial;
 		this.fechaOperacion = fecha;
 		this.medioDePago = medioDePago;
 		this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
-		//this.moneda = repositorioDeMoneda.getMoneda(codigoMoneda); TODO
+		this.moneda = repositorioDeMonedas.getMoneda(codigoMoneda);
 		this.indicadorDeAprobacion = false;
 		this.items = new ArrayList<>();
 		this.presupuestosAsociados = new ArrayList<>();

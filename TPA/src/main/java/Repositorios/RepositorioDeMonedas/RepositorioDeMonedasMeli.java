@@ -1,6 +1,7 @@
 package Repositorios.RepositorioDeMonedas;
 
-import Repositorios.CodigoMoneda;
+import Moneda.CodigoMoneda;
+import Moneda.Moneda;
 import Repositorios.MeliApi;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
@@ -22,7 +23,7 @@ public class RepositorioDeMonedasMeli implements RepositorioDeMonedas {
         try {
             response = meliApi.obtenerMoneda(codigoMoneda);
 
-            //Moneda Inválida
+            //Moneda Invalida
             if (!response.hasEntity())
                 return null;
 
