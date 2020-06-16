@@ -3,7 +3,7 @@ package Usuario;
 public class ContraseniaNoCumpleLongitudMinimaException extends RuntimeException {
 
     public ContraseniaNoCumpleLongitudMinimaException(Integer cantidadMinimaDeCaracteres) {
-        super("La contraseÃ±a ingresada no cumple con la longitud mÃ­nima de "
+        super("La contraseña ingresada no cumple con la longitud mínima de "
                 + cantidadMinimaDeCaracteres + "caracteres");
     }
 }

@@ -18,4 +18,20 @@ public abstract class EntidadJuridica implements Entidad {
 		this.codigoIGJ = codigoIGJ;
 		this.entidadesBase = entidadesBase;
 	}
+	
+	public static void datos(){
+		System.out.println("Razon social | Nombre Ficticio | CUIT | Direccion Postal | Código IGJ");
+	}
+	
+	public String toString(){
+		return String.join("\n"," >> Razon Social: "+razonSocial,
+								" >> NombreFicticio: "+nombreFicticio,
+								" >> CUIT: "+cuit,
+								" >> Direccion Postal: " + direccionPostal,
+								" >> Codigo IGJ: " + Integer.toString(codigoIGJ));
+	}
+	
+	public void imprimirDatos(){
+		System.out.println(this.toString());
+	}
 }

@@ -28,5 +28,10 @@ public class Item {
     		throw new ValorNegativoEnItemDeCompraException();
     	}
 	}
+	
+	public String toString(){
+		return String.join(" ",descripcion, valorUnitario.toString(), Integer.toString(cantidad));
+	}
 
+	
 }

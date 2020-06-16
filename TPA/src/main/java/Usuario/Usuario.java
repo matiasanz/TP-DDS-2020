@@ -6,18 +6,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Compra.Compra;
+
 public class Usuario {
     private Tipo tipo;
     private String username;
     private String contrasenia;
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-    
-    public String getUsername() {
-    	return username;
-    }
 
     public Usuario(String username, String contrasenia) {
 
@@ -26,6 +20,38 @@ public class Usuario {
         validarContrasenia(contrasenia);
         this.contrasenia = contrasenia;
 
+    }
+    
+    public void validarCompra(Compra unaCompra){
+//    	unaCompra.validarUsuario(this); //TODO
+    	unaCompra.imprimirDatos();
+    	
+		try{
+			unaCompra.validar();
+			unaCompra.aprobar();
+			System.out.println("-----------<La Compra ha sido aprobada>-----------");
+		} catch(RuntimeException unaExcepcion){
+			unaCompra.rechazar();
+			System.out.println("-----------<La Compra ha sido rechazada>----------\n [Motivo: "+unaExcepcion.getMessage() + "]");
+		}
+    }
+    
+    public boolean equals(Usuario otroUsuario){
+    	String username = otroUsuario.getUsername();
+    	String password = otroUsuario.getContrasenia();
+    	return this.autentica(username,password);
+    }
+    
+    public boolean autentica(String username, String password){
+    	return this.username.equals(username) && this.contrasenia.equals(password);
+    }
+    
+    public String getContrasenia() {
+        return contrasenia;
+    }
+    
+    public String getUsername() {
+    	return username;
     }
 
     public void cambiarContrasenia(String contrasenia) {
@@ -80,6 +106,7 @@ public class Usuario {
 
 
     }
+    
 
     void validarContraseniaEntreLasDiezMilMasConocidas(String contrasenia) {
 
