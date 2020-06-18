@@ -44,9 +44,23 @@ public class MainClass {
         
         System.out.println("\n***************************** VALIDACIONES SOBRE LA MARCHA *****************************\n");
 //        FALTA DEFINIR EL TOSTRING EN COMPRA
-        comprasQuePuedoValidar.stream().forEach(compra->miUsuario.validarCompra(compra));
+        comprasQuePuedoValidar.stream().forEach(compra->validarCompra(compra));
         
         System.out.println("\n***************************** COMPRAS APROBADAS *****************************\n");
         unaOrganizacion.getComprasAprobadas().stream().forEach(Compra::imprimirDatos);
 	}
+
+    public static void validarCompra(Compra unaCompra){
+//    	unaCompra.validarUsuario(this); //TODO
+        unaCompra.imprimirDatos();
+
+        try{
+            unaCompra.validar();
+            unaCompra.aprobar();
+            System.out.println("-----------<La Compra ha sido aprobada>-----------");
+        } catch(RuntimeException unaExcepcion){
+            unaCompra.rechazar();
+            System.out.println("-----------<La Compra ha sido rechazada>----------\n [Motivo: "+unaExcepcion.getMessage() + "]");
+        }
+    }
 }

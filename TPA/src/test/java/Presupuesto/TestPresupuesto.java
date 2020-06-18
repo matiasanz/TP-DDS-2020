@@ -1,7 +1,6 @@
 package Presupuesto;
 import Locacion.RepositorioDeLocacionesMock;
 import Proveedor.*;
-import Presupuesto.*;
 import Compra.Item;
 
 import java.math.BigDecimal;
@@ -13,14 +12,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TestPresupuesto {
-    private Proveedor proveedor = new Proveedor(22222222, 1222222224, "Juan", "Perez", "Razon Social", null);
-    private Item item1 = new Item("Item 1", 1, BigDecimal.valueOf(50.0));
-    private Item item2 = new Item("Item 1", 1, BigDecimal.valueOf(40.5));
-    private Item item3 = new Item("Item 1", 1, BigDecimal.valueOf(9.5));
+    private Proveedor proveedor;
+    private Item item1;
+    private Item item2;
+    private Item item3;
+    private Direccion direccion;
     private Presupuesto presupuesto;
     
     @Before
     public void init() {
+        direccion = new Direccion(new RepositorioDeLocacionesMock(), "Cervantes", 607, 5, "1407", Pais.AR);
+        proveedor = Proveedor.PersonaJuridica("Arcos Dorados S.A.", direccion);
+        item1 = new Item("Item 1", 1, BigDecimal.valueOf(50.0));
+        item2 = new Item("Item 1", 1, BigDecimal.valueOf(40.5));
+        item3 = new Item("Item 1", 1, BigDecimal.valueOf(9.5));
     	List<Item> listaItems = new ArrayList<>();
     	listaItems.add(item1);
     	listaItems.add(item2);
