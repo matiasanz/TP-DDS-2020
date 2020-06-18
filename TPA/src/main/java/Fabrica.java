@@ -32,8 +32,7 @@ public class Fabrica{
     
     public static Proveedor proveedorStub(){
     	Direccion unaDireccion = new Direccion(new RepositorioDeLocacionesMeli(), "Jose Hernandez",
-                2600, 7, "1415",
-                Pais.AR, "Buenos Aires", "CABA");
+                2600, 7, "1415", Pais.AR);
     	return new Proveedor(1,1,"Juan", "Salvo", null, unaDireccion);
     }
     

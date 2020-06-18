@@ -21,19 +21,14 @@ public class RepositorioDeLocacionesMeli implements RepositorioDeLocaciones {
 
         try {
             response = meliApi.obtenerLocaciones(codigoPais, codigoPostal);
-            
-            //Locacion Invalida
-            if (!response.hasEntity())
-                return null;
-
         } catch (Exception e) {
-            return null;
+            throw new LocacionNoEncontradaException(codigoPais);
         }
 
         return parseGetLocationResponse(codigoPais, response.getEntity(String.class));
     }
 
-    private Locacion parseGetLocationResponse(Pais codigoPais, String  json) {
+    private Locacion parseGetLocationResponse(Pais codigoPais, String json) {
 
         ReadContext ctx = JsonPath.parse(json);
         return new Locacion(codigoPais, ctx.read("$.state.name"), ctx.read("$.city.name"));

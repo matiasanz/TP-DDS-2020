@@ -1,4 +1,5 @@
 package Repositorios.RepositorioDeLocaciones;
+
 import Proveedor.Pais;
 
 public interface RepositorioDeLocaciones {

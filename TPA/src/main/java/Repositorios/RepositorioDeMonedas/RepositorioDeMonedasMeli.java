@@ -23,18 +23,14 @@ public class RepositorioDeMonedasMeli implements RepositorioDeMonedas {
         try {
             response = meliApi.obtenerMoneda(codigoMoneda);
 
-            //Moneda Invalida
-            if (!response.hasEntity())
-                return null;
-
         } catch (Exception e) {
-            return null;
+            throw new MonedaNoEncontradaException(codigoMoneda);
         }
 
-        return parseGetmonedaResponse(codigoMoneda, response.getEntity(String.class));
+        return parseGetMonedaResponse(codigoMoneda, response.getEntity(String.class));
     }
 
-    private  Moneda parseGetmonedaResponse(CodigoMoneda codigoMoneda, String json) {
+    private  Moneda parseGetMonedaResponse(CodigoMoneda codigoMoneda, String json) {
 
         ReadContext ctx = JsonPath.parse(json);
         return new Moneda(codigoMoneda, ctx.read("$.description"));

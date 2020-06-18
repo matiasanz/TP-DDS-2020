@@ -32,7 +32,7 @@ public class MeliApi {
     private void validarRespuesta(ClientResponse response) {
 
         if (response.getStatus() != HttpURLConnection.HTTP_OK) {
-            throw new RuntimeException("Error al contactar a la API de Mercado Libre");
+            throw new ConexionApiException();
         }
     }
 

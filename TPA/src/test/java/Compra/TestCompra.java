@@ -1,6 +1,9 @@
 package Compra;
+import Locacion.RepositorioDeLocacionesMock;
 import Moneda.CodigoMoneda;
 import Proveedor.Proveedor;
+import Proveedor.Pais;
+import Proveedor.Direccion;
 import Presupuesto.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,14 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestCompra {
-    private ArrayList<EntidadBase> entidadesBase = new ArrayList<>();
-    private EntidadJuridica entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", "Avenida 123", 845, entidadesBase);
-    private Proveedor proveedor = new Proveedor(22222222, 1222222224, "Juan", "Perez", "Razon Social", null);
-    private PagoEnEfectivo medioDePago = new PagoEnEfectivo();
+    private final ArrayList<EntidadBase> entidadesBase = new ArrayList<>();
+    private final EntidadJuridica entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", "Avenida 123", 845, entidadesBase);
+    private final Direccion direccion = new Direccion(new RepositorioDeLocacionesMock(), "Cervantes", 607, 5, "1407", Pais.AR);
+    private final Proveedor proveedor = new Proveedor(22222222, 1222222224, "Juan", "Perez", "Razon Social", direccion);
+    private final PagoEnEfectivo medioDePago = new PagoEnEfectivo();
     private Compra compra;
-    private Item item1 = new Item("Item 1", 1, BigDecimal.valueOf(50.0));
-    private Item item2 = new Item("Item 1", 1, BigDecimal.valueOf(40.5));
-    private Item item3 = new Item("Item 1", 1, BigDecimal.valueOf(9.5));
+    private final Item item1 = new Item("Item 1", 1, BigDecimal.valueOf(50.0));
+    private final Item item2 = new Item("Item 1", 1, BigDecimal.valueOf(40.5));
+    private final Item item3 = new Item("Item 1", 1, BigDecimal.valueOf(9.5));
 
     @Before
     public void init() {

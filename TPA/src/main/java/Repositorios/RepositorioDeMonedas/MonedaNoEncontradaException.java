@@ -1,5 +1,10 @@
 package Repositorios.RepositorioDeMonedas;
 
-public class MonedaNoEncontradaException extends RuntimeException {
+import Moneda.CodigoMoneda;
+import Proveedor.Pais;
 
+public class MonedaNoEncontradaException extends RuntimeException {
+    public MonedaNoEncontradaException(CodigoMoneda codigoMoneda) {
+        super("No existe moneda con código" + codigoMoneda.toString());
+    }
 }

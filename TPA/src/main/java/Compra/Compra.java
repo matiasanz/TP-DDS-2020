@@ -60,18 +60,6 @@ public class Compra {
 		presupuestosAsociados.add(presupuesto);
 	}
 
-
-	/*	Elige entre mis presupuestos el más barato
-		Si todavía no tengo los presupuestos suficientes arroja excepcion
-	 */
-	/*public void elegirPresupuestoMasBarato(){
-		validarSuficientesPresupuestos();
-		Presupuesto presupuestoElegido = presupuestosAsociados.stream().min(Comparator.naturalOrder()).orElseThrow(NoHayPresupuestosException::new);
-		this.presupuestoElegido = presupuestoElegido;
-		this.presupuestosAsociados.remove(presupuestoElegido);
-		this.indicadorDeAprobacion = Estado.PENDIENTEDEAPROBACION;
-	}*/
-
 	public void elegirPresupuesto(Presupuesto presupuesto){
 		this.presupuestoElegido = presupuesto;
 	}

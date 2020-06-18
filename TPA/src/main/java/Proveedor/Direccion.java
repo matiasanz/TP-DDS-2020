@@ -15,7 +15,7 @@ public class Direccion {
 
     public Direccion(RepositorioDeLocaciones repositorioDeLocaciones, String calle,
                      int altura, int piso, String codigoPostal,
-                     Pais pais, String provincia, String ciudad) {
+                     Pais pais) {
 
         this.repositorioDeLocaciones = repositorioDeLocaciones;
         this.calle = calle;
