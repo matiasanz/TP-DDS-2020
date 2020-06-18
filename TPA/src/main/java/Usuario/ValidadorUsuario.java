@@ -69,7 +69,7 @@ public class ValidadorUsuario {
             scanner.close();
 
         } catch (FileNotFoundException e) {
-            throw new NoEncontroArchivoExceptionException();
+            throw new NoEncontroArchivoException();
         }
     }
 }
