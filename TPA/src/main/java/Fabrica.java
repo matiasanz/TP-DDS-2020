@@ -20,7 +20,7 @@ import Usuario.Usuario;
 
 public class Fabrica {
     public static Usuario usuarioStub() {
-        return new Usuario("matias", "qazwsxedc123");
+        return new Usuario("usuario", "Tp2020Dds");
     }
 
     public static Organizacion organizacionStub() {
