@@ -60,7 +60,7 @@ public class Organizacion {
 	
 	public Usuario ingresarUsuario(){
     	Scanner entrada = new Scanner(System.in);
-    	System.out.println("Ingrese Usuario y contraseña");
+    	System.out.println("Ingrese Usuario y contraseÃ±a");
     	String username = entrada.next();
     	String password = entrada.next();
     	entrada.close();

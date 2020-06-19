@@ -20,7 +20,7 @@ public abstract class EntidadJuridica implements Entidad {
 	}
 	
 	public static void datos(){
-		System.out.println("Razon social | Nombre Ficticio | CUIT | Direccion Postal | Código IGJ");
+		System.out.println("Razon social | Nombre Ficticio | CUIT | Direccion Postal | CÃ³digo IGJ");
 	}
 	
 	public String toString(){
