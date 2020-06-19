@@ -19,7 +19,7 @@ public class testOrganizacion {
 	Organizacion organizacion = new Organizacion();
 	Empresa entidad1 = new Empresa("Arcos Dorados", "McDonalds", "2040495678", "Everywhere", 1234, null, Clasificacion.MICRO);
 	OrganizacionSectorSocial entidad2 = new OrganizacionSectorSocial("The Coca Cola Company", "Coca-Cola", "2040495678", "Everywhere", 1234, null);
-	Proveedor proveedor1 = new Proveedor(0, 0, null, null, null, null);
+	Proveedor proveedor1 = Proveedor.PersonaFisica(40495678, 2040495678, "Guido", "Ferrari", null);
 	
 
     @Test (expected = UsuarioYaExisteException.class)
