@@ -1,19 +1,19 @@
 package Organizacion;
+import Moneda.CodigoMoneda;
 import org.junit.Before;
 import org.junit.Test;
 
 import Compra.Compra;
 import Compra.Item;
-import Compra.Proveedor;
+import Proveedor.Proveedor;
 import Entidad.Clasificacion;
 import Entidad.Empresa;
-import Entidad.EntidadJuridica;
 import Entidad.OrganizacionSectorSocial;
 
 import static org.junit.Assert.assertEquals;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import Compra.RepositorioDeMonedasMock;
 
 public class testOrganizacion {
 	Organizacion organizacion = new Organizacion();
@@ -24,8 +24,8 @@ public class testOrganizacion {
 
     @Test (expected = UsuarioYaExisteException.class)
     public void tratoDeCrearDosUsuariosConElMismoUsername() {
-    	organizacion.crearUsuario("randomguy", "contraseñagenerica");
-        organizacion.crearUsuario("randomguy", "contraseñagenerica2");
+    	organizacion.crearUsuario("randomguy", "contraseniagenerica");
+        organizacion.crearUsuario("randomguy", "contraseniagenerica2");
     }
 
     @Test
@@ -37,7 +37,7 @@ public class testOrganizacion {
     }
     
     @Test
-    public void validoTamañoDeListaDeEntidades() {
+    public void validoTamanioDeListaDeEntidades() {
     	organizacion.agregarEntidad(entidad1);
     	organizacion.agregarEntidad(entidad2);
     	
@@ -48,15 +48,15 @@ public class testOrganizacion {
     @Before
     public void inits() {
     	
-    	Item item1 = new Item("Fotocopiadora", BigDecimal.valueOf(12000)); 
-    	Item item2 = new Item("Escritorios", BigDecimal.valueOf(50400)); 
-    	Item item3 = new Item("Sillas", BigDecimal.valueOf(34600)); 
+    	Item item1 = new Item("Fotocopiadora", 2, BigDecimal.valueOf(12000));
+    	Item item2 = new Item("Escritorios", 3, BigDecimal.valueOf(50400));
+    	Item item3 = new Item("Sillas",1, BigDecimal.valueOf(34600));
     	
-    	Compra compra1 = new Compra(entidad1, proveedor1, LocalDate.now() , null);
+    	Compra compra1 = new Compra(new RepositorioDeMonedasMock(), entidad1, proveedor1, LocalDate.now() , null, CodigoMoneda.ARS, 3, null);
     	compra1.agregarItem(item1);
     	compra1.agregarItem(item2);
     	
-    	Compra compra2 = new Compra(entidad2, proveedor1, LocalDate.now() , null);
+    	Compra compra2 = new Compra(new RepositorioDeMonedasMock(), entidad2, proveedor1, LocalDate.now() , null, CodigoMoneda.ARS, 3, null);
     	compra1.agregarItem(item1);
     	compra1.agregarItem(item3);
     	
@@ -66,13 +66,13 @@ public class testOrganizacion {
     }
     
     @Test
-    public void validoTamañoListaDeCompras() {
+    public void validoTamanioListaDeCompras() {
         assertEquals(2, organizacion.getCompras().size());
     }
     
     @Test
     public void validoMontoTotal() {
-        assertEquals(BigDecimal.valueOf(109000), organizacion.getValorTodasLasCompras());
+        assertEquals(BigDecimal.valueOf(233800), organizacion.getValorTodasLasCompras());
     }
     
 }

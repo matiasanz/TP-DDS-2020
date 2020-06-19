@@ -4,17 +4,23 @@ import java.math.BigDecimal;
 
 public class Item {
     private String descripcion;
-    private BigDecimal valor;
+    private int cantidad;
+    private BigDecimal valorUnitario;
 
     public BigDecimal getValor() {
-        return valor;
+        return valorUnitario.multiply(new BigDecimal(cantidad));
     }
 
-    public Item(String descripcion, BigDecimal valor) {
+    public BigDecimal getValorUnitario(){
+        return valorUnitario;
+    }
+
+    public Item(String descripcion, int cantidad, BigDecimal valorUnitario) {
     	
-    	validarValorPositivo(valor);
+    	validarValorPositivo(valorUnitario);
         this.descripcion = descripcion;
-        this.valor = valor;
+        this.cantidad = cantidad;
+        this.valorUnitario = valorUnitario;
     }
 
 	private void validarValorPositivo(BigDecimal valor) {
@@ -22,5 +28,10 @@ public class Item {
     		throw new ValorNegativoEnItemDeCompraException();
     	}
 	}
+	
+	public String toString(){
+		return String.join(" ",descripcion, valorUnitario.toString(), Integer.toString(cantidad));
+	}
 
+	
 }
