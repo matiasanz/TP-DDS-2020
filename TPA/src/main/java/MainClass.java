@@ -29,8 +29,8 @@ public class MainClass {
     //Duda: La idea no es que despues tire la excepcion?
 //
 //        ELEGIR PRESUPUESTOS
-        compraQueAprueba.elegirPresupuesto(unPresupuesto);
-        compraQueDesaprueba.elegirPresupuesto(unPresupuesto);
+        compraQueAprueba.setPresupuestoElegido(unPresupuesto);
+        compraQueDesaprueba.setPresupuestoElegido(unPresupuesto);
 
 //        PEDIRLE A USUARIO USER Y CONTRASEnia y VALIDAR EL LOGEO
         Usuario miUsuario = unaOrganizacion.ingresarUsuario();    	
@@ -40,27 +40,12 @@ public class MainClass {
         
 //        IMPRIMIR POR PANTALLA QUE SE COMENZARa A VALIDAR COMPRAS Y CUALES
         System.out.println("\n***************************** COMPRAS A VALIDAR *****************************\n");
-        comprasQuePuedoValidar.stream().forEach(Compra::imprimirDatos);
         
         System.out.println("\n***************************** VALIDACIONES SOBRE LA MARCHA *****************************\n");
 //        FALTA DEFINIR EL TOSTRING EN COMPRA
-        comprasQuePuedoValidar.stream().forEach(compra->validarCompra(compra));
+        comprasQuePuedoValidar.stream().forEach(compra-> compra.validar());
         
         System.out.println("\n***************************** COMPRAS APROBADAS *****************************\n");
-        unaOrganizacion.getComprasAprobadas().stream().forEach(Compra::imprimirDatos);
 	}
 
-    public static void validarCompra(Compra unaCompra){
-//    	unaCompra.validarUsuario(this); //TODO
-        unaCompra.imprimirDatos();
-
-        try{
-            unaCompra.validar();
-            unaCompra.aprobar();
-            System.out.println("-----------<La Compra ha sido aprobada>-----------");
-        } catch(RuntimeException unaExcepcion){
-            unaCompra.rechazar();
-            System.out.println("-----------<La Compra ha sido rechazada>----------\n [Motivo: "+unaExcepcion.getMessage() + "]");
-        }
-    }
 }

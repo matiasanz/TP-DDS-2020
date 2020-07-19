@@ -28,4 +28,14 @@ public class Proveedor {
         this.razonSocial = razonSocial;
         this.direccion = direccion;
     }
+
+    public String getNombre(){
+        if(dni != 0){
+            return nombre + " " + apellido;
+        }
+        else{
+            return razonSocial;
+        }
+    }
+
 }

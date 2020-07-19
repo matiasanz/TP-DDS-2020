@@ -2,6 +2,7 @@ package Compra;
 
 import Entidad.Entidad;
 import Entidad.EntidadJuridica;
+import Etiqueta.Etiqueta;
 import MedioDePago.MedioDePago;
 import Moneda.CodigoMoneda;
 import Moneda.Moneda;
@@ -13,7 +14,6 @@ import Usuario.Usuario;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class Compra {
@@ -27,8 +27,10 @@ public class Compra {
 	private Estado indicadorDeAprobacion;
 	private List<Item> items;
 	private List<Presupuesto> presupuestosAsociados;
-	private Presupuesto presupuestoElegido;
-	List<Usuario> usuariosValidadores;
+	//private Presupuesto presupuestoElegido;
+	private List<Usuario> usuariosValidadores;
+	private ValidadorDeCompra validadorDeCompra;
+	private List<Etiqueta> etiquetas;
 	
 	public Compra(RepositorioDeMonedas repositorioDeMonedas,
 				  EntidadJuridica entidad,
@@ -39,6 +41,7 @@ public class Compra {
 				  int cantidadMinimaDePresupuestos,
 				  List<Usuario> usuariosValidadores) {
 
+		this.validadorDeCompra = new ValidadorDeCompra();
 		this.repositorioDeMonedas = repositorioDeMonedas;
 		this.entidadRelacionada = entidad;
 		//this.documentoComercial = documentoComercial;
@@ -49,7 +52,6 @@ public class Compra {
 		this.indicadorDeAprobacion = Estado.NUEVA;
 		this.items = new ArrayList<>();
 		this.presupuestosAsociados = new ArrayList<>();
-		this.presupuestoElegido = null;
 		this.usuariosValidadores = usuariosValidadores;
 	}
 	
@@ -60,8 +62,9 @@ public class Compra {
 		presupuestosAsociados.add(presupuesto);
 	}
 
-	public void elegirPresupuesto(Presupuesto presupuesto){
-		this.presupuestoElegido = presupuesto;
+	public void setPresupuestoElegido(Presupuesto presupuesto){
+		Presupuesto presupuestoAElegir = presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.equals(presupuesto)).findFirst().orElseThrow(NoHayPresupuestosException::new);
+		presupuestoAElegir.setElegido(true);
 	}
 
 	public void setIndicadorDeAprobacion(Estado estado){
@@ -72,30 +75,11 @@ public class Compra {
 		si no hay presupuesto elegido todavía arroja excepcion
 	 */
 	public Presupuesto getPresupuestoElegido(){
-		if(indicadorDeAprobacion != Estado.PENDIENTEDEAPROBACION || indicadorDeAprobacion != Estado.APROBADA) {
-			return presupuestoElegido;
-		}
-		else{
-			throw new NoHayPresupuestoElegidoException();
-		}
-	}
-	
-	public List<Item> getItems(){
-		return items;
-	}
-
-	public Estado getIndicadorDeAprobacion(){
-		return indicadorDeAprobacion;
+		return presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.isElegido()).findFirst().orElseThrow(NoHayPresupuestoElegidoException::new);
 	}
 
 	public void agregarItem(Item item){
 		this.items.add(item);
-	}
-	
-	public void validar(){
-			validarSuficientesPresupuestos();
-			validarCompraEnBaseDePresupuesto();
-			validarSeleccionDeProveedorSegunCriterio();
 	}
 	
 	public void aprobar(){
@@ -106,30 +90,14 @@ public class Compra {
 		this.indicadorDeAprobacion = Estado.RECHAZADA;
 	}
 
-	public void validarSuficientesPresupuestos(){
-		if (cantidadMinimaDePresupuestos > presupuestosAsociados.size()){
-			throw new NoHayPresupuestosSuficientesException();
-		}
-	}
-
-	public void validarCompraEnBaseDePresupuesto(){
-		if (!(this.presupuestosAsociados.contains(this.presupuestoElegido))){
-			throw new PresupuestoElegidoNoSeEncuentraEntreLosPresupuestosException();
-		}
-	}
-
-	public void validarSeleccionDeProveedorSegunCriterio(){ //(?) y el criterio?
-		Presupuesto presupuestoElegido = presupuestosAsociados.stream().min(Comparator.naturalOrder()).orElseThrow(NoHayPresupuestosException::new);
-		if (this.presupuestoElegido != presupuestoElegido){
-			throw new PresupuestoElegidoNoCumpleCriterioException();
-		}
+	public void validar(){
+		validadorDeCompra.validarCompra(this);
 	}
 
 	public Moneda getMoneda(){
 		return this.moneda;
 	}
-	
-	//***********************************
+
 	public boolean estaAprobada(){
 		return this.indicadorDeAprobacion == Estado.APROBADA;
 	}
@@ -151,15 +119,45 @@ public class Compra {
 	}
 	
 	public BigDecimal getImporte(){
-		return this.presupuestoElegido.getValorTotal();
+		return getPresupuestoElegido().getValorTotal();
 	}
 
-	public void imprimirDatos(){
-		System.out.println("*********** "+ fechaOperacion.toString() +" ***********");
-		System.out.println(" Entidad:");
-		entidadRelacionada.imprimirDatos();
-		System.out.println(" Items: (Precio|Cantidad)");
-		this.numerarItems();
-		System.out.println(" Importe Total: " + this.getImporte().toString());
+	public List<Item> getItems(){
+		return items;
+	}
+
+	public Estado getIndicadorDeAprobacion(){
+		return indicadorDeAprobacion;
+	}
+
+	public int getCantidadMinimaDePresupuestos() {
+		return cantidadMinimaDePresupuestos;
+	}
+	public void setCantidadMinimaDePresupuestos(int cantidadMinimaDePresupuestos) {
+		this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
+	}
+
+	public List<Presupuesto> getPresupuestosAsociados() {
+		return presupuestosAsociados;
+	}
+
+	public void setPresupuestosAsociados(List<Presupuesto> presupuestosAsociados) {
+		this.presupuestosAsociados = presupuestosAsociados;
+	}
+
+	public LocalDate getFechaOperacion() {
+		return fechaOperacion;
+	}
+
+	public void agregarEtiqueta(Etiqueta etiqueta){
+		etiquetas.add(etiqueta);
+	}
+
+	public void removerEtiqueta(Etiqueta etiqueta){
+		etiquetas.remove(etiqueta);
+	}
+
+	public Entidad getEntidadRelacionada() {
+		return entidadRelacionada;
 	}
 }

@@ -88,7 +88,7 @@ public class TestCompra {
     	//Los agrego a la compra
     	compra.generarPresupuesto(presupuesto1);
     	compra.generarPresupuesto(presupuesto2);
-    	compra.elegirPresupuesto(presupuesto2);
+    	compra.setPresupuestoElegido(presupuesto2);
     	//Hago la validacion
     	compra.validar();
     }
