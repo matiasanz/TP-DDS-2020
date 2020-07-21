@@ -7,6 +7,7 @@ import Direccion.Pais;
 import Direccion.Direccion;
 import Presupuesto.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import Entidad.EntidadBase;
@@ -52,13 +53,14 @@ public class TestCompra {
     public void obtenerValorTotalDeUnaCompra() {
         assertEquals(compra.getValorTotal(), BigDecimal.valueOf(100.0));
     }
-    
-    @Test(expected = NoHayPresupuestosSuficientesException.class)
+
+    @Test
     public void fallaCantidadDePresupuestos() {
     	compra.validar();
+        assertEquals(compra.getIndicadorDeAprobacion(), Estado.RECHAZADA);
     }
-    
-    @Test(expected = PresupuestoElegidoNoSeEncuentraEntreLosPresupuestosException.class)
+
+    @Test
     public void presupuestoElegidoNoSeEncuentraEntreLosPresupuestosDeLaCompra() {
     	//Agrego los presupuestos
     	List<Item> listaItems = new ArrayList<>();
@@ -71,9 +73,10 @@ public class TestCompra {
     	compra.generarPresupuesto(presupuesto);
     	//Hago la validacion
     	compra.validar();
+        assertEquals(compra.getIndicadorDeAprobacion(), Estado.RECHAZADA);
     }
-    
-    @Test(expected = PresupuestoElegidoNoCumpleCriterioException.class)
+
+    @Test
     public void presupuestoElegidoNoCumpleCriterio() {
     	//Agrego los presupuestos
     	List<Item> listaItems = new ArrayList<>();
@@ -92,5 +95,6 @@ public class TestCompra {
     	compra.setPresupuestoElegido(presupuesto2);
     	//Hago la validacion
     	compra.validar();
+        assertEquals(compra.getIndicadorDeAprobacion(), Estado.RECHAZADA);
     }
 }
