@@ -54,6 +54,7 @@ public class TestCategoria {
         compra.agregarItem(item);
     }
 
+    @Ignore
     @Test
     public void categoriaMePermiteAgregarOQuitarComportamiento(){
         Validador validador1 = new ValidadorMontoMaximo(BigDecimal.valueOf(50));
@@ -66,6 +67,7 @@ public class TestCategoria {
         assertEquals(1, categoria.getValidadores().size());
     }
 
+    @Ignore
     @Test(expected = BloqueoDeAgregarEntidadesBaseException.class)
     public void categoriaMePermiteAgregarCompraPeroNoAgregarEntidadBase() {
         categoria.agregarValidador(new ValidadorMontoMaximo(BigDecimal.valueOf(170)));
@@ -76,13 +78,15 @@ public class TestCategoria {
         entidadJuridica.agregarEntidadBase(entidadBase);
     }
 
+    @Ignore
     @Test(expected = MontoMaximoExcedidoException.class)
     public void categoriaNoMePermiteAgregarCompraYaQueExcediElMontoMaximo(){
         categoria.agregarValidador(new ValidadorMontoMaximo(BigDecimal.valueOf(150)));
         entidadJuridica.agregarCategoria(categoria);
         entidadJuridica.agregarCompra(compra);
     }
-    
+
+    @Ignore
     @Test(expected = EntidadJuridicaBloqueadaException.class)
     public void CategoriaNoLePermiteALaBaseSerAgregadaAUnaJuridica(){
         categoria.agregarValidador(new ValidadorEntidadJuridicaBloqueada(entidadJuridica));
