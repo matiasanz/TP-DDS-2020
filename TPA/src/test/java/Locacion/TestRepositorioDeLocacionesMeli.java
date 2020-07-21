@@ -1,13 +1,11 @@
 package Locacion;
 
-import Compra.PresupuestoElegidoNoSeEncuentraEntreLosPresupuestosException;
 import Repositorios.RepositorioDeLocaciones.*;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
-import Proveedor.Pais;
+import Direccion.Pais;
 
 public class TestRepositorioDeLocacionesMeli {
     @Test()

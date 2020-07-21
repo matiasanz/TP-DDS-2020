@@ -1,7 +1,7 @@
 package Repositorios;
 
 import Moneda.CodigoMoneda;
-import Proveedor.Pais;
+import Direccion.Pais;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;

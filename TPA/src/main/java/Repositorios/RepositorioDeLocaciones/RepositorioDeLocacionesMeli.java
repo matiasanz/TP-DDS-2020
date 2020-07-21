@@ -1,6 +1,6 @@
 package Repositorios.RepositorioDeLocaciones;
 
-import Proveedor.Pais;
+import Direccion.Pais;
 import Repositorios.MeliApi;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
