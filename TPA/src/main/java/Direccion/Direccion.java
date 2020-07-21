@@ -1,4 +1,4 @@
-package Proveedor;
+package Direccion;
 
 import Repositorios.RepositorioDeLocaciones.Locacion;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocaciones;

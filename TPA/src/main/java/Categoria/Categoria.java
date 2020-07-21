@@ -10,8 +10,16 @@ public class Categoria {
     String nombre;
     private List<Validador> validadores;
 
+    public Categoria(String nombre) {
+        this.nombre = nombre;
+    }
+
     void agregarValidador(Validador validador){
         validadores.add(validador);
+    }
+
+    void eliminarValidador(Validador validador) {
+        validadores.remove(validador);
     }
 
     public void notificarCompraAgregada(BigDecimal montoCompra, BigDecimal montoAcumuladoEntidad){
@@ -32,5 +40,13 @@ public class Categoria {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public List<Validador> getValidadores() {
+        return validadores;
+    }
+
+    public void setValidadores(List<Validador> validadores) {
+        this.validadores = validadores;
     }
 }

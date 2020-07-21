@@ -1,6 +1,6 @@
 package Repositorios.RepositorioDeLocaciones;
 
-import Proveedor.Pais;
+import Direccion.Pais;
 
 public class LocacionNoEncontradaException extends RuntimeException {
     public LocacionNoEncontradaException(Pais codigoPais) {

@@ -11,8 +11,8 @@ import MedioDePago.DineroEnCuenta;
 import Moneda.CodigoMoneda;
 import Organizacion.Organizacion;
 import Presupuesto.Presupuesto;
-import Proveedor.Direccion;
-import Proveedor.Pais;
+import Direccion.Direccion;
+import Direccion.Pais;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeCategorias;
 import Repositorios.RepositorioDeUsuarios;
@@ -43,7 +43,7 @@ public class Fabrica {
     }
 
     public static Compra compraConNPresupuestosMinimos(int cantidadMinimaDePresupuestos) {
-        EntidadJuridica unaEntidad = new Empresa("Razon SRL", "Kwik-E-Mart", "4517", "1586", 1, new ArrayList<>(), Clasificacion.PEQUENIA);
+        EntidadJuridica unaEntidad = new Empresa("Razon SRL", "Kwik-E-Mart", "4517", Fabrica.direccionStub(), 1, new ArrayList<>(), Clasificacion.PEQUENIA);
 
         LocalDate fechaActual = LocalDate.now();
         List<Usuario> usuarios = new ArrayList<>();

@@ -1,6 +1,6 @@
-package Locacion;
+package Mocks;
 
-import Proveedor.Pais;
+import Direccion.Pais;
 import Repositorios.RepositorioDeLocaciones.*;
 
 public class RepositorioDeLocacionesMock implements RepositorioDeLocaciones {
