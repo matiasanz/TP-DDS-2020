@@ -8,14 +8,21 @@ import java.util.stream.Stream;
 import Compra.Compra;
 import Entidad.Entidad;
 import Entidad.EntidadJuridica;
+import Repositorios.RepositorioDeCategorias;
+import Repositorios.RepositorioDeUsuarios;
 import Usuario.Usuario;
 
 public class Organizacion {
-	private List<Usuario> usuarios = new ArrayList<>();
+	private RepositorioDeCategorias repositorioDeCategorias;
+	private RepositorioDeUsuarios repositorioDeUsuarios;
 	private List<Entidad> entidades = new ArrayList<>(); //(?) nombre
 
+	public Organizacion(RepositorioDeCategorias repositorioDeCategorias) {
+		this.repositorioDeCategorias = repositorioDeCategorias;
+	}
+
 	public List<Usuario> getUsuarios() {
-		return usuarios;
+		return repositorioDeUsuarios.getUsuarios();
 	}
 
 	public List<Entidad> getEntidades() {
@@ -27,17 +34,15 @@ public class Organizacion {
 	}
 
 	public void crearUsuario(String username, String password) {
-		boolean usuarioYaExiste = usuarios.stream().anyMatch(u -> username.equals(u.getUsername()));
+		boolean usuarioYaExiste = repositorioDeUsuarios.checkSiExiste(username);
 		if (usuarioYaExiste) {
 			throw new UsuarioYaExisteException();
 		}
-		usuarios.add(new Usuario(username, password));
+		repositorioDeUsuarios.agregarUsuario(username, password);
 	}
 		
 	public void autenticarUsuario(String username, String password){
-		if(!usuarios.stream().anyMatch(usuario -> usuario.autentica(username, password))){
-			throw new IngresoFallidoException();
-		}
+		repositorioDeUsuarios.autenticarUsuario(username, password);
 	}
 
 	public List<Compra> getCompras(){
@@ -60,4 +65,5 @@ public class Organizacion {
 		Stream<Compra> comprasPorValidar = this.comprasPendientesDeValidacion();
 		return comprasPorValidar.filter(unaCompra->unaCompra.puedeSerValidadaPor(miUsuario)).collect(Collectors.toList());
 	}
+
 }

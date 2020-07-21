@@ -2,7 +2,7 @@ package Entidad;
 
 import Categoria.Categoria;
 import Compra.Compra;
-
+import Categoria.MontoMaximoExcedidoException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -15,8 +15,13 @@ public abstract class Entidad {
     }
 
     public void agregarCompra(Compra compra) {
-        getCategorias().forEach(categoria -> categoria.notificarCompraAgregada(compra.getEntidadRelacionada()));
-        compras.add(compra);
+        try{
+            getCategorias().forEach(categoria -> categoria.notificarCompraAgregada(compra.getValorTotal(), this.getValorTodasLasCompras()));
+            compras.add(compra);
+        } catch(MontoMaximoExcedidoException e){
+
+        }
+
     }
 
     public BigDecimal getValorTodasLasCompras() {

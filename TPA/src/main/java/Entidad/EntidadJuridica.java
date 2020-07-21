@@ -1,5 +1,6 @@
 package Entidad;
-import Categoria.Categoria;
+import Categoria.BloqueoDeAgregarEntidadesBaseException;
+import Categoria.EntidadJuridicaBloqueadaException;
 
 import java.util.List;
 
@@ -21,5 +22,14 @@ public abstract class EntidadJuridica extends Entidad {
 		this.entidadesBase = entidadesBase;
 	}
 
+	void agregarEntidadBase(EntidadBase entidad){
+		try {
+			getCategorias().forEach(categoria -> categoria.notificarEntidadBaseAgregada());
+			entidad.getCategorias().forEach(categoria -> categoria.notificarMeAgregueAUnaJuridica(this));
+			entidadesBase.add(entidad);
+		} catch (BloqueoDeAgregarEntidadesBaseException | EntidadJuridicaBloqueadaException e){
+
+		}
+	}
 
 }

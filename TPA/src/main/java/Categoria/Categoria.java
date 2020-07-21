@@ -1,13 +1,36 @@
 package Categoria;
 
-import Entidad.Entidad;
+import Entidad.EntidadJuridica;
 
-public abstract class Categoria {
+import java.math.BigDecimal;
+import java.util.List;
 
-    //TODO todavía no sabemos bien como encararlo
-    public void notificarCompraAgregada(Entidad entidad){}
-    public void notificarEntidadBaseAgregada(Entidad entidad, Entidad entidadBase){}
+public class Categoria {
 
-    public void validarMontoMaximo(Entidad entidad, int monto){
+    String nombre;
+    private List<Validador> validadores;
+
+    void agregarValidador(Validador validador){
+        validadores.add(validador);
+    }
+
+    public void notificarCompraAgregada(BigDecimal montoCompra, BigDecimal montoAcumuladoEntidad){
+        validadores.stream().forEach(validador -> validador.validarGasto(montoCompra, montoAcumuladoEntidad));
+    }
+
+    public void notificarEntidadBaseAgregada(){
+        validadores.stream().forEach(validador -> validador.validarBloqueoDeAgregarEntidadesBase());
+    }
+
+    public void notificarMeAgregueAUnaJuridica(EntidadJuridica entidad){
+        validadores.stream().forEach(validador -> validador.validarSiEntidadJuridicaEstaBloqueada(entidad));
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }
