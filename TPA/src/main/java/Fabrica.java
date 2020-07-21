@@ -14,6 +14,8 @@ import Presupuesto.Presupuesto;
 import Proveedor.Direccion;
 import Proveedor.Pais;
 import Proveedor.Proveedor;
+import Repositorios.RepositorioDeCategorias;
+import Repositorios.RepositorioDeUsuarios;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import Usuario.Usuario;
@@ -24,15 +26,19 @@ public class Fabrica {
     }
 
     public static Organizacion organizacionStub() {
-        Organizacion unaOrganizacion = new Organizacion();
+        Organizacion unaOrganizacion = new Organizacion(new RepositorioDeUsuarios(), new RepositorioDeCategorias());
         Usuario unUsuario = Fabrica.usuarioStub();
         unaOrganizacion.crearUsuario(unUsuario.getUsername(), unUsuario.getContrasenia());
         return unaOrganizacion;
     }
 
-    public static Proveedor proveedorStub() {
-        Direccion unaDireccion = new Direccion(new RepositorioDeLocacionesMeli(), "Jose Hernandez",
+    public static Direccion direccionStub(){
+    	return new Direccion(new RepositorioDeLocacionesMeli(), "Jose Hernandez",
                 2600, 7, "1415", Pais.AR);
+    }
+    
+    public static Proveedor proveedorStub() {
+        Direccion unaDireccion = Fabrica.direccionStub();
         return Proveedor.PersonaFisica(1, 1, "Juan", "Salvo", unaDireccion);
     }
 

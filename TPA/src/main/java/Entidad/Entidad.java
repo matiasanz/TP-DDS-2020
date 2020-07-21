@@ -4,12 +4,14 @@ import Categoria.Categoria;
 import Compra.Compra;
 import Categoria.MontoMaximoExcedidoException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Entidad {
-    private List<Compra> compras;
-    private List<Categoria> categorias;
-
+    private List<Compra> compras = new ArrayList<>();
+    private List<Categoria> categorias = new LinkedList();
+    
     public void agregarCategoria(Categoria categoria){
         categorias.add(categoria);
     }

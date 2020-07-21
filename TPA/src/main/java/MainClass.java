@@ -16,9 +16,9 @@ public class MainClass {
   	Compra compraQueDesaprueba = Fabrica.compraConNPresupuestosMinimos(76);
   	Compra compraNoValidable = Fabrica.compraEnEstado(Estado.NUEVA);
   	
-  	unaOrganizacion.agregarCompra(compraQueAprueba);
-  	unaOrganizacion.agregarCompra(compraQueDesaprueba);
-  	unaOrganizacion.agregarCompra(compraNoValidable);
+//  	unaOrganizacion.agregarCompra(compraQueAprueba);
+//  	unaOrganizacion.agregarCompra(compraQueDesaprueba);
+//  	unaOrganizacion.agregarCompra(compraNoValidable);
     	
 //        AGREGAR PRESUPUESTOS
     Presupuesto unPresupuesto = Fabrica.presupuestoPara(compraQueAprueba);
@@ -33,17 +33,17 @@ public class MainClass {
         compraQueDesaprueba.setPresupuestoElegido(unPresupuesto);
 
 //        PEDIRLE A USUARIO USER Y CONTRASEnia y VALIDAR EL LOGEO
-        Usuario miUsuario = unaOrganizacion.ingresarUsuario();    	
+//        Usuario miUsuario = unaOrganizacion.ingresarUsuario();    	
         
 //        FILTER DE COMPRAS A LAS QUE MI USUARIO PUEDE VALIDAR
-        List<Compra> comprasQuePuedoValidar = unaOrganizacion.comprasQuePuedeValidar(miUsuario);
+//        List<Compra> comprasQuePuedoValidar = unaOrganizacion.comprasQuePuedeValidar(miUsuario);
         
 //        IMPRIMIR POR PANTALLA QUE SE COMENZARa A VALIDAR COMPRAS Y CUALES
         System.out.println("\n***************************** COMPRAS A VALIDAR *****************************\n");
         
         System.out.println("\n***************************** VALIDACIONES SOBRE LA MARCHA *****************************\n");
 //        FALTA DEFINIR EL TOSTRING EN COMPRA
-        comprasQuePuedoValidar.stream().forEach(compra-> compra.validar());
+//        comprasQuePuedoValidar.stream().forEach(compra-> compra.validar());
         
         System.out.println("\n***************************** COMPRAS APROBADAS *****************************\n");
 	}

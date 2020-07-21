@@ -17,8 +17,9 @@ public class Organizacion {
 	private RepositorioDeUsuarios repositorioDeUsuarios;
 	private List<Entidad> entidades = new ArrayList<>(); //(?) nombre
 
-	public Organizacion(RepositorioDeCategorias repositorioDeCategorias) {
-		this.repositorioDeCategorias = repositorioDeCategorias;
+	public Organizacion(RepositorioDeUsuarios repoDeUsuarios, RepositorioDeCategorias repoDeCategorias) {
+		this.repositorioDeUsuarios = repoDeUsuarios;
+		this.repositorioDeCategorias = repoDeCategorias;
 	}
 
 	public List<Usuario> getUsuarios() {
@@ -34,10 +35,6 @@ public class Organizacion {
 	}
 
 	public void crearUsuario(String username, String password) {
-		boolean usuarioYaExiste = repositorioDeUsuarios.checkSiExiste(username);
-		if (usuarioYaExiste) {
-			throw new UsuarioYaExisteException();
-		}
 		repositorioDeUsuarios.agregarUsuario(username, password);
 	}
 		
