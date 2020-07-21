@@ -3,6 +3,7 @@ package Categoria;
 import Entidad.EntidadJuridica;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Categoria {
@@ -12,6 +13,7 @@ public class Categoria {
 
     public Categoria(String nombre) {
         this.nombre = nombre;
+        this.validadores = new ArrayList<Validador>();
     }
 
     void agregarValidador(Validador validador){

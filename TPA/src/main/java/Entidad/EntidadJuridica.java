@@ -15,6 +15,7 @@ public abstract class EntidadJuridica extends Entidad {
 	
 	public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, Direccion direccionPostal, int codigoIGJ,
 			List<EntidadBase> entidadesBase) {
+		super();
 		this.razonSocial = razonSocial;
 		this.nombreFicticio = nombreFicticio;
 		this.cuit = cuit;
@@ -24,13 +25,9 @@ public abstract class EntidadJuridica extends Entidad {
 	}
 
 	public void agregarEntidadBase(EntidadBase entidad){
-		try {
-			getCategorias().forEach(categoria -> categoria.notificarEntidadBaseAgregada());
-			entidad.getCategorias().forEach(categoria -> categoria.notificarMeAgregueAUnaJuridica(this));
-			entidadesBase.add(entidad);
-		} catch (BloqueoDeAgregarEntidadesBaseException | EntidadJuridicaBloqueadaException e){
-
-		}
+		getCategorias().forEach(categoria -> categoria.notificarEntidadBaseAgregada());
+		entidad.getCategorias().forEach(categoria -> categoria.notificarMeAgregueAUnaJuridica(this));
+		entidadesBase.add(entidad);
 	}
 
 }

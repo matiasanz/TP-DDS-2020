@@ -7,7 +7,6 @@ import Direccion.Pais;
 import Direccion.Direccion;
 import Presupuesto.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import Entidad.EntidadBase;

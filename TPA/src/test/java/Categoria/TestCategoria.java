@@ -26,16 +26,16 @@ import static org.junit.Assert.assertEquals;
 
 
 public class TestCategoria {
-    RepositorioDeLocaciones repositorioDeLocaciones;
-    RepositorioDeMonedas repositorioDeMonedas;
-    Direccion direccion;
-    EntidadJuridica entidadJuridica;
-    EntidadBase entidadBase;
-    Categoria categoria;
-    Item item;
-    Compra compra;
-    Proveedor proveedor;
-    MedioDePago medioDePago;
+    private RepositorioDeLocaciones repositorioDeLocaciones;
+    private RepositorioDeMonedas repositorioDeMonedas;
+    private Direccion direccion;
+    private EntidadJuridica entidadJuridica;
+    private EntidadBase entidadBase;
+    private Categoria categoria;
+    private Item item;
+    private Compra compra;
+    private Proveedor proveedor;
+    private MedioDePago medioDePago;
 
     @Before
     public void init() {
@@ -50,11 +50,10 @@ public class TestCategoria {
         proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", direccion);
         medioDePago = new PagoEnEfectivo();
         item = new Item("Heladera", 4, BigDecimal.valueOf(40));
-        Compra compra = new Compra(repositorioDeMonedas, entidadJuridica, proveedor, LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, null);
+        compra = new Compra(repositorioDeMonedas, entidadJuridica, proveedor, LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, null);
         compra.agregarItem(item);
     }
 
-    @Ignore
     @Test
     public void categoriaMePermiteAgregarOQuitarComportamiento(){
         Validador validador1 = new ValidadorMontoMaximo(BigDecimal.valueOf(50));
@@ -67,7 +66,6 @@ public class TestCategoria {
         assertEquals(1, categoria.getValidadores().size());
     }
 
-    @Ignore
     @Test(expected = BloqueoDeAgregarEntidadesBaseException.class)
     public void categoriaMePermiteAgregarCompraPeroNoAgregarEntidadBase() {
         categoria.agregarValidador(new ValidadorMontoMaximo(BigDecimal.valueOf(170)));
@@ -78,7 +76,6 @@ public class TestCategoria {
         entidadJuridica.agregarEntidadBase(entidadBase);
     }
 
-    @Ignore
     @Test(expected = MontoMaximoExcedidoException.class)
     public void categoriaNoMePermiteAgregarCompraYaQueExcediElMontoMaximo(){
         categoria.agregarValidador(new ValidadorMontoMaximo(BigDecimal.valueOf(150)));
@@ -86,7 +83,6 @@ public class TestCategoria {
         entidadJuridica.agregarCompra(compra);
     }
 
-    @Ignore
     @Test(expected = EntidadJuridicaBloqueadaException.class)
     public void CategoriaNoLePermiteALaBaseSerAgregadaAUnaJuridica(){
         categoria.agregarValidador(new ValidadorEntidadJuridicaBloqueada(entidadJuridica));

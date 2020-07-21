@@ -9,21 +9,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Entidad {
-    private List<Compra> compras = new ArrayList<>();
-    private List<Categoria> categorias = new LinkedList();
-    
+    private List<Compra> compras;
+    private List<Categoria> categorias;
+
+    public Entidad() {
+        this.compras = new ArrayList<>();
+        this.categorias = new ArrayList<>();
+    }
+
     public void agregarCategoria(Categoria categoria){
         categorias.add(categoria);
     }
 
     public void agregarCompra(Compra compra) {
-        try{
-            getCategorias().forEach(categoria -> categoria.notificarCompraAgregada(compra.getValorTotal(), this.getValorTodasLasCompras()));
-            compras.add(compra);
-        } catch(MontoMaximoExcedidoException e){
-
-        }
-
+        getCategorias().forEach(categoria -> categoria.notificarCompraAgregada(compra.getValorTotal(), this.getValorTodasLasCompras()));
+        compras.add(compra);
     }
 
     public BigDecimal getValorTodasLasCompras() {
