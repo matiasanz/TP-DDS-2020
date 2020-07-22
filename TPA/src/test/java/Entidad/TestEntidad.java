@@ -2,13 +2,13 @@ package Entidad;
 
 import Compra.Item;
 import Compra.Compra;
-import Compra.RepositorioDeMonedasMock;
+import Mocks.RepositorioDeMonedasMock;
 import Etiqueta.Etiqueta;
-import Locacion.RepositorioDeLocacionesMock;
+import Mocks.RepositorioDeLocacionesMock;
 import MedioDePago.PagoEnEfectivo;
 import Moneda.CodigoMoneda;
-import Proveedor.Direccion;
-import Proveedor.Pais;
+import Direccion.Direccion;
+import Direccion.Pais;
 import Proveedor.Proveedor;
 import org.junit.Assert;
 import org.junit.Before;
@@ -57,7 +57,9 @@ public class TestEntidad {
 
         presupuesto = new Presupuesto(listaItems, proveedor);
         entidadesBase = new ArrayList<>();
-        entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", "Avenida 123", 845, entidadesBase);
+        direccion = new Direccion(new RepositorioDeLocacionesMock(), "Cervantes", 607, 5, "1407", Pais.AR);
+
+        entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", direccion, 845, entidadesBase);
         direccion = new Direccion(new RepositorioDeLocacionesMock(), "Cervantes", 607, 5, "1407", Pais.AR);
         proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", direccion);
 
