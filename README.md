@@ -1,24 +1,26 @@
 # GRUPO 7 - TP ANUAL
 
-## Resolución Entrega 2
+## Resolución Entrega 3
 
 ### Diagrama de clase:
 
 ![Diagrama](/Diagramas/diagrama_entrega3.png) 
 
-# Entrega 2
+# Entrega 3
 
 ## Objetivo de la entrega
-* Implementar, de manera incremental, el diseño de la entrega anterior
-* Incorporar nociones de comunicación asincrónica, tomando las decisiones de diseño implicadas 
+* Incorporar nociones de calendarización de tareas y realizar su implementación
+* Incorporar nuevos aspectos del modelo de negocios y definir su diseño apropiado
 
 
 ## Alcance
-* Presupuestos
-* Validador de transparencia
+* Categorización de entidades
+* Etiquetado de egresos
+* Calendarización de tareas
 
 
 ## Entregables requeridos
-* Modelo de Objetos (Diagrama de clases)
-* Implementación en código Java de los requerimientos enumerados y sus pruebas unitarias.
-* Alternativas pensadas para diferentes requerimientos según corresponda y su comparación
+[x] Modelo de Objetos (Diagrama de clases)
+[x] Implementación en código Java de los requerimientos enumerados y sus pruebas unitarias
+[] Alternativas pensadas para diferentes requerimientos según corresponda y su comparación
+[] Implementación de la tarea programada de validación de egresos
