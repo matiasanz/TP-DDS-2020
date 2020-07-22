@@ -1,5 +1,7 @@
 package Usuario;
 
+import Repositorios.RepositorioDeCompras.RepositorioDeCompras;
+
 public class Usuario {
     private Tipo tipo;
     private String username;
@@ -43,4 +45,11 @@ public class Usuario {
         return this.username.equals(username) && this.contrasenia.equals(password);
     }
 
+    public boolean esValidadorDeAlgunaCompra(){
+    	RepositorioDeCompras compras = new RepositorioDeCompras();
+    	
+    	return compras.getCompras().stream().anyMatch(unaCompra -> unaCompra.puedeSerValidadaPor(this));
+    }
+    
+    // FALTAN MÉTODOS DE ACCESO A LA BANDEJA DE MENSAJES
 }

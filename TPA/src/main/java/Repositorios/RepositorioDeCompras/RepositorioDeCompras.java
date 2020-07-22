@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RepositorioDeCompras {
 
@@ -67,6 +68,10 @@ public class RepositorioDeCompras {
         compras.add(compra19Julio2020Amoblamiento);
 
         return compras;
+    }
+    
+    public List<Compra> getComprasPendientesDeAprobacion(){
+    	return this.getCompras().stream().filter(compra -> compra.getIndicadorDeAprobacion() == Estado.PENDIENTEDEAPROBACION).collect(Collectors.toList());
     }
 
     public Etiqueta getEtiquetaAmoblamiento() {
