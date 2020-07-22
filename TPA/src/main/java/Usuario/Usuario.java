@@ -48,7 +48,7 @@ public class Usuario {
     public boolean esValidadorDeAlgunaCompra(){
     	RepositorioDeCompras compras = new RepositorioDeCompras();
     	
-    	return compras.getCompras().stream().anyMatch(unaCompra -> unaCompra.puedeSerValidadaPor(this));
+    	return compras.getComprasConPresupuestoElegido().stream().anyMatch(unaCompra -> unaCompra.puedeSerValidadaPor(this));
     }
     
     // FALTAN MÉTODOS DE ACCESO A LA BANDEJA DE MENSAJES

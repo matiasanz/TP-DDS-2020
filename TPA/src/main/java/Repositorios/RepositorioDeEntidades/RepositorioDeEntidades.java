@@ -16,7 +16,7 @@ public class RepositorioDeEntidades {
 
         Entidad entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", direccion, 845, new ArrayList<>());
 
-        repoCompras.getCompras().forEach(compra -> entidad.agregarCompra(compra));
+        repoCompras.getComprasConPresupuestoElegido().forEach(compra -> entidad.agregarCompra(compra));
         return entidad;
     }
 }
