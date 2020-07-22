@@ -11,8 +11,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public abstract class Entidad {
-    private List<Compra> compras;
-    private List<Categoria> categorias;
+    private final List<Compra> compras;
+    private final List<Categoria> categorias;
 
     public Entidad() {
         this.compras = new ArrayList<>();

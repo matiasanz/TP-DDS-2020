@@ -1,4 +1,4 @@
-package TareasProgramadas;
+package TareasProgramadas.ValidacionEgresosAutomatica;
 
 import Repositorios.RepositorioDeCompras.RepositorioDeCompras;
 

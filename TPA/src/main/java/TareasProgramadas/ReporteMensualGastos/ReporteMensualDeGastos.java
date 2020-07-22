@@ -6,16 +6,15 @@ import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
 import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-
 import java.time.LocalDate;
 import java.util.Map;
 
 public class ReporteMensualDeGastos implements Job {
 
-    private RepositorioDeEtiquetas repoEtiquetas = new RepositorioDeEtiquetas();
+    private final RepositorioDeEtiquetas repoEtiquetas = new RepositorioDeEtiquetas();
 
-    public void execute(JobExecutionContext context) throws JobExecutionException {
+    public void execute(JobExecutionContext context) {
+
         Entidad entidad = new RepositorioDeEntidades().getEntidadConCompras();
         LocalDate fechaActual = LocalDate.now();
         Map<Integer, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaActual);

@@ -28,7 +28,6 @@
                                     <mainClass>MainClass</mainClass>
                                 </manifest>
                             </archive>
-
                         </configuration>
                     </execution>
                     <execution>
@@ -42,6 +41,23 @@
                             <archive>
                                 <manifest>
                                     <mainClass>TareasProgramadas.ReporteMensualGastos.ReporteMensualDeGastosEjecutable
+                                    </mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>ValidacionEgresosAutomatica</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>ValidacionEgresosAutomatica</finalName>
+                            <archive>
+                                <manifest>
+                                    <mainClass>
+                                        TareasProgramadas.ValidacionEgresosAutomatica.ValidacionDeEgresosEjecutable
                                     </mainClass>
                                 </manifest>
                             </archive>

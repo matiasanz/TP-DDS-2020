@@ -1,4 +1,5 @@
 package Compra;
+import Mocks.RepositorioDeEtiquetasMock;
 import Mocks.RepositorioDeLocacionesMock;
 import Mocks.RepositorioDeMonedasMock;
 import Moneda.CodigoMoneda;
@@ -42,7 +43,7 @@ public class TestCompra {
         item2 = new Item("Item 1", 1, BigDecimal.valueOf(40.5));
         item3 = new Item("Item 1", 1, BigDecimal.valueOf(9.5));
 
-        compra = new Compra(new RepositorioDeMonedasMock(), entidad, proveedor,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, null);
+        compra = new Compra(new RepositorioDeMonedasMock(), new RepositorioDeEtiquetasMock(), entidad, proveedor,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, null);
         compra.agregarItem(item1);
         compra.agregarItem(item2);
         compra.agregarItem(item3);

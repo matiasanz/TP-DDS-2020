@@ -8,6 +8,8 @@ import Moneda.CodigoMoneda;
 import Moneda.Moneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
+import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
+import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 import Usuario.Usuario;
 
@@ -15,25 +17,26 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import Etiqueta.EtiquetaDefecto;
 
 public class Compra {
-    private RepositorioDeMonedas repositorioDeMonedas;
+    private final RepositorioDeMonedas repositorioDeMonedas;
+    private RepositorioEtiquetas repositorioDeEtiquetas;
     private Entidad entidadRelacionada;
     //	private Documento documentoComercial;
-    private LocalDate fechaOperacion;
-    private MedioDePago medioDePago;
+    private final LocalDate fechaOperacion;
+    private final MedioDePago medioDePago;
     private int cantidadMinimaDePresupuestos;
-    private Moneda moneda;
+    private final Moneda moneda;
     private Estado indicadorDeAprobacion;
-    private List<Item> items;
+    private final List<Item> items;
     private List<Presupuesto> presupuestosAsociados;
     //private Presupuesto presupuestoElegido;
-    private List<Usuario> usuariosValidadores;
-    private ValidadorDeCompra validadorDeCompra;
+    private final List<Usuario> usuariosValidadores;
+    private final ValidadorDeCompra validadorDeCompra;
     private Etiqueta etiqueta;
 
     public Compra(RepositorioDeMonedas repositorioDeMonedas,
+                  RepositorioEtiquetas repositorioDeEtiquetas,
                   EntidadJuridica entidad,
                   Proveedor proveedor,
                   LocalDate fecha,
@@ -54,7 +57,7 @@ public class Compra {
         this.items = new ArrayList<>();
         this.presupuestosAsociados = new ArrayList<>();
         this.usuariosValidadores = usuariosValidadores;
-        this.etiqueta = EtiquetaDefecto.getInstance();
+        this.etiqueta = repositorioDeEtiquetas.getEtiquetaDefecto();
     }
 
     public BigDecimal getValorTotal() {

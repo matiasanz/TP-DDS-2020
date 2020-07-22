@@ -1,8 +1,10 @@
 package Organizacion;
 import Direccion.Direccion;
 import Direccion.Pais;
+import Mocks.RepositorioDeEtiquetasMock;
 import Mocks.RepositorioDeLocacionesMock;
 import Moneda.CodigoMoneda;
+import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,11 +60,11 @@ public class testOrganizacion {
     	Item item2 = new Item("Escritorios", 3, BigDecimal.valueOf(50400));
     	Item item3 = new Item("Sillas",1, BigDecimal.valueOf(34600));
     	
-    	Compra compra1 = new Compra(new RepositorioDeMonedasMock(), entidad1, proveedor1, LocalDate.now() , null, CodigoMoneda.ARS, 3, null);
+    	Compra compra1 = new Compra(new RepositorioDeMonedasMock(), new RepositorioDeEtiquetasMock(), entidad1, proveedor1, LocalDate.now() , null, CodigoMoneda.ARS, 3, null);
     	compra1.agregarItem(item1);
     	compra1.agregarItem(item2);
     	
-    	Compra compra2 = new Compra(new RepositorioDeMonedasMock(), entidad2, proveedor1, LocalDate.now() , null, CodigoMoneda.ARS, 3, null);
+    	Compra compra2 = new Compra(new RepositorioDeMonedasMock(), new RepositorioDeEtiquetasMock(), entidad2, proveedor1, LocalDate.now() , null, CodigoMoneda.ARS, 3, null);
     	compra1.agregarItem(item1);
     	compra1.agregarItem(item3);
     	    	

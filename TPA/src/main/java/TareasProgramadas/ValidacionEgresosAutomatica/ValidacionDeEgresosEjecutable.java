@@ -1,4 +1,4 @@
-package TareasProgramadas;
+package TareasProgramadas.ValidacionEgresosAutomatica;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;

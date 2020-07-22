@@ -15,6 +15,7 @@ import Direccion.Direccion;
 import Direccion.Pais;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeCategorias;
+import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
 import Repositorios.RepositorioDeUsuarios;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
@@ -50,6 +51,7 @@ public class Fabrica {
         usuarios.add(Fabrica.usuarioStub());
 
         Compra unaCompra = new Compra(new RepositorioDeMonedasMeli(),
+                new RepositorioDeEtiquetas(),
                 unaEntidad,
                 Fabrica.proveedorStub(),
                 fechaActual,

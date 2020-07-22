@@ -10,14 +10,16 @@ import Entidad.EntidadBase;
 import Entidad.EntidadJuridica;
 import MedioDePago.MedioDePago;
 import MedioDePago.PagoEnEfectivo;
+import Mocks.RepositorioDeEtiquetasMock;
 import Mocks.RepositorioDeLocacionesMock;
 import Mocks.RepositorioDeMonedasMock;
 import Moneda.CodigoMoneda;
 import Proveedor.Proveedor;
+import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocaciones;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
+import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -28,6 +30,7 @@ import static org.junit.Assert.assertEquals;
 public class TestCategoria {
     private RepositorioDeLocaciones repositorioDeLocaciones;
     private RepositorioDeMonedas repositorioDeMonedas;
+    private RepositorioEtiquetas repositorioDeEtiquetas;
     private Direccion direccion;
     private EntidadJuridica entidadJuridica;
     private EntidadBase entidadBase;
@@ -41,6 +44,7 @@ public class TestCategoria {
     public void init() {
         repositorioDeLocaciones = new RepositorioDeLocacionesMock();
         repositorioDeMonedas = new RepositorioDeMonedasMock();
+        repositorioDeEtiquetas = new RepositorioDeEtiquetasMock();
 
         direccion = new Direccion(repositorioDeLocaciones, "9 de Julio", 15, 1, "1212", Pais.AR);
         entidadJuridica = new Empresa("ArcosDorados S.A.", "McDonald's", "123456789", direccion, 1, null, Clasificacion.MEDIANATRAMO2);
@@ -50,7 +54,7 @@ public class TestCategoria {
         proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", direccion);
         medioDePago = new PagoEnEfectivo();
         item = new Item("Heladera", 4, BigDecimal.valueOf(40));
-        compra = new Compra(repositorioDeMonedas, entidadJuridica, proveedor, LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, null);
+        compra = new Compra(repositorioDeMonedas, repositorioDeEtiquetas, entidadJuridica, proveedor, LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, null);
         compra.agregarItem(item);
     }
 
