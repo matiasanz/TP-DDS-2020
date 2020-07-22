@@ -15,149 +15,157 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import Etiqueta.EtiquetaDefecto;
 
 public class Compra {
-	private RepositorioDeMonedas repositorioDeMonedas;
-	private Entidad entidadRelacionada;
-	//	private Documento documentoComercial;
-	private LocalDate fechaOperacion;
-	private MedioDePago medioDePago;
-	private int cantidadMinimaDePresupuestos;
-	private Moneda moneda;
-	private Estado indicadorDeAprobacion;
-	private List<Item> items;
-	private List<Presupuesto> presupuestosAsociados;
-	//private Presupuesto presupuestoElegido;
-	private List<Usuario> usuariosValidadores;
-	private ValidadorDeCompra validadorDeCompra;
-	private List<Etiqueta> etiquetas;
-	
-	public Compra(RepositorioDeMonedas repositorioDeMonedas,
-				  EntidadJuridica entidad,
-				  Proveedor proveedor,
-				  LocalDate fecha,
-				  MedioDePago medioDePago,
-				  CodigoMoneda codigoMoneda,
-				  int cantidadMinimaDePresupuestos,
-				  List<Usuario> usuariosValidadores) {
+    private RepositorioDeMonedas repositorioDeMonedas;
+    private Entidad entidadRelacionada;
+    //	private Documento documentoComercial;
+    private LocalDate fechaOperacion;
+    private MedioDePago medioDePago;
+    private int cantidadMinimaDePresupuestos;
+    private Moneda moneda;
+    private Estado indicadorDeAprobacion;
+    private List<Item> items;
+    private List<Presupuesto> presupuestosAsociados;
+    //private Presupuesto presupuestoElegido;
+    private List<Usuario> usuariosValidadores;
+    private ValidadorDeCompra validadorDeCompra;
+    private Etiqueta etiqueta;
 
-		this.validadorDeCompra = new ValidadorDeCompra();
-		this.repositorioDeMonedas = repositorioDeMonedas;
-		this.entidadRelacionada = entidad;
-		//this.documentoComercial = documentoComercial;
-		this.fechaOperacion = fecha;
-		this.medioDePago = medioDePago;
-		this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
-		this.moneda = repositorioDeMonedas.getMoneda(codigoMoneda);
-		this.indicadorDeAprobacion = Estado.NUEVA;
-		this.items = new ArrayList<>();
-		this.presupuestosAsociados = new ArrayList<>();
-		this.usuariosValidadores = usuariosValidadores;
-	}
-	
-	public BigDecimal getValorTotal() {
-		return items.stream().map(Item::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
-	}
-	public void generarPresupuesto(Presupuesto presupuesto){
-		presupuestosAsociados.add(presupuesto);
-	}
+    public Compra(RepositorioDeMonedas repositorioDeMonedas,
+                  EntidadJuridica entidad,
+                  Proveedor proveedor,
+                  LocalDate fecha,
+                  MedioDePago medioDePago,
+                  CodigoMoneda codigoMoneda,
+                  int cantidadMinimaDePresupuestos,
+                  List<Usuario> usuariosValidadores) {
 
-	public void setPresupuestoElegido(Presupuesto presupuesto){
-		Presupuesto presupuestoAElegir = presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.equals(presupuesto)).findFirst().orElseThrow(NoHayPresupuestosException::new);
-		presupuestoAElegir.setElegido(true);
-	}
+        this.validadorDeCompra = new ValidadorDeCompra();
+        this.repositorioDeMonedas = repositorioDeMonedas;
+        this.entidadRelacionada = entidad;
+        //this.documentoComercial = documentoComercial;
+        this.fechaOperacion = fecha;
+        this.medioDePago = medioDePago;
+        this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
+        this.moneda = repositorioDeMonedas.getMoneda(codigoMoneda);
+        this.indicadorDeAprobacion = Estado.NUEVA;
+        this.items = new ArrayList<>();
+        this.presupuestosAsociados = new ArrayList<>();
+        this.usuariosValidadores = usuariosValidadores;
+        this.etiqueta = EtiquetaDefecto.getInstance();
+    }
 
-	public void setIndicadorDeAprobacion(Estado estado){
-		indicadorDeAprobacion = estado;
-	}
+    public BigDecimal getValorTotal() {
+        return items.stream().map(Item::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 
-	/* Retorna el presupuesto elegido
-		si no hay presupuesto elegido todavía arroja excepcion
-	 */
-	public Presupuesto getPresupuestoElegido(){
-		return presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.isElegido()).findFirst().orElseThrow(NoHayPresupuestoElegidoException::new);
-	}
+    public void generarPresupuesto(Presupuesto presupuesto) {
+        presupuestosAsociados.add(presupuesto);
+    }
 
-	public void agregarItem(Item item){
-		this.items.add(item);
-	}
-	
-	public void aprobar(){
-		this.indicadorDeAprobacion = Estado.APROBADA;
-	}
-	
-	public void rechazar(){
-		this.indicadorDeAprobacion = Estado.RECHAZADA;
-	}
+    public void setPresupuestoElegido(Presupuesto presupuesto) {
+        Presupuesto presupuestoAElegir = presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.equals(presupuesto)).findFirst().orElseThrow(NoHayPresupuestosException::new);
+        presupuestoAElegir.setElegido(true);
+    }
 
-	public void validar(){
-		validadorDeCompra.validarCompra(this);
-	}
+    public void setIndicadorDeAprobacion(Estado estado) {
+        indicadorDeAprobacion = estado;
+    }
 
-	public Moneda getMoneda(){
-		return this.moneda;
-	}
+    /* Retorna el presupuesto elegido
+        si no hay presupuesto elegido todavía arroja excepcion
+     */
+    public Presupuesto getPresupuestoElegido() {
+        return presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.isElegido()).findFirst().orElseThrow(NoHayPresupuestoElegidoException::new);
+    }
 
-	public boolean estaAprobada(){
-		return this.indicadorDeAprobacion == Estado.APROBADA;
-	}
-	
-	public boolean fueRechazada(){
-		return this.indicadorDeAprobacion == Estado.RECHAZADA;
-	}
-	
-	public boolean pendienteDeAprobacion(){
-		return this.indicadorDeAprobacion == Estado.PENDIENTEDEAPROBACION;
-	}
+    public void agregarItem(Item item) {
+        this.items.add(item);
+    }
 
-	public boolean puedeSerValidadaPor(Usuario miUsuario){
-		return usuariosValidadores.stream().anyMatch(unUsuario->unUsuario.equals(miUsuario));
-	}
-	
-	public void numerarItems(){
-		items.forEach(unItem->System.out.println(" >> "+ unItem.toString()));
-	}
-	
-	public BigDecimal getImporte(){
-		return getPresupuestoElegido().getValorTotal();
-	}
+    public void aprobar() {
+        this.indicadorDeAprobacion = Estado.APROBADA;
+    }
 
-	public List<Item> getItems(){
-		return items;
-	}
+    public void rechazar() {
+        this.indicadorDeAprobacion = Estado.RECHAZADA;
+    }
 
-	public Estado getIndicadorDeAprobacion(){
-		return indicadorDeAprobacion;
-	}
+    public void validar() {
+        validadorDeCompra.validarCompra(this);
+    }
 
-	public int getCantidadMinimaDePresupuestos() {
-		return cantidadMinimaDePresupuestos;
-	}
-	public void setCantidadMinimaDePresupuestos(int cantidadMinimaDePresupuestos) {
-		this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
-	}
+    public Moneda getMoneda() {
+        return this.moneda;
+    }
 
-	public List<Presupuesto> getPresupuestosAsociados() {
-		return presupuestosAsociados;
-	}
+    public boolean estaAprobada() {
+        return this.indicadorDeAprobacion == Estado.APROBADA;
+    }
 
-	public void setPresupuestosAsociados(List<Presupuesto> presupuestosAsociados) {
-		this.presupuestosAsociados = presupuestosAsociados;
-	}
+    public boolean fueRechazada() {
+        return this.indicadorDeAprobacion == Estado.RECHAZADA;
+    }
 
-	public LocalDate getFechaOperacion() {
-		return fechaOperacion;
-	}
+    public boolean pendienteDeAprobacion() {
+        return this.indicadorDeAprobacion == Estado.PENDIENTEDEAPROBACION;
+    }
 
-	public void agregarEtiqueta(Etiqueta etiqueta){
-		etiquetas.add(etiqueta);
-	}
+    public boolean puedeSerValidadaPor(Usuario miUsuario) {
+        return usuariosValidadores.stream().anyMatch(unUsuario -> unUsuario.equals(miUsuario));
+    }
 
-	public void removerEtiqueta(Etiqueta etiqueta){
-		etiquetas.remove(etiqueta);
-	}
+    public void numerarItems() {
+        items.forEach(unItem -> System.out.println(" >> " + unItem.toString()));
+    }
 
-	public Entidad getEntidadRelacionada() {
-		return entidadRelacionada;
-	}
+    public BigDecimal getImporte() {
+        return getPresupuestoElegido().getValorTotal();
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public Estado getIndicadorDeAprobacion() {
+        return indicadorDeAprobacion;
+    }
+
+    public int getCantidadMinimaDePresupuestos() {
+        return cantidadMinimaDePresupuestos;
+    }
+
+    public void setCantidadMinimaDePresupuestos(int cantidadMinimaDePresupuestos) {
+        this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
+    }
+
+    public List<Presupuesto> getPresupuestosAsociados() {
+        return presupuestosAsociados;
+    }
+
+    public void setPresupuestosAsociados(List<Presupuesto> presupuestosAsociados) {
+        this.presupuestosAsociados = presupuestosAsociados;
+    }
+
+    public LocalDate getFechaOperacion() {
+        return fechaOperacion;
+    }
+
+    public Entidad getEntidadRelacionada() {
+        return entidadRelacionada;
+    }
+
+    public Etiqueta getEtiqueta() {
+        return etiqueta;
+    }
+
+    public void setEtiqueta(Etiqueta etiqueta) {
+        this.etiqueta = etiqueta;
+    }
+
+    public boolean conFechaAnteriorOIgualA(LocalDate unaFecha){
+        return this.getFechaOperacion().compareTo(unaFecha) <= 0;
+    }
 }

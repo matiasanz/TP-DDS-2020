@@ -2,16 +2,23 @@ package Etiqueta;
 
 import Proveedor.Proveedor;
 
-public class EtiquetaProveedor implements Etiqueta{
+public class EtiquetaProveedor implements Etiqueta {
 
+    private Integer identificador;
     private Proveedor proveedor;
 
-    public EtiquetaProveedor(Proveedor proveedor){
+    public EtiquetaProveedor(Integer identificador, Proveedor proveedor) {
+        this.identificador = identificador;
         this.proveedor = proveedor;
     }
 
     @Override
-    public boolean cumpleCriterio(String stringComparador) {
-        return proveedor.getNombre().equalsIgnoreCase(stringComparador);
+    public String getNombre() {
+        return this.proveedor.getNombre();
+    }
+
+    @Override
+    public Integer getIdentificador() {
+        return this.identificador;
     }
 }

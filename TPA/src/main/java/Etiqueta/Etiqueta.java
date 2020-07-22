@@ -2,5 +2,6 @@ package Etiqueta;
 
 public interface Etiqueta {
 
-    boolean cumpleCriterio(String stringComparador);
+    String getNombre();
+    Integer getIdentificador();
 }
