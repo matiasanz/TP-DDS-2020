@@ -4,7 +4,7 @@
 
 ### Diagrama de clase:
 
-![Diagrama](/Diagramas/Diagrama3.png) 
+![Diagrama](/Diagramas/diagrama_entrega3.png) 
 
 # Entrega 2
 
