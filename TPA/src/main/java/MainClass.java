@@ -4,22 +4,11 @@ import Compra.Compra;
 import Compra.Estado;
 import Organizacion.Organizacion;
 import Presupuesto.Presupuesto;
-import TareasProgramadas.ReporteMensualDeGastos;
-import Usuario.Usuario;
-import org.quartz.*;
-import org.quartz.impl.StdSchedulerFactory;
-
-import static org.quartz.CronScheduleBuilder.cronSchedule;
 
 public class MainClass {
 
-    public static void main(String[] args) throws SchedulerException {
+    public static void main(String[] args)  {
 
-        configurarTareasProgramadas();
-        ejecutarValidacionDeEgresos();
-    }
-
-    private static void ejecutarValidacionDeEgresos() {
         Organizacion unaOrganizacion = Fabrica.organizacionStub();
 
 //      GENERAR COMPRAS
@@ -58,30 +47,6 @@ public class MainClass {
 
         System.out.println("\n***************************** COMPRAS APROBADAS *****************************\n");
 
-
     }
 
-    private static void configurarTareasProgramadas() throws SchedulerException {
-
-        configurarReporteMensualDeGastos();
-    }
-
-    private static void configurarReporteMensualDeGastos() throws SchedulerException {
-
-        JobDetail job = JobBuilder.newJob(ReporteMensualDeGastos.class).withIdentity("reporteDeGastos", "grupo1").build();
-
-
-        Trigger triggerReporteMensualDeGastos = TriggerBuilder.newTrigger()
-                .withIdentity("reporteDeGastos", "grupo1")
-                // Ultimo día del mes a las 23:59 PM
-                //.withSchedule(cronSchedule("0 59 23 L * ?"))
-                // Cada 30 segundos
-                .withSchedule(cronSchedule("0/5 * * * * ?"))
-                .build();
-
-        Scheduler scheduler = new StdSchedulerFactory().getScheduler();
-        scheduler.start();
-        scheduler.scheduleJob(job, triggerReporteMensualDeGastos);
-
-    }
 }

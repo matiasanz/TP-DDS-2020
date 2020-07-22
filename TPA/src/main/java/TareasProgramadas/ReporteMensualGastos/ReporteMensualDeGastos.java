@@ -1,4 +1,4 @@
-package TareasProgramadas;
+package TareasProgramadas.ReporteMensualGastos;
 
 import Entidad.Entidad;
 import Etiqueta.Etiqueta;
