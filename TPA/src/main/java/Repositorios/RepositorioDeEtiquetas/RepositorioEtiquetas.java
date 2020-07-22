@@ -6,4 +6,6 @@ public interface RepositorioEtiquetas {
 
     Etiqueta getEtiquetaDefecto();
     List<Etiqueta> getEtiquetas();
+
+    void agregarEtiqueta(Etiqueta etiqueta);
 }

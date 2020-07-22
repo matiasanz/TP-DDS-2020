@@ -25,7 +25,7 @@ import Mocks.RepositorioDeMonedasMock;
 
 public class testOrganizacion {
     Direccion direccion = new Direccion(new RepositorioDeLocacionesMock(), "Mendoza", 54, 0, "1212", Pais.AR);
-	Organizacion organizacion = new Organizacion(new RepositorioDeUsuarios(), new RepositorioDeCategorias());
+	Organizacion organizacion = new Organizacion(new RepositorioDeUsuarios(), new RepositorioDeCategorias(), new RepositorioDeEtiquetas());
 	Empresa entidad1 = new Empresa("Arcos Dorados", "McDonalds", "2040495678", direccion, 1234, null, Clasificacion.MICRO);
 	OrganizacionSectorSocial entidad2 = new OrganizacionSectorSocial("The Coca Cola Company", "Coca-Cola", "2040495678", direccion, 1234, null);
 	Proveedor proveedor1 = Proveedor.PersonaFisica(40495678, 2040495678, "Guido", "Ferrari", null);

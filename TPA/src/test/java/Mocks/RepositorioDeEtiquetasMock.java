@@ -17,4 +17,9 @@ public class RepositorioDeEtiquetasMock implements RepositorioEtiquetas {
     public List<Etiqueta> getEtiquetas() {
         return new ArrayList<>();
     }
+
+    @Override
+    public void agregarEtiqueta(Etiqueta etiqueta) {
+
+    }
 }

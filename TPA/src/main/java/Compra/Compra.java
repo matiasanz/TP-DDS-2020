@@ -8,7 +8,6 @@ import Moneda.CodigoMoneda;
 import Moneda.Moneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
-import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
 import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 import Usuario.Usuario;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Compra {
-    private final RepositorioDeMonedas repositorioDeMonedas;
     private RepositorioEtiquetas repositorioDeEtiquetas;
     private Entidad entidadRelacionada;
     //	private Documento documentoComercial;
@@ -46,7 +44,6 @@ public class Compra {
                   List<Usuario> usuariosValidadores) {
 
         this.validadorDeCompra = new ValidadorDeCompra();
-        this.repositorioDeMonedas = repositorioDeMonedas;
         this.entidadRelacionada = entidad;
         //this.documentoComercial = documentoComercial;
         this.fechaOperacion = fecha;

@@ -5,33 +5,59 @@ import Direccion.Pais;
 import Etiqueta.*;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioDeEtiquetas implements RepositorioEtiquetas {
 
-    private final Etiqueta etiquetaAmoblamiento  = new EtiquetaPersonalizable( 1,"amoblamiento");
-    private final Direccion direccion = new Direccion(new RepositorioDeLocacionesMeli(), "Cervantes", 607, 5, "1407", Pais.AR);
-    private final Proveedor proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", direccion);
-    private final Etiqueta etiquetaProveedorJuanPerez = new EtiquetaProveedor(2, proveedor);
-    private final Etiqueta etiquetaDefecto = new EtiquetaDefecto();
-
-    public Etiqueta getEtiquetaDefecto() {
-        return etiquetaDefecto;
-    }
+    List<Etiqueta> etiquetas = new ArrayList<Etiqueta>();
 
     public List<Etiqueta> getEtiquetas() {
-        List<Etiqueta> etiquetas = new ArrayList<Etiqueta>();
-        etiquetas.add(etiquetaAmoblamiento);
-        etiquetas.add(etiquetaProveedorJuanPerez);
+        etiquetas.add(this.getEtiquetaDefecto());
+        etiquetas.add(this.getEtiquetaAmoblamiento());
+        etiquetas.add(this.getEtiquetaProveedorJuanPerez());
+
 
         return etiquetas;
+    }
+
+    @Override
+    public void agregarEtiqueta(Etiqueta etiqueta) {
+        validarEtiqueta(etiqueta);
+        etiquetas.add(etiqueta);
+    }
+
+    private void validarEtiqueta(Etiqueta etiqueta) {
+
+        if (etiquetas.stream().filter(e -> e.getIdentificador() == etiqueta.getIdentificador()).count() > 0) {
+            throw new EtiquetaConIdentificadorDuplicadoException(etiqueta.getIdentificador());
+        }
+
+        if (etiquetas.stream().filter(e -> e.getNombre() == etiqueta.getNombre()).count() > 0) {
+            throw new EtiquetaConNombreDuplicadoException(etiqueta.getNombre());
+        }
 
     }
+
+    public Etiqueta getEtiquetaProveedorJuanPerez() {
+        Direccion direccion = new Direccion(new RepositorioDeLocacionesMeli(), "Cervantes", 607, 5, "1407", Pais.AR);
+        Proveedor proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", direccion);
+        return new EtiquetaProveedor(2, proveedor);
+    }
+
+    public Etiqueta getEtiquetaDefecto() {
+        return new EtiquetaDefecto();
+    }
+
+    public Etiqueta getEtiquetaAmoblamiento() {
+        return new EtiquetaPersonalizable(1, "amoblamiento");
+    }
+
     public Etiqueta getEtiquetaDadoIdentificador(int identificador) {
         return getEtiquetas()
                 .stream()
-                .filter( e -> e.getIdentificador() == identificador)
+                .filter(e -> e.getIdentificador() == identificador)
                 .findAny()
                 .orElse(null);
     }

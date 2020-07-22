@@ -27,7 +27,7 @@ public class Fabrica {
     }
 
     public static Organizacion organizacionStub() {
-        Organizacion unaOrganizacion = new Organizacion(new RepositorioDeUsuarios(), new RepositorioDeCategorias());
+        Organizacion unaOrganizacion = new Organizacion(new RepositorioDeUsuarios(), new RepositorioDeCategorias(), new RepositorioDeEtiquetas());
         Usuario unUsuario = Fabrica.usuarioStub();
         unaOrganizacion.crearUsuario(unUsuario.getUsername(), unUsuario.getContrasenia());
         return unaOrganizacion;
