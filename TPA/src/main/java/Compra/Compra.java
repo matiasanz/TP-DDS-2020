@@ -165,7 +165,8 @@ public class Compra {
         this.etiqueta = etiqueta;
     }
 
-    public boolean conFechaAnteriorOIgualA(LocalDate unaFecha){
-        return this.getFechaOperacion().compareTo(unaFecha) <= 0;
+    public boolean compraDelMes(LocalDate unaFecha){
+        return this.getFechaOperacion().getMonth().getValue() == unaFecha.getMonth().getValue()
+                && getFechaOperacion().getYear() == unaFecha.getYear();
     }
 }

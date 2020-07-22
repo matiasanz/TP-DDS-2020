@@ -2,13 +2,10 @@ package Entidad;
 
 import Categoria.Categoria;
 import Compra.Compra;
-import Categoria.MontoMaximoExcedidoException;
-import Etiqueta.Etiqueta;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -43,16 +40,18 @@ public abstract class Entidad {
         return compras;
     }
 
-    private List<Compra> comprasPosterioresA(LocalDate fechaInicio) {
+    private List<Compra> comprasDelMes(LocalDate fechaInicio) {
         return compras
                 .stream()
-                .filter(compra -> compra.conFechaAnteriorOIgualA(fechaInicio))
+                .filter(compra -> compra.compraDelMes(fechaInicio))
                 .collect(Collectors.toList());
     }
 
-    public Map<Etiqueta, Double> obtenerGastosRealizados(LocalDate fechaInicio) {
+    public Map<Integer, Double> obtenerGastosRealizados(LocalDate fechaInicio) {
 
-          return comprasPosterioresA(fechaInicio).stream().collect(Collectors.groupingBy(Compra::getEtiqueta,
-                Collectors.summingDouble(Compra -> Compra.getValorTotal().floatValue())));
+          return comprasDelMes(fechaInicio)
+                  .stream()
+                  .collect(Collectors.groupingBy(compra -> compra.getEtiqueta().getIdentificador(),
+                    Collectors.summingDouble(Compra -> Compra.getValorTotal().floatValue())));
     }
 }
