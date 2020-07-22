@@ -1,5 +1,7 @@
 package Proveedor;
 
+import Direccion.Direccion;
+
 public class Proveedor {
     private int dni;
     private int cuil;

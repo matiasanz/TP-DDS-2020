@@ -1,4 +1,4 @@
-package Proveedor;
+package Direccion;
 
 public enum Pais {
     AR, BR, CO, CR,

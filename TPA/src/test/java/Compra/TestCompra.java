@@ -1,9 +1,10 @@
 package Compra;
-import Locacion.RepositorioDeLocacionesMock;
+import Mocks.RepositorioDeLocacionesMock;
+import Mocks.RepositorioDeMonedasMock;
 import Moneda.CodigoMoneda;
 import Proveedor.Proveedor;
-import Proveedor.Pais;
-import Proveedor.Direccion;
+import Direccion.Pais;
+import Direccion.Direccion;
 import Presupuesto.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class TestCompra {
     @Before
     public void init() {
         entidadesBase = new ArrayList<>();
-        entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", "Avenida 123", 845, entidadesBase);
+        entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", direccion, 845, entidadesBase);
         direccion = new Direccion(new RepositorioDeLocacionesMock(), "Cervantes", 607, 5, "1407", Pais.AR);
         proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", direccion);
         medioDePago = new PagoEnEfectivo();
@@ -51,13 +52,14 @@ public class TestCompra {
     public void obtenerValorTotalDeUnaCompra() {
         assertEquals(compra.getValorTotal(), BigDecimal.valueOf(100.0));
     }
-    
-    @Test(expected = NoHayPresupuestosSuficientesException.class)
+
+    @Test
     public void fallaCantidadDePresupuestos() {
     	compra.validar();
+        assertEquals(compra.getIndicadorDeAprobacion(), Estado.RECHAZADA);
     }
-    
-    @Test(expected = PresupuestoElegidoNoSeEncuentraEntreLosPresupuestosException.class)
+
+    @Test
     public void presupuestoElegidoNoSeEncuentraEntreLosPresupuestosDeLaCompra() {
     	//Agrego los presupuestos
     	List<Item> listaItems = new ArrayList<>();
@@ -70,9 +72,10 @@ public class TestCompra {
     	compra.generarPresupuesto(presupuesto);
     	//Hago la validacion
     	compra.validar();
+        assertEquals(compra.getIndicadorDeAprobacion(), Estado.RECHAZADA);
     }
-    
-    @Test(expected = PresupuestoElegidoNoCumpleCriterioException.class)
+
+    @Test
     public void presupuestoElegidoNoCumpleCriterio() {
     	//Agrego los presupuestos
     	List<Item> listaItems = new ArrayList<>();
@@ -91,5 +94,6 @@ public class TestCompra {
     	compra.setPresupuestoElegido(presupuesto2);
     	//Hago la validacion
     	compra.validar();
+        assertEquals(compra.getIndicadorDeAprobacion(), Estado.RECHAZADA);
     }
 }

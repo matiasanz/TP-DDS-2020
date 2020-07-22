@@ -1,4 +1,4 @@
-package Compra;
+package Mocks;
 
 import Moneda.Moneda;
 import Moneda.CodigoMoneda;
