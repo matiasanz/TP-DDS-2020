@@ -20,7 +20,7 @@
 
 
 ## Entregables requeridos
-[X]- Modelo de Objetos (Diagrama de clases)
-[X]- Implementación en código Java de los requerimientos enumerados y sus pruebas unitarias
-[ ]- Alternativas pensadas para diferentes requerimientos según corresponda y su comparación
-[ ]- Implementación de la tarea programada de validación de egresos
+ - [X] Modelo de Objetos (Diagrama de clases)
+ - [X] Implementación en código Java de los requerimientos enumerados y sus pruebas unitarias
+ - [ ] Alternativas pensadas para diferentes requerimientos según corresponda y su comparación
+ - [ ] Implementación de la tarea programada de validación de egresos
