@@ -10,7 +10,6 @@ import Entidad.EntidadBase;
 import Entidad.EntidadJuridica;
 import MedioDePago.MedioDePago;
 import MedioDePago.PagoEnEfectivo;
-import Mocks.RepositorioDeEtiquetasMock;
 import Mocks.RepositorioDeLocacionesMock;
 import Mocks.RepositorioDeMonedasMock;
 import Moneda.CodigoMoneda;
@@ -18,13 +17,10 @@ import Proveedor.Proveedor;
 import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocaciones;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
-import Usuario.Usuario;
-import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
 import org.junit.Before;
 import org.junit.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -46,7 +42,7 @@ public class TestCategoria {
     public void init() {
         repositorioDeLocaciones = new RepositorioDeLocacionesMock();
         repositorioDeMonedas = new RepositorioDeMonedasMock();
-        repositorioDeEtiquetas = new RepositorioDeEtiquetasMock();
+        repositorioDeEtiquetas = new RepositorioEtiquetas();
 
         direccion = new Direccion(repositorioDeLocaciones, "9 de Julio", 15, 1, "1212", Pais.AR);
         entidadJuridica = new Empresa("ArcosDorados S.A.", "McDonald's", "123456789", direccion, 1, null, Clasificacion.MEDIANATRAMO2);

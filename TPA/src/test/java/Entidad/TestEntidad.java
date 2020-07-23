@@ -1,5 +1,7 @@
 package Entidad;
+import Etiqueta.Etiqueta;
 import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
+import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,9 +12,11 @@ import java.util.Map;
 public class TestEntidad {
     private Entidad entidad;
     private LocalDate fechaInicioReporte;
+    private RepositorioEtiquetas repositorioEtiquetas;
 
     @Before
     public void init() {
+        repositorioEtiquetas = new RepositorioEtiquetas();
         entidad = new RepositorioDeEntidades().getEntidadConCompras();
     }
 
@@ -20,16 +24,16 @@ public class TestEntidad {
     public void elReporteIncluyeComprasSiLaFechaEsIgual() {
 
         fechaInicioReporte = LocalDate.of(2017, 2, 28);
-        Map<Integer, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaInicioReporte);
+        Map<String, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaInicioReporte);
         Assert.assertEquals(resultadoReporte.size(),1);
-        Assert.assertEquals(resultadoReporte.get(0), BigDecimal.valueOf(50).floatValue(),0);
+        Assert.assertEquals(resultadoReporte.get(repositorioEtiquetas.getEtiquetaDefecto().getNombre()), BigDecimal.valueOf(50).floatValue(),0);
     }
 
     @Test()
     public void elReporteIgnoraComprasSiLaFechaEsAnterior() {
 
         fechaInicioReporte = LocalDate.of(2016, 1, 31);
-        Map<Integer, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaInicioReporte);
+        Map<String, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaInicioReporte);
         Assert.assertTrue(resultadoReporte.isEmpty());
     }
 
@@ -37,19 +41,19 @@ public class TestEntidad {
     public void elReporteCalculaElMontoTotalCorrectamenteParaUnaCompra() {
 
         fechaInicioReporte = LocalDate.of(2018, 3, 30);
-        Map<Integer, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaInicioReporte);
+        Map<String, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaInicioReporte);
         Assert.assertEquals(1, resultadoReporte.size());
-        Assert.assertEquals(resultadoReporte.get(1), BigDecimal.valueOf(59.5).floatValue(),0);
+        Assert.assertEquals(resultadoReporte.get(repositorioEtiquetas.getEtiquetaAmoblamiento().getNombre()), BigDecimal.valueOf(59.5).floatValue(),0);
     }
 
     @Test()
     public void elReporteAgrupaDistintasComprasSiLaEtiquetaCoincide() {
 
         fechaInicioReporte = LocalDate.of(2020, 7, 30);
-        Map<Integer, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaInicioReporte);
+        Map<String, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaInicioReporte);
         Assert.assertEquals(3, resultadoReporte.size());
-        Assert.assertEquals(resultadoReporte.get(0), BigDecimal.valueOf(9.5).floatValue(),0);
-        Assert.assertEquals(resultadoReporte.get(1), BigDecimal.valueOf(50).floatValue(),0);
-        Assert.assertEquals(resultadoReporte.get(2), BigDecimal.valueOf(69).floatValue(),0);
+        Assert.assertEquals(resultadoReporte.get(repositorioEtiquetas.getEtiquetaDefecto().getNombre()), BigDecimal.valueOf(9.5).floatValue(),0);
+        Assert.assertEquals(resultadoReporte.get(repositorioEtiquetas.getEtiquetaAmoblamiento().getNombre()), BigDecimal.valueOf(50).floatValue(),0);
+        Assert.assertEquals(resultadoReporte.get(repositorioEtiquetas.getEtiquetaProveedorJuanPerez().getNombre()), BigDecimal.valueOf(69).floatValue(),0);
     }
 }

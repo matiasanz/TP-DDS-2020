@@ -9,8 +9,4 @@ public class EtiquetaDefecto implements Etiqueta {
         return "otros";
     }
 
-    @Override
-    public Integer getIdentificador() {
-        return 0;
-    }
 }

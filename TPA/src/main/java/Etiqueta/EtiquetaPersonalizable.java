@@ -2,11 +2,9 @@ package Etiqueta;
 
 public class EtiquetaPersonalizable implements Etiqueta {
 
-    private Integer identificador;
     private String nombre;
 
-    public EtiquetaPersonalizable(Integer identificador, String nombre) {
-        this.identificador = identificador;
+    public EtiquetaPersonalizable(String nombre) {
         this.nombre = nombre;
     }
 
@@ -15,8 +13,4 @@ public class EtiquetaPersonalizable implements Etiqueta {
         return this.nombre;
     }
 
-    @Override
-    public Integer getIdentificador() {
-        return this.identificador;
-    }
 }

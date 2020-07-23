@@ -2,15 +2,11 @@ package Organizacion;
 
 import java.util.List;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import Compra.Compra;
 import Entidad.Entidad;
 import Entidad.EntidadJuridica;
-import Etiqueta.*;
-import Proveedor.Proveedor;
 import Repositorios.RepositorioDeCategorias.RepositorioDeCategorias;
 import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
 import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
@@ -20,7 +16,7 @@ import Usuario.Usuario;
 public class Organizacion {
     private RepositorioDeCategorias repositorioDeCategorias;
     private RepositorioDeUsuarios repositorioDeUsuarios;
-    private RepositorioEtiquetas repositorioDeEtiquetas;
+    private final RepositorioEtiquetas repositorioDeEtiquetas;
     private RepositorioDeEntidades repositorioDeEntidades;
 
     public Organizacion(RepositorioDeUsuarios repoDeUsuarios, RepositorioDeCategorias repoDeCategorias, RepositorioEtiquetas repoDeEtiquetas, RepositorioDeEntidades repoDeEntidades) {
@@ -69,16 +65,6 @@ public class Organizacion {
     public List<Compra> comprasQuePuedeValidar(Usuario miUsuario) {
         List<Compra> comprasPorValidar = this.comprasPendientesDeValidacion();
         return comprasPorValidar.stream().filter(unaCompra -> unaCompra.puedeSerValidadaPor(miUsuario)).collect(Collectors.toList());
-    }
-
-    public void crearEtiquetaProveedor(int identificador, Proveedor proveedor) {
-        Etiqueta etiqueta = new EtiquetaProveedor(identificador, proveedor);
-        repositorioDeEtiquetas.agregarEtiqueta(etiqueta);
-    }
-
-    public void crearEtiquetaPersonalizable(int identificador, String nombre) {
-        Etiqueta etiqueta = new EtiquetaPersonalizable(identificador, nombre);
-        repositorioDeEtiquetas.agregarEtiqueta(etiqueta);
     }
 
 }

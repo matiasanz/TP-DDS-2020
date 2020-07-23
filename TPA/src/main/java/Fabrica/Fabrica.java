@@ -8,7 +8,6 @@ import Compra.Compra;
 import Compra.Estado;
 import Entidad.Clasificacion;
 import Entidad.Empresa;
-import Entidad.Entidad;
 import Entidad.EntidadJuridica;
 import Entidad.OrganizacionSectorSocial;
 import MedioDePago.DineroEnCuenta;
@@ -20,7 +19,7 @@ import Direccion.Pais;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeCategorias.RepositorioDeCategorias;
 import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
-import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
+import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import Repositorios.RepositorioDeUsuarios.RepositorioDeUsuarios;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
@@ -36,7 +35,7 @@ public class Fabrica {
     }
     
     public static Organizacion organizacionStub() {
-        Organizacion unaOrganizacion = new Organizacion(new RepositorioDeUsuarios(), new RepositorioDeCategorias(), new RepositorioDeEtiquetas(), new RepositorioDeEntidades());
+        Organizacion unaOrganizacion = new Organizacion(new RepositorioDeUsuarios(), new RepositorioDeCategorias(), new RepositorioEtiquetas(), new RepositorioDeEntidades());
         Usuario unUsuario = Fabrica.usuarioStub();
         unaOrganizacion.crearUsuario(unUsuario.getUsername(), unUsuario.getContrasenia());
         unaOrganizacion.agregarEntidad(Fabrica.entidadStub());
@@ -61,7 +60,7 @@ public class Fabrica {
         usuarios.add(Fabrica.usuarioStub());
 
         Compra unaCompra = new Compra(new RepositorioDeMonedasMeli(),
-                new RepositorioDeEtiquetas(),
+                new RepositorioEtiquetas(),
                 unaEntidad,
                 Fabrica.proveedorStub(),
                 fechaActual,

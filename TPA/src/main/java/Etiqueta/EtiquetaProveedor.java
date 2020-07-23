@@ -4,11 +4,9 @@ import Proveedor.Proveedor;
 
 public class EtiquetaProveedor implements Etiqueta {
 
-    private Integer identificador;
     private Proveedor proveedor;
 
-    public EtiquetaProveedor(Integer identificador, Proveedor proveedor) {
-        this.identificador = identificador;
+    public EtiquetaProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
 
@@ -17,8 +15,4 @@ public class EtiquetaProveedor implements Etiqueta {
         return this.proveedor.getNombre();
     }
 
-    @Override
-    public Integer getIdentificador() {
-        return this.identificador;
-    }
 }

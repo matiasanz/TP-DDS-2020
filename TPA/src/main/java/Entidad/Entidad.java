@@ -53,11 +53,11 @@ public abstract class Entidad {
                 .collect(Collectors.toList());
     }
 
-    public Map<Integer, Double> obtenerGastosRealizados(LocalDate fechaInicio) {
+    public Map<String, Double> obtenerGastosRealizados(LocalDate fechaInicio) {
 
           return comprasDelMes(fechaInicio)
                   .stream()
-                  .collect(Collectors.groupingBy(compra -> compra.getEtiqueta().getIdentificador(),
+                  .collect(Collectors.groupingBy(compra -> compra.getEtiqueta().getNombre(),
                     Collectors.summingDouble(Compra -> Compra.getValorTotal().floatValue())));
     }
 }

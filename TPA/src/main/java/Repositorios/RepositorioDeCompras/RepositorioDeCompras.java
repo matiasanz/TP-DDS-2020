@@ -7,7 +7,7 @@ import MedioDePago.PagoEnEfectivo;
 import Moneda.CodigoMoneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
-import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
+import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 
@@ -26,12 +26,12 @@ public class RepositorioDeCompras {
     private final Direccion direccion = new Direccion(new RepositorioDeLocacionesMeli(), "Cervantes", 607, 5, "1407", Pais.AR);
     private final Proveedor proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", direccion);
     private final Presupuesto presupuesto = new Presupuesto(null, proveedor);
-    private final Etiqueta etiquetaAmoblamiento = new EtiquetaPersonalizable(1, "amoblamiento");
-    private final Etiqueta etiquetaProveedorJuanPerez = new EtiquetaProveedor(2, proveedor);
+    private final Etiqueta etiquetaAmoblamiento = new EtiquetaPersonalizable("amoblamiento");
+    private final Etiqueta etiquetaProveedorJuanPerez = new EtiquetaProveedor(proveedor);
 
     public Compra getCompraMarzo2018Amoblamiento() {
 
-        Compra compraMarzo2018Amoblamiento = new Compra(new RepositorioDeMonedasMeli(), new RepositorioDeEtiquetas(), null, proveedor, LocalDate.of(2018, 3, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, null);
+        Compra compraMarzo2018Amoblamiento = new Compra(new RepositorioDeMonedasMeli(), new RepositorioEtiquetas(), null, proveedor, LocalDate.of(2018, 3, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, null);
         compraMarzo2018Amoblamiento.agregarItem(item50);
         compraMarzo2018Amoblamiento.agregarItem(item9Con50);
         compraMarzo2018Amoblamiento.setEtiqueta(etiquetaAmoblamiento);
@@ -43,7 +43,7 @@ public class RepositorioDeCompras {
 
     public Compra getCompraFebrero2017SinEtiqueta() {
 
-        Compra compraFebrero2017SinEtiqueta = new Compra(new RepositorioDeMonedasMeli(), new RepositorioDeEtiquetas(), null, proveedor, LocalDate.of(2017, 2, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, null);
+        Compra compraFebrero2017SinEtiqueta = new Compra(new RepositorioDeMonedasMeli(), new RepositorioEtiquetas(), null, proveedor, LocalDate.of(2017, 2, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, null);
         compraFebrero2017SinEtiqueta.agregarItem(item50);
         compraFebrero2017SinEtiqueta.generarPresupuesto(presupuesto);
         compraFebrero2017SinEtiqueta.setPresupuestoElegido(presupuesto);
@@ -53,7 +53,7 @@ public class RepositorioDeCompras {
 
     public Compra getCompraJulio2020JuanPerez() {
 
-        Compra compraJulio2020JuanPerez = new Compra(new RepositorioDeMonedasMeli(), new RepositorioDeEtiquetas(), null, proveedor, LocalDate.of(2020, 7, 16), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, null);
+        Compra compraJulio2020JuanPerez = new Compra(new RepositorioDeMonedasMeli(), new RepositorioEtiquetas(), null, proveedor, LocalDate.of(2020, 7, 16), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, null);
         compraJulio2020JuanPerez.agregarItem(item40Con50);
         compraJulio2020JuanPerez.agregarItem(item9Con50);
         compraJulio2020JuanPerez.agregarItem(item9Con50);
@@ -67,7 +67,7 @@ public class RepositorioDeCompras {
 
     public Compra getCompra1Julio2020Amoblamiento() {
 
-        Compra compra1Julio2020Amoblamiento = new Compra(new RepositorioDeMonedasMeli(), new RepositorioDeEtiquetas(), null, proveedor, LocalDate.of(2020, 7, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, null);
+        Compra compra1Julio2020Amoblamiento = new Compra(new RepositorioDeMonedasMeli(), new RepositorioEtiquetas(), null, proveedor, LocalDate.of(2020, 7, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, null);
         compra1Julio2020Amoblamiento.agregarItem(item40Con50);
         compra1Julio2020Amoblamiento.setEtiqueta(etiquetaAmoblamiento);
         compra1Julio2020Amoblamiento.generarPresupuesto(presupuesto);
@@ -78,7 +78,7 @@ public class RepositorioDeCompras {
 
     public Compra getCompra19Julio2020Amoblamiento() {
 
-        Compra compra19Julio2020Amoblamiento = new Compra(new RepositorioDeMonedasMeli(), new RepositorioDeEtiquetas(), null, proveedor, LocalDate.of(2020, 7, 19), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, null);
+        Compra compra19Julio2020Amoblamiento = new Compra(new RepositorioDeMonedasMeli(), new RepositorioEtiquetas(), null, proveedor, LocalDate.of(2020, 7, 19), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, null);
         compra19Julio2020Amoblamiento.agregarItem(item9Con50);
         compra19Julio2020Amoblamiento.setEtiqueta(etiquetaAmoblamiento);
         compra19Julio2020Amoblamiento.generarPresupuesto(presupuesto);
@@ -89,7 +89,7 @@ public class RepositorioDeCompras {
 
     public Compra getCompra12Julio2020SinEtiqueta() {
 
-        Compra compra12Julio2020SinEtiqueta = new Compra(new RepositorioDeMonedasMeli(), new RepositorioDeEtiquetas(), null, proveedor, LocalDate.of(2020, 7, 12), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, null);
+        Compra compra12Julio2020SinEtiqueta = new Compra(new RepositorioDeMonedasMeli(), new RepositorioEtiquetas(), null, proveedor, LocalDate.of(2020, 7, 12), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, null);
         compra12Julio2020SinEtiqueta.agregarItem(item9Con50);
         compra12Julio2020SinEtiqueta.generarPresupuesto(presupuesto);
         compra12Julio2020SinEtiqueta.setPresupuestoElegido(presupuesto);
