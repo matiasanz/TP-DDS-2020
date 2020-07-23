@@ -2,6 +2,7 @@ package TareasProgramadas.ValidacionEgresosAutomatica;
 
 import Repositorios.RepositorioDeCompras.RepositorioDeCompras;
 
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class ValidacionDeEgresos implements Job {
 
-    private RepositorioDeCompras repositorioCompras = new RepositorioDeCompras();
+    private RepositorioDeCompras repositorioCompras = new RepositorioDeCompras(new RepositorioDeMonedasMeli());
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
         List<Compra> comprasPendientesDeValidacion = repositorioCompras.getComprasPendientesDeAprobacion();

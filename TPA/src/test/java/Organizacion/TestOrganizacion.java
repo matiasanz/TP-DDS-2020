@@ -29,7 +29,7 @@ public class TestOrganizacion {
 	Organizacion organizacion = new Organizacion(new RepositorioDeUsuarios()
 											   , new RepositorioDeCategorias()
 											   , new RepositorioEtiquetas()
-											   , new RepositorioDeEntidades());
+											   , new RepositorioDeEntidades(new RepositorioDeMonedasMock()));
 	
 	Empresa entidad1 = new Empresa("Arcos Dorados", "McDonalds", "2040495678", direccion, 1234, null, Clasificacion.MICRO);
 	OrganizacionSectorSocial entidad2 = new OrganizacionSectorSocial("The Coca Cola Company", "Coca-Cola", "2040495678", direccion, 1234, null);

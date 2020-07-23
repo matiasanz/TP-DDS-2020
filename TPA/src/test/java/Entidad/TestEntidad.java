@@ -1,4 +1,5 @@
 package Entidad;
+import Mocks.RepositorioDeMonedasMock;
 import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
 import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import org.junit.Assert;
@@ -16,7 +17,7 @@ public class TestEntidad {
     @Before
     public void init() {
         repositorioEtiquetas = new RepositorioEtiquetas();
-        entidad = new RepositorioDeEntidades().getEntidadConCompras();
+        entidad = new RepositorioDeEntidades(new RepositorioDeMonedasMock()).getEntidadConCompras();
     }
 
     @Test()

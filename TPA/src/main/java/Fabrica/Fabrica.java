@@ -35,7 +35,7 @@ public class Fabrica {
     }
     
     public static Organizacion organizacionStub() {
-        Organizacion unaOrganizacion = new Organizacion(new RepositorioDeUsuarios(), new RepositorioDeCategorias(), new RepositorioEtiquetas(), new RepositorioDeEntidades());
+        Organizacion unaOrganizacion = new Organizacion(new RepositorioDeUsuarios(), new RepositorioDeCategorias(), new RepositorioEtiquetas(), new RepositorioDeEntidades(new RepositorioDeMonedasMeli()));
         Usuario unUsuario = Fabrica.usuarioStub();
         unaOrganizacion.crearUsuario(unUsuario.getUsername(), unUsuario.getContrasenia());
         unaOrganizacion.agregarEntidad(Fabrica.entidadStub());

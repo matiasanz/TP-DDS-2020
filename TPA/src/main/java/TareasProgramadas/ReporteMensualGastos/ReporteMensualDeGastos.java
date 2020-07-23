@@ -3,6 +3,7 @@ package TareasProgramadas.ReporteMensualGastos;
 import Entidad.Entidad;
 import Etiqueta.Etiqueta;
 import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ public class ReporteMensualDeGastos implements Job {
 
     public void execute(JobExecutionContext context) {
 
-        Entidad entidad = new RepositorioDeEntidades().getEntidadConCompras();
+        Entidad entidad = new RepositorioDeEntidades(new RepositorioDeMonedasMeli()).getEntidadConCompras();
         LocalDate fechaActual = LocalDate.now();
         Map<String, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaActual);
 

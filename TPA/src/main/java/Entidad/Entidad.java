@@ -3,6 +3,7 @@ package Entidad;
 import Categoria.Categoria;
 import Compra.Compra;
 import Repositorios.RepositorioDeCompras.RepositorioDeCompras;
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ public abstract class Entidad {
     private final List<Categoria> categorias;
 
     public Entidad() {
-        this.compras = new RepositorioDeCompras();
+        this.compras = new RepositorioDeCompras(new RepositorioDeMonedasMeli());
         this.categorias = new ArrayList<>();
     }
 
