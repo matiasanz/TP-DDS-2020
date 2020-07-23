@@ -1,3 +1,5 @@
+package Fabrica;
+
 import java.math.BigDecimal;
 
 import Compra.Item;

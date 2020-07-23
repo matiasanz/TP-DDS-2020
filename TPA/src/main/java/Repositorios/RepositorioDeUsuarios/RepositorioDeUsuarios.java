@@ -1,4 +1,4 @@
-package Repositorios;
+package Repositorios.RepositorioDeUsuarios;
 
 import Organizacion.IngresoFallidoException;
 import Organizacion.UsuarioYaExisteException;
@@ -15,11 +15,10 @@ public class RepositorioDeUsuarios {
     }
 
     public void agregarUsuario(String username, String password){
-    
 		this.validarNoRepetido(username);
-    	
         usuarios.add(new Usuario(username, password));
     }
+    
     public void autenticarUsuario(String username, String password){
         if(usuarios.stream().noneMatch(usuario -> usuario.autentica(username, password))){
             throw new IngresoFallidoException();

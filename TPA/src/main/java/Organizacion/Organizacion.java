@@ -11,21 +11,23 @@ import Entidad.Entidad;
 import Entidad.EntidadJuridica;
 import Etiqueta.*;
 import Proveedor.Proveedor;
-import Repositorios.RepositorioDeCategorias;
+import Repositorios.RepositorioDeCategorias.RepositorioDeCategorias;
+import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
 import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
-import Repositorios.RepositorioDeUsuarios;
+import Repositorios.RepositorioDeUsuarios.RepositorioDeUsuarios;
 import Usuario.Usuario;
 
 public class Organizacion {
     private RepositorioDeCategorias repositorioDeCategorias;
     private RepositorioDeUsuarios repositorioDeUsuarios;
     private RepositorioEtiquetas repositorioDeEtiquetas;
-    private List<Entidad> entidades = new ArrayList<>();
+    private RepositorioDeEntidades repositorioDeEntidades;
 
-    public Organizacion(RepositorioDeUsuarios repoDeUsuarios, RepositorioDeCategorias repoDeCategorias, RepositorioEtiquetas repoDeEtiquetas) {
+    public Organizacion(RepositorioDeUsuarios repoDeUsuarios, RepositorioDeCategorias repoDeCategorias, RepositorioEtiquetas repoDeEtiquetas, RepositorioDeEntidades repoDeEntidades) {
         this.repositorioDeUsuarios = repoDeUsuarios;
         this.repositorioDeCategorias = repoDeCategorias;
         this.repositorioDeEtiquetas = repoDeEtiquetas;
+        this.repositorioDeEntidades = repoDeEntidades;
     }
 
     public List<Usuario> getUsuarios() {
@@ -33,11 +35,11 @@ public class Organizacion {
     }
 
     public List<Entidad> getEntidades() {
-        return entidades;
+        return repositorioDeEntidades.getEntidades();
     }
 
     public void agregarEntidad(EntidadJuridica entidad) {
-        entidades.add(entidad);
+        repositorioDeEntidades.nuevaEntidad(entidad);
     }
 
     public void crearUsuario(String username, String password) {
@@ -49,7 +51,7 @@ public class Organizacion {
     }
 
     public List<Compra> getCompras() {
-        return entidades.stream().map(entidad -> entidad.getCompras()).flatMap(List::stream).collect(Collectors.toList());
+        return this.getEntidades().stream().map(entidad -> entidad.getCompras()).flatMap(List::stream).collect(Collectors.toList());
     }
 
     public BigDecimal getValorTodasLasCompras() {
@@ -60,13 +62,13 @@ public class Organizacion {
         this.comprasPendientesDeValidacion().forEach(unaCompra -> unaCompra.validar());
     }
 
-    private Stream<Compra> comprasPendientesDeValidacion() {
-        return getCompras().stream().filter(unaCompra -> unaCompra.pendienteDeAprobacion());
+    public List<Compra> comprasPendientesDeValidacion() {
+        return this.getEntidades().stream().map(entidad -> entidad.getComprasPendientesDeValidacion()).flatMap(List::stream).collect(Collectors.toList());
     }
 
     public List<Compra> comprasQuePuedeValidar(Usuario miUsuario) {
-        Stream<Compra> comprasPorValidar = this.comprasPendientesDeValidacion();
-        return comprasPorValidar.filter(unaCompra -> unaCompra.puedeSerValidadaPor(miUsuario)).collect(Collectors.toList());
+        List<Compra> comprasPorValidar = this.comprasPendientesDeValidacion();
+        return comprasPorValidar.stream().filter(unaCompra -> unaCompra.puedeSerValidadaPor(miUsuario)).collect(Collectors.toList());
     }
 
     public void crearEtiquetaProveedor(int identificador, Proveedor proveedor) {

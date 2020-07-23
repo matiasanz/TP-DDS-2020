@@ -1,3 +1,5 @@
+package Fabrica;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +8,9 @@ import Compra.Compra;
 import Compra.Estado;
 import Entidad.Clasificacion;
 import Entidad.Empresa;
+import Entidad.Entidad;
 import Entidad.EntidadJuridica;
+import Entidad.OrganizacionSectorSocial;
 import MedioDePago.DineroEnCuenta;
 import Moneda.CodigoMoneda;
 import Organizacion.Organizacion;
@@ -14,9 +18,10 @@ import Presupuesto.Presupuesto;
 import Direccion.Direccion;
 import Direccion.Pais;
 import Proveedor.Proveedor;
-import Repositorios.RepositorioDeCategorias;
+import Repositorios.RepositorioDeCategorias.RepositorioDeCategorias;
+import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
 import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
-import Repositorios.RepositorioDeUsuarios;
+import Repositorios.RepositorioDeUsuarios.RepositorioDeUsuarios;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import Usuario.Usuario;
@@ -25,11 +30,16 @@ public class Fabrica {
     public static Usuario usuarioStub() {
         return new Usuario("usuario", "Tp2020Dds");
     }
-
+    
+    public static EntidadJuridica entidadStub() {
+    	return new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", Fabrica.direccionStub(), 845, new ArrayList<>());
+    }
+    
     public static Organizacion organizacionStub() {
-        Organizacion unaOrganizacion = new Organizacion(new RepositorioDeUsuarios(), new RepositorioDeCategorias(), new RepositorioDeEtiquetas());
+        Organizacion unaOrganizacion = new Organizacion(new RepositorioDeUsuarios(), new RepositorioDeCategorias(), new RepositorioDeEtiquetas(), new RepositorioDeEntidades());
         Usuario unUsuario = Fabrica.usuarioStub();
         unaOrganizacion.crearUsuario(unUsuario.getUsername(), unUsuario.getContrasenia());
+        unaOrganizacion.agregarEntidad(Fabrica.entidadStub());
         return unaOrganizacion;
     }
 
@@ -58,7 +68,6 @@ public class Fabrica {
                 new DineroEnCuenta(),
                 CodigoMoneda.ARS,
                 cantidadMinimaDePresupuestos, usuarios);
-        unaCompra.setIndicadorDeAprobacion(Estado.PENDIENTEDEAPROBACION);
         unaCompra.agregarItem(FabricaDeItems.bebida(4, 120));
 
         return unaCompra;
@@ -75,4 +84,3 @@ public class Fabrica {
     }
 
 }
-

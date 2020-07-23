@@ -45,11 +45,4 @@ public class Usuario {
         return this.username.equals(username) && this.contrasenia.equals(password);
     }
 
-    public boolean esValidadorDeAlgunaCompra(){
-    	RepositorioDeCompras compras = new RepositorioDeCompras();
-    	
-    	return compras.getComprasConPresupuestoElegido().stream().anyMatch(unaCompra -> unaCompra.puedeSerValidadaPor(this));
-    }
-    
-    // FALTAN MÉTODOS DE ACCESO A LA BANDEJA DE MENSAJES
 }

@@ -8,7 +8,7 @@ import Moneda.CodigoMoneda;
 import Moneda.Moneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
-import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
+import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 import Usuario.Usuario;
 
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Compra {
-    private RepositorioEtiquetas repositorioDeEtiquetas;
+    private RepositorioDeEtiquetas repositorioDeEtiquetas;
     private Entidad entidadRelacionada;
     //	private Documento documentoComercial;
     private final LocalDate fechaOperacion;
@@ -34,7 +34,7 @@ public class Compra {
     private Etiqueta etiqueta;
 
     public Compra(RepositorioDeMonedas repositorioDeMonedas,
-                  RepositorioEtiquetas repositorioDeEtiquetas,
+                  RepositorioDeEtiquetas repositorioDeEtiquetas,
                   EntidadJuridica entidad,
                   Proveedor proveedor,
                   LocalDate fecha,
@@ -50,7 +50,7 @@ public class Compra {
         this.medioDePago = medioDePago;
         this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
         this.moneda = repositorioDeMonedas.getMoneda(codigoMoneda);
-        this.indicadorDeAprobacion = Estado.NUEVA;
+        this.indicadorDeAprobacion = Estado.PENDIENTEDEAPROBACION;
         this.items = new ArrayList<>();
         this.presupuestosAsociados = new ArrayList<>();
         this.usuariosValidadores = usuariosValidadores;
@@ -168,5 +168,9 @@ public class Compra {
     public boolean compraDelMes(LocalDate unaFecha){
         return this.getFechaOperacion().getMonth().getValue() == unaFecha.getMonth().getValue()
                 && getFechaOperacion().getYear() == unaFecha.getYear();
+    }
+    
+    public List<Usuario> getUsuariosValidadores() {
+    	return this.usuariosValidadores;
     }
 }

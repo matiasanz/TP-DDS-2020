@@ -8,9 +8,7 @@ import Moneda.CodigoMoneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
-import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
-import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 
 import java.math.BigDecimal;
@@ -20,7 +18,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RepositorioDeCompras {
-
+	
+	private final List<Compra> compras = new ArrayList<Compra>();
     private final Item item50 = new Item("Item 1", 1, BigDecimal.valueOf(50.0));
     private final Item item40Con50 = new Item("Item 1", 1, BigDecimal.valueOf(40.5));
     private final Item item9Con50 = new Item("Item 1", 1, BigDecimal.valueOf(9.5));
@@ -97,10 +96,12 @@ public class RepositorioDeCompras {
 
         return compra12Julio2020SinEtiqueta;
     }
-
+    
+    public List<Compra> getCompras() {
+    	return compras;
+    }
+    
     public List<Compra> getComprasConPresupuestoElegido() {
-
-        List<Compra> compras = new ArrayList<Compra>();
 
         compras.add(this.getCompraMarzo2018Amoblamiento());
         compras.add(this.getCompraFebrero2017SinEtiqueta());
@@ -111,11 +112,15 @@ public class RepositorioDeCompras {
 
         return compras;
     }
-
+    
     public List<Compra> getComprasPendientesDeAprobacion() {
         return this.getComprasConPresupuestoElegido()
                 .stream()
                 .filter(compra -> compra.pendienteDeAprobacion())
                 .collect(Collectors.toList());
+    }
+    
+    public void nuevaCompra(Compra compra) {
+    	compras.add(compra);
     }
 }

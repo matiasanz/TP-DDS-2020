@@ -1,21 +1,26 @@
 package Repositorios.RepositorioDeEntidades;
-import Direccion.Direccion;
-import Direccion.Pais;
 import Entidad.*;
 import Repositorios.RepositorioDeCompras.RepositorioDeCompras;
-import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
+import Fabrica.Fabrica;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RepositorioDeEntidades {
-
-    private final Direccion direccion = new Direccion(new RepositorioDeLocacionesMeli(), "Cervantes", 607, 5, "1407", Pais.AR);
-    private final RepositorioDeCompras repoCompras = new RepositorioDeCompras();
-
+	private List<Entidad> entidades = new ArrayList<>();
+    
+    public List<Entidad> getEntidades() {
+    	return entidades;
+    }
+    
+    public void nuevaEntidad(Entidad entidad) {
+    	entidades.add(entidad);
+    }
+    
     public Entidad getEntidadConCompras() {
-
-        Entidad entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", direccion, 845, new ArrayList<>());
-
+        Entidad entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", Fabrica.direccionStub(), 845, new ArrayList<>());
+        RepositorioDeCompras repoCompras = new RepositorioDeCompras();
+        
         repoCompras.getComprasConPresupuestoElegido().forEach(compra -> entidad.agregarCompra(compra));
         return entidad;
     }

@@ -1,4 +1,4 @@
-package Repositorios;
+package Repositorios.RepositorioDeCategorias;
 
 import Categoria.Categoria;
 
