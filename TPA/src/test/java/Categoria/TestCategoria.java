@@ -18,11 +18,13 @@ import Proveedor.Proveedor;
 import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocaciones;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
+import Usuario.Usuario;
 import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
 import org.junit.Before;
 import org.junit.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 

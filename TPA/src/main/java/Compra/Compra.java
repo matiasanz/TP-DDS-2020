@@ -9,6 +9,7 @@ import Moneda.Moneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeEtiquetas.RepositorioDeEtiquetas;
+import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 import Usuario.Usuario;
 
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Compra {
-    private RepositorioDeEtiquetas repositorioDeEtiquetas;
+    private RepositorioEtiquetas repositorioDeEtiquetas;
     private Entidad entidadRelacionada;
     //	private Documento documentoComercial;
     private final LocalDate fechaOperacion;
@@ -34,7 +35,7 @@ public class Compra {
     private Etiqueta etiqueta;
 
     public Compra(RepositorioDeMonedas repositorioDeMonedas,
-                  RepositorioDeEtiquetas repositorioDeEtiquetas,
+                  RepositorioEtiquetas repositorioDeEtiquetas,
                   EntidadJuridica entidad,
                   Proveedor proveedor,
                   LocalDate fecha,
