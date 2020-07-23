@@ -13,6 +13,8 @@ import org.junit.Test;
 import Entidad.EntidadBase;
 import Entidad.EntidadJuridica;
 import Entidad.OrganizacionSectorSocial;
+import Etiqueta.Etiqueta;
+import Etiqueta.EtiquetaPersonalizable;
 import MedioDePago.PagoEnEfectivo;
 
 import static org.junit.Assert.assertEquals;
@@ -96,5 +98,12 @@ public class TestCompra {
     	//Hago la validacion
     	compra.validar();
         assertEquals(compra.getIndicadorDeAprobacion(), Estado.RECHAZADA);
+    }
+    
+    @Test
+    public void agregarUnaEtiquetaAunaCompraExistente() {
+    	Etiqueta etiqueta1 = new EtiquetaPersonalizable("inmobilaria");
+    	compra.setEtiqueta(etiqueta1);
+        assertEquals(etiqueta1,compra.getEtiqueta());
     }
 }
