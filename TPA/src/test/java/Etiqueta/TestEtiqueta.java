@@ -4,21 +4,16 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import Compra.Estado;
 import Direccion.Direccion;
-import Direccion.Pais;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
-import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
 
-
-public class Etiquetas {
+public class TestEtiqueta {
 	private Direccion direccion;
 	private Proveedor proveedor1;
 	private Proveedor proveedor2;	
 	private RepositorioEtiquetas repositorioDeEtiquetas;
-	
+
 	@Before
     public void init() {
 		

@@ -1,5 +1,4 @@
 package Entidad;
-import Etiqueta.Etiqueta;
 import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
 import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import org.junit.Assert;

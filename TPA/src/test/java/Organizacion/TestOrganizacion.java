@@ -24,7 +24,7 @@ import java.time.LocalDate;
 
 import Mocks.RepositorioDeMonedasMock;
 
-public class testOrganizacion {
+public class TestOrganizacion {
     Direccion direccion = new Direccion(new RepositorioDeLocacionesMock(), "Mendoza", 54, 0, "1212", Pais.AR);
 	Organizacion organizacion = new Organizacion(new RepositorioDeUsuarios()
 											   , new RepositorioDeCategorias()
