@@ -12,9 +12,9 @@ public class ValidacionDeEgresosEjecutable {
         JobDetail job = JobBuilder.newJob(ValidacionDeEgresos.class).withIdentity("validacionDeEgresos", "grupo1").build();
 
         Trigger triggerValidacionDeEgresos = TriggerBuilder.newTrigger()
-                .withIdentity("reporteDeGastos", "grupo1")
-                // Ultimo día del mes a las 23:59 PM
-                //.withSchedule(cronSchedule("0 59 23 L * ?"))
+                .withIdentity("validacionDeEgresos", "grupo1")
+                // Todos los días a las 23:59 PM
+                //.withSchedule(cronSchedule("0 59 23 1/1 * ? *"))
                 // Cada 30 segundos
                 .withSchedule(cronSchedule("0/30 * * * * ?"))
                 .build();
