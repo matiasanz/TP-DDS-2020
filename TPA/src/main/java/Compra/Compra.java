@@ -174,6 +174,10 @@ public class Compra {
     	return this.usuariosValidadores;
     }
     
+    public void notificarUsuarios(String mensaje){
+    	usuariosValidadores.stream().forEach(unUsuario->unUsuario.notificarEvento(mensaje));
+    }
+    
     public void agregarUsuarioValidador(Usuario usuario) {
     	usuariosValidadores.add(usuario);
     }

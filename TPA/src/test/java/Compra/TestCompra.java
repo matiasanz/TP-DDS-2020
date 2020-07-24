@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class TestCompra {
@@ -45,7 +46,7 @@ public class TestCompra {
         item2 = new Item("Item 1", 1, BigDecimal.valueOf(40.5));
         item3 = new Item("Item 1", 1, BigDecimal.valueOf(9.5));
 
-        compra = new Compra(new RepositorioDeMonedasMock(), new RepositorioEtiquetas(), entidad, proveedor,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, null);
+        compra = new Compra(new RepositorioDeMonedasMock(), new RepositorioEtiquetas(), entidad, proveedor,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, new LinkedList());
         compra.agregarItem(item1);
         compra.agregarItem(item2);
         compra.agregarItem(item3);

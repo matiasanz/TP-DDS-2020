@@ -1,14 +1,10 @@
 package TareasProgramadas.ValidacionEgresosAutomatica;
-
-import BandejaDeMensajes.BandejaDeMensajes;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import Fabrica.Fabrica;
 import Organizacion.Organizacion;
-
-import java.io.IOException;
+import Organizacion.OrganizacionMock;
 
 public class ValidacionDeEgresos implements Job {
 
@@ -16,15 +12,9 @@ public class ValidacionDeEgresos implements Job {
     	System.out.println("\n***************************** VALIDADOR DE COMPRAS DIARIO *****************************\n");
     	
     	//Obtengo una organización de prueba
-    	Organizacion unaOrganizacion = Fabrica.organizacionStub();
-    	
-    	// Genero la aplicación
-    	BandejaDeMensajes bandejaDeMensajes = new BandejaDeMensajes(unaOrganizacion);
-        	bandejaDeMensajes.ejecutar();
-		
+    	Organizacion unaOrganizacion = OrganizacionMock.getInstance();    	
+    	unaOrganizacion.validarCompras();
     	
         System.out.println("\n***************************** VALIDADOR DE COMPRAS DIARIO *****************************\n");
-
-        
-    }
+    }    
 }

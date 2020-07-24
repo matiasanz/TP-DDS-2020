@@ -84,4 +84,17 @@ public class Fabrica {
         return unaCompra;
     }
 
+    public static Compra compraParaUsuario(Usuario usuario){
+    	Compra compra = compraEnEstado(Estado.PENDIENTEDEAPROBACION);
+    	compra.agregarUsuarioValidador(usuario);
+    	return compra;
+    }
+    
+	public static EntidadJuridica entidadConComprasParaUsuario(Usuario usuario){
+		EntidadJuridica entidad = entidadStub();
+		entidad.agregarCompra(compraParaUsuario(usuario));
+		
+		return entidad;
+	}
+
 }

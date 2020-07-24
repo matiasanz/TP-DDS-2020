@@ -8,12 +8,18 @@ public class ValidadorDeCompra {
 
     public void validarCompra(Compra unaCompra){
 
+    	String mensaje;
         try{
             validar(unaCompra);
             unaCompra.aprobar();
+            mensaje = "-----------<Una Compra ha sido aprobada>----------\n";
         } catch(RuntimeException unaExcepcion){
             unaCompra.rechazar();
+            mensaje = "-----------<Una Compra ha sido rechazada>----------\n"
+            		+ "[Motivo: "+unaExcepcion.getMessage() + "]";
         }
+        
+        unaCompra.notificarUsuarios(mensaje);
     }
 
     private void validar(Compra unaCompra){

@@ -54,22 +54,25 @@ public class BandejaDeMensajes {
 	}
 	
 	private void testearConUsuarioPredeterminado() {
+		
+		//TODO
 		organizacion.getCompras().forEach(compra -> compra.agregarUsuarioValidador(usuario));
 	}
 	
 	private void validarComprasPendientes() {
-		List<Compra> comprasPendientesDeValidacion = organizacion.comprasQuePuedeValidar(usuario);
-
-		if(comprasPendientesDeValidacion.isEmpty()){
-			System.out.println("\n***** NO SE HAN ENCONTRADO COMPRAS POR VALIDAR\n");			
+		List<String>mensajes = usuario.getMensajes();
+		
+		if(mensajes.isEmpty()){
+			System.out.println("\n***** LA BANDEJA DE MENSAJES SE ENCUENTRA VACIA\n");			
 			return;
 		}
 		
 		System.out.println("\n***** SE HAN ENCONTRADO COMPRAS POR VALIDAR\n");
-           
-        for(Compra compraSinValidar : comprasPendientesDeValidacion){
-        	compraSinValidar.validar();
-            System.out.println("Se ha validado una compra y se ha obtenido el siguiente estado: " + compraSinValidar.getIndicadorDeAprobacion());
-        }
+		mensajes.stream().forEach(mensaje->imprimirPorPantalla(mensaje));
+		
+	}
+	
+	private void imprimirPorPantalla(String cadena){
+		System.out.println(cadena);
 	}
 }

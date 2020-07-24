@@ -10,15 +10,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class RepositorioDeUsuarios {
-    List<Usuario> usuarios = new ArrayList();
+    List<Usuario> usuarios = new ArrayList<Usuario>();
 
     public boolean checkSiExiste(String username){
         return usuarios.stream().anyMatch(u -> username.equals(u.getUsername()));
     }
 
-    public void agregarUsuario(String username, String password){
-		this.validarNoRepetido(username);
-        usuarios.add(new Usuario(username, password));
+    public void agregarUsuario(Usuario usuario){
+		this.validarNoRepetido(usuario.getUsername());
+        usuarios.add(usuario);
     }
     
     public void autenticarUsuario(String username, String password){

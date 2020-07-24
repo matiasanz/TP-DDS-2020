@@ -1,9 +1,13 @@
 package Usuario;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Usuario {
     private Tipo tipo;
     private String username;
     private String contrasenia;
+    private List<String> mensajes = new LinkedList<String>();
 
     public String getContrasenia() {
         return contrasenia;
@@ -31,6 +35,14 @@ public class Usuario {
         validacion.validarContrasenia(contrasenia, username);
         this.contrasenia = contrasenia;
 
+    }
+    
+    public void notificarEvento(String mensaje){
+    	mensajes.add(mensaje);
+    }
+    
+    public List<String> getMensajes(){
+    	return mensajes;
     }
 
     public boolean equals(Usuario otroUsuario){
