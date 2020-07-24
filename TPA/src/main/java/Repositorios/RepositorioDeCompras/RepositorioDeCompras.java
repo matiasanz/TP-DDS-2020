@@ -53,7 +53,6 @@ public class RepositorioDeCompras {
         compraFebrero2017SinEtiqueta.agregarItem(item50);
         compraFebrero2017SinEtiqueta.generarPresupuesto(presupuesto);
         compraFebrero2017SinEtiqueta.setPresupuestoElegido(presupuesto);
-        compraFebrero2017SinEtiqueta.setPresupuestoElegido(presupuesto);
 
         return compraFebrero2017SinEtiqueta;
     }
