@@ -117,8 +117,11 @@ public class Compra {
         return usuariosValidadores.contains(miUsuario);
     }
 
-    public void numerarItems() {
-        items.forEach(unItem -> System.out.println(" >> " + unItem.toString()));
+    public String numerarItems() {
+    	String listaItems = "";
+        items.forEach(unItem -> listaItems.concat(" >> " + unItem.toString() + "\n"));
+        
+        return listaItems;
     }
 
     public BigDecimal getImporte() {
