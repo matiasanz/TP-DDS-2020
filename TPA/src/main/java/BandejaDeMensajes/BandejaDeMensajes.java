@@ -18,7 +18,7 @@ public class BandejaDeMensajes {
 	
 	public void ejecutar(){
         autenticarUsuario();
-		testearConUsuarioPredeterminado();
+//		testearConUsuarioPredeterminado();
         validarComprasPendientes();
 	}
 	
