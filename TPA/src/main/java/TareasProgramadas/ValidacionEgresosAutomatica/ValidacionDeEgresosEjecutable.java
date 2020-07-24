@@ -15,8 +15,8 @@ public class ValidacionDeEgresosEjecutable {
                 .withIdentity("reporteDeGastos", "grupo1")
                 // Ultimo día del mes a las 23:59 PM
                 //.withSchedule(cronSchedule("0 59 23 L * ?"))
-                // Cada 5 segundos
-                .withSchedule(cronSchedule("0/5 * * * * ?"))
+                // Cada 30 segundos
+                .withSchedule(cronSchedule("0/30 * * * * ?"))
                 .build();
 
         Scheduler scheduler = new StdSchedulerFactory().getScheduler();

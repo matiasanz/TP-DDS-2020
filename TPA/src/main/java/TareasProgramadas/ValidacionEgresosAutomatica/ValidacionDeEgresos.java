@@ -1,35 +1,33 @@
 package TareasProgramadas.ValidacionEgresosAutomatica;
 
-import Repositorios.RepositorioDeCompras.RepositorioDeCompras;
-
-import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
+import BandejaDeMensajes.BandejaDeMensajes;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import Compra.Compra;
-import Compra.Estado;
+import Fabrica.Fabrica;
+import Organizacion.Organizacion;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.io.IOException;
 
 public class ValidacionDeEgresos implements Job {
 
-    private RepositorioDeCompras repositorioCompras = new RepositorioDeCompras(new RepositorioDeMonedasMeli());
-
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        List<Compra> comprasPendientesDeValidacion = repositorioCompras.getComprasPendientesDeAprobacion();
-        LocalDate fechaActual = LocalDate.now();
-        //Revisar esta línea
-        List<Estado> resultadoReporte = comprasPendientesDeValidacion.stream().map(unaCompra -> unaCompra.getIndicadorDeAprobacion()).collect(Collectors.toList());
+    	System.out.println("\n***************************** VALIDADOR DE COMPRAS DIARIO *****************************\n");
+    	
+    	//Obtengo una organización de prueba
+    	Organizacion unaOrganizacion = Fabrica.organizacionStub();
+    	
+    	// Genero la aplicación
+    	BandejaDeMensajes bandejaDeMensajes = new BandejaDeMensajes(unaOrganizacion);
+        try {
+			bandejaDeMensajes.ejecutar();
+		} catch (IOException e) {
+			System.out.println("\nHa ocurrido un error con el usuario insertado\n");
+		}
+    	
+        System.out.println("\n***************************** VALIDADOR DE COMPRAS DIARIO *****************************\n");
 
-        System.out.println("INICIO EJECUCION VALIDADOR MENSUAL DE LOS ESTADOS DE COMPRAS");
-        /*
-        for (List<Estado> item : resultadoReporte.entrySet()) {
-            //Seteo el estado de las compras
-        }
-        */
+        
     }
 }

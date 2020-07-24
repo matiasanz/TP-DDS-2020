@@ -114,7 +114,7 @@ public class Compra {
     }
 
     public boolean puedeSerValidadaPor(Usuario miUsuario) {
-        return usuariosValidadores.stream().anyMatch(unUsuario -> unUsuario.equals(miUsuario));
+        return usuariosValidadores.contains(miUsuario);
     }
 
     public void numerarItems() {
@@ -172,5 +172,9 @@ public class Compra {
     
     public List<Usuario> getUsuariosValidadores() {
     	return this.usuariosValidadores;
+    }
+    
+    public void agregarUsuarioValidador(Usuario usuario) {
+    	usuariosValidadores.add(usuario);
     }
 }

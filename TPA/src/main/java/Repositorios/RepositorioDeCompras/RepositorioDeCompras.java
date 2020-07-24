@@ -10,6 +10,7 @@ import Proveedor.Proveedor;
 import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
+import Fabrica.Fabrica;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class RepositorioDeCompras {
     public RepositorioDeCompras(RepositorioDeMonedas repositorioDeMonedas) {
         this.repositorioDeMonedas = repositorioDeMonedas;
     }
+    
     public Compra getCompraMarzo2018Amoblamiento() {
 
         Compra compraMarzo2018Amoblamiento = new Compra(repositorioDeMonedas, new RepositorioEtiquetas(), null, proveedor, LocalDate.of(2018, 3, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, null);

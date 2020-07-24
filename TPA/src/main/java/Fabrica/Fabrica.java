@@ -26,6 +26,7 @@ import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import Usuario.Usuario;
 
 public class Fabrica {
+	
     public static Usuario usuarioStub() {
         return new Usuario("usuario", "Tp2020Dds");
     }
@@ -48,7 +49,8 @@ public class Fabrica {
     }
     
     public static Proveedor proveedorStub() {
-        Direccion unaDireccion = Fabrica.direccionStub();
+        Direccion unaDireccion = new Direccion(new RepositorioDeLocacionesMeli(), "Jose Hernandez",
+                2600, 7, "1415", Pais.AR);
         return Proveedor.PersonaFisica(1, 1, "Juan", "Salvo", unaDireccion);
     }
 

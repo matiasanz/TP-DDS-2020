@@ -30,6 +30,10 @@ public class Organizacion {
         return repositorioDeUsuarios.getUsuarios();
     }
 
+    public Usuario getUsuarioEspecifico(String nombreDeUsuario) {
+    	return repositorioDeUsuarios.getUsuarios().stream().filter(usuario -> usuario.getUsername().equalsIgnoreCase(nombreDeUsuario)).collect(Collectors.toList()).get(0);
+    }
+    
     public List<Entidad> getEntidades() {
         return repositorioDeEntidades.getEntidades();
     }
