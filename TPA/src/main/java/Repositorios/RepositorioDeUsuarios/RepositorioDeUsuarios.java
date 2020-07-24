@@ -6,6 +6,8 @@ import Usuario.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class RepositorioDeUsuarios {
     List<Usuario> usuarios = new ArrayList();
@@ -29,9 +31,24 @@ public class RepositorioDeUsuarios {
         return usuarios;
     }
     
+    public Usuario getUsuario(String nombre, String password){
+    	this.autenticarUsuario(nombre,password);
+    	return this.usuarios
+    			   .stream()
+    			   .filter(usuario -> usuario.autentica(nombre,password))
+    			   .findAny()
+    			   .orElse(null);
+    }
+    
     public void validarNoRepetido(String username){
     	if (this.checkSiExiste(username)) {
 			throw new UsuarioYaExisteException();
 		}
+    }
+    
+    public void validarExistencia(String username){
+    	if(!this.checkSiExiste(username)){
+    		throw new UsuarioDesconocidoException(username);
+    	}
     }
 }

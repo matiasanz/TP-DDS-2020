@@ -1,7 +1,6 @@
 package BandejaDeMensajes;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
@@ -17,31 +16,41 @@ public class BandejaDeMensajes {
 		this.organizacion = organizacion;
 	}
 	
-	public void ejecutar() throws IOException {
+	public void ejecutar(){
         autenticarUsuario();
+		testearConUsuarioPredeterminado();
         validarComprasPendientes();
 	}
 	
-	private void autenticarUsuario() throws IOException {
-		System.out.println("Ingrese el nombre de usuario: ");
-        BufferedReader userReader = new BufferedReader(new InputStreamReader(System.in)); 
-		String usuarioIngresado = userReader.readLine();
-		
-		System.out.println("Ingrese la contraseÃ±a: ");
-		BufferedReader passReader = new BufferedReader(new InputStreamReader(System.in)); 
-        String passwordIngresada = passReader.readLine();
+	private void autenticarUsuario(){
+		System.out.println("Ingrese usuario");
+		String usuarioIngresado = this.leerConsola();		
+		System.out.println("Ingrese contraseña");
+        String passwordIngresada = this.leerConsola();
         
-        this.validarUsuario(usuarioIngresado, passwordIngresada);
+        try{
+        	usuario = organizacion.getUsuarioEspecifico(usuarioIngresado, passwordIngresada);
+        }
+        
+        catch(RuntimeException unaExcepcion) {
+        	System.out.println("ERROR: El usuario y/o la contraseña son incorrectos. Por favor vuelva a intentarlo. \n\n");
+        	this.autenticarUsuario();
+        }
 	}
 	
-	private void validarUsuario(String nombreUsuario, String password) throws IOException {
-		try {
-			organizacion.autenticarUsuario(nombreUsuario, password);
-			usuario = organizacion.getUsuarioEspecifico(nombreUsuario);
-		} catch(RuntimeException unaExcepcion) {
-			System.out.println("ERROR: El usuario especificado no pertenece a la organizaciÃ³n establecida. Por favor vuelva a intentarlo. \n\n");
-			this.autenticarUsuario();
-		}
+	
+	private String leerConsola(){
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        
+        String lectura;
+        
+        try{
+        	lectura = reader.readLine();
+        } catch(Exception e){
+        	throw new RuntimeException(e.getCause());
+        }
+        
+		return lectura;  
 	}
 	
 	private void testearConUsuarioPredeterminado() {
@@ -49,17 +58,18 @@ public class BandejaDeMensajes {
 	}
 	
 	private void validarComprasPendientes() {
-		try {
-			testearConUsuarioPredeterminado();
-			List<Compra> comprasPendientesDeValidacion = organizacion.comprasQuePuedeValidar(usuario);
-			System.out.println("\n***** SE HAN ENCONTRADO COMPRAS POR VALIDAR\n");
-	           
-	        for(Compra compraSinValidar : comprasPendientesDeValidacion){
-	        	compraSinValidar.validar();
-	            System.out.println("Se ha validado una compra y se ha obtenido el siguiente estado: " + compraSinValidar.getIndicadorDeAprobacion());
-	        }
-		} catch(RuntimeException unaExcepcion) {
-	    	System.out.println("\n***** NO SE HAN ENCONTRADO COMPRAS PENDIENTES DE VALIDACIÃ“N\n");
-	    }
+		List<Compra> comprasPendientesDeValidacion = organizacion.comprasQuePuedeValidar(usuario);
+
+		if(comprasPendientesDeValidacion.isEmpty()){
+			System.out.println("\n***** NO SE HAN ENCONTRADO COMPRAS POR VALIDAR\n");			
+			return;
+		}
+		
+		System.out.println("\n***** SE HAN ENCONTRADO COMPRAS POR VALIDAR\n");
+           
+        for(Compra compraSinValidar : comprasPendientesDeValidacion){
+        	compraSinValidar.validar();
+            System.out.println("Se ha validado una compra y se ha obtenido el siguiente estado: " + compraSinValidar.getIndicadorDeAprobacion());
+        }
 	}
 }

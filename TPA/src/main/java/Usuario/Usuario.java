@@ -1,7 +1,5 @@
 package Usuario;
 
-import Repositorios.RepositorioDeCompras.RepositorioDeCompras;
-
 public class Usuario {
     private Tipo tipo;
     private String username;

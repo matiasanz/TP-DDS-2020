@@ -20,11 +20,8 @@ public class ValidacionDeEgresos implements Job {
     	
     	// Genero la aplicación
     	BandejaDeMensajes bandejaDeMensajes = new BandejaDeMensajes(unaOrganizacion);
-        try {
-			bandejaDeMensajes.ejecutar();
-		} catch (IOException e) {
-			System.out.println("\nHa ocurrido un error con el usuario insertado\n");
-		}
+        	bandejaDeMensajes.ejecutar();
+		
     	
         System.out.println("\n***************************** VALIDADOR DE COMPRAS DIARIO *****************************\n");
 

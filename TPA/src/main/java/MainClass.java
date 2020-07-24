@@ -1,24 +1,19 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
-
 import BandejaDeMensajes.BandejaDeMensajes;
 import Compra.Compra;
 import Compra.Estado;
 import Organizacion.Organizacion;
-import Presupuesto.Presupuesto;
-import Repositorios.RepositorioDeMensajes.RepositorioDeMensajes;
-import Usuario.Usuario;
+
 import Fabrica.Fabrica;
 
 public class MainClass {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
     	System.out.println("\n***************************** VALIDADOR DE COMPRAS *****************************\n");
     	
     	//Obtengo una organización de prueba
     	Organizacion unaOrganizacion = Fabrica.organizacionStub();
+    	Compra compraPorValidar = Fabrica.compraEnEstado(Estado.PENDIENTEDEAPROBACION);
+    	unaOrganizacion.getEntidades().forEach(entidad->entidad.agregarCompra(compraPorValidar));
     	
     	// Genero la aplicación
     	BandejaDeMensajes bandejaDeMensajes = new BandejaDeMensajes(unaOrganizacion);
