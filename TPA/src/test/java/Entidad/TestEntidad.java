@@ -5,6 +5,9 @@ import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import Factory.EntidadesFactory;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Map;
@@ -17,7 +20,7 @@ public class TestEntidad {
     @Before
     public void init() {
         repositorioEtiquetas = new RepositorioEtiquetas();
-        entidad = new RepositorioDeEntidades(new RepositorioDeMonedasMock()).getEntidadConCompras();
+        entidad = EntidadesFactory.getEntidadConCompras();
     }
 
     @Test()

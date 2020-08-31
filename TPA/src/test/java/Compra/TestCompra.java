@@ -15,6 +15,8 @@ import Entidad.EntidadJuridica;
 import Entidad.OrganizacionSectorSocial;
 import Etiqueta.Etiqueta;
 import Etiqueta.EtiquetaPersonalizable;
+import Factory.ComprasFactory;
+import Factory.VariosFactory;
 import MedioDePago.PagoEnEfectivo;
 
 import static org.junit.Assert.assertEquals;
@@ -39,14 +41,13 @@ public class TestCompra {
     public void init() {
         entidadesBase = new ArrayList<>();
         entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", direccion, 845, entidadesBase);
-        direccion = new Direccion(new RepositorioDeLocacionesMock(), "Cervantes", 607, 5, "1407", Pais.AR);
-        proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", direccion);
+        proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", VariosFactory.direccionStub());
         medioDePago = new PagoEnEfectivo();
-        item1 = new Item("Item 1", 1, BigDecimal.valueOf(50.0));
-        item2 = new Item("Item 1", 1, BigDecimal.valueOf(40.5));
-        item3 = new Item("Item 1", 1, BigDecimal.valueOf(9.5));
+        item1 = ComprasFactory.itemValuadoEn(50.0);
+        item2 = ComprasFactory.itemValuadoEn(40.5);
+        item3 = ComprasFactory.itemValuadoEn(9.5);
 
-        compra = new Compra(new RepositorioDeMonedasMock(), new RepositorioEtiquetas(), entidad, proveedor,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, new LinkedList());
+        compra = ComprasFactory.compraSinEtiquetas(entidad,proveedor,medioDePago);
         compra.agregarItem(item1);
         compra.agregarItem(item2);
         compra.agregarItem(item3);
