@@ -99,27 +99,12 @@ public class Compra {
         return this.moneda;
     }
 
-    public boolean estaAprobada() {
-        return this.indicadorDeAprobacion == Estado.APROBADA;
-    }
-
-    public boolean fueRechazada() {
-        return this.indicadorDeAprobacion == Estado.RECHAZADA;
-    }
-
     public boolean pendienteDeAprobacion() {
         return this.indicadorDeAprobacion == Estado.PENDIENTEDEAPROBACION;
     }
 
     public boolean puedeSerValidadaPor(Usuario miUsuario) {
         return usuariosValidadores.contains(miUsuario);
-    }
-
-    public String numerarItems() {
-    	String listaItems = "";
-        items.forEach(unItem -> listaItems.concat(" >> " + unItem.toString() + "\n"));
-        
-        return listaItems;
     }
 
     public boolean compraDelMes(LocalDate unaFecha){
@@ -134,16 +119,8 @@ public class Compra {
         etiquetas.add(etiqueta);
     }
 
-    public void eliminarEtiqueta (String etiqueta){
-        etiquetas.remove(etiqueta);
-    }
-
     public boolean contieneEtiqueta (String etiqueta){
         return etiquetas.contains(etiqueta);
-    }
-
-    public BigDecimal getImporte() {
-        return getPresupuestoElegido().getValorTotal();
     }
 
     public List<Item> getItems() {
@@ -158,36 +135,16 @@ public class Compra {
         return cantidadMinimaDePresupuestos;
     }
 
-    public void setCantidadMinimaDePresupuestos(int cantidadMinimaDePresupuestos) {
-        this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
-    }
-
     public List<Presupuesto> getPresupuestosAsociados() {
         return presupuestosAsociados;
-    }
-
-    public void setPresupuestosAsociados(List<Presupuesto> presupuestosAsociados) {
-        this.presupuestosAsociados = presupuestosAsociados;
     }
 
     public LocalDate getFechaOperacion() {
         return fechaOperacion;
     }
 
-    public Entidad getEntidadRelacionada() {
-        return entidadRelacionada;
-    }
-
     public List<String> getEtiquetas() {
         return etiquetas;
-    }
-
-    public void setEtiquetas(List<String> etiquetas) {
-        this.etiquetas = etiquetas;
-    }
-
-    public List<Usuario> getUsuariosValidadores() {
-    	return this.usuariosValidadores;
     }
     
     public void notificarUsuarios(String mensaje){
