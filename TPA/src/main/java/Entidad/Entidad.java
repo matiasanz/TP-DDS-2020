@@ -58,7 +58,7 @@ public abstract class Entidad {
 
           return comprasDelMes(fechaInicio)
                   .stream()
-                  .collect(Collectors.groupingBy(compra -> compra.getEtiqueta().getNombre(),
+                  .collect(Collectors.groupingBy(compra -> compra.getEtiqueta(),
                     Collectors.summingDouble(Compra -> Compra.getValorTotal().floatValue())));
     }
 }

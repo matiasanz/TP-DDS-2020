@@ -2,13 +2,11 @@ package Compra;
 
 import Entidad.Entidad;
 import Entidad.EntidadJuridica;
-import Etiqueta.Etiqueta;
 import MedioDePago.MedioDePago;
 import Moneda.CodigoMoneda;
 import Moneda.Moneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
-import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 import Usuario.Usuario;
 
@@ -18,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Compra {
-    private RepositorioEtiquetas repositorioDeEtiquetas;
     private Entidad entidadRelacionada;
     //	private Documento documentoComercial;
     private final LocalDate fechaOperacion;
@@ -31,10 +28,9 @@ public class Compra {
     //private Presupuesto presupuestoElegido;
     private final List<Usuario> usuariosValidadores;
     private final ValidadorDeCompra validadorDeCompra;
-    private Etiqueta etiqueta;
+    private String etiqueta;
 
     public Compra(RepositorioDeMonedas repositorioDeMonedas,
-                  RepositorioEtiquetas repositorioDeEtiquetas,
                   EntidadJuridica entidad,
                   Proveedor proveedor,
                   LocalDate fecha,
@@ -54,7 +50,7 @@ public class Compra {
         this.items = new ArrayList<>();
         this.presupuestosAsociados = new ArrayList<>();
         this.usuariosValidadores = usuariosValidadores;
-        this.etiqueta = repositorioDeEtiquetas.getEtiquetaDefecto();
+        this.etiqueta = "Etiqueta por defecto";
     }
 
     public BigDecimal getValorTotal() {
@@ -124,6 +120,11 @@ public class Compra {
         return listaItems;
     }
 
+    public boolean compraDelMes(LocalDate unaFecha){
+        return this.getFechaOperacion().getMonth().getValue() == unaFecha.getMonth().getValue()
+                && getFechaOperacion().getYear() == unaFecha.getYear();
+    }
+
     public BigDecimal getImporte() {
         return getPresupuestoElegido().getValorTotal();
     }
@@ -160,19 +161,14 @@ public class Compra {
         return entidadRelacionada;
     }
 
-    public Etiqueta getEtiqueta() {
+    public String getEtiqueta() {
         return etiqueta;
     }
 
-    public void setEtiqueta(Etiqueta etiqueta) {
+    public void setEtiqueta(String etiqueta) {
         this.etiqueta = etiqueta;
     }
 
-    public boolean compraDelMes(LocalDate unaFecha){
-        return this.getFechaOperacion().getMonth().getValue() == unaFecha.getMonth().getValue()
-                && getFechaOperacion().getYear() == unaFecha.getYear();
-    }
-    
     public List<Usuario> getUsuariosValidadores() {
     	return this.usuariosValidadores;
     }

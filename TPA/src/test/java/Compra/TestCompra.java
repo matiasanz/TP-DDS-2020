@@ -6,15 +6,12 @@ import Proveedor.Proveedor;
 import Direccion.Pais;
 import Direccion.Direccion;
 import Presupuesto.*;
-import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import org.junit.Before;
 import org.junit.Test;
 
 import Entidad.EntidadBase;
 import Entidad.EntidadJuridica;
 import Entidad.OrganizacionSectorSocial;
-import Etiqueta.Etiqueta;
-import Etiqueta.EtiquetaPersonalizable;
 import MedioDePago.PagoEnEfectivo;
 
 import static org.junit.Assert.assertEquals;
@@ -46,7 +43,7 @@ public class TestCompra {
         item2 = new Item("Item 1", 1, BigDecimal.valueOf(40.5));
         item3 = new Item("Item 1", 1, BigDecimal.valueOf(9.5));
 
-        compra = new Compra(new RepositorioDeMonedasMock(), new RepositorioEtiquetas(), entidad, proveedor,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, new LinkedList());
+        compra = new Compra(new RepositorioDeMonedasMock(), entidad, proveedor,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, new LinkedList());
         compra.agregarItem(item1);
         compra.agregarItem(item2);
         compra.agregarItem(item3);
@@ -103,7 +100,7 @@ public class TestCompra {
     
     @Test
     public void agregarUnaEtiquetaAunaCompraExistente() {
-    	Etiqueta etiqueta1 = new EtiquetaPersonalizable("inmobilaria");
+    	String etiqueta1 = "inmobilaria";
     	compra.setEtiqueta(etiqueta1);
         assertEquals(etiqueta1,compra.getEtiqueta());
     }

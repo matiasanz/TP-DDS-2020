@@ -1,7 +1,6 @@
 package TareasProgramadas.ReporteMensualGastos;
 
 import Entidad.Entidad;
-import Etiqueta.Etiqueta;
 import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import org.quartz.Job;

@@ -1,7 +1,6 @@
 package Entidad;
 import Mocks.RepositorioDeMonedasMock;
 import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
-import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,11 +11,9 @@ import java.util.Map;
 public class TestEntidad {
     private Entidad entidad;
     private LocalDate fechaInicioReporte;
-    private RepositorioEtiquetas repositorioEtiquetas;
 
     @Before
     public void init() {
-        repositorioEtiquetas = new RepositorioEtiquetas();
         entidad = new RepositorioDeEntidades(new RepositorioDeMonedasMock()).getEntidadConCompras();
     }
 
@@ -26,7 +23,7 @@ public class TestEntidad {
         fechaInicioReporte = LocalDate.of(2017, 2, 28);
         Map<String, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaInicioReporte);
         Assert.assertEquals(resultadoReporte.size(),1);
-        Assert.assertEquals(resultadoReporte.get(repositorioEtiquetas.getEtiquetaDefecto().getNombre()), BigDecimal.valueOf(50).floatValue(),0);
+        Assert.assertEquals(resultadoReporte.get("Etiqueta por defecto"), BigDecimal.valueOf(50).floatValue(),0);
     }
 
     @Test()
@@ -43,7 +40,7 @@ public class TestEntidad {
         fechaInicioReporte = LocalDate.of(2018, 3, 30);
         Map<String, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaInicioReporte);
         Assert.assertEquals(1, resultadoReporte.size());
-        Assert.assertEquals(resultadoReporte.get(repositorioEtiquetas.getEtiquetaAmoblamiento().getNombre()), BigDecimal.valueOf(59.5).floatValue(),0);
+        Assert.assertEquals(resultadoReporte.get("Amoblamiento"), BigDecimal.valueOf(59.5).floatValue(),0);
     }
 
     @Test()
@@ -52,8 +49,8 @@ public class TestEntidad {
         fechaInicioReporte = LocalDate.of(2020, 7, 30);
         Map<String, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaInicioReporte);
         Assert.assertEquals(3, resultadoReporte.size());
-        Assert.assertEquals(resultadoReporte.get(repositorioEtiquetas.getEtiquetaDefecto().getNombre()), BigDecimal.valueOf(9.5).floatValue(),0);
-        Assert.assertEquals(resultadoReporte.get(repositorioEtiquetas.getEtiquetaAmoblamiento().getNombre()), BigDecimal.valueOf(50).floatValue(),0);
-        Assert.assertEquals(resultadoReporte.get(repositorioEtiquetas.getEtiquetaProveedorJuanPerez().getNombre()), BigDecimal.valueOf(69).floatValue(),0);
+        Assert.assertEquals(resultadoReporte.get("Etiqueta por defecto"), BigDecimal.valueOf(9.5).floatValue(),0);
+        Assert.assertEquals(resultadoReporte.get("Amoblamiento"), BigDecimal.valueOf(50).floatValue(),0);
+        Assert.assertEquals(resultadoReporte.get("Juan Perez"), BigDecimal.valueOf(69).floatValue(),0);
     }
 }
