@@ -35,7 +35,7 @@ public class RepositorioDeCompras {
         Compra compraMarzo2018Amoblamiento = new Compra(repositorioDeMonedas, null, proveedor, LocalDate.of(2018, 3, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, new ArrayList<Usuario>());
         compraMarzo2018Amoblamiento.agregarItem(item50);
         compraMarzo2018Amoblamiento.agregarItem(item9Con50);
-        compraMarzo2018Amoblamiento.setEtiqueta("Amoblamiento");
+        compraMarzo2018Amoblamiento.agregarEtiqueta("Amoblamiento");
         compraMarzo2018Amoblamiento.generarPresupuesto(presupuesto);
         compraMarzo2018Amoblamiento.setPresupuestoElegido(presupuesto);
 
@@ -59,7 +59,7 @@ public class RepositorioDeCompras {
         compraJulio2020JuanPerez.agregarItem(item9Con50);
         compraJulio2020JuanPerez.agregarItem(item9Con50);
         compraJulio2020JuanPerez.agregarItem(item9Con50);
-        compraJulio2020JuanPerez.setEtiqueta("Juan Perez");
+        compraJulio2020JuanPerez.agregarEtiqueta("Juan Perez");
         compraJulio2020JuanPerez.generarPresupuesto(presupuesto);
         compraJulio2020JuanPerez.setPresupuestoElegido(presupuesto);
 
@@ -70,7 +70,7 @@ public class RepositorioDeCompras {
 
         Compra compra1Julio2020Amoblamiento = new Compra(repositorioDeMonedas, null, proveedor, LocalDate.of(2020, 7, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, new ArrayList<Usuario>());
         compra1Julio2020Amoblamiento.agregarItem(item40Con50);
-        compra1Julio2020Amoblamiento.setEtiqueta("Amoblamiento");
+        compra1Julio2020Amoblamiento.agregarEtiqueta("Amoblamiento");
         compra1Julio2020Amoblamiento.generarPresupuesto(presupuesto);
         compra1Julio2020Amoblamiento.setPresupuestoElegido(presupuesto);
 
@@ -81,7 +81,7 @@ public class RepositorioDeCompras {
 
         Compra compra19Julio2020Amoblamiento = new Compra(repositorioDeMonedas, null, proveedor, LocalDate.of(2020, 7, 19), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, new ArrayList<Usuario>());
         compra19Julio2020Amoblamiento.agregarItem(item9Con50);
-        compra19Julio2020Amoblamiento.setEtiqueta("Amoblamiento");
+        compra19Julio2020Amoblamiento.agregarEtiqueta("Amoblamiento");
         compra19Julio2020Amoblamiento.generarPresupuesto(presupuesto);
         compra19Julio2020Amoblamiento.setPresupuestoElegido(presupuesto);
 

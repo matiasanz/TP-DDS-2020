@@ -13,6 +13,7 @@ import Usuario.Usuario;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Compra {
@@ -28,7 +29,7 @@ public class Compra {
     //private Presupuesto presupuestoElegido;
     private final List<Usuario> usuariosValidadores;
     private final ValidadorDeCompra validadorDeCompra;
-    private String etiqueta;
+    private List<String> etiquetas;
 
     public Compra(RepositorioDeMonedas repositorioDeMonedas,
                   EntidadJuridica entidad,
@@ -50,7 +51,8 @@ public class Compra {
         this.items = new ArrayList<>();
         this.presupuestosAsociados = new ArrayList<>();
         this.usuariosValidadores = usuariosValidadores;
-        this.etiqueta = "Etiqueta por defecto";
+        this.etiquetas = new ArrayList<>();
+        this.etiquetas.add("Etiqueta por defecto");
     }
 
     public BigDecimal getValorTotal() {
@@ -125,6 +127,21 @@ public class Compra {
                 && getFechaOperacion().getYear() == unaFecha.getYear();
     }
 
+    public void agregarEtiqueta (String etiqueta){
+        if(etiquetas.contains("Etiqueta por defecto")){
+            etiquetas.remove(0);
+        }
+        etiquetas.add(etiqueta);
+    }
+
+    public void eliminarEtiqueta (String etiqueta){
+        etiquetas.remove(etiqueta);
+    }
+
+    public boolean contieneEtiqueta (String etiqueta){
+        return etiquetas.contains(etiqueta);
+    }
+
     public BigDecimal getImporte() {
         return getPresupuestoElegido().getValorTotal();
     }
@@ -161,12 +178,12 @@ public class Compra {
         return entidadRelacionada;
     }
 
-    public String getEtiqueta() {
-        return etiqueta;
+    public List<String> getEtiquetas() {
+        return etiquetas;
     }
 
-    public void setEtiqueta(String etiqueta) {
-        this.etiqueta = etiqueta;
+    public void setEtiquetas(List<String> etiquetas) {
+        this.etiquetas = etiquetas;
     }
 
     public List<Usuario> getUsuariosValidadores() {

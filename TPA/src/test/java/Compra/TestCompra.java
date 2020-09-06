@@ -101,7 +101,7 @@ public class TestCompra {
     @Test
     public void agregarUnaEtiquetaAunaCompraExistente() {
     	String etiqueta1 = "inmobilaria";
-    	compra.setEtiqueta(etiqueta1);
-        assertEquals(etiqueta1,compra.getEtiqueta());
+    	compra.agregarEtiqueta(etiqueta1);
+        assertEquals(etiqueta1,compra.getEtiquetas().get(0));
     }
 }

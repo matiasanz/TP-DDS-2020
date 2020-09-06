@@ -7,9 +7,7 @@ import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class Entidad {
@@ -55,10 +53,13 @@ public abstract class Entidad {
     }
 
     public Map<String, Double> obtenerGastosRealizados(LocalDate fechaInicio) {
+        List<String> etiquetasDelMes = comprasDelMes(fechaInicio).stream().map(c -> c.getEtiquetas()).flatMap(Collection::stream).distinct().collect(Collectors.toList());
 
-          return comprasDelMes(fechaInicio)
-                  .stream()
-                  .collect(Collectors.groupingBy(compra -> compra.getEtiqueta(),
-                    Collectors.summingDouble(Compra -> Compra.getValorTotal().floatValue())));
+        Map<String, Double> aRetornar = new HashMap<>();
+
+        for(String etiqueta : etiquetasDelMes){
+            aRetornar.put(etiqueta, comprasDelMes(fechaInicio).stream().filter(c -> c.contieneEtiqueta(etiqueta)).map(c -> c.getValorTotal()).reduce(BigDecimal.ZERO, BigDecimal::add).doubleValue());
+        }
+        return aRetornar;
     }
 }
