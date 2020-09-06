@@ -8,6 +8,7 @@ import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public abstract class Entidad {
@@ -15,51 +16,60 @@ public abstract class Entidad {
     private final List<Categoria> categorias;
 
     public Entidad() {
-        this.compras = new RepositorioDeCompras(new RepositorioDeMonedasMeli());
+        this.compras = new RepositorioDeCompras(new RepositorioDeMonedasMeli(), new ArrayList<>());
         this.categorias = new ArrayList<>();
     }
+    
+// Categoria ****************
 
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+    
     public void agregarCategoria(Categoria categoria){
         categorias.add(categoria);
     }
 
+// Compras ****************
+    public List<Compra> getCompras() {
+    	return compras.getCompras();
+    }
+
     public void agregarCompra(Compra compra) {
         getCategorias().forEach(categoria -> categoria.notificarCompraAgregada(compra.getValorTotal(), this.getValorTodasLasCompras()));
-        compras.nuevaCompra(compra);
+        compras.agregarCompra(compra);
     }
 
     public BigDecimal getValorTodasLasCompras() {
         return compras.getCompras().stream().map(Compra::getValorTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public List<Categoria> getCategorias() {
-        return categorias;
-    }
-
-    public List<Compra> getCompras() {
-        return compras.getCompras();
-    }
-    
     public List<Compra> getComprasPendientesDeValidacion() {
     	return compras.getComprasPendientesDeAprobacion();
     }
-
-    private List<Compra> comprasDelMes(LocalDate fechaInicio) {
-        return compras
-        		.getCompras()
-                .stream()
-                .filter(compra -> compra.compraDelMes(fechaInicio))
-                .collect(Collectors.toList());
-    }
-
+  
     public Map<String, Double> obtenerGastosRealizados(LocalDate fechaInicio) {
-        List<String> etiquetasDelMes = comprasDelMes(fechaInicio).stream().map(c -> c.getEtiquetas()).flatMap(Collection::stream).distinct().collect(Collectors.toList());
+        
+    	RepositorioDeCompras comprasDelMes = compras.repositorioDelMes(fechaInicio);
+    	List<String> etiquetasDelMes = comprasDelMes.getEtiquetas();
 
-        Map<String, Double> aRetornar = new HashMap<>();
+        Map<String, Double> gastosRealizados = new HashMap<>();
 
         for(String etiqueta : etiquetasDelMes){
-            aRetornar.put(etiqueta, comprasDelMes(fechaInicio).stream().filter(c -> c.contieneEtiqueta(etiqueta)).map(c -> c.getValorTotal()).reduce(BigDecimal.ZERO, BigDecimal::add).doubleValue());
+        	Double valor = this._calcularValorCompras(comprasDelMes.comprasConEtiqueta(etiqueta));        	
+            gastosRealizados.put(etiqueta, valor);
         }
-        return aRetornar;
+         
+        List<Compra> sinEtiquetar = comprasDelMes.comprasSinEtiquetar();
+        if(!sinEtiquetar.isEmpty()){        	
+        	gastosRealizados.put("Sin Etiquetar", this._calcularValorCompras(sinEtiquetar));
+        }
+        
+        return gastosRealizados;
+    }
+        
+    private double _calcularValorCompras(List<Compra> unasCompras){
+    	return unasCompras.stream().map(c -> c.getValorTotal())
+    			.reduce(BigDecimal.ZERO, BigDecimal::add).doubleValue();
     }
 }

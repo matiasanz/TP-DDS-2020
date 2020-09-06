@@ -26,7 +26,7 @@ public class RepositorioDeEntidades {
 
     public Entidad getEntidadConCompras() {
         Entidad entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", Fabrica.direccionStub(), 845, new ArrayList<>());
-        RepositorioDeCompras repoCompras = new RepositorioDeCompras(repositorioDeMonedas);
+        RepositorioDeCompras repoCompras = new RepositorioDeCompras(repositorioDeMonedas, new ArrayList<>());
 
         repoCompras.getComprasConPresupuestoElegido().forEach(compra -> entidad.agregarCompra(compra));
         return entidad;

@@ -17,10 +17,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Compra {
-    private Entidad entidadRelacionada;
+    public Entidad entidadRelacionada;
     //	private Documento documentoComercial;
     private final LocalDate fechaOperacion;
-    private final MedioDePago medioDePago;
+    public final MedioDePago medioDePago;
     private int cantidadMinimaDePresupuestos;
     private final Moneda moneda;
     private Estado indicadorDeAprobacion;
@@ -31,6 +31,7 @@ public class Compra {
     private final ValidadorDeCompra validadorDeCompra;
     private List<String> etiquetas;
 
+    //Constructor
     public Compra(RepositorioDeMonedas repositorioDeMonedas,
                   EntidadJuridica entidad,
                   Proveedor proveedor,
@@ -52,14 +53,33 @@ public class Compra {
         this.presupuestosAsociados = new ArrayList<>();
         this.usuariosValidadores = usuariosValidadores;
         this.etiquetas = new ArrayList<>();
-        this.etiquetas.add("Etiqueta por defecto");
     }
-
+    
+//Items ***********************************
+    
+    public List<Item> getItems() {
+        return items;
+    }
+    
+    public void agregarItem(Item item) {
+        this.items.add(item);
+    }
+    
     public BigDecimal getValorTotal() {
         return items.stream().map(Item::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+    
+//Presupuesto *****************************
 
-    public void generarPresupuesto(Presupuesto presupuesto) {
+    public int getCantidadMinimaDePresupuestos() {
+        return cantidadMinimaDePresupuestos;
+    }
+
+    public List<Presupuesto> getPresupuestosAsociados() {
+        return presupuestosAsociados;
+    }
+    
+    public void agregarPresupuesto(Presupuesto presupuesto) {
         presupuestosAsociados.add(presupuesto);
     }
 
@@ -67,20 +87,22 @@ public class Compra {
         Presupuesto presupuestoAElegir = presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.equals(presupuesto)).findFirst().orElseThrow(NoHayPresupuestosException::new);
         presupuestoAElegir.setElegido(true);
     }
-
-    public void setIndicadorDeAprobacion(Estado estado) {
-        indicadorDeAprobacion = estado;
-    }
-
-    /* Retorna el presupuesto elegido
-        si no hay presupuesto elegido todavía arroja excepcion
-     */
+    
+ /* Retorna el presupuesto elegido
+    si no hay presupuesto elegido todavía arroja excepcion
+ */
     public Presupuesto getPresupuestoElegido() {
         return presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.isElegido()).findFirst().orElseThrow(NoHayPresupuestoElegidoException::new);
     }
+    
+//Estado de Aprobacion ***************************
+    
+    public Estado getIndicadorDeAprobacion() {
+        return indicadorDeAprobacion;
+    }
 
-    public void agregarItem(Item item) {
-        this.items.add(item);
+    public void setIndicadorDeAprobacion(Estado estado) {
+        indicadorDeAprobacion = estado;
     }
 
     public void aprobar() {
@@ -91,31 +113,35 @@ public class Compra {
         this.indicadorDeAprobacion = Estado.RECHAZADA;
     }
 
+    public boolean pendienteDeAprobacion() {
+        return this.indicadorDeAprobacion == Estado.PENDIENTEDEAPROBACION;
+    }
+    
     public void validar() {
         validadorDeCompra.validarCompra(this);
     }
 
-    public Moneda getMoneda() {
-        return this.moneda;
-    }
+//Usuarios validadores *****************
 
-    public boolean pendienteDeAprobacion() {
-        return this.indicadorDeAprobacion == Estado.PENDIENTEDEAPROBACION;
+    public void agregarUsuarioValidador(Usuario usuario) {
+    	usuariosValidadores.add(usuario);
     }
-
+    
     public boolean puedeSerValidadaPor(Usuario miUsuario) {
         return usuariosValidadores.contains(miUsuario);
     }
-
-    public boolean compraDelMes(LocalDate unaFecha){
-        return this.getFechaOperacion().getMonth().getValue() == unaFecha.getMonth().getValue()
-                && getFechaOperacion().getYear() == unaFecha.getYear();
+    
+    public void notificarUsuarios(String mensaje){
+    	usuariosValidadores.stream().forEach(unUsuario->unUsuario.notificarEvento(mensaje));
     }
 
+//Etiqueta ****************
+    
+    public List<String> getEtiquetas() {
+        return etiquetas;
+    }
+    
     public void agregarEtiqueta (String etiqueta){
-        if(etiquetas.contains("Etiqueta por defecto")){
-            etiquetas.remove(0);
-        }
         etiquetas.add(etiqueta);
     }
 
@@ -123,35 +149,30 @@ public class Compra {
         return etiquetas.contains(etiqueta);
     }
 
-    public List<Item> getItems() {
-        return items;
+    public boolean etiquetada(){
+    	return !etiquetas.isEmpty();
     }
+    
+//Otros *******************
 
-    public Estado getIndicadorDeAprobacion() {
-        return indicadorDeAprobacion;
+    public Moneda getMoneda() {
+        return this.moneda;
     }
-
-    public int getCantidadMinimaDePresupuestos() {
-        return cantidadMinimaDePresupuestos;
-    }
-
-    public List<Presupuesto> getPresupuestosAsociados() {
-        return presupuestosAsociados;
+    
+    public boolean compraDelMes(LocalDate unaFecha){
+        return this.getFechaOperacion().getMonth().getValue() == unaFecha.getMonth().getValue()
+                && getFechaOperacion().getYear() == unaFecha.getYear();
     }
 
     public LocalDate getFechaOperacion() {
         return fechaOperacion;
     }
-
-    public List<String> getEtiquetas() {
-        return etiquetas;
+    
+    public Entidad getEntidadRelacionada(){
+    	return entidadRelacionada;
     }
     
-    public void notificarUsuarios(String mensaje){
-    	usuariosValidadores.stream().forEach(unUsuario->unUsuario.notificarEvento(mensaje));
-    }
-    
-    public void agregarUsuarioValidador(Usuario usuario) {
-    	usuariosValidadores.add(usuario);
+    public MedioDePago getMedioDePago(){
+    	return medioDePago;
     }
 }

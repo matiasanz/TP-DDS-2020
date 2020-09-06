@@ -70,7 +70,7 @@ public class TestCompra {
     	
     	Presupuesto presupuesto = new Presupuesto(listaItems, proveedor);
     	//Los agrego a la compra
-    	compra.generarPresupuesto(presupuesto);
+    	compra.agregarPresupuesto(presupuesto);
     	//Hago la validacion
     	compra.validar();
         assertEquals(compra.getIndicadorDeAprobacion(), Estado.RECHAZADA);
@@ -90,8 +90,8 @@ public class TestCompra {
     	
     	Presupuesto presupuesto2 = new Presupuesto(listaItems, proveedor);
     	//Los agrego a la compra
-    	compra.generarPresupuesto(presupuesto1);
-    	compra.generarPresupuesto(presupuesto2);
+    	compra.agregarPresupuesto(presupuesto1);
+    	compra.agregarPresupuesto(presupuesto2);
     	compra.setPresupuestoElegido(presupuesto2);
     	//Hago la validacion
     	compra.validar();
