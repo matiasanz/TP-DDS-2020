@@ -1,12 +1,11 @@
 package Usuario;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import Repositorios.RepositorioDeMensajes.RepositorioDeMensajes;
+import Repositorios.RepositorioDeMensajes;
 
 public class Usuario {
-    private Tipo tipo;
+//    private Tipo tipo;
     private String username;
     private String contrasenia;
     private RepositorioDeMensajes mensajes = new RepositorioDeMensajes();

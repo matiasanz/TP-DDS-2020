@@ -13,7 +13,6 @@ import MedioDePago.PagoEnEfectivo;
 import Mocks.RepositorioDeMonedasMock;
 import Moneda.CodigoMoneda;
 import Proveedor.Proveedor;
-import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +24,6 @@ import static org.junit.Assert.assertEquals;
 
 public class TestCategoria {
     private RepositorioDeMonedas repositorioDeMonedas;
-    private RepositorioEtiquetas repositorioDeEtiquetas;
     private EntidadJuridica entidadJuridica;
     private EntidadBase entidadBase;
     private Categoria categoria;
@@ -37,7 +35,6 @@ public class TestCategoria {
     @Before
     public void init() {
         repositorioDeMonedas = new RepositorioDeMonedasMock();
-        repositorioDeEtiquetas = new RepositorioEtiquetas();
 
         VariosFactory.direccionStub();
         entidadJuridica = EntidadesFactory.empresaMedianaTramo2();
@@ -47,7 +44,7 @@ public class TestCategoria {
         proveedor = EntidadesFactory.personaHumana();
         medioDePago = new PagoEnEfectivo();
         item = ComprasFactory.itemNValuadoEn(4,40);
-        compra = new Compra(repositorioDeMonedas, repositorioDeEtiquetas, entidadJuridica, proveedor, LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, null);
+        compra = new Compra(repositorioDeMonedas, entidadJuridica, proveedor, LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, null);
         compra.agregarItem(item);
     }
 

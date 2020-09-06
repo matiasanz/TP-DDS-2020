@@ -12,7 +12,7 @@ import Entidad.OrganizacionSectorSocial;
 import Fabrica.Fabrica;
 import Mocks.RepositorioDeMonedasMock;
 import Proveedor.Proveedor;
-import Repositorios.RepositorioDeCompras.RepositorioDeCompras;
+import Repositorios.RepositorioDeCompras;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 
 public class EntidadesFactory{
@@ -35,7 +35,7 @@ public class EntidadesFactory{
 	
     public static Entidad getEntidadConCompras() {
         Entidad entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", Fabrica.direccionStub(), 845, new ArrayList<>());
-        RepositorioDeCompras repoCompras = new RepositorioDeCompras(repositorioDeMonedas);
+        RepositorioDeCompras repoCompras = new RepositorioDeCompras(repositorioDeMonedas, new ArrayList<>());
 
         repoCompras.getComprasConPresupuestoElegido().forEach(compra -> entidad.agregarCompra(compra));
         return entidad;
