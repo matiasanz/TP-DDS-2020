@@ -1,9 +1,8 @@
 package Usuario;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import Repositorios.RepositorioDeMensajes.RepositorioDeMensajes;
+import Repositorios.RepositorioDeMensajes;
 
 public class Usuario {
     private Tipo tipo;

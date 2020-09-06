@@ -1,4 +1,4 @@
-package Repositorios.RepositorioDeCompras;
+package Repositorios;
 
 import Compra.*;
 import Direccion.*;

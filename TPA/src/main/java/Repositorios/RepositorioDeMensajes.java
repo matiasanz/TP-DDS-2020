@@ -1,4 +1,4 @@
-package Repositorios.RepositorioDeMensajes;
+package Repositorios;
 
 import java.io.File;
 import java.io.FileNotFoundException;

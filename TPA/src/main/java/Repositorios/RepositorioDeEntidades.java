@@ -1,10 +1,9 @@
-package Repositorios.RepositorioDeEntidades;
+package Repositorios;
 
 import Entidad.*;
-import Repositorios.RepositorioDeCompras.RepositorioDeCompras;
+import Repositorios.RepositorioDeCompras;
 import Fabrica.Fabrica;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
-import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 
 import java.util.ArrayList;
 import java.util.List;

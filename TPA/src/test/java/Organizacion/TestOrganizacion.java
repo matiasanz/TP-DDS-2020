@@ -3,8 +3,8 @@ import Direccion.Direccion;
 import Direccion.Pais;
 import Mocks.RepositorioDeLocacionesMock;
 import Moneda.CodigoMoneda;
-import Repositorios.RepositorioDeCategorias.RepositorioDeCategorias;
-import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
+import Repositorios.RepositorioDeCategorias;
+import Repositorios.RepositorioDeEntidades;
 import Repositorios.RepositorioDeUsuarios.RepositorioDeUsuarios;
 
 import org.junit.Before;

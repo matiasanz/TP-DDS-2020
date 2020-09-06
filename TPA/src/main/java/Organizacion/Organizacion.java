@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import Compra.Compra;
 import Entidad.Entidad;
 import Entidad.EntidadJuridica;
-import Repositorios.RepositorioDeCategorias.RepositorioDeCategorias;
-import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
+import Repositorios.RepositorioDeCategorias;
+import Repositorios.RepositorioDeEntidades;
 import Repositorios.RepositorioDeUsuarios.RepositorioDeUsuarios;
 import Usuario.Usuario;
 

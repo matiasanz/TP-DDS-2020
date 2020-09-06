@@ -2,7 +2,7 @@ package Entidad;
 
 import Categoria.Categoria;
 import Compra.Compra;
-import Repositorios.RepositorioDeCompras.RepositorioDeCompras;
+import Repositorios.RepositorioDeCompras;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 
 import java.math.BigDecimal;
