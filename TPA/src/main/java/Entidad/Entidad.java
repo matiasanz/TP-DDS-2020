@@ -3,20 +3,17 @@ package Entidad;
 import Categoria.Categoria;
 import Compra.Compra;
 import Repositorios.RepositorioDeCompras;
-import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public abstract class Entidad {
     private final RepositorioDeCompras compras;
     private final List<Categoria> categorias;
 
     public Entidad() {
-        this.compras = new RepositorioDeCompras(new RepositorioDeMonedasMeli(), new ArrayList<>());
+    							//No usa repo meli
+        this.compras = new RepositorioDeCompras(new ArrayList<>());
         this.categorias = new ArrayList<>();
     }
     

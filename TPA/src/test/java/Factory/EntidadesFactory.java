@@ -1,7 +1,6 @@
 package Factory;
 
 import java.util.ArrayList;
-
 import Direccion.Direccion;
 import Entidad.Clasificacion;
 import Entidad.Empresa;
@@ -12,7 +11,6 @@ import Entidad.OrganizacionSectorSocial;
 import Fabrica.Fabrica;
 import Mocks.RepositorioDeMonedasMock;
 import Proveedor.Proveedor;
-import Repositorios.RepositorioDeCompras;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 
 public class EntidadesFactory{
@@ -28,16 +26,13 @@ public class EntidadesFactory{
 		return new Empresa("ArcosDorados S.A.", "McDonald's", "123456789", direccionStub, 1, null, Clasificacion.MEDIANATRAMO2);
 	}
 
-	public static Proveedor personaHumana()
-	{
+	public static Proveedor personaHumana(){
 		return Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", direccionStub);
 	}
-	
+	    
     public static Entidad getEntidadConCompras() {
         Entidad entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", Fabrica.direccionStub(), 845, new ArrayList<>());
-        RepositorioDeCompras repoCompras = new RepositorioDeCompras(repositorioDeMonedas, new ArrayList<>());
-
-        repoCompras.getComprasConPresupuestoElegido().forEach(compra -> entidad.agregarCompra(compra));
+        ComprasFactory.getComprasConPresupuestoElegido().forEach(compra -> entidad.agregarCompra(compra));
         return entidad;
     }
 }

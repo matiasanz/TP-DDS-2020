@@ -43,14 +43,14 @@ public class TestOrganizacion {
     	organizacion.crearUsuario("RonWeasley", "wingardiumleviosa157");
         organizacion.crearUsuario("HarryPotter", "alohomora254");
         
-        assertEquals(2, organizacion.getUsuarios().size());
+        assertEquals(organizacion.getUsuarios().size(), 2);
     }
     
     @Test
     public void validoTamanioDeListaDeEntidades() {
     	organizacion.agregarEntidad(entidad2);
     	
-    	assertEquals(2, organizacion.getEntidades().size());
+    	assertEquals(organizacion.getEntidades().size(), 2);
     }
     
 
@@ -77,7 +77,7 @@ public class TestOrganizacion {
     
     @Test
     public void validoTamanioListaDeCompras() {
-        assertEquals(2, organizacion.getCompras().size());
+        assertEquals(organizacion.getCompras().size(), 2);
     }
     
     @Test

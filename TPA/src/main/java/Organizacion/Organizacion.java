@@ -36,7 +36,7 @@ public class Organizacion {
     }
 
     public void agregarEntidad(EntidadJuridica entidad) {
-        repositorioDeEntidades.nuevaEntidad(entidad);
+        repositorioDeEntidades.agregarEntidad(entidad);
     }
 
     public void crearUsuario(String username, String password) {

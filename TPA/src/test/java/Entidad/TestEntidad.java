@@ -42,7 +42,7 @@ public class TestEntidad {
         fechaInicioReporte = LocalDate.of(2018, 3, 30);
         Map<String, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaInicioReporte);
         Assert.assertEquals(1, resultadoReporte.size());
-        Assert.assertEquals(resultadoReporte.get("Amoblamiento"), BigDecimal.valueOf(59.5).floatValue(),0);
+        Assert.assertEquals(BigDecimal.valueOf(59.5).floatValue(), resultadoReporte.get("Amoblamiento"),0);
     }
 
     @Test()
@@ -51,8 +51,8 @@ public class TestEntidad {
         fechaInicioReporte = LocalDate.of(2020, 7, 30);
         Map<String, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaInicioReporte);
         Assert.assertEquals(3, resultadoReporte.size());
-        Assert.assertEquals(resultadoReporte.get(ETIQUETA_DEFECTO), BigDecimal.valueOf(9.5).floatValue(),0);
-        Assert.assertEquals(resultadoReporte.get("Amoblamiento"), BigDecimal.valueOf(50).floatValue(),0);
-        Assert.assertEquals(resultadoReporte.get("Juan Perez"), BigDecimal.valueOf(69).floatValue(),0);
+        Assert.assertEquals(BigDecimal.valueOf(9.5).floatValue(), resultadoReporte.get(ETIQUETA_DEFECTO),0);
+        Assert.assertEquals(BigDecimal.valueOf(50).floatValue(), resultadoReporte.get("Amoblamiento"),0);
+        Assert.assertEquals(BigDecimal.valueOf(69).floatValue(), resultadoReporte.get("Juan Perez"),0);
     }
 }
