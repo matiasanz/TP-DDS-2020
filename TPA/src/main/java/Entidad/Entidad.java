@@ -11,8 +11,8 @@ public abstract class Entidad {
     private final RepositorioDeCompras compras;
     private final List<Categoria> categorias;
 
+    //Constructor
     public Entidad() {
-    							//No usa repo meli
         this.compras = new RepositorioDeCompras(new ArrayList<>());
         this.categorias = new ArrayList<>();
     }

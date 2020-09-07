@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class RepositorioDeUsuarios {
     List<Usuario> usuarios = new ArrayList<Usuario>();
 
-    public boolean checkSiExiste(String username){
+    public boolean nombreOcupado(String username){
         return usuarios.stream().anyMatch(u -> username.equals(u.getUsername()));
     }
 
@@ -41,14 +41,8 @@ public class RepositorioDeUsuarios {
     }
     
     public void validarNoRepetido(String username){
-    	if (this.checkSiExiste(username)) {
+    	if (this.nombreOcupado(username)) {
 			throw new UsuarioYaExisteException();
 		}
-    }
-    
-    public void validarExistencia(String username){
-    	if(!this.checkSiExiste(username)){
-    		throw new UsuarioDesconocidoException(username);
-    	}
     }
 }

@@ -21,17 +21,20 @@ public class EntidadesFactory{
 		return new EntidadBase("Entidad Base Random", "Es una entidad base random para el test");
 	}
 
-	public static EntidadJuridica empresaMedianaTramo2()
-	{
+	public static EntidadJuridica empresaMedianaTramo2(){
 		return new Empresa("ArcosDorados S.A.", "McDonald's", "123456789", direccionStub, 1, null, Clasificacion.MEDIANATRAMO2);
 	}
 
 	public static Proveedor personaHumana(){
 		return Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", direccionStub);
 	}
+	
+	public static Entidad getEntidadStub(){
+		return new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", Fabrica.direccionStub(), 845, new ArrayList<>());
+	}
 	    
     public static Entidad getEntidadConCompras() {
-        Entidad entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", Fabrica.direccionStub(), 845, new ArrayList<>());
+        Entidad entidad = EntidadesFactory.getEntidadStub();
         ComprasFactory.getComprasConPresupuestoElegido().forEach(compra -> entidad.agregarCompra(compra));
         return entidad;
     }

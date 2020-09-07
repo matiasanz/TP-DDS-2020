@@ -11,7 +11,7 @@ public class ReporteMensualDeGastos implements Job {
 
     public void execute(JobExecutionContext context) {
 
-        Entidad entidad = EntidadesFactory.getEntidadConCompras();
+        Entidad entidad = EntidadesFactory.getEntidadConCompras(); //No usa meli TODO
         LocalDate fechaActual = LocalDate.of(2020, 07, 31);
 
         Map<String, Double> resultadoReporte = entidad.obtenerGastosRealizados(fechaActual);

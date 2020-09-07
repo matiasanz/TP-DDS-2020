@@ -19,6 +19,7 @@ import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import Usuario.Usuario;
 
 public class ComprasFactory
@@ -126,5 +127,5 @@ public class ComprasFactory
         compras.add(ComprasFactory.getCompra12Julio2020SinEtiqueta());
 
         return compras;
-    }	
+    }
 }
