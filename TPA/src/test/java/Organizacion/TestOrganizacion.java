@@ -1,7 +1,7 @@
 package Organizacion;
 import Direccion.Direccion;
 import Direccion.Pais;
-import Mocks.RepositorioDeLocacionesMock;
+import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMock;
 import Moneda.CodigoMoneda;
 import Repositorios.RepositorioDeCategorias;
 import Repositorios.RepositorioDeEntidades;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import Mocks.RepositorioDeMonedasMock;
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMock;
 
 public class TestOrganizacion {
     Direccion direccion = new Direccion(new RepositorioDeLocacionesMock(), "Mendoza", 54, 0, "1212", Pais.AR);

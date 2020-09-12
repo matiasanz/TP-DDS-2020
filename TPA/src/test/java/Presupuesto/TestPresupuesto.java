@@ -2,7 +2,7 @@ package Presupuesto;
 import Direccion.Direccion;
 import Direccion.Pais;
 import Factory.ComprasFactory;
-import Mocks.RepositorioDeLocacionesMock;
+import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMock;
 import Proveedor.*;
 import Compra.Item;
 

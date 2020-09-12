@@ -9,7 +9,7 @@ import Entidad.EntidadBase;
 import Entidad.EntidadJuridica;
 import Entidad.OrganizacionSectorSocial;
 import Factory.ComprasFactory;
-import Factory.VariosFactory;
+import Factory.DireccionesFactory;
 import MedioDePago.PagoEnEfectivo;
 
 import static org.junit.Assert.assertEquals;
@@ -32,7 +32,7 @@ public class TestCompra {
     public void init() {
         entidadesBase = new ArrayList<>();
         entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", direccion, 845, entidadesBase);
-        proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", VariosFactory.direccionStub());
+        proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", DireccionesFactory.direccionStub());
         medioDePago = new PagoEnEfectivo();
         item1 = ComprasFactory.itemValuadoEn(50.0);
         item2 = ComprasFactory.itemValuadoEn(40.5);

@@ -6,11 +6,11 @@ import Entidad.EntidadBase;
 import Entidad.EntidadJuridica;
 import Factory.CategoriasFactory;
 import Factory.ComprasFactory;
-import Factory.VariosFactory;
+import Factory.DireccionesFactory;
 import Factory.EntidadesFactory;
 import MedioDePago.MedioDePago;
 import MedioDePago.PagoEnEfectivo;
-import Mocks.RepositorioDeMonedasMock;
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMock;
 import Moneda.CodigoMoneda;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
@@ -36,7 +36,7 @@ public class TestCategoria {
     public void init() {
         repositorioDeMonedas = new RepositorioDeMonedasMock();
 
-        VariosFactory.direccionStub();
+        DireccionesFactory.direccionStub();
         entidadJuridica = EntidadesFactory.empresaMedianaTramo2();
         entidadBase = EntidadesFactory.baseRandom();
         categoria = CategoriasFactory.ong();

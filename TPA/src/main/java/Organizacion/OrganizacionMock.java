@@ -1,23 +1,21 @@
 package Organizacion;
 
-import Fabrica.Fabrica;
+import Factory.EntidadesFactory;
+import Factory.OrganizacionesFactory;
 import Usuario.Usuario;
 
 public class OrganizacionMock{
-	
 	public static Organizacion self = null;
 
 	private static void crearOrganizacionMock(){
-		self = Fabrica.organizacionStub();
+		self = OrganizacionesFactory.organizacionStub();
 		Usuario usuario = self.getUsuarioEspecifico("usuario","Tp2020Dds");
-		self.agregarEntidad(Fabrica.entidadConComprasParaUsuario(usuario));
+		self.agregarEntidad(EntidadesFactory.entidadConComprasParaUsuario(usuario));
 	}
-	
 	public static Organizacion getInstance(){
 		if(self==null){
 			crearOrganizacionMock();
 		}
-
 		return self;
 	}
 }

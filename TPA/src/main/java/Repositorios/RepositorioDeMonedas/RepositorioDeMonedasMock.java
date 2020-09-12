@@ -1,4 +1,4 @@
-package Mocks;
+package Repositorios.RepositorioDeMonedas;
 
 import Moneda.Moneda;
 import Moneda.CodigoMoneda;

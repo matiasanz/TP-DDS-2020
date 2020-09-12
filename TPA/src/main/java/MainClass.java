@@ -1,9 +1,9 @@
 import BandejaDeMensajes.BandejaDeMensajes;
 import Compra.Compra;
 import Compra.Estado;
+import Factory.ComprasFactory;
 import Organizacion.Organizacion;
 import Organizacion.OrganizacionMock;
-import Fabrica.Fabrica;
 
 public class MainClass {
 
@@ -12,7 +12,7 @@ public class MainClass {
     	
     	//Obtengo una organización de prueba
     	Organizacion unaOrganizacion = OrganizacionMock.getInstance();
-    	Compra compraPorValidar = Fabrica.compraEnEstado(Estado.PENDIENTEDEAPROBACION);
+    	Compra compraPorValidar = ComprasFactory.compraEnEstado(Estado.PENDIENTEDEAPROBACION);
     	unaOrganizacion.getEntidades().forEach(entidad->entidad.agregarCompra(compraPorValidar));
     	
     	// Genero la aplicación
