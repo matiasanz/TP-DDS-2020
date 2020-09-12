@@ -10,6 +10,7 @@ import Entidad.EntidadJuridica;
 import Entidad.OrganizacionSectorSocial;
 import Factory.ComprasFactory;
 import Factory.DireccionesFactory;
+import Factory.ItemsFactory;
 import MedioDePago.PagoEnEfectivo;
 
 import static org.junit.Assert.assertEquals;
@@ -34,9 +35,9 @@ public class TestCompra {
         entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", direccion, 845, entidadesBase);
         proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", DireccionesFactory.direccionStub());
         medioDePago = new PagoEnEfectivo();
-        item1 = ComprasFactory.itemValuadoEn(50.0);
-        item2 = ComprasFactory.itemValuadoEn(40.5);
-        item3 = ComprasFactory.itemValuadoEn(9.5);
+        item1 = ItemsFactory.itemValuadoEn(50.0);
+        item2 = ItemsFactory.itemValuadoEn(40.5);
+        item3 = ItemsFactory.itemValuadoEn(9.5);
 
         compra = ComprasFactory.compraSinEtiquetas(entidad,proveedor,medioDePago);
         compra.agregarItem(item1);

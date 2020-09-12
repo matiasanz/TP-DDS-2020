@@ -1,6 +1,5 @@
 package Factory;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -26,19 +25,12 @@ import Usuario.Usuario;
 
 public class ComprasFactory {
 	private static RepositorioDeMonedas repositorioDeMonedas = new RepositorioDeMonedasMock();
-    private static Item item50 = new Item("Item 1", 1, BigDecimal.valueOf(50.0));
-    private static Item item40Con50 = new Item("Item 1", 1, BigDecimal.valueOf(40.5));
-    private static Item item9Con50 = new Item("Item 1", 1, BigDecimal.valueOf(9.5));
+    private static Item item50 = ItemsFactory.itemValuadoEn(50.0);
+    private static Item item40Con50 = ItemsFactory.itemValuadoEn(40.5);
+    private static Item item9Con50 = ItemsFactory.itemValuadoEn(9.5);
     private static Direccion direccion = new Direccion(new RepositorioDeLocacionesMeli(), "Cervantes", 607, 5, "1407", Pais.AR);
     private static Proveedor proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", direccion);
     private static Presupuesto presupuesto = new Presupuesto(null, proveedor);
-	
-	public static Item itemValuadoEn(double precio){
-		return new Item("Item 1", 1, BigDecimal.valueOf(precio));
-	}
-	public static Item itemNValuadoEn(int cantidad, double precio) {
-		return new Item("Heladera", cantidad, BigDecimal.valueOf(precio));
-	}
 
 	public static Compra compraSinEtiquetas(EntidadJuridica entidad, Proveedor proveedor, MedioDePago medioDePago){
         return new Compra(new RepositorioDeMonedasMock(), entidad, proveedor,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, new LinkedList<Usuario>());

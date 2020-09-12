@@ -6,8 +6,6 @@ import Usuario.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class RepositorioDeUsuarios {
     List<Usuario> usuarios = new ArrayList<Usuario>();

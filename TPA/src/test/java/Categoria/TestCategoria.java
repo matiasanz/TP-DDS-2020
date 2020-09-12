@@ -8,6 +8,7 @@ import Factory.CategoriasFactory;
 import Factory.ComprasFactory;
 import Factory.DireccionesFactory;
 import Factory.EntidadesFactory;
+import Factory.ItemsFactory;
 import MedioDePago.MedioDePago;
 import MedioDePago.PagoEnEfectivo;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMock;
@@ -43,7 +44,7 @@ public class TestCategoria {
 
         proveedor = EntidadesFactory.personaHumana();
         medioDePago = new PagoEnEfectivo();
-        item = ComprasFactory.itemNValuadoEn(4,40);
+        item = ItemsFactory.itemNValuadoEn(4,40);
         compra = new Compra(repositorioDeMonedas, entidadJuridica, proveedor, LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, null);
         compra.agregarItem(item);
     }
