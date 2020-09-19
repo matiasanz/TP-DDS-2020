@@ -1,8 +1,17 @@
 package Compra;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
+@Entity
 public class Item {
+
+    @Id
+    @GeneratedValue
+    private long id;
+
     private String descripcion;
     private int cantidad;
     private BigDecimal valorUnitario;

@@ -1,6 +1,4 @@
 package Entidad;
-import Categoria.BloqueoDeAgregarEntidadesBaseException;
-import Categoria.EntidadJuridicaBloqueadaException;
 import Direccion.Direccion;
 
 import java.util.List;

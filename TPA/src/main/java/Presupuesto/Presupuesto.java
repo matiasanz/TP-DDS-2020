@@ -3,11 +3,22 @@ package Presupuesto;
 import Compra.Item;
 import Proveedor.Proveedor;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+@Entity
 public class Presupuesto implements Comparable<Presupuesto>{
+
+    @Id
+    @GeneratedValue
+    private long id;
+
+    @ManyToMany
+    @JoinTable(name = "items_por_presupuesto")
     private List<Item> items;
+
+    @Transient
     private Proveedor proveedorAsociado;
     private boolean elegido;
 

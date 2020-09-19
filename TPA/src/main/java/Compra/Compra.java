@@ -10,27 +10,57 @@ import Proveedor.Proveedor;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 import Usuario.Usuario;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "compras")
 public class Compra {
+
+    @Id
+    @GeneratedValue
+    private long id;
+
+    @Transient
     public Entidad entidadRelacionada;
+
     //	private Documento documentoComercial;
+
     private final LocalDate fechaOperacion;
+
+    @Transient
     public final MedioDePago medioDePago;
+
     private int cantidadMinimaDePresupuestos;
+
+    @Transient
     private final Moneda moneda;
+
+    @Enumerated(EnumType.ORDINAL)
     private Estado indicadorDeAprobacion;
+
+    @ManyToMany
+    @JoinTable(name = "items_por_compra")
     private final List<Item> items;
+
+    @OneToMany
+    @JoinColumn(name = "id_compra")
     private List<Presupuesto> presupuestosAsociados;
-    //private Presupuesto presupuestoElegido;
+
+    @Transient
     private final List<Usuario> usuariosValidadores;
+
+    @Transient
     private final ValidadorDeCompra validadorDeCompra;
+
+    @Transient
     private List<String> etiquetas;
 
     //Constructor
+
     public Compra(RepositorioDeMonedas repositorioDeMonedas,
                   EntidadJuridica entidad,
                   Proveedor proveedor,
@@ -53,8 +83,8 @@ public class Compra {
         this.usuariosValidadores = usuariosValidadores;
         this.etiquetas = new ArrayList<>();
     }
-    
-//Items ***********************************
+
+    //Items ***********************************
     
     public List<Item> getItems() {
         return items;

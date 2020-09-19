@@ -100,4 +100,9 @@ public class TestCompra {
     	compra.agregarEtiqueta(etiqueta1);
         assertEquals(etiqueta1,compra.getEtiquetas().get(0));
     }
+
+    @Test
+    public void compraEsPersistible(){
+
+    }
 }
