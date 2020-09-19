@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 public class Presupuesto implements Comparable<Presupuesto>{
-
     @Id
     @GeneratedValue
     private long id;

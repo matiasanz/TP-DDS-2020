@@ -19,15 +19,14 @@ import java.util.List;
 @Entity
 @Table(name = "compras")
 public class Compra {
-
     @Id
     @GeneratedValue
     private long id;
 
-    @Transient
+    @ManyToOne
     public Entidad entidadRelacionada;
 
-    //	private Documento documentoComercial;
+    //private Documento documentoComercial;
 
     private final LocalDate fechaOperacion;
 
@@ -36,7 +35,7 @@ public class Compra {
 
     private int cantidadMinimaDePresupuestos;
 
-    @Transient
+    @Embedded
     private final Moneda moneda;
 
     @Enumerated(EnumType.ORDINAL)
@@ -50,17 +49,19 @@ public class Compra {
     @JoinColumn(name = "id_compra")
     private List<Presupuesto> presupuestosAsociados;
 
-    @Transient
+    @ManyToMany
+    @JoinTable(name = "validadores_por_compra")
     private final List<Usuario> usuariosValidadores;
 
     @Transient
     private final ValidadorDeCompra validadorDeCompra;
 
-    @Transient
+    @ElementCollection
+    @CollectionTable(name = "etiquetas")
+    @Column(name = "etiqueta")
     private List<String> etiquetas;
 
     //Constructor
-
     public Compra(RepositorioDeMonedas repositorioDeMonedas,
                   EntidadJuridica entidad,
                   Proveedor proveedor,

@@ -3,12 +3,25 @@ package Entidad;
 import Categoria.Categoria;
 import Compra.Compra;
 import Repositorios.RepositorioDeCompras;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Entidad {
+    @Id
+    @GeneratedValue
+    private long id;
+
+    @Transient
     private final RepositorioDeCompras compras;
+
+    protected String nombreFicticio;
+
+    @ManyToMany
     private final List<Categoria> categorias;
 
     //Constructor

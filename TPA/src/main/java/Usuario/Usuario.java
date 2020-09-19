@@ -4,12 +4,25 @@ import java.util.List;
 
 import Repositorios.RepositorioDeMensajes;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+@Entity
 public class Usuario {
-//    private Tipo tipo;
+    //private Tipo tipo;
+    //private List<String> mensajes = new LinkedList<String>();
+
+    @Id
+    @GeneratedValue
+    private long id;
+
     private String username;
     private String contrasenia;
+
+    @Transient
     private RepositorioDeMensajes mensajes = new RepositorioDeMensajes();
-//    private List<String> mensajes = new LinkedList<String>();
 
     public String getContrasenia() {
         return contrasenia;
