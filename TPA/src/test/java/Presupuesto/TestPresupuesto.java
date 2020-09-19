@@ -1,7 +1,9 @@
 package Presupuesto;
 import Direccion.Direccion;
 import Direccion.Pais;
-import Mocks.RepositorioDeLocacionesMock;
+import Factory.ComprasFactory;
+import Factory.ItemsFactory;
+import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMock;
 import Proveedor.*;
 import Compra.Item;
 
@@ -25,9 +27,9 @@ public class TestPresupuesto {
     public void init() {
         direccion = new Direccion(new RepositorioDeLocacionesMock(), "Cervantes", 607, 5, "1407", Pais.AR);
         proveedor = Proveedor.PersonaJuridica("Arcos Dorados S.A.", direccion);
-        item1 = new Item("Item 1", 1, BigDecimal.valueOf(50.0));
-        item2 = new Item("Item 1", 1, BigDecimal.valueOf(40.5));
-        item3 = new Item("Item 1", 1, BigDecimal.valueOf(9.5));
+        item1 = ItemsFactory.itemValuadoEn(50.0);
+        item2 = ItemsFactory.itemValuadoEn(40.5);
+        item3 = ItemsFactory.itemValuadoEn(9.5);
     	List<Item> listaItems = new ArrayList<>();
     	listaItems.add(item1);
     	listaItems.add(item2);
@@ -44,8 +46,8 @@ public class TestPresupuesto {
     @Test
     public void compararElPresupuestoConOtroIgual() {
     	//Genero otro presupuesto
-    	Item itemAlternativo1 = new Item("Item 1", 1, BigDecimal.valueOf(50.0));
-        Item itemAlternativo2 = new Item("Item 1", 1, BigDecimal.valueOf(50.0));
+    	Item itemAlternativo1 = ItemsFactory.itemValuadoEn(50.0);
+        Item itemAlternativo2 = ItemsFactory.itemValuadoEn(50.0);
         List<Item> listaItemsAlternativos = new ArrayList<>();
         listaItemsAlternativos.add(itemAlternativo1);
         listaItemsAlternativos.add(itemAlternativo2);
@@ -57,8 +59,8 @@ public class TestPresupuesto {
     @Test
     public void compararElPresupuestoConOtroDistinto() {
     	//Genero otro presupuesto
-    	Item itemAlternativo1 = new Item("Item 1", 1, BigDecimal.valueOf(350.0));
-        Item itemAlternativo2 = new Item("Item 1", 1, BigDecimal.valueOf(520.0));
+    	Item itemAlternativo1 = ItemsFactory.itemValuadoEn(350.0);
+        Item itemAlternativo2 = ItemsFactory.itemValuadoEn(520.0);
         List<Item> listaItemsAlternativos = new ArrayList<>();
         listaItemsAlternativos.add(itemAlternativo1);
         listaItemsAlternativos.add(itemAlternativo2);

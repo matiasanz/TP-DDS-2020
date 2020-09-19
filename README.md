@@ -2,9 +2,10 @@
 
 ## Resolución Entrega 3
 
+
 ### Diagrama de clase:
 
-![Diagrama](/Diagramas/diagrama_entrega3.png) 
+![Diagrama](/Diagramas/diagrama_e3_correccion.png) 
 
 # Entrega 3
 
@@ -22,5 +23,5 @@
 ## Entregables requeridos
  - [X] Modelo de Objetos (Diagrama de clases)
  - [X] Implementación en código Java de los requerimientos enumerados y sus pruebas unitarias
- - [ ] Alternativas pensadas para diferentes requerimientos según corresponda y su comparación
- - [ ] Implementación de la tarea programada de validación de egresos
+ - [X] Alternativas pensadas para diferentes requerimientos según corresponda y su comparación
+ - [X] Implementación de la tarea programada de validación de egresos

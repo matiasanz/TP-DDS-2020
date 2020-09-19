@@ -1,4 +1,4 @@
-package Mocks;
+package Repositorios.RepositorioDeLocaciones;
 
 import Direccion.Pais;
 import Repositorios.RepositorioDeLocaciones.*;

@@ -1,0 +1,17 @@
+package Repositorios;
+
+import Entidad.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class RepositorioDeEntidades {
+    private List<Entidad> entidades = new ArrayList<>();
+
+    public List<Entidad> getEntidades() {
+        return entidades;
+    }
+    public void agregarEntidad(Entidad entidad) {
+        entidades.add(entidad);
+    }
+}

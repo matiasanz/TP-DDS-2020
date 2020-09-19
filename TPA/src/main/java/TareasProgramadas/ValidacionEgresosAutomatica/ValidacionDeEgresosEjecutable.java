@@ -22,7 +22,5 @@ public class ValidacionDeEgresosEjecutable {
         Scheduler scheduler = new StdSchedulerFactory().getScheduler();
         scheduler.start();
         scheduler.scheduleJob(job, triggerValidacionDeEgresos);
-
-
     }
 }

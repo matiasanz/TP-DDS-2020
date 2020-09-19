@@ -1,11 +1,10 @@
 package Organizacion;
 import Direccion.Direccion;
 import Direccion.Pais;
-import Mocks.RepositorioDeLocacionesMock;
+import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMock;
 import Moneda.CodigoMoneda;
-import Repositorios.RepositorioDeCategorias.RepositorioDeCategorias;
-import Repositorios.RepositorioDeEntidades.RepositorioDeEntidades;
-import Repositorios.RepositorioDeEtiquetas.RepositorioEtiquetas;
+import Repositorios.RepositorioDeCategorias;
+import Repositorios.RepositorioDeEntidades;
 import Repositorios.RepositorioDeUsuarios.RepositorioDeUsuarios;
 
 import org.junit.Before;
@@ -22,14 +21,11 @@ import static org.junit.Assert.assertEquals;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import Mocks.RepositorioDeMonedasMock;
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMock;
 
 public class TestOrganizacion {
     Direccion direccion = new Direccion(new RepositorioDeLocacionesMock(), "Mendoza", 54, 0, "1212", Pais.AR);
-	Organizacion organizacion = new Organizacion(new RepositorioDeUsuarios()
-											   , new RepositorioDeCategorias()
-											   , new RepositorioEtiquetas()
-											   , new RepositorioDeEntidades(new RepositorioDeMonedasMock()));
+	Organizacion organizacion = new Organizacion(new RepositorioDeUsuarios(), new RepositorioDeCategorias(), new RepositorioDeEntidades());
 	
 	Empresa entidad1 = new Empresa("Arcos Dorados", "McDonalds", "2040495678", direccion, 1234, null, Clasificacion.MICRO);
 	OrganizacionSectorSocial entidad2 = new OrganizacionSectorSocial("The Coca Cola Company", "Coca-Cola", "2040495678", direccion, 1234, null);
@@ -47,14 +43,14 @@ public class TestOrganizacion {
     	organizacion.crearUsuario("RonWeasley", "wingardiumleviosa157");
         organizacion.crearUsuario("HarryPotter", "alohomora254");
         
-        assertEquals(2, organizacion.getUsuarios().size());
+        assertEquals(organizacion.getUsuarios().size(), 2);
     }
     
     @Test
     public void validoTamanioDeListaDeEntidades() {
     	organizacion.agregarEntidad(entidad2);
     	
-    	assertEquals(2, organizacion.getEntidades().size());
+    	assertEquals(organizacion.getEntidades().size(), 2);
     }
     
 
@@ -65,11 +61,11 @@ public class TestOrganizacion {
     	Item item2 = new Item("Escritorios", 3, BigDecimal.valueOf(50400));
     	Item item3 = new Item("Sillas",1, BigDecimal.valueOf(34600));
     	
-    	Compra compra1 = new Compra(new RepositorioDeMonedasMock(), new RepositorioEtiquetas(), entidad1, proveedor1, LocalDate.now() , null, CodigoMoneda.ARS, 3, null);
+    	Compra compra1 = new Compra(new RepositorioDeMonedasMock(), entidad1, proveedor1, LocalDate.now() , null, CodigoMoneda.ARS, 3, null);
     	compra1.agregarItem(item1);
     	compra1.agregarItem(item2);
     	
-    	Compra compra2 = new Compra(new RepositorioDeMonedasMock(), new RepositorioEtiquetas(), entidad2, proveedor1, LocalDate.now() , null, CodigoMoneda.ARS, 3, null);
+    	Compra compra2 = new Compra(new RepositorioDeMonedasMock(), entidad2, proveedor1, LocalDate.now() , null, CodigoMoneda.ARS, 3, null);
     	compra1.agregarItem(item1);
     	compra1.agregarItem(item3);
     	    	
@@ -81,7 +77,7 @@ public class TestOrganizacion {
     
     @Test
     public void validoTamanioListaDeCompras() {
-        assertEquals(2, organizacion.getCompras().size());
+        assertEquals(organizacion.getCompras().size(), 2);
     }
     
     @Test
