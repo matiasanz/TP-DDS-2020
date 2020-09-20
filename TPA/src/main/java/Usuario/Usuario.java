@@ -1,16 +1,13 @@
 package Usuario;
 
+import java.util.LinkedList;
 import java.util.List;
-
-import Repositorios.RepositorioDeMensajes;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
-    //private Tipo tipo;
-    //private List<String> mensajes = new LinkedList<String>();
+    //private Tipo tipo; //administrador o validador
 
     @Id
     @GeneratedValue
@@ -19,17 +16,22 @@ public class Usuario {
     private String username;
     private String contrasenia;
 
-    @Transient
-    private RepositorioDeMensajes mensajes = new RepositorioDeMensajes();
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
+    @ElementCollection
+    private List<String> bandejaDeMensajes = new LinkedList<>();
 
     public String getUsername() {
         return username;
     }
+    
+    public String getContrasenia() {
+        return contrasenia;
+    }
 
+    public List<String> getMensajes(){
+    	return bandejaDeMensajes;
+    }
+    
+    //Constructor
     public Usuario(String username, String contrasenia) {
 
         ValidadorUsuario validacion = new ValidadorUsuario();
@@ -51,13 +53,9 @@ public class Usuario {
     }
     
     public void notificarEvento(String mensaje){
-    	mensajes.logMensaje(this,mensaje);
-    	//    	mensajes.add(mensaje);
-    }
-    
-    public List<String> getMensajes(){
-    	return mensajes.getMensajes(this);
-    	//    	return mensajes;
+    	synchronized(bandejaDeMensajes){    		
+    		bandejaDeMensajes.add(mensaje);
+    	}
     }
 
     public boolean equals(Usuario otroUsuario){
@@ -68,6 +66,12 @@ public class Usuario {
 
     public boolean autentica(String username, String password){
         return this.username.equals(username) && this.contrasenia.equals(password);
+    }
+    
+    public void vaciarBandeja(){
+    	synchronized(bandejaDeMensajes){
+    		bandejaDeMensajes.clear();
+    	}
     }
 
 }

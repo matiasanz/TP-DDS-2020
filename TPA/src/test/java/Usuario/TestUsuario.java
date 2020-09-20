@@ -1,41 +1,40 @@
 package Usuario;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
+import static org.junit.Assert.assertEquals;
 public class TestUsuario {
 
 
     @Test(expected = ContraseniaEntreLasDiezMilException.class)
     public void contraseniaEntreLas10000peores() {
-
-        Usuario usuario = new Usuario("guido", "qwerty");
+        new Usuario("guido", "qwerty");
     }
 
     @Test(expected = ContraseniaNoCumpleLongitudMinimaException.class)
     public void contraseniaNoCumpleConLongitudMinima() {
-        Usuario usuario = new Usuario("carlitos", "pepe");
+        new Usuario("carlitos", "pepe");
     }
 
     @Test(expected = ContraseniaTieneCaracteresRepetidosException.class)
     public void validarCaracteresRepetidosConTresCaracteres() {
-        Usuario usuario = new Usuario("carlitos", "pepeholappp");
+        new Usuario("carlitos", "pepeholappp");
     }
 
     @Test(expected = ContraseniaTieneCaracteresRepetidosException.class)
     public void validarCaracteresRepetidosConCuatroCaracteres() {
-        Usuario usuario = new Usuario("carlitos", "pepeholappppp");
+        new Usuario("carlitos", "pepeholappppp");
     }
 
     @Test(expected = ContraseniaTieneCaracteresRepetidosException.class)
     public void validarCaracteresRepetidosConDosCaracteres() {
         String contraseniaEsperada = "pepeholapp";
-        Usuario usuario = new Usuario("carlitos", contraseniaEsperada);
+        new Usuario("carlitos", contraseniaEsperada);
     }
     
     @Test(expected = ContraseniaTieneNombreDeUsuarioIncluidoException.class)
     public void validarCaracteresQueIncluyenElNombreDeUsuario() {
         String contraseniaEsperada = "elmascrackesCarlitos";
-        Usuario usuario = new Usuario("carlitos", contraseniaEsperada);
+        new Usuario("carlitos", contraseniaEsperada);
     }
 
     @Test()
