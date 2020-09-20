@@ -54,7 +54,7 @@ public class Compra {
     private final List<Item> items;
 
     @OneToMany
-    @JoinColumn(name = "id_compra")
+    @JoinColumn(name = "compra_id")
     private List<Presupuesto> presupuestosAsociados;
 
     @ManyToMany
