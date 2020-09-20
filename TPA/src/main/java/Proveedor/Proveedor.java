@@ -5,15 +5,21 @@ import Direccion.Direccion;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "proveedores")
 public class Proveedor {
     @Id
     @GeneratedValue
     private long id;
 
     private int dni;
+
     private int cuil;
+
     private String nombre;
+
     private String apellido;
+
+    @Column(name = "razon_social")
     private String razonSocial;
 
     @Embedded

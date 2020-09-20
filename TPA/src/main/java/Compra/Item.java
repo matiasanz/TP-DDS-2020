@@ -1,11 +1,10 @@
 package Compra;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "items")
 public class Item {
 
     @Id
@@ -13,7 +12,11 @@ public class Item {
     private long id;
 
     private String descripcion;
+
     private int cantidad;
+
+    @Column(name = "valor_unitario")
+
     private BigDecimal valorUnitario;
 
     public BigDecimal getValor() {

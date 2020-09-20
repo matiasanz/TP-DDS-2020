@@ -24,20 +24,28 @@ public class Compra {
     private long id;
 
     @ManyToOne
-    public Entidad entidadRelacionada;
+    @JoinColumn(name = "entidad_id")
+    private Entidad entidadRelacionada;
+
+    @ManyToOne
+    @JoinColumn(name = "proveedor_id")
+    private Proveedor proveedor;
 
     //private Documento documentoComercial;
 
+    @Column(name = "fecha_operacion")
     private final LocalDate fechaOperacion;
 
     @Transient
-    public final MedioDePago medioDePago;
+    private final MedioDePago medioDePago;
 
+    @Column(name = "cantidad_minima_de_presupuestos")
     private int cantidadMinimaDePresupuestos;
 
     @Embedded
     private final Moneda moneda;
 
+    @Column(name = "indicador_de_aprobacion")
     @Enumerated(EnumType.ORDINAL)
     private Estado indicadorDeAprobacion;
 
@@ -50,14 +58,16 @@ public class Compra {
     private List<Presupuesto> presupuestosAsociados;
 
     @ManyToMany
-    @JoinTable(name = "validadores_por_compra")
+    @JoinTable(name = "validadores_por_compra",
+            joinColumns = @JoinColumn(name = "compra_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuarios_id"))
     private final List<Usuario> usuariosValidadores;
 
     @Transient
     private final ValidadorDeCompra validadorDeCompra;
 
     @ElementCollection
-    @CollectionTable(name = "etiquetas")
+    @CollectionTable(name = "etiquetas", joinColumns=@JoinColumn(name = "compra_id"))
     @Column(name = "etiqueta")
     private List<String> etiquetas;
 
@@ -73,6 +83,7 @@ public class Compra {
 
         this.validadorDeCompra = new ValidadorDeCompra();
         this.entidadRelacionada = entidad;
+        this.proveedor = proveedor;
         //this.documentoComercial = documentoComercial;
         this.fechaOperacion = fecha;
         this.medioDePago = medioDePago;
@@ -205,4 +216,6 @@ public class Compra {
     public MedioDePago getMedioDePago(){
     	return medioDePago;
     }
+
+    public Proveedor getProveedor() { return proveedor; }
 }

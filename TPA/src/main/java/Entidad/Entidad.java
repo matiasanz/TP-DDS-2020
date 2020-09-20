@@ -11,6 +11,7 @@ import java.util.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "entidades")
 public abstract class Entidad {
     @Id
     @GeneratedValue
@@ -19,15 +20,22 @@ public abstract class Entidad {
     @Transient
     private final RepositorioDeCompras compras;
 
-    protected String nombreFicticio;
+    @Column(name = "nombre_ficticio")
+    private String nombreFicticio;
 
     @ManyToMany
+    @JoinTable(name = "entidades_por_categorias")
     private final List<Categoria> categorias;
 
     //Constructor
-    public Entidad() {
+    public Entidad(String nombreFicticio){
         this.compras = new RepositorioDeCompras(new ArrayList<>());
         this.categorias = new ArrayList<>();
+        this.nombreFicticio = nombreFicticio;
+    }
+
+    public Entidad() {
+        this(null);
     }
     
 // Categoria ****************

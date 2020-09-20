@@ -4,12 +4,10 @@ import java.util.List;
 
 import Repositorios.RepositorioDeMensajes;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "usuarios")
 public class Usuario {
     //private Tipo tipo;
     //private List<String> mensajes = new LinkedList<String>();

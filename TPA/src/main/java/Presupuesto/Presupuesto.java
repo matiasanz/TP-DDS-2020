@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
+@Table(name = "presupuestos")
 public class Presupuesto implements Comparable<Presupuesto>{
     @Id
     @GeneratedValue
@@ -17,8 +18,10 @@ public class Presupuesto implements Comparable<Presupuesto>{
     @JoinTable(name = "items_por_presupuesto")
     private List<Item> items;
 
-    @Transient
+    @ManyToOne
+    @JoinColumn(name = "proveedor_id")
     private Proveedor proveedorAsociado;
+
     private boolean elegido;
 
     public Presupuesto(List<Item> items, Proveedor proveedorAsociado) {

@@ -13,6 +13,8 @@ public class Direccion {
     String calle;
     int altura;
     int piso;
+
+    @Column(name = "codigo_postal")
     String codigoPostal;
 
     @Enumerated(EnumType.STRING)
