@@ -23,8 +23,12 @@ public class Organizacion {
         this.repositorioDeEntidades = repoDeEntidades;
     }
 
-    public List<Usuario> getUsuarios() {
-        return repositorioDeUsuarios.getUsuarios();
+    public List<Usuario> getUsuarios(){
+    	return repositorioDeUsuarios.getUsuarios();
+    }
+    
+    public RepositorioDeUsuarios getRepoUsuarios() {
+        return repositorioDeUsuarios;
     }
 
     public Usuario getUsuarioEspecifico(String nombreDeUsuario, String password) {

@@ -3,6 +3,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 
+import Organizacion.IngresoFallidoException;
 import Usuario.Usuario;
 
 public class RepoUsuariosDB extends RepositorioDeUsuarios{
@@ -20,13 +21,10 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 		
 		try{
 			usuario = super.getUsuario(nombre, contrasenia);
+		
 		} catch (UsuarioDesconocidoException e){
 			usuario = this.getUsuarioFromDB(nombre,contrasenia);
-			
-			if(usuario==null){
-				throw e;
-			}
-			
+
 			this.cargarBandejaDeUsuario(usuario);
 			this.agregarUsuario(usuario);
 		}
@@ -53,6 +51,10 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 				+ "where username=" + nombre + " and contrasenia=" + contrasenia;
 		
 		Usuario usuario = doQuery(sql , handler);
+		
+		if(usuario==null){
+			throw new IngresoFallidoException();
+		}
 		
 		return usuario;
 	}
