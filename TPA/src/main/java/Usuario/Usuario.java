@@ -11,12 +11,13 @@ public class Usuario {
 
     @Id
     @GeneratedValue
-    public long id;
+    private Long id ;
 
     private String username;
     private String contrasenia;
 
     @ElementCollection
+    @Column(name = "Mensajes")
     private List<String> bandejaDeMensajes = new LinkedList<>();
 
     public String getUsername() {
@@ -31,7 +32,7 @@ public class Usuario {
     	return bandejaDeMensajes;
     }
 
-    public long getId(){
+    public Long getId(){
     	return id;
     }
     

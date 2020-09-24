@@ -49,8 +49,8 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 		
 		String sql =
 				"select * "
-				+ "from usuarios u"
-				+ "where username=" + nombre + "and" + "contrasenia=" + contrasenia;
+				+ "from usuarios "
+				+ "where username=" + nombre + " and contrasenia=" + contrasenia;
 		
 		Usuario usuario = doQuery(sql , handler);
 		
@@ -68,7 +68,7 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 		};
 		
 		String sql = "select * "
-				+ 		"from mensaje_usuario"
+				+ 		"from mensaje_usuario "
 				+ 		"where usuario_id=" + Long.toString(usuario.getId());
 		
 		doQuery(sql, handler);
