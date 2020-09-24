@@ -11,7 +11,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue
-    private long id;
+    public long id;
 
     private String username;
     private String contrasenia;
@@ -29,6 +29,10 @@ public class Usuario {
 
     public List<String> getMensajes(){
     	return bandejaDeMensajes;
+    }
+
+    public long getId(){
+    	return id;
     }
     
     //Constructor

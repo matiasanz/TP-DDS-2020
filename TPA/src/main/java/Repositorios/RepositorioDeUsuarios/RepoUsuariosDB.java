@@ -27,6 +27,7 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 				throw e;
 			}
 			
+			this.cargarBandejaDeUsuario(usuario);
 			this.agregarUsuario(usuario);
 		}
 		
@@ -40,19 +41,37 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 			
 			if(rs.next()) {
 				usuario = new Usuario(rs.getString("username"), rs.getString("contrasenia"));
-				this.agregarUsuario(usuario);			
+				this.agregarUsuario(usuario);
 			}
+			
 			return usuario;
 		};
 		
 		String sql =
 				"select * "
-				+ "from usuarios"
+				+ "from usuarios u"
 				+ "where username=" + nombre + "and" + "contrasenia=" + contrasenia;
 		
 		Usuario usuario = doQuery(sql , handler);
 		
 		return usuario;
+	}
+	
+	public void cargarBandejaDeUsuario(Usuario usuario){
+		ResultSetHandler<Void> handler = (rs) -> {
+			
+			while(rs.next()) {
+				usuario.notificarEvento(rs.getString("mensaje"));
+			}
+
+			return null;
+		};
+		
+		String sql = "select * "
+				+ 		"from mensaje_usuario"
+				+ 		"where usuario_id=" + Long.toString(usuario.getId());
+		
+		doQuery(sql, handler);
 	}
 	
 	public void actualizarBaseDeDatos(){
