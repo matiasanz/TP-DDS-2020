@@ -20,13 +20,16 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 	
 	@Before
 	public void init(){
-		repo = new RepoUsuariosDB(DataSourceFactory.createDatasource("schema.sql"));
+		repo = new RepoUsuariosDB(
+			new BaseDeDatos("schema.sql")
+		);
+		
 		repo.add(usuario);
 	}
 
 	@After
 	public void deleteAll(){
-		repo.delete(usuario);
+		repo.eliminarUsuario(usuario);
 	}
 	
 	@Test (expected = IngresoFallidoException.class)
@@ -43,7 +46,7 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 	@Test
 	public void usuarioSeRecuperaDeBD(){
 
-		Usuario recuperado = repo.findByUsernameYContrasenia(usuario.getUsername(),usuario.getContrasenia());
+		Usuario recuperado = repo.getByUsernameYContrasenia(usuario.getUsername(),usuario.getContrasenia());
 	
 		assertNotNull(recuperado);
 		assertEquals(usuario.getUsername(), recuperado.getUsername());

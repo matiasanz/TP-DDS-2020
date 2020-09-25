@@ -19,7 +19,7 @@ public class RepositorioDeUsuarios {
         usuarios.add(usuario);
     }
 
-    public void delete(Usuario usuario){
+    public void eliminarUsuario(Usuario usuario){
         this.usuarios.remove(usuario);
     }
 

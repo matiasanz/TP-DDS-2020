@@ -1,20 +1,27 @@
 package Repositorios.RepositorioDeUsuarios;
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 
 import Organizacion.IngresoFallidoException;
+import Repositorios.BaseDeDatos;
 import Usuario.Usuario;
-
-import java.sql.SQLException;
 
 public class RepoUsuariosDB extends RepositorioDeUsuarios{
 
-	private BasicDataSource baseDeDatos;
+	public BaseDeDatos baseDeDatos;
 	
-	public RepoUsuariosDB(BasicDataSource dataSource){
-		super();
-		this.baseDeDatos = dataSource;
+	public RepoUsuariosDB(BaseDeDatos dataBase){
+		this.baseDeDatos = dataBase;
+	}
+	
+	@Override
+	public void add(Usuario usuario){
+
+		baseDeDatos.insert("usuarios(username, contrasenia)"
+				,	entreComillasSimples(usuario.getUsername())
+				,   entreComillasSimples(usuario.getContrasenia())
+				);
+		
+		usuarios.add(usuario);
 	}
 	
 	@Override
@@ -25,16 +32,15 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 			usuario = super.getUsuario(nombre, contrasenia);
 		
 		} catch (UsuarioDesconocidoException e){
-			usuario = this.findByUsernameYContrasenia(nombre,contrasenia);
-
-			//this.cargarBandejaDeUsuario(usuario);
+			usuario = this.getByUsernameYContrasenia(nombre,contrasenia);
+			this.cargarBandejaDeUsuario(usuario);
 			this.add(usuario);
 		}
 		
 		return usuario;
 	}
 	
-	public Usuario findByUsernameYContrasenia(String username, String contrasenia){
+	public Usuario getByUsernameYContrasenia(String username, String contrasenia){
 		
 		ResultSetHandler<Usuario> handler = (rs) -> {
 			Usuario usuario = null;
@@ -46,18 +52,21 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 			return usuario;
 		};
 		
-		String sql =
-				"select * "
-				+ "from usuarios "
-				+ "where username= \'" + username + "\' and contrasenia=\'" + contrasenia + "\'";
+		String where = "username=" + entreComillasSimples(username) 
+			+ " and contrasenia=" + entreComillasSimples(contrasenia);
 		
-		Usuario usuario = doQuery(sql , handler);
+		Usuario usuario = baseDeDatos.select("usuarios", where, handler);
 		
 		if(usuario==null){
 			throw new IngresoFallidoException();
 		}
 		
 		return usuario;
+	}
+	
+	@Override
+	public void eliminarUsuario(Usuario usuario){
+		baseDeDatos.delete("usuarios", "username =" + entreComillasSimples(usuario.getUsername()));		
 	}
 	
 	public void cargarBandejaDeUsuario(Usuario usuario){
@@ -69,64 +78,13 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 
 			return null;
 		};
+
+		String where = "usuario_id=" + Long.toString(usuario.getId());
 		
-		String sql = "select * "
-				+ 		"from mensaje_usuario "
-				+ 		"where usuario_id=" + Long.toString(usuario.getId());
-		
-		doQuery(sql, handler);
-	}
-
-	@Override
-	public void add(Usuario usuario){
-
-		ResultSetHandler<Long> handler = (rs) -> {
-			Long id = null;
-
-			if(rs.next()) {
-				id = new Long(rs.getString("id"));
-			}
-
-			return id;
-		};
-
-		String sql =
-				"insert into usuarios(username, contrasenia)"
-						+ "values("
-						+ "\'" + usuario.getUsername() + "\',\'" + usuario.getContrasenia() + "\')";
-
-		try{
-			QueryRunner run = new QueryRunner(this.baseDeDatos);
-			run.insert(sql, handler);
-			super.add(usuario);
-		}
-		catch (SQLException e){
-			throw new RuntimeException();
-		}
+		baseDeDatos.select("mensaje_usuario",where,handler);
 	}
 	
-	private <T> T doQuery(String sql, ResultSetHandler<T> handler) {
-		try {
-			QueryRunner run = new QueryRunner(this.baseDeDatos);
-				return run.query(sql, handler);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
-	public void delete(Usuario usuario){
-
-		String sql =
-				"delete from usuarios "
-						+ "where username = \'" + usuario.getUsername() + "\'";
-
-		try{
-			QueryRunner run = new QueryRunner(this.baseDeDatos);
-			run.update(sql);
-		}
-		catch (SQLException e){
-			throw new RuntimeException();
-		}
+	private String entreComillasSimples(String s){
+		return "\'" + s + "\'";
 	}
 }

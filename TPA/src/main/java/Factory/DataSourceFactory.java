@@ -3,8 +3,8 @@ package Factory;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 public class DataSourceFactory {
-
-	public static BasicDataSource createDatasource(String db) {
+	
+	private static BasicDataSource createDatasource(String db) {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
 		dataSource.setUsername("sa");
