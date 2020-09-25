@@ -21,7 +21,7 @@ import java.util.List;
 public class Compra {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "entidad_id")
@@ -199,6 +199,10 @@ public class Compra {
     public Moneda getMoneda() {
         return this.moneda;
     }
+    
+    public Long getId(){
+		return id;
+	}
     
     public boolean compraDelMes(LocalDate unaFecha){
         return this.getFechaOperacion().getMonth().getValue() == unaFecha.getMonth().getValue()

@@ -40,7 +40,7 @@ public class TestPresupuesto {
 
     @Test
     public void obtenerValorTotalDeUnPresupuesto() {
-        Assert.assertEquals(presupuesto.getValorTotal(), BigDecimal.valueOf(100.0));
+        Assert.assertEquals(BigDecimal.valueOf(100.0), presupuesto.getValorTotal());
     }
     
     @Test

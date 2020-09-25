@@ -9,8 +9,10 @@ public class Moneda {
     @Enumerated(EnumType.STRING)
     private CodigoMoneda codigo;
 
-    private final String descripcion;
+    private /*final*/ String descripcion;
 
+    public Moneda(){}
+    
     public Moneda(CodigoMoneda codigo, String descripcion) {
         this.codigo = codigo;
         this.descripcion = descripcion;

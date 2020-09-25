@@ -23,6 +23,8 @@ public class Direccion {
     String provincia;
     String ciudad;
 
+    public Direccion(){} //Constructor principal para orm
+    
     public Direccion(RepositorioDeLocaciones repositorioDeLocaciones, String calle,
                      int altura, int piso, String codigoPostal,
                      Pais pais) {

@@ -3,16 +3,19 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import Organizacion.IngresoFallidoException;
-import Organizacion.Organizacion;
 import Organizacion.OrganizacionMock;
+import Repositorios.RepositorioDeUsuarios.RepositorioDeUsuarios;
 import Usuario.Usuario;
 
 public class MainClass {
-	private static Organizacion organizacion = OrganizacionMock.getInstance();
+
+	//Sacar org mock y poner repo de db
+	private static RepositorioDeUsuarios usuarios = OrganizacionMock.getInstance()
+																	.getRepoUsuarios();	
 	private static Usuario usuario;
 	
     public static void main(String[] args){
-    	imprimirPorPantalla("\n***************************** Inicio de sesion *****************************\n");
+    	iniciarSesion();
     	    	
     	autenticarUsuario();
     	
@@ -20,17 +23,25 @@ public class MainClass {
         
         vaciarBandejaOpcional();
         
-        imprimirPorPantalla("\n***************************** Fin de sesion *****************************\n");
+        finalizarSesion();
     }
-
-	private static void autenticarUsuario(){
+    
+	private static void iniciarSesion(){
+		imprimirPorPantalla("\n***************************** Inicio de sesion *****************************\n");
+	}
+    
+	private static void finalizarSesion(){
+		imprimirPorPantalla("\n***************************** Fin de sesion *****************************\n");
+	}
+    
+    private static void autenticarUsuario(){
 		System.out.println("Ingrese usuario");
 		String usuarioIngresado = leerConsola();		
 		System.out.println("Ingrese contraseña");
         String passwordIngresada = leerConsola();
         
         try{
-        	usuario = organizacion.getUsuarioEspecifico(usuarioIngresado, passwordIngresada);
+        	usuario = usuarios.getUsuario(usuarioIngresado, passwordIngresada);
         }
         
         catch(IngresoFallidoException unaExcepcion) {

@@ -9,7 +9,7 @@ public class Item {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     private String descripcion;
 
@@ -26,7 +26,12 @@ public class Item {
     public BigDecimal getValorUnitario(){
         return valorUnitario;
     }
+    
+    public Long getId(){
+		return id;
+	}
 
+    //Constructor
     public Item(String descripcion, int cantidad, BigDecimal valorUnitario) {
     	
     	validarValorPositivo(valorUnitario);
@@ -45,5 +50,4 @@ public class Item {
 		return String.join(" ",descripcion, valorUnitario.toString(), Integer.toString(cantidad));
 	}
 
-	
 }

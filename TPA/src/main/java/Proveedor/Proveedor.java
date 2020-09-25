@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Proveedor {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     private int dni;
 
@@ -54,5 +54,10 @@ public class Proveedor {
             return razonSocial;
         }
     }
+
+	public Long getId()
+	{
+		return id;
+	}
 
 }

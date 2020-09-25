@@ -77,23 +77,23 @@ public class TestCompra {
     @Test
     public void presupuestoElegidoNoCumpleCriterio() {
     	//Agrego los presupuestos
-    	List<Item> listaItems = new ArrayList<>();
-    	listaItems.add(item1);
-    	listaItems.add(item2);
-    	listaItems.add(item3);
-    	
-    	Presupuesto presupuesto1 = new Presupuesto(listaItems, proveedor);
-    	
-    	listaItems.remove(item2);
-    	
-    	Presupuesto presupuesto2 = new Presupuesto(listaItems, proveedor);
+        List<Item> listaItems = new ArrayList<>();
+        listaItems.add(item1);
+        listaItems.add(item2);
+        listaItems.add(item3);
+        Presupuesto presupuesto1 = new Presupuesto(listaItems, proveedor);
+
+        List<Item> listaItems2 = new ArrayList<>();
+        listaItems2.add(item2);
+        Presupuesto presupuesto2 = new Presupuesto(listaItems2, proveedor);
+
     	//Los agrego a la compra
     	compra.agregarPresupuesto(presupuesto1);
     	compra.agregarPresupuesto(presupuesto2);
-    	compra.setPresupuestoElegido(presupuesto2);
+    	compra.setPresupuestoElegido(presupuesto1);
     	//Hago la validacion
     	compra.validar();
-        assertEquals(compra.getIndicadorDeAprobacion(), Estado.RECHAZADA);
+        assertEquals(Estado.RECHAZADA, compra.getIndicadorDeAprobacion());
     }
     
     @Test
