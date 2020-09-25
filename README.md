@@ -2,10 +2,10 @@
 
 ## Resolución Entrega 4
 
-
-### Diagrama de clase:
-
+### Diagrama de Entidad-Relación:
 ![DER](/Diagramas/Der.PNG)
+
+### Diagrama de clases:
 ![DiagramaUML](/Diagramas/diagrama_e3_correccion.png) 
 
 # Entrega 3
