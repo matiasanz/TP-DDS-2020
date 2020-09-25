@@ -17,8 +17,8 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 	public void add(Usuario usuario){
 
 		baseDeDatos.insert("usuarios(username, contrasenia)"
-				,	entreComillasSimples(usuario.getUsername())
-				,   entreComillasSimples(usuario.getContrasenia())
+				,	asSQLString(usuario.getUsername())
+				,   asSQLString(usuario.getContrasenia())
 				);
 		
 		usuarios.add(usuario);
@@ -52,8 +52,8 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 			return usuario;
 		};
 		
-		String where = "username=" + entreComillasSimples(username) 
-			+ " and contrasenia=" + entreComillasSimples(contrasenia);
+		String where = "username=" + asSQLString(username) 
+			+ " and contrasenia=" + asSQLString(contrasenia);
 		
 		Usuario usuario = baseDeDatos.select("usuarios", where, handler);
 		
@@ -66,7 +66,7 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 	
 	@Override
 	public void eliminarUsuario(Usuario usuario){
-		baseDeDatos.delete("usuarios", "username =" + entreComillasSimples(usuario.getUsername()));		
+		baseDeDatos.delete("usuarios", "username =" + asSQLString(usuario.getUsername()));		
 	}
 	
 	public void cargarBandejaDeUsuario(Usuario usuario){
@@ -84,7 +84,7 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 		baseDeDatos.select("mensaje_usuario",where,handler);
 	}
 	
-	private String entreComillasSimples(String s){
+	private String asSQLString(String s){
 		return "\'" + s + "\'";
 	}
 }
