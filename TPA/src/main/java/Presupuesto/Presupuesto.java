@@ -12,7 +12,7 @@ import java.util.List;
 public class Presupuesto implements Comparable<Presupuesto>{
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @ManyToMany
     @JoinTable(name = "items_por_presupuesto")
@@ -39,6 +39,10 @@ public class Presupuesto implements Comparable<Presupuesto>{
         return this.getValorTotal().compareTo(otroPresupuesto.getValorTotal());
     }
 
+//    public boolean equals(Presupuesto otro){
+//    	return this.compareTo(otro) == 0;
+//    }
+    
     public boolean isElegido() {
         return elegido;
     }
@@ -46,4 +50,9 @@ public class Presupuesto implements Comparable<Presupuesto>{
     public void setElegido(boolean elegido) {
         this.elegido = elegido;
     }
+
+	public Long getId()
+	{
+		return id;
+	}
 }

@@ -15,7 +15,7 @@ import java.util.*;
 public abstract class Entidad {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Transient
     private final RepositorioDeCompras compras;
@@ -38,6 +38,10 @@ public abstract class Entidad {
         this(null);
     }
     
+	public Long getId()
+	{
+		return id;
+	}
 // Categoria ****************
 
     public List<Categoria> getCategorias() {

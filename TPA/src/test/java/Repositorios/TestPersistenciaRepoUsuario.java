@@ -1,13 +1,13 @@
-package db;
+package Repositorios;
 
 import static org.junit.Assert.*;
 
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
+import Factory.DataSourceFactory;
 import Factory.UsuariosFactory;
 import Organizacion.IngresoFallidoException;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
@@ -19,8 +19,8 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 	
 	@Before
 	public void init(){
-		repo = new RepoUsuariosDB(new BasicDataSource());
-		// Lo hice asi nomas. Ver como es para que se relacione con nuestra db
+		repo = new RepoUsuariosDB(DataSourceFactory.createDatasource("schema.sql"));
+		
 
 		repo.agregarUsuario(usuario);
 	}
@@ -37,14 +37,14 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 	}
 
 //TODO
-//	@Test
-//	public void usuarioSeRecuperaDeBD(){
-//		repo.actualizarBaseDeDatos(); 
-//		//Todavia no hace nada
-//
-//		Usuario recuperado = repo.getUsuarioFromDB(usuario.getUsername(),usuario.getContrasenia());
-//	
-//		assertNotNull(recuperado);
-//		assertSame(usuario, recuperado);
-//	}
+	@Test
+	public void usuarioSeRecuperaDeBD(){
+		repo.actualizarBaseDeDatos(); 
+		//Todavia no hace nada
+
+		Usuario recuperado = repo.getUsuarioFromDB(usuario.getUsername(),usuario.getContrasenia());
+	
+		assertNotNull(recuperado);
+		assertSame(usuario, recuperado);
+	}
 }

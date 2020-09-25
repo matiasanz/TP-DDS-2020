@@ -8,20 +8,20 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import Factory.UsuariosFactory;
 import Usuario.Usuario;
 
-public class TestPersistenciaUsuario extends AbstractPersistenceTest implements WithGlobalEntityManager {
+public class TestUsuarioPersistencia extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
 	@Test
-	  public void test() {
+	  public void persistenciaUsuario() {
 	    Usuario usuarioAInsertar = UsuariosFactory.usuarioStub();
-
+	
 	    assertNull(usuarioAInsertar.getId());
-
+	
 	    entityManager().persist(usuarioAInsertar);
-
+	
 	    assertNotNull(usuarioAInsertar.getId());
 	    	    
 	    Usuario usuarioRecuperado = entityManager().find(Usuario.class, usuarioAInsertar.getId());
-
+	
 	    assertEquals(usuarioRecuperado.getId(), usuarioAInsertar.getId());
 	    assertSame(usuarioRecuperado, usuarioAInsertar);	  
 	  }
