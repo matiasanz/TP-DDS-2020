@@ -10,8 +10,8 @@ public class BaseDeDatos
 {
 	private BasicDataSource baseDeDatos;
 
-	public BaseDeDatos(String dataSource){
-		this.baseDeDatos = createDatasource(dataSource);
+	public BaseDeDatos(){
+		this.baseDeDatos = createDatasource();
 	}
 
 	public <T> T select(String from, String where, ResultSetHandler<T> handler){
@@ -65,7 +65,7 @@ public class BaseDeDatos
 		}
 	}
 	
-	private BasicDataSource createDatasource(String db) {
+	private BasicDataSource createDatasource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
 		dataSource.setUsername("sa");

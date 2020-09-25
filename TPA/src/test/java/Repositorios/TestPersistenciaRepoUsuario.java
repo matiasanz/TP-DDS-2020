@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
-import Factory.DataSourceFactory;
 import Factory.UsuariosFactory;
 import Organizacion.IngresoFallidoException;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
@@ -21,7 +20,7 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 	@Before
 	public void init(){
 		repo = new RepoUsuariosDB(
-			new BaseDeDatos("schema.sql")
+			new BaseDeDatos()
 		);
 		
 		repo.add(usuario);
