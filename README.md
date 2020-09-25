@@ -1,11 +1,11 @@
 # GRUPO 7 - TP ANUAL
 
-## Resolución Entrega 3
+## Resolución Entrega 4
 
 
 ### Diagrama de clase:
 
-![DER](/Diagramas/Der.png)
+![DER](/Diagramas/Der.PNG)
 ![DiagramaUML](/Diagramas/diagrama_e3_correccion.png) 
 
 # Entrega 3
