@@ -8,7 +8,7 @@
 ### Diagrama de clases:
 ![DiagramaUML](/Diagramas/diagrama_e3_correccion.png) 
 
-# Entrega 3
+# Entrega 4
 
 ## Objetivo de la entrega
 * Lograr que nuestro modelo sea persistente en el tiempo
