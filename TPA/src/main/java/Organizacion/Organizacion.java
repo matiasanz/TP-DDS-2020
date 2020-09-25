@@ -45,7 +45,7 @@ public class Organizacion {
 
     public void crearUsuario(String username, String password) {
     	Usuario usuario = new Usuario(username, password);
-        repositorioDeUsuarios.agregarUsuario(usuario);
+        repositorioDeUsuarios.add(usuario);
     }
 
     public void autenticarUsuario(String username, String password) {

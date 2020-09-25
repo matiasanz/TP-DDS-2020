@@ -14,11 +14,15 @@ public class RepositorioDeUsuarios {
         return usuarios.stream().anyMatch(u -> username.equals(u.getUsername()));
     }
 
-    public void agregarUsuario(Usuario usuario){
+    public void add(Usuario usuario){
 		this.validarNoRepetido(usuario.getUsername());
         usuarios.add(usuario);
     }
-    
+
+    public void delete(Usuario usuario){
+        this.usuarios.remove(usuario);
+    }
+
     public void autenticarUsuario(String username, String password){
         if(usuarios.stream().noneMatch(usuario -> usuario.autentica(username, password))){
             throw new IngresoFallidoException();

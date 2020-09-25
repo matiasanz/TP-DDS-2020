@@ -1,6 +1,6 @@
 package Usuario;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -18,7 +18,7 @@ public class Usuario {
 
     @ElementCollection
     @Column(name = "Mensajes")
-    private List<String> bandejaDeMensajes = new LinkedList<>();
+    private List<String> bandejaDeMensajes = new ArrayList<>();
 
     public String getUsername() {
         return username;
@@ -64,9 +64,7 @@ public class Usuario {
     }
 
     public boolean equals(Usuario otroUsuario){
-        String username = otroUsuario.getUsername();
-        String password = otroUsuario.getContrasenia();
-        return this.autentica(username,password);
+        return this.autentica(otroUsuario.getUsername(),otroUsuario.getContrasenia());
     }
 
     public boolean autentica(String username, String password){

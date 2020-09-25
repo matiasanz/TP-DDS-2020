@@ -6,6 +6,8 @@ import org.apache.commons.dbutils.ResultSetHandler;
 import Organizacion.IngresoFallidoException;
 import Usuario.Usuario;
 
+import java.sql.SQLException;
+
 public class RepoUsuariosDB extends RepositorioDeUsuarios{
 
 	private BasicDataSource baseDeDatos;
@@ -23,32 +25,31 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 			usuario = super.getUsuario(nombre, contrasenia);
 		
 		} catch (UsuarioDesconocidoException e){
-			usuario = this.getUsuarioFromDB(nombre,contrasenia);
+			usuario = this.findByUsernameYContrasenia(nombre,contrasenia);
 
-			this.cargarBandejaDeUsuario(usuario);
-			this.agregarUsuario(usuario);
+			//this.cargarBandejaDeUsuario(usuario);
+			this.add(usuario);
 		}
 		
 		return usuario;
 	}
 	
-	public Usuario getUsuarioFromDB(String nombre, String contrasenia){
+	public Usuario findByUsernameYContrasenia(String username, String contrasenia){
 		
 		ResultSetHandler<Usuario> handler = (rs) -> {
 			Usuario usuario = null;
-			
+
 			if(rs.next()) {
 				usuario = new Usuario(rs.getString("username"), rs.getString("contrasenia"));
-				this.agregarUsuario(usuario);
 			}
-			
+
 			return usuario;
 		};
 		
 		String sql =
 				"select * "
 				+ "from usuarios "
-				+ "where username=" + nombre + " and contrasenia=" + contrasenia;
+				+ "where username= \'" + username + "\' and contrasenia=\'" + contrasenia + "\'";
 		
 		Usuario usuario = doQuery(sql , handler);
 		
@@ -75,9 +76,33 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 		
 		doQuery(sql, handler);
 	}
-	
-	public void actualizarBaseDeDatos(){
-		//TODO Programar aqui...
+
+	@Override
+	public void add(Usuario usuario){
+
+		ResultSetHandler<Long> handler = (rs) -> {
+			Long id = null;
+
+			if(rs.next()) {
+				id = new Long(rs.getString("id"));
+			}
+
+			return id;
+		};
+
+		String sql =
+				"insert into usuarios(username, contrasenia)"
+						+ "values("
+						+ "\'" + usuario.getUsername() + "\',\'" + usuario.getContrasenia() + "\')";
+
+		try{
+			QueryRunner run = new QueryRunner(this.baseDeDatos);
+			run.insert(sql, handler);
+			super.add(usuario);
+		}
+		catch (SQLException e){
+			throw new RuntimeException();
+		}
 	}
 	
 	private <T> T doQuery(String sql, ResultSetHandler<T> handler) {
@@ -86,6 +111,22 @@ public class RepoUsuariosDB extends RepositorioDeUsuarios{
 				return run.query(sql, handler);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public void delete(Usuario usuario){
+
+		String sql =
+				"delete from usuarios "
+						+ "where username = \'" + usuario.getUsername() + "\'";
+
+		try{
+			QueryRunner run = new QueryRunner(this.baseDeDatos);
+			run.update(sql);
+		}
+		catch (SQLException e){
+			throw new RuntimeException();
 		}
 	}
 }

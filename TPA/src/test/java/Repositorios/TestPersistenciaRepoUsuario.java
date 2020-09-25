@@ -2,6 +2,7 @@ package Repositorios;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -20,9 +21,12 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 	@Before
 	public void init(){
 		repo = new RepoUsuariosDB(DataSourceFactory.createDatasource("schema.sql"));
-		
+		repo.add(usuario);
+	}
 
-		repo.agregarUsuario(usuario);
+	@After
+	public void deleteAll(){
+		repo.delete(usuario);
 	}
 	
 	@Test (expected = IngresoFallidoException.class)
@@ -36,15 +40,13 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 		assertSame(usuario, recuperado);
 	}
 
-//TODO
 	@Test
 	public void usuarioSeRecuperaDeBD(){
-		repo.actualizarBaseDeDatos(); 
-		//Todavia no hace nada
 
-		Usuario recuperado = repo.getUsuarioFromDB(usuario.getUsername(),usuario.getContrasenia());
+		Usuario recuperado = repo.findByUsernameYContrasenia(usuario.getUsername(),usuario.getContrasenia());
 	
 		assertNotNull(recuperado);
-		assertSame(usuario, recuperado);
+		assertEquals(usuario.getUsername(), recuperado.getUsername());
+		assertEquals(usuario.getContrasenia(), recuperado.getContrasenia());
 	}
 }
