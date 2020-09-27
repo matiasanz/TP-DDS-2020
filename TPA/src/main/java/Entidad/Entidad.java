@@ -3,20 +3,45 @@ package Entidad;
 import Categoria.Categoria;
 import Compra.Compra;
 import Repositorios.RepositorioDeCompras;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "entidades")
 public abstract class Entidad {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Transient
     private final RepositorioDeCompras compras;
+
+    @Column(name = "nombre_ficticio")
+    private String nombreFicticio;
+
+    @ManyToMany
+    @JoinTable(name = "entidades_por_categorias")
     private final List<Categoria> categorias;
 
     //Constructor
-    public Entidad() {
+    public Entidad(String nombreFicticio){
         this.compras = new RepositorioDeCompras(new ArrayList<>());
         this.categorias = new ArrayList<>();
+        this.nombreFicticio = nombreFicticio;
+    }
+
+    public Entidad() {
+        this(null);
     }
     
+	public Long getId()
+	{
+		return id;
+	}
 // Categoria ****************
 
     public List<Categoria> getCategorias() {

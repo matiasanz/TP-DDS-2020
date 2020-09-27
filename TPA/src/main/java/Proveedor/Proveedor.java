@@ -2,12 +2,27 @@ package Proveedor;
 
 import Direccion.Direccion;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "proveedores")
 public class Proveedor {
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private int dni;
+
     private int cuil;
+
     private String nombre;
+
     private String apellido;
+
+    @Column(name = "razon_social")
     private String razonSocial;
+
+    @Embedded
     private Direccion direccion;
 
     public static Proveedor PersonaFisica(int dni, int cuil, String nombre, String apellido, Direccion direccion) {
@@ -39,5 +54,10 @@ public class Proveedor {
             return razonSocial;
         }
     }
+
+	public Long getId()
+	{
+		return id;
+	}
 
 }

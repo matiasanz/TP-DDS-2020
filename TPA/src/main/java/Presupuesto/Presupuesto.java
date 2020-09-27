@@ -3,12 +3,26 @@ package Presupuesto;
 import Compra.Item;
 import Proveedor.Proveedor;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
+@Entity
+@Table(name = "presupuestos")
 public class Presupuesto implements Comparable<Presupuesto>{
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @ManyToMany
+    @JoinTable(name = "items_por_presupuesto")
     private List<Item> items;
+
+    @ManyToOne
+    @JoinColumn(name = "proveedor_id")
     private Proveedor proveedorAsociado;
+
     private boolean elegido;
 
     public Presupuesto(List<Item> items, Proveedor proveedorAsociado) {
@@ -17,8 +31,19 @@ public class Presupuesto implements Comparable<Presupuesto>{
         this.proveedorAsociado = proveedorAsociado;
     }
 
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public Proveedor getProveedorAsociado() {
+        return proveedorAsociado;
+    }
+
     public BigDecimal getValorTotal() {
-        return items.stream().map(Item::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
+        if(this.items != null) {
+            return items.stream().map(Item::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
+        return new BigDecimal(0);
     }
 
     @Override
@@ -26,6 +51,10 @@ public class Presupuesto implements Comparable<Presupuesto>{
         return this.getValorTotal().compareTo(otroPresupuesto.getValorTotal());
     }
 
+    public boolean equals(Presupuesto otro){
+    	return Objects.equals(getValorTotal(), otro.getValorTotal());
+    }
+    
     public boolean isElegido() {
         return elegido;
     }
@@ -33,4 +62,9 @@ public class Presupuesto implements Comparable<Presupuesto>{
     public void setElegido(boolean elegido) {
         this.elegido = elegido;
     }
+
+	public Long getId()
+	{
+		return id;
+	}
 }

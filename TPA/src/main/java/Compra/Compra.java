@@ -10,24 +10,65 @@ import Proveedor.Proveedor;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 import Usuario.Usuario;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "compras")
 public class Compra {
-    public Entidad entidadRelacionada;
-    //	private Documento documentoComercial;
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "entidad_id")
+    private Entidad entidadRelacionada;
+
+    @ManyToOne
+    @JoinColumn(name = "proveedor_id")
+    private Proveedor proveedor;
+
+    //private Documento documentoComercial;
+
+    @Column(name = "fecha_operacion")
     private final LocalDate fechaOperacion;
-    public final MedioDePago medioDePago;
+
+    @Transient
+    private final MedioDePago medioDePago;
+
+    @Column(name = "cantidad_minima_de_presupuestos")
     private int cantidadMinimaDePresupuestos;
+
+    @Embedded
     private final Moneda moneda;
+
+    @Column(name = "indicador_de_aprobacion")
+    @Enumerated(EnumType.ORDINAL)
     private Estado indicadorDeAprobacion;
+
+    @ManyToMany
+    @JoinTable(name = "items_por_compra")
     private final List<Item> items;
+
+    @OneToMany
+    @JoinColumn(name = "compra_id")
     private List<Presupuesto> presupuestosAsociados;
-    //private Presupuesto presupuestoElegido;
+
+    @ManyToMany
+    @JoinTable(name = "validadores_por_compra",
+            joinColumns = @JoinColumn(name = "compra_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuarios_id"))
     private final List<Usuario> usuariosValidadores;
+
+    @Transient
     private final ValidadorDeCompra validadorDeCompra;
+
+    @ElementCollection
+    @CollectionTable(name = "etiquetas", joinColumns=@JoinColumn(name = "compra_id"))
+    @Column(name = "etiqueta")
     private List<String> etiquetas;
 
     //Constructor
@@ -42,6 +83,7 @@ public class Compra {
 
         this.validadorDeCompra = new ValidadorDeCompra();
         this.entidadRelacionada = entidad;
+        this.proveedor = proveedor;
         //this.documentoComercial = documentoComercial;
         this.fechaOperacion = fecha;
         this.medioDePago = medioDePago;
@@ -53,8 +95,8 @@ public class Compra {
         this.usuariosValidadores = usuariosValidadores;
         this.etiquetas = new ArrayList<>();
     }
-    
-//Items ***********************************
+
+    //Items ***********************************
     
     public List<Item> getItems() {
         return items;
@@ -158,6 +200,10 @@ public class Compra {
         return this.moneda;
     }
     
+    public Long getId(){
+		return id;
+	}
+    
     public boolean compraDelMes(LocalDate unaFecha){
         return this.getFechaOperacion().getMonth().getValue() == unaFecha.getMonth().getValue()
                 && getFechaOperacion().getYear() == unaFecha.getYear();
@@ -174,4 +220,6 @@ public class Compra {
     public MedioDePago getMedioDePago(){
     	return medioDePago;
     }
+
+    public Proveedor getProveedor() { return proveedor; }
 }

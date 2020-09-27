@@ -1,5 +1,6 @@
 package Compra;
 import Proveedor.Proveedor;
+import Usuario.Usuario;
 import Direccion.Direccion;
 import Presupuesto.*;
 import org.junit.Before;
@@ -11,6 +12,7 @@ import Entidad.OrganizacionSectorSocial;
 import Factory.ComprasFactory;
 import Factory.DireccionesFactory;
 import Factory.ItemsFactory;
+import Factory.UsuariosFactory;
 import MedioDePago.PagoEnEfectivo;
 
 import static org.junit.Assert.assertEquals;
@@ -75,23 +77,23 @@ public class TestCompra {
     @Test
     public void presupuestoElegidoNoCumpleCriterio() {
     	//Agrego los presupuestos
-    	List<Item> listaItems = new ArrayList<>();
-    	listaItems.add(item1);
-    	listaItems.add(item2);
-    	listaItems.add(item3);
-    	
-    	Presupuesto presupuesto1 = new Presupuesto(listaItems, proveedor);
-    	
-    	listaItems.remove(item2);
-    	
-    	Presupuesto presupuesto2 = new Presupuesto(listaItems, proveedor);
+        List<Item> listaItems = new ArrayList<>();
+        listaItems.add(item1);
+        listaItems.add(item2);
+        listaItems.add(item3);
+        Presupuesto presupuesto1 = new Presupuesto(listaItems, proveedor);
+
+        List<Item> listaItems2 = new ArrayList<>();
+        listaItems2.add(item2);
+        Presupuesto presupuesto2 = new Presupuesto(listaItems2, proveedor);
+
     	//Los agrego a la compra
     	compra.agregarPresupuesto(presupuesto1);
     	compra.agregarPresupuesto(presupuesto2);
-    	compra.setPresupuestoElegido(presupuesto2);
+    	compra.setPresupuestoElegido(presupuesto1);
     	//Hago la validacion
     	compra.validar();
-        assertEquals(compra.getIndicadorDeAprobacion(), Estado.RECHAZADA);
+        assertEquals(Estado.RECHAZADA, compra.getIndicadorDeAprobacion());
     }
     
     @Test
@@ -99,5 +101,10 @@ public class TestCompra {
     	String etiqueta1 = "inmobilaria";
     	compra.agregarEtiqueta(etiqueta1);
         assertEquals(etiqueta1,compra.getEtiquetas().get(0));
+    }
+    
+    @Test
+    public void compraEsPersistible(){
+
     }
 }

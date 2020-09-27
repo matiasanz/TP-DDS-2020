@@ -1,24 +1,42 @@
 package Usuario;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
 
-import Repositorios.RepositorioDeMensajes;
-
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
-//    private Tipo tipo;
+    //private Tipo tipo; //administrador o validador
+
+    @Id
+    @GeneratedValue
+    private Long id ;
+
     private String username;
     private String contrasenia;
-    private RepositorioDeMensajes mensajes = new RepositorioDeMensajes();
-//    private List<String> mensajes = new LinkedList<String>();
 
-    public String getContrasenia() {
-        return contrasenia;
-    }
+    @ElementCollection
+    @Column(name = "Mensajes")
+    private List<String> bandejaDeMensajes = new ArrayList<>();
 
     public String getUsername() {
         return username;
     }
+    
+    public String getContrasenia() {
+        return contrasenia;
+    }
 
+    public List<String> getMensajes(){
+    	return bandejaDeMensajes;
+    }
+
+    public Long getId(){
+    	return id;
+    }
+    
+    //Constructor
     public Usuario(String username, String contrasenia) {
 
         ValidadorUsuario validacion = new ValidadorUsuario();
@@ -40,23 +58,23 @@ public class Usuario {
     }
     
     public void notificarEvento(String mensaje){
-    	mensajes.logMensaje(this,mensaje);
-    	//    	mensajes.add(mensaje);
-    }
-    
-    public List<String> getMensajes(){
-    	return mensajes.getMensajes(this);
-    	//    	return mensajes;
+    	synchronized(bandejaDeMensajes){    		
+    		bandejaDeMensajes.add(mensaje);
+    	}
     }
 
     public boolean equals(Usuario otroUsuario){
-        String username = otroUsuario.getUsername();
-        String password = otroUsuario.getContrasenia();
-        return this.autentica(username,password);
+        return this.autentica(otroUsuario.getUsername(),otroUsuario.getContrasenia());
     }
 
     public boolean autentica(String username, String password){
         return this.username.equals(username) && this.contrasenia.equals(password);
+    }
+    
+    public void vaciarBandeja(){
+    	synchronized(bandejaDeMensajes){
+    		bandejaDeMensajes.clear();
+    	}
     }
 
 }

@@ -23,8 +23,12 @@ public class Organizacion {
         this.repositorioDeEntidades = repoDeEntidades;
     }
 
-    public List<Usuario> getUsuarios() {
-        return repositorioDeUsuarios.getUsuarios();
+    public List<Usuario> getUsuarios(){
+    	return repositorioDeUsuarios.getUsuarios();
+    }
+    
+    public RepositorioDeUsuarios getRepoUsuarios() {
+        return repositorioDeUsuarios;
     }
 
     public Usuario getUsuarioEspecifico(String nombreDeUsuario, String password) {
@@ -41,7 +45,7 @@ public class Organizacion {
 
     public void crearUsuario(String username, String password) {
     	Usuario usuario = new Usuario(username, password);
-        repositorioDeUsuarios.agregarUsuario(usuario);
+        repositorioDeUsuarios.add(usuario);
     }
 
     public void autenticarUsuario(String username, String password) {

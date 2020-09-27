@@ -2,13 +2,21 @@ package Categoria;
 
 import Entidad.EntidadJuridica;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "categorias")
 public class Categoria {
+    @Id
+    @GeneratedValue
+    private long id;
 
     String nombre;
+
+    @Transient
     private List<Validador> validadores;
 
     public Categoria(String nombre) {

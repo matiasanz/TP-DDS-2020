@@ -3,16 +3,28 @@ package Direccion;
 import Repositorios.RepositorioDeLocaciones.Locacion;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocaciones;
 
+import javax.persistence.*;
+
+@Embeddable
 public class Direccion {
+    @Transient
     private RepositorioDeLocaciones repositorioDeLocaciones;
+
     String calle;
     int altura;
     int piso;
+
+    @Column(name = "codigo_postal")
     String codigoPostal;
+
+    @Enumerated(EnumType.STRING)
     Pais pais;
+
     String provincia;
     String ciudad;
 
+    public Direccion(){} //Constructor principal para orm
+    
     public Direccion(RepositorioDeLocaciones repositorioDeLocaciones, String calle,
                      int altura, int piso, String codigoPostal,
                      Pais pais) {
