@@ -1,8 +1,13 @@
 package Categoria;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
+@DiscriminatorValue("CMM")
 public class ValidadorMontoMaximo extends Validador {
+
+    @Column(name = "monto_maximo")
     private BigDecimal montoMaximo;
 
     public ValidadorMontoMaximo(BigDecimal montoMaximo){
