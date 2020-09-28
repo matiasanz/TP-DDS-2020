@@ -18,6 +18,10 @@
         <class>Entidad.Empresa</class>
         <class>Entidad.OrganizacionSectorSocial</class>
         <class>Categoria.Categoria</class>
+        <class>Categoria.Validador</class>
+        <class>Categoria.ValidadorEntidadJuridicaBloqueada</class>
+        <class>Categoria.ValidadorMontoMaximo</class>
+        <class>Categoria.ValidadorNoMasEntidadesbase</class>
 
         <properties>
 	        <property name="hibernate.archive.autodetection" value="class"/>

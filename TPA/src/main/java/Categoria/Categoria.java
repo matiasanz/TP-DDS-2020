@@ -16,7 +16,7 @@ public class Categoria {
 
     String nombre;
 
-    @Transient
+    @OneToMany
     private List<Validador> validadores;
 
     public Categoria(String nombre) {
