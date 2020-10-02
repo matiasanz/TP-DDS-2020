@@ -8,7 +8,11 @@ import javax.persistence.Id;
 @Entity
 @DiscriminatorValue("NEB")
 public class ValidadorNoMasEntidadesbase extends Validador{
-
+	
+	public ValidadorNoMasEntidadesbase() {
+		
+	}
+	
     @Override
     void validarBloqueoDeAgregarEntidadesBase(){
         throw new BloqueoDeAgregarEntidadesBaseException();

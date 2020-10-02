@@ -14,6 +14,10 @@ public class Empresa extends EntidadJuridica {
 	@Enumerated(EnumType.ORDINAL)
 	private Clasificacion clasificacion;
 	
+	public Empresa() {
+		
+	}
+	
 	public Empresa(String razonSocial, String nombreFicticio, String cuit, Direccion direccionPostal, int codigoIGJ,
 				   ArrayList<EntidadBase> entidadesBase, Clasificacion clasificacion) {
 		

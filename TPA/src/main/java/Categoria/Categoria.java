@@ -15,10 +15,14 @@ public class Categoria {
     private long id;
 
     String nombre;
-
+    
     @OneToMany
     private List<Validador> validadores;
 
+    public Categoria() {
+    	
+    }
+    
     public Categoria(String nombre) {
         this.nombre = nombre;
         this.validadores = new ArrayList<Validador>();
@@ -43,7 +47,7 @@ public class Categoria {
     public void notificarMeAgregueAUnaJuridica(EntidadJuridica entidad){
         validadores.stream().forEach(validador -> validador.validarSiEntidadJuridicaEstaBloqueada(entidad));
     }
-
+    
     public String getNombre() {
         return nombre;
     }
@@ -59,4 +63,12 @@ public class Categoria {
     public void setValidadores(List<Validador> validadores) {
         this.validadores = validadores;
     }
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 }

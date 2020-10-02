@@ -30,8 +30,32 @@ public class Item {
     public Long getId(){
 		return id;
 	}
+    
+    public void setId(Long id) {
+		this.id = id;
+	}
+    
+    public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+	
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
 
     //Constructor
+    public Item() {
+    	
+    }
+    
     public Item(String descripcion, int cantidad, BigDecimal valorUnitario) {
     	
     	validarValorPositivo(valorUnitario);
@@ -49,5 +73,6 @@ public class Item {
 	public String toString(){
 		return String.join(" ",descripcion, valorUnitario.toString(), Integer.toString(cantidad));
 	}
+
 
 }

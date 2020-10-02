@@ -1,5 +1,6 @@
 package Presupuesto;
 
+import Compra.Compra;
 import Compra.Item;
 import Proveedor.Proveedor;
 
@@ -15,15 +16,19 @@ public class Presupuesto implements Comparable<Presupuesto>{
     @GeneratedValue
     private Long id;
 
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.PERSIST)
     @JoinTable(name = "items_por_presupuesto")
     private List<Item> items;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "proveedor_id")
     private Proveedor proveedorAsociado;
 
     private boolean elegido;
+    
+    public Presupuesto() {
+    	
+    }
 
     public Presupuesto(List<Item> items, Proveedor proveedorAsociado) {
         this.elegido = false;
@@ -67,4 +72,17 @@ public class Presupuesto implements Comparable<Presupuesto>{
 	{
 		return id;
 	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	public void setProveedorAsociado(Proveedor proveedorAsociado) {
+		this.proveedorAsociado = proveedorAsociado;
+	}
+	
 }

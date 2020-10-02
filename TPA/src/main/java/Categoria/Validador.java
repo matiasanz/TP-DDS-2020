@@ -16,8 +16,20 @@ public abstract class Validador {
     @Id
     @GeneratedValue
     private long id;
+    
+    public Validador() {
+    	
+    }
 
     void validarGasto(BigDecimal montoCompra, BigDecimal montoAcumuladoEntidad){}
     void validarBloqueoDeAgregarEntidadesBase(){}
     void validarSiEntidadJuridicaEstaBloqueada(EntidadJuridica entidad){}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 }

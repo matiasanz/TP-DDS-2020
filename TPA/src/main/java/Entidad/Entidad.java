@@ -18,26 +18,25 @@ public abstract class Entidad {
     private Long id;
 
     @Transient
-    private final RepositorioDeCompras compras;
+    private  RepositorioDeCompras compras;
 
     @Column(name = "nombre_ficticio")
     private String nombreFicticio;
 
     @ManyToMany
     @JoinTable(name = "entidades_por_categorias")
-    private final List<Categoria> categorias;
+    private  List<Categoria> categorias;
 
     //Constructor
+    public Entidad() {
+        
+    }
     public Entidad(String nombreFicticio){
         this.compras = new RepositorioDeCompras(new ArrayList<>());
         this.categorias = new ArrayList<>();
         this.nombreFicticio = nombreFicticio;
     }
 
-    public Entidad() {
-        this(null);
-    }
-    
 	public Long getId()
 	{
 		return id;
@@ -94,4 +93,16 @@ public abstract class Entidad {
     	return unasCompras.stream().map(c -> c.getValorTotal())
     			.reduce(BigDecimal.ZERO, BigDecimal::add).doubleValue();
     }
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNombreFicticio() {
+		return nombreFicticio;
+	}
+
+	public void setNombreFicticio(String nombreFicticio) {
+		this.nombreFicticio = nombreFicticio;
+	}
 }

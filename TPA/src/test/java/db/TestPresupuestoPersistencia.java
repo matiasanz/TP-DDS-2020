@@ -19,6 +19,8 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 public class TestPresupuestoPersistencia extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
 	@Test
@@ -27,6 +29,25 @@ public class TestPresupuestoPersistencia extends AbstractPersistenceTest impleme
 		assertNull(presupuestoInsertado.getId());
 
 		entityManager().persist(presupuestoInsertado);
+	    assertNotNull(presupuestoInsertado.getId());
+		
+	    Presupuesto presupuestoRecuperado = entityManager().find(Presupuesto.class, presupuestoInsertado.getId());
+	
+	    assertEquals(presupuestoInsertado.getId(), presupuestoInsertado.getId());
+	    assertSame(presupuestoRecuperado, presupuestoInsertado);
+	}
+	
+	@Test
+	public void PresupuestoSePersisteCorrectamente(){
+		Presupuesto presupuestoInsertado = PresupuestosFactory.presupuestoPara(ComprasFactory.getCompra12Julio2020SinEtiqueta());
+		assertNull(presupuestoInsertado.getId());
+		
+		EntityManager entityManager = entityManager();
+		
+		entityManager.persist(presupuestoInsertado);
+		
+		entityManager.getTransaction().commit();
+
 	    assertNotNull(presupuestoInsertado.getId());
 		
 	    Presupuesto presupuestoRecuperado = entityManager().find(Presupuesto.class, presupuestoInsertado.getId());

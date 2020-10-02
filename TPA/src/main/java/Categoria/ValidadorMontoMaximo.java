@@ -9,6 +9,10 @@ public class ValidadorMontoMaximo extends Validador {
 
     @Column(name = "monto_maximo")
     private BigDecimal montoMaximo;
+    
+    public ValidadorMontoMaximo() {
+    	
+    }
 
     public ValidadorMontoMaximo(BigDecimal montoMaximo){
         this.montoMaximo = montoMaximo;
@@ -20,4 +24,12 @@ public class ValidadorMontoMaximo extends Validador {
             throw new MontoMaximoExcedidoException();
         }
     }
+
+	public BigDecimal getMontoMaximo() {
+		return montoMaximo;
+	}
+
+	public void setMontoMaximo(BigDecimal montoMaximo) {
+		this.montoMaximo = montoMaximo;
+	}
 }

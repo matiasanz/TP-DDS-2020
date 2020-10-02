@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
+import javax.persistence.EntityManager;
+
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
@@ -42,10 +44,16 @@ public class TestEntidadPersistencia extends AbstractPersistenceTest implements 
 	}
 	
 	//Auxiliar
+	
+	
 	private void testPersistencia(Entidad entidadInsertada){
 		assertNull(entidadInsertada.getId());
 		
-		entityManager().persist(entidadInsertada);
+		EntityManager entityManager = entityManager();
+		
+		entityManager.persist(entidadInsertada);
+		
+		entityManager.getTransaction().commit();
 		
 	    assertNotNull(entidadInsertada.getId());
 		

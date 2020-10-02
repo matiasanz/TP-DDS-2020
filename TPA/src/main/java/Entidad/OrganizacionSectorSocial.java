@@ -9,6 +9,10 @@ import java.util.ArrayList;
 @Entity
 @Table(name = "organizaciones_sector_social")
 public class OrganizacionSectorSocial extends EntidadJuridica {
+	
+	public OrganizacionSectorSocial() {
+		
+	}
 
 	public OrganizacionSectorSocial(String razonSocial, String nombreFicticio, String cuit, Direccion direccionPostal,
 			int codigoIGJ, ArrayList<EntidadBase> entidadesBase) {

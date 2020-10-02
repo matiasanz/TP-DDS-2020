@@ -27,23 +27,23 @@ public class Compra {
     @JoinColumn(name = "entidad_id")
     private Entidad entidadRelacionada;
 
-    @ManyToOne
-    @JoinColumn(name = "proveedor_id")
-    private Proveedor proveedor;
+//    @ManyToOne
+//    @JoinColumn(name = "proveedor_id")
+//    private Proveedor proveedor;
 
     //private Documento documentoComercial;
 
     @Column(name = "fecha_operacion")
-    private final LocalDate fechaOperacion;
+    private  LocalDate fechaOperacion;
 
     @Transient
-    private final MedioDePago medioDePago;
+    private  MedioDePago medioDePago;
 
     @Column(name = "cantidad_minima_de_presupuestos")
     private int cantidadMinimaDePresupuestos;
 
     @Embedded
-    private final Moneda moneda;
+    private  Moneda moneda;
 
     @Column(name = "indicador_de_aprobacion")
     @Enumerated(EnumType.ORDINAL)
@@ -51,9 +51,9 @@ public class Compra {
 
     @ManyToMany
     @JoinTable(name = "items_por_compra")
-    private final List<Item> items;
+    private  List<Item> items;
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "compra_id")
     private List<Presupuesto> presupuestosAsociados;
 
@@ -61,17 +61,20 @@ public class Compra {
     @JoinTable(name = "validadores_por_compra",
             joinColumns = @JoinColumn(name = "compra_id"),
             inverseJoinColumns = @JoinColumn(name = "usuarios_id"))
-    private final List<Usuario> usuariosValidadores;
+    private  List<Usuario> usuariosValidadores;
 
     @Transient
-    private final ValidadorDeCompra validadorDeCompra;
+    private  ValidadorDeCompra validadorDeCompra;
 
     @ElementCollection
     @CollectionTable(name = "etiquetas", joinColumns=@JoinColumn(name = "compra_id"))
     @Column(name = "etiqueta")
     private List<String> etiquetas;
-
-    //Constructor
+    
+    public Compra() {
+    	
+    }
+    
     public Compra(RepositorioDeMonedas repositorioDeMonedas,
                   EntidadJuridica entidad,
                   Proveedor proveedor,
@@ -81,9 +84,10 @@ public class Compra {
                   int cantidadMinimaDePresupuestos,
                   List<Usuario> usuariosValidadores) {
 
-        this.validadorDeCompra = new ValidadorDeCompra();
+		
+		this.validadorDeCompra = new ValidadorDeCompra();
         this.entidadRelacionada = entidad;
-        this.proveedor = proveedor;
+        //this.proveedor = proveedor;
         //this.documentoComercial = documentoComercial;
         this.fechaOperacion = fecha;
         this.medioDePago = medioDePago;
@@ -96,8 +100,8 @@ public class Compra {
         this.etiquetas = new ArrayList<>();
     }
 
-    //Items ***********************************
-    
+	//Items ***********************************
+
     public List<Item> getItems() {
         return items;
     }
@@ -128,6 +132,7 @@ public class Compra {
         Presupuesto presupuestoAElegir = presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.equals(presupuesto)).findFirst().orElseThrow(NoHayPresupuestosException::new);
         presupuestoAElegir.setElegido(true);
     }
+    
     
  /* Retorna el presupuesto elegido
     si no hay presupuesto elegido todavía arroja excepcion
@@ -221,5 +226,53 @@ public class Compra {
     	return medioDePago;
     }
 
-    public Proveedor getProveedor() { return proveedor; }
+//    public Proveedor getProveedor() { return proveedor; }
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setEntidadRelacionada(Entidad entidadRelacionada) {
+		this.entidadRelacionada = entidadRelacionada;
+	}
+
+	/*public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
+	}*/
+
+	public void setFechaOperacion(LocalDate fechaOperacion) {
+		this.fechaOperacion = fechaOperacion;
+	}
+
+	public void setCantidadMinimaDePresupuestos(int cantidadMinimaDePresupuestos) {
+		this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
+	}
+
+	public void setMoneda(Moneda moneda) {
+		this.moneda = moneda;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	public void setPresupuestosAsociados(List<Presupuesto> presupuestosAsociados) {
+		this.presupuestosAsociados = presupuestosAsociados;
+	}
+
+	public List<Usuario> getUsuariosValidadores() {
+		return usuariosValidadores;
+	}
+
+	public void setUsuariosValidadores(List<Usuario> usuariosValidadores) {
+		this.usuariosValidadores = usuariosValidadores;
+	}
+
+	public void setEtiquetas(List<String> etiquetas) {
+		this.etiquetas = etiquetas;
+	}
+
+	public void setMedioDePago(MedioDePago medioDePago) {
+		this.medioDePago = medioDePago;
+	}
 }

@@ -37,6 +37,11 @@ public class Usuario {
     }
     
     //Constructor
+    
+    public Usuario() {
+    	
+    }
+    
     public Usuario(String username, String contrasenia) {
 
         ValidadorUsuario validacion = new ValidadorUsuario();
@@ -76,5 +81,17 @@ public class Usuario {
     		bandejaDeMensajes.clear();
     	}
     }
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<String> getBandejaDeMensajes() {
+		return bandejaDeMensajes;
+	}
+
+	public void setBandejaDeMensajes(List<String> bandejaDeMensajes) {
+		this.bandejaDeMensajes = bandejaDeMensajes;
+	}
 
 }

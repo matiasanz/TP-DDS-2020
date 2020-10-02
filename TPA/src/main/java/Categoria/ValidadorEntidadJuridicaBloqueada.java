@@ -11,6 +11,10 @@ public class ValidadorEntidadJuridicaBloqueada extends Validador{
     @ManyToOne
     @JoinColumn(name = "entidad")
     private EntidadJuridica entidad;
+    
+    public ValidadorEntidadJuridicaBloqueada() {
+    	
+    }
 
     public ValidadorEntidadJuridicaBloqueada(EntidadJuridica entidad){
         this.entidad = entidad;
@@ -22,4 +26,12 @@ public class ValidadorEntidadJuridicaBloqueada extends Validador{
             throw new EntidadJuridicaBloqueadaException();
         }
     }
+
+	public EntidadJuridica getEntidad() {
+		return entidad;
+	}
+
+	public void setEntidad(EntidadJuridica entidad) {
+		this.entidad = entidad;
+	}
 }
