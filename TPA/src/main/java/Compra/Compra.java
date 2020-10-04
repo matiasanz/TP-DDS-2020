@@ -27,9 +27,9 @@ public class Compra {
     @JoinColumn(name = "entidad_id")
     private Entidad entidadRelacionada;
 
-//    @ManyToOne
-//    @JoinColumn(name = "proveedor_id")
-//    private Proveedor proveedor;
+    @ManyToOne
+    @JoinColumn(name = "proveedor_id")
+    private Proveedor proveedor;
 
     //private Documento documentoComercial;
 
