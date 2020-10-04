@@ -45,9 +45,11 @@ public class TestCompraPersistencia extends AbstractPersistenceTest implements W
 	
 	@Test
 	public void persistenciaComprasYComitteo(){
+		Proveedor unProveedor = Proveedor.PersonaJuridica("Una razón social", new Direccion(new RepositorioDeLocacionesMock(), "Una calle", 2, 2, "1874", Pais.AR));
+
 		Compra compraInsertada = new Compra(new RepositorioDeMonedasMock(),
 				null,
-				Proveedor.PersonaJuridica("Una razón social", new Direccion(new RepositorioDeLocacionesMock(), "Una calle", 2, 2, "1874", Pais.AR)),
+				unProveedor,
 				LocalDate.of(2020, 7, 19),
 				new PagoEnEfectivo(),
 				CodigoMoneda.ARS,
@@ -59,6 +61,7 @@ public class TestCompraPersistencia extends AbstractPersistenceTest implements W
 
 		assertNull(compraInsertada.getId());
 
+		entityManager().persist(unProveedor);
 		entityManager().persist(item);
 		entityManager().persist(compraInsertada);
 

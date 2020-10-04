@@ -87,7 +87,7 @@ public class Compra {
 		
 		this.validadorDeCompra = new ValidadorDeCompra();
         this.entidadRelacionada = entidad;
-        //this.proveedor = proveedor;
+        this.proveedor = proveedor;
         //this.documentoComercial = documentoComercial;
         this.fechaOperacion = fecha;
         this.medioDePago = medioDePago;
