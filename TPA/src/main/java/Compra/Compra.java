@@ -27,9 +27,9 @@ public class Compra {
     @JoinColumn(name = "entidad_id")
     private Entidad entidadRelacionada;
 
-    @ManyToOne
-    @JoinColumn(name = "proveedor_id")
-    private Proveedor proveedor;
+//    @ManyToOne //TODO sacar
+//    @JoinColumn(name = "proveedor_id")
+//    private Proveedor proveedor;
 
     //private Documento documentoComercial;
 
@@ -75,6 +75,7 @@ public class Compra {
     	
     }
     
+    //TODO Sacar al proveedor, en el getter hacer que se lo vaya a buscar al presupuesto elegido
     public Compra(RepositorioDeMonedas repositorioDeMonedas,
                   EntidadJuridica entidad,
                   Proveedor proveedor,
@@ -87,7 +88,7 @@ public class Compra {
 		
 		this.validadorDeCompra = new ValidadorDeCompra();
         this.entidadRelacionada = entidad;
-        this.proveedor = proveedor;
+//        this.proveedor = proveedor;
         //this.documentoComercial = documentoComercial;
         this.fechaOperacion = fecha;
         this.medioDePago = medioDePago;

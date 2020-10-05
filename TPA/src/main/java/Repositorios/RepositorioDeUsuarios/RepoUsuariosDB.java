@@ -1,23 +1,17 @@
 package Repositorios.RepositorioDeUsuarios;
-
-import java.util.List;
-
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import Organizacion.UsuarioYaExisteException;
+import Repositorios.RepoDB;
 import Usuario.Usuario;
 
-public class RepoUsuariosDB{
-
-	@SuppressWarnings("unchecked")
-	public	List<Usuario> getUsuarios(){
-		return createQuery().getResultList();
+public class RepoUsuariosDB extends RepoDB<Usuario>{
+	
+	@Override
+	protected String className(){
+		return "Usuario";
 	}
-		
+	
 	public Usuario getUsuario(String nombre){
 		Usuario usuario; 
 		try{
@@ -33,13 +27,10 @@ public class RepoUsuariosDB{
 		return usuario;
 	}
 	
-	public void agregarUsuario(Usuario usuario){
+	@Override
+	public void agregar(Usuario usuario){
 		validarNoRepetido(usuario.getUsername());
-		entityManager().persist(usuario);
-	}
-	
-	public void eliminarUsuario(Usuario usuario){
-		entityManager().remove(usuario);
+		super.agregar(usuario);
 	}
 	
 	public boolean nombreOcupado(String username){
@@ -56,19 +47,5 @@ public class RepoUsuariosDB{
 			throw new UsuarioYaExisteException();
 		}
     }
-
-// Auxiliares *********************************
-    
-	private Query createQuery(){
-		return createQuery("");
-	}
-	
-	private Query createQuery(String where){
-		return entityManager().createQuery("from Usuario " + where);
-	}
-	
-	private EntityManager entityManager(){
-		return PerThreadEntityManagers.getEntityManager();
-	}
 }
 

@@ -10,7 +10,6 @@ public class RepositorioDeCompras {
 
     public List<Compra> compras;
 
-    //Constructor -- repo de monedas se tiene que ir
     public RepositorioDeCompras(List<Compra> compras) {
         this.compras = compras;
     }

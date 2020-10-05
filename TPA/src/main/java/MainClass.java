@@ -73,7 +73,10 @@ public class MainClass{
 	
 	private static String leerConsola(){
 		Scanner sc = new Scanner(System.in);
-		return sc.nextLine();        
+		String lectura = sc.nextLine();
+		sc.close();
+		
+		return lectura;
 	}
 	
 	private static void imprimirPorPantalla(String cadena){

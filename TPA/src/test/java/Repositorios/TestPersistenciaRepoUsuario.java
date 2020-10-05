@@ -22,7 +22,7 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 	@Before
 	public void init(){
 		this.beginTransaction();
-		repo.agregarUsuario(usuario);
+		repo.agregar(usuario);
 	}
 
 	@After
@@ -37,7 +37,7 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 
 	@Test
 	public void seRecuperaCantidadIngresada(){
-		assertEquals(1, repo.getUsuarios().size());
+		assertEquals(1, repo.getAll().size());
 	}
 	
 	@Test
@@ -52,14 +52,14 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 	
 	@Test (expected = UsuarioYaExisteException.class)
 	public void intentoAgregarUnUsuarioRepetidoYFallo(){
-		repo.agregarUsuario(usuario);
+		repo.agregar(usuario);
 	}
 	
 	@Test
 	public void nombreDeUsuarioEstaOcupadoSoloSiExiste(){
 		String username = usuario.getUsername();
 		assert(repo.nombreOcupado(username));
-		repo.eliminarUsuario(usuario);
+		repo.eliminarA(usuario);
 		assertFalse(repo.nombreOcupado(username));
 	}
 }
