@@ -10,45 +10,56 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import Factory.UsuariosFactory;
 import Organizacion.IngresoFallidoException;
+import Organizacion.UsuarioYaExisteException;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
+import Repositorios.RepositorioDeUsuarios.UsuarioNoExisteException;
 import Usuario.Usuario;
 
 public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest implements WithGlobalEntityManager {
-	RepoUsuariosDB repo;
+	RepoUsuariosDB repo =new RepoUsuariosDB();
 	Usuario usuario = UsuariosFactory.usuarioStub();
 	
 	@Before
 	public void init(){
-		repo = new RepoUsuariosDB(
-			new BaseDeDatos()
-		);
-		
-		repo.add(usuario);
+		this.beginTransaction();
+		repo.agregarUsuario(usuario);
 	}
 
 	@After
-	public void deleteAll(){
-		repo.eliminarUsuario(usuario);
+	public void finish(){
+		this.rollbackTransaction();
 	}
 	
-	@Test (expected = IngresoFallidoException.class)
+	@Test (expected = UsuarioNoExisteException.class)
 	public void seIngresanDatosIncorrectosYNoEncuentraNingunUsuario(){
-		repo.getUsuario("Juan Carlos","intento 34.561 de fuerza bruta");
-	}
-	
-	@Test
-    public void usuarioSeRecuperaDeCache(){
-		Usuario recuperado = repo.getUsuario(usuario.getUsername(),usuario.getContrasenia());
-		assertSame(usuario, recuperado);
+		repo.getUsuario("Juan Carlos");
 	}
 
+	@Test
+	public void seRecuperaCantidadIngresada(){
+		assertEquals(1, repo.getUsuarios().size());
+	}
+	
 	@Test
 	public void usuarioSeRecuperaDeBD(){
 
-		Usuario recuperado = repo.getByUsernameYContrasenia(usuario.getUsername(),usuario.getContrasenia());
+		Usuario recuperado = repo.getUsuario(usuario.getUsername());
 	
 		assertNotNull(recuperado);
-		assertEquals(usuario.getUsername(), recuperado.getUsername());
+		assertEquals(usuario, recuperado);
 		assertEquals(usuario.getContrasenia(), recuperado.getContrasenia());
+	}
+	
+	@Test (expected = UsuarioYaExisteException.class)
+	public void intentoAgregarUnUsuarioRepetidoYFallo(){
+		repo.agregarUsuario(usuario);
+	}
+	
+	@Test
+	public void nombreDeUsuarioEstaOcupadoSoloSiExiste(){
+		String username = usuario.getUsername();
+		assert(repo.nombreOcupado(username));
+		repo.eliminarUsuario(usuario);
+		assertFalse(repo.nombreOcupado(username));
 	}
 }

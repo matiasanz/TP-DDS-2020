@@ -76,6 +76,12 @@ public class Usuario {
         return this.username.equals(username) && this.contrasenia.equals(password);
     }
     
+    public void autenticar(String password){
+    	if(!contrasenia.equals(password)) {
+    		throw new ErrorDeAutenticacionException();
+    	}
+    }
+    
     public void vaciarBandeja(){
     	synchronized(bandejaDeMensajes){
     		bandejaDeMensajes.clear();

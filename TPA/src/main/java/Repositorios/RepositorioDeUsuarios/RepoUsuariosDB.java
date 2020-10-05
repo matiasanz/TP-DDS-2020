@@ -1,90 +1,74 @@
 package Repositorios.RepositorioDeUsuarios;
-import org.apache.commons.dbutils.ResultSetHandler;
 
-import Organizacion.IngresoFallidoException;
-import Repositorios.BaseDeDatos;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
+import Organizacion.UsuarioYaExisteException;
 import Usuario.Usuario;
 
-public class RepoUsuariosDB extends RepositorioDeUsuarios{
+public class RepoUsuariosDB{
 
-	public BaseDeDatos baseDeDatos;
-	
-	public RepoUsuariosDB(BaseDeDatos dataBase){
-		this.baseDeDatos = dataBase;
+	@SuppressWarnings("unchecked")
+	public	List<Usuario> getUsuarios(){
+		return createQuery().getResultList();
 	}
-	
-	@Override
-	public void add(Usuario usuario){
-
-		baseDeDatos.insert("usuarios(username, contrasenia)"
-				,	asSQLString(usuario.getUsername())
-				,   asSQLString(usuario.getContrasenia())
-				);
 		
-		usuarios.add(usuario);
-	}
-	
-	@Override
-	public Usuario getUsuario(String nombre, String contrasenia){
-		Usuario usuario;
-		
+	public Usuario getUsuario(String nombre){
+		Usuario usuario; 
 		try{
-			usuario = super.getUsuario(nombre, contrasenia);
+			usuario = (Usuario) createQuery("where username = :user")
+				.setParameter("user", nombre)
+				.getSingleResult();
+		} 
 		
-		} catch (UsuarioDesconocidoException e){
-			usuario = this.getByUsernameYContrasenia(nombre,contrasenia);
-			this.cargarBandejaDeUsuario(usuario);
-			this.add(usuario);
+		catch(NoResultException e){			
+			throw new UsuarioNoExisteException(nombre);
 		}
 		
 		return usuario;
 	}
 	
-	public Usuario getByUsernameYContrasenia(String username, String contrasenia){
-		
-		ResultSetHandler<Usuario> handler = (rs) -> {
-			Usuario usuario = null;
-
-			if(rs.next()) {
-				usuario = new Usuario(rs.getString("username"), rs.getString("contrasenia"));
-			}
-
-			return usuario;
-		};
-		
-		String where = "username=" + asSQLString(username) 
-			+ " and contrasenia=" + asSQLString(contrasenia);
-		
-		Usuario usuario = baseDeDatos.select("usuarios", where, handler);
-		
-		if(usuario==null){
-			throw new IngresoFallidoException();
-		}
-		
-		return usuario;
+	public void agregarUsuario(Usuario usuario){
+		validarNoRepetido(usuario.getUsername());
+		entityManager().persist(usuario);
 	}
 	
-	@Override
 	public void eliminarUsuario(Usuario usuario){
-		baseDeDatos.delete("usuarios", "username =" + asSQLString(usuario.getUsername()));		
+		entityManager().remove(usuario);
 	}
 	
-	public void cargarBandejaDeUsuario(Usuario usuario){
-		ResultSetHandler<Void> handler = (rs) -> {
-			
-			while(rs.next()) {
-				usuario.notificarEvento(rs.getString("mensaje"));
-			}
+	public boolean nombreOcupado(String username){
+        try{
+        	getUsuario(username);
+        	return true;
+        } catch (UsuarioNoExisteException e){
+        	return false;
+        }
+    }
+	
+    public void validarNoRepetido(String username){
+    	if (this.nombreOcupado(username)) {
+			throw new UsuarioYaExisteException();
+		}
+    }
 
-			return null;
-		};
-
-		String where = "usuario_id=" + Long.toString(usuario.getId());
-		
-		baseDeDatos.select("mensaje_usuario",where,handler);
+// Auxiliares *********************************
+    
+	private Query createQuery(){
+		return createQuery("");
 	}
 	
-	private String asSQLString(String s){
-		return "\'" + s + "\'";
+	private Query createQuery(String where){
+		return entityManager().createQuery("from Usuario " + where);
+	}
+	
+	private EntityManager entityManager(){
+		return PerThreadEntityManagers.getEntityManager();
 	}
 }
+
