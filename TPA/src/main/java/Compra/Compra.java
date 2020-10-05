@@ -75,7 +75,6 @@ public class Compra {
     	
     }
     
-    //TODO Sacar al proveedor, en el getter hacer que se lo vaya a buscar al presupuesto elegido
     public Compra(RepositorioDeMonedas repositorioDeMonedas,
                   EntidadJuridica entidad,
                   Proveedor proveedor,
@@ -84,10 +83,10 @@ public class Compra {
                   CodigoMoneda codigoMoneda,
                   int cantidadMinimaDePresupuestos,
                   List<Usuario> usuariosValidadores) {
-
 		
 		this.validadorDeCompra = new ValidadorDeCompra();
         this.entidadRelacionada = entidad;
+        //TODO Sacar al proveedor, en el getter hacer que se lo vaya a buscar al presupuesto elegido
 //        this.proveedor = proveedor;
         //this.documentoComercial = documentoComercial;
         this.fechaOperacion = fecha;

@@ -17,6 +17,7 @@ import Compra.Compra;
 import Compra.Item;
 import Factory.ComprasFactory;
 
+import org.junit.After;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
@@ -27,6 +28,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TestCompraPersistencia extends AbstractPersistenceTest implements WithGlobalEntityManager {
+	
+	@After
+	public void end(){
+		rollbackTransaction();
+	}
 	
 	@Test
 	public void persistenciaCompra(){

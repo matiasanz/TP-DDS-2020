@@ -26,9 +26,7 @@ public class Presupuesto implements Comparable<Presupuesto>{
 
     private boolean elegido;
     
-    public Presupuesto() {
-    	
-    }
+    public Presupuesto() {}
 
     public Presupuesto(List<Item> items, Proveedor proveedorAsociado) {
         this.elegido = false;

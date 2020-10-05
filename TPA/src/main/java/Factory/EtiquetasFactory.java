@@ -3,10 +3,10 @@ package Factory;
 import Proveedor.Proveedor;
 
 public class EtiquetasFactory {
-	public String etiquetaAmoblamiento(){
+	public static String etiquetaAmoblamiento(){
 		return "Amoblamiento";
 	}
-	public String etiquetaProveedor(Proveedor unProveedor){
+	public static String etiquetaProveedor(Proveedor unProveedor){
 		return unProveedor.getNombre();
 	}
 }

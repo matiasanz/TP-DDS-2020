@@ -1,10 +1,6 @@
 package Repositorios;
-
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
@@ -14,29 +10,23 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import Compra.Compra;
-import Compra.Item;
-import Direccion.Direccion;
-import Direccion.Pais;
 import Factory.ComprasFactory;
-import MedioDePago.PagoEnEfectivo;
-import Moneda.CodigoMoneda;
-import Proveedor.Proveedor;
-import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMock;
-import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMock;
-import Usuario.Usuario;
-import junit.framework.Assert;
-
+import Factory.EntidadesFactory;
+import Factory.EtiquetasFactory;
 
 public class TestRepoCompras extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
 	RepoComprasDB compras = new RepoComprasDB();
-	Compra compra = compraPersistible();
-	LocalDate fecha = LocalDate.of(2020, 7, 19);
-	String etiqueta = "Baratijas";
+	Compra compraJulioEtiqueta = ComprasFactory.getCompra19Julio2020Amoblamiento();
+	Compra compraFebrero = ComprasFactory.getCompraFebrero2017SinEtiqueta();
+	Compra compraJulioSinEtiqueta = getCompraJulioSinEtiquetas();
 	
+	LocalDate fechaJulio2020 = LocalDate.of(2020,07,1);
+		
 	@Before
 	public void start(){
-		compras.agregar(compra);
+		compras.agregar(compraJulioEtiqueta);
+		compras.agregar(compraFebrero);
 	}
 	
 	@After
@@ -48,54 +38,41 @@ public class TestRepoCompras extends AbstractPersistenceTest implements WithGlob
 	public void compraSeRecuperaDeDB(){
 		List<Compra> comprasRecuperadas = compras.getAll();
 		
-		Assert.assertEquals(1, comprasRecuperadas.size());		
-		Compra recuperada = comprasRecuperadas.get(0);
-
-		AssertCompra(compra,recuperada);
+		assertEquals(2, comprasRecuperadas.size());		
+		assertCompra(compraJulioEtiqueta, comprasRecuperadas.get(0));
+		assertCompra(compraFebrero, comprasRecuperadas.get(1));
 	}
-//	
-//	@Test
-//	public void comprasDelMes(){
-//		compras.agregar(ComprasFactory.getCompraFebrero2017SinEtiqueta());
-//		List<Compra> comprasDelMes = compras.comprasDelMes(fecha);
-//		assertEquals(1, comprasDelMes.size());
-//	}
-//	
-//	@Test
-//	public void etiquetasDelMes(){
-//		List<String> etiquetas = compras.repositorioDelMes(fecha).getEtiquetas();
-//		assertEquals(1, etiquetas.size());
-//		Assert.assertEquals(etiqueta, etiquetas.get(0));
-//	}
+	
+	@Test
+	public void comprasDelMesDeJulio(){
+		compras.agregar(compraJulioSinEtiqueta);
+		List<Compra> comprasDelMes = compras.comprasDelMes(fechaJulio2020);
+		assertEquals(2, comprasDelMes.size());
+		assertCompra(compraJulioEtiqueta, comprasDelMes.get(0));
+		assertCompra(compraJulioSinEtiqueta, comprasDelMes.get(1));
+	}
+	
+	@Test
+	public void etiquetasDelMes(){
+		List<String> etiquetas = compras.repositorioDelMes(fechaJulio2020).getEtiquetas();
+		assertEquals(1, etiquetas.size());
+		assertEquals(EtiquetasFactory.etiquetaAmoblamiento(), etiquetas.get(0));
+	}
 	
 	//Auxiliares *****************************
 
-	private void AssertCompra(Compra expected, Compra actual){
-		assertEquals(expected.getItems().size(), actual.getItems().size());
-		Assert.assertEquals(expected.getValorTotal(),actual.getValorTotal());
+	private void assertCompra(Compra expected, Compra actual){
+		assertEquals(expected.getItems(), actual.getItems());
+		assertEquals(expected.getValorTotal(),actual.getValorTotal());
 		assertEquals(expected.getEtiquetas().size(), actual.getEtiquetas().size());
 		assertEquals(expected.getPresupuestosAsociados().size(),actual.getPresupuestosAsociados().size());
 	}
 	
-	private void assertEquals(int expected, int actual){
-		Assert.assertEquals(expected, actual);
-	}
-	
-	private Compra compraPersistible(){
-		Proveedor unProveedor = Proveedor.PersonaJuridica("Una razón social", new Direccion(new RepositorioDeLocacionesMock(), "Una calle", 2, 2, "1874", Pais.AR));
-
-		Compra compraInsertada = new Compra(new RepositorioDeMonedasMock(),
-				null,
-				unProveedor,
-				fecha,
-				new PagoEnEfectivo(),
-				CodigoMoneda.ARS,
-				1,
-				new ArrayList<Usuario>());
-		
-		Item item = new Item("Una descripcion", 2, new BigDecimal(200));
-		compraInsertada.agregarItem(item);
-		compraInsertada.agregarEtiqueta(etiqueta);
-		return compraInsertada;
+	private Compra getCompraJulioSinEtiquetas(){
+		Compra compra = ComprasFactory.getCompraFebrero2017SinEtiqueta();
+		compra.setEntidadRelacionada(EntidadesFactory.baseRandom());
+		return compra;
 	}
 }
+
+	

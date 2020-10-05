@@ -63,6 +63,11 @@ public class Item {
         this.cantidad = cantidad;
         this.valorUnitario = valorUnitario;
     }
+    
+    public boolean equals(Item item){
+    	return descripcion == item.getDescripcion()
+    		&& cantidad == item.getCantidad();
+    }
 
 	private void validarValorPositivo(BigDecimal valor) {
 		if (valor.intValue() < 0) {
