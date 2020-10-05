@@ -53,18 +53,20 @@ public class TestRepoCompras extends AbstractPersistenceTest implements WithGlob
 
 		AssertCompra(compra,recuperada);
 	}
-	
-	public void comprasDelMes(){
-		compras.agregar(ComprasFactory.getCompraFebrero2017SinEtiqueta());
-		List<Compra> comprasDelMes = compras.comprasDelMes(fecha);
-		assertEquals(1, comprasDelMes.size());
-	}
-	
-	public void etiquetasDelMes(){
-		List<String> etiquetas = compras.repositorioDelMes(fecha).getEtiquetas();
-		assertEquals(1, etiquetas.size());
-		Assert.assertEquals(etiqueta, etiquetas.get(0));
-	}
+//	
+//	@Test
+//	public void comprasDelMes(){
+//		compras.agregar(ComprasFactory.getCompraFebrero2017SinEtiqueta());
+//		List<Compra> comprasDelMes = compras.comprasDelMes(fecha);
+//		assertEquals(1, comprasDelMes.size());
+//	}
+//	
+//	@Test
+//	public void etiquetasDelMes(){
+//		List<String> etiquetas = compras.repositorioDelMes(fecha).getEtiquetas();
+//		assertEquals(1, etiquetas.size());
+//		Assert.assertEquals(etiqueta, etiquetas.get(0));
+//	}
 	
 	//Auxiliares *****************************
 

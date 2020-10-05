@@ -18,15 +18,16 @@ public class RepoComprasDB extends RepoDB<Compra>{
         		.setParameter("estado", Estado.PENDIENTEDEAPROBACION)
         		.getResultList();
     }
-        
-    public RepositorioDeCompras repositorioDelMes(LocalDate fecha){
-    	return new RepositorioDeCompras(comprasDelMes(fecha));
-    }
-    
-    @SuppressWarnings("unchecked")
-	public List<Compra> comprasDelMes(LocalDate fechaInicio) {
-        return createQuery("where fechaOperacion = :fecha")
-        		.setParameter("fecha",fechaInicio)
-        		.getResultList();
-    }
+
+   //TODO
+//    public RepositorioDeCompras repositorioDelMes(LocalDate fecha){
+//    	return new RepositorioDeCompras(comprasDelMes(fecha));
+//    }
+//    
+//    @SuppressWarnings("unchecked")
+//	public List<Compra> comprasDelMes(LocalDate fechaInicio) {
+//        return createQuery("where month(fechaOperacion) = :mes")
+//        		.setParameter("mes", new Integer(fechaInicio.getMonthValue()))
+//        		.getResultList();
+//    }
 }

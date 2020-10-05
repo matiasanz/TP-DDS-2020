@@ -65,7 +65,7 @@ public class TestCompraPersistencia extends AbstractPersistenceTest implements W
 		entityManager().persist(item);
 		entityManager().persist(compraInsertada);
 
-		entityManager().getTransaction().commit();
+//		entityManager().getTransaction().commit(); //Problema: genera efecto de lado
 		
 	    assertNotNull(compraInsertada.getId());
 		
