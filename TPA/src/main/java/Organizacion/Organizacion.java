@@ -31,8 +31,8 @@ public class Organizacion {
         return repositorioDeUsuarios;
     }
 
-    public Usuario getUsuarioEspecifico(String nombreDeUsuario, String password) {
-    	return repositorioDeUsuarios.getUsuario(nombreDeUsuario, password);
+    public Usuario getUsuarioEspecifico(String nombreDeUsuario) {
+    	return repositorioDeUsuarios.getUsuario(nombreDeUsuario);
     }
     
     public List<Entidad> getEntidades() {

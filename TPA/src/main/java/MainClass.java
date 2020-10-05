@@ -1,94 +1,86 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Scanner;
+
+import javax.persistence.EntityManager;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import Organizacion.IngresoFallidoException;
 import Organizacion.OrganizacionMock;
 import Repositorios.RepositorioDeUsuarios.RepositorioDeUsuarios;
+import Repositorios.RepositorioDeUsuarios.UsuarioNoExisteException;
+import Usuario.ErrorDeAutenticacionException;
 import Usuario.Usuario;
 
-public class MainClass {
+public class MainClass{
 
-	//Sacar org mock y poner repo de db
-	private static RepositorioDeUsuarios usuarios = OrganizacionMock.getInstance()
-																	.getRepoUsuarios();	
-	private static Usuario usuario;
+	private static RepositorioDeUsuarios usuarios = OrganizacionMock.getInstance().getRepoUsuarios();
+//	private static RepoUsuariosDB usuarios = new RepoUsuariosDB();
+//	private static EntityTransaction transaccion = 	entityManager().getTransaction();
 	
     public static void main(String[] args){
-    	iniciarSesion();
-    	    	
-    	autenticarUsuario();
+
+    	Usuario usuario = iniciarSesion();
     	
-        leerBandejaDeMensajes();
-        
-        vaciarBandejaOpcional();
-        
+        leerBandejaDeUsuario(usuario);
+                
         finalizarSesion();
+        
     }
     
-	private static void iniciarSesion(){
+	private static Usuario iniciarSesion(){
 		imprimirPorPantalla("\n***************************** Inicio de sesion *****************************\n");
+		imprimirPorPantalla("Ingrese usuario");
+		String usuarioIngresado = /*"usuario";*/leerConsola();		
+		imprimirPorPantalla("Ingrese contraseña");
+        String passwordIngresada = /*"Tp2020Dds";*/leerConsola();
+        
+        Usuario usuario;
+        
+        try{
+//        	transaccion.begin();    	
+        	usuario = usuarios.getUsuario(usuarioIngresado);
+        	usuario.autenticar(passwordIngresada);        	
+        }
+        
+        catch(UsuarioNoExisteException | ErrorDeAutenticacionException unaExcepcion) {
+//        	transaccion.rollback();
+        	throw new IngresoFallidoException();
+        }
+        
+//        transaccion.commit();
+        
+        return usuario;
 	}
     
 	private static void finalizarSesion(){
 		imprimirPorPantalla("\n***************************** Fin de sesion *****************************\n");
 	}
-    
-    private static void autenticarUsuario(){
-		System.out.println("Ingrese usuario");
-		String usuarioIngresado = leerConsola();		
-		System.out.println("Ingrese contraseña");
-        String passwordIngresada = leerConsola();
-        
-        try{
-        	usuario = usuarios.getUsuario(usuarioIngresado, passwordIngresada);
-        }
-        
-        catch(IngresoFallidoException unaExcepcion) {
-        	System.out.println("ERROR: El usuario y/o la contraseña son incorrectos. Por favor vuelva a intentarlo. \n\n");
-        	autenticarUsuario();
-        }
-	}
 	
-	private static void leerBandejaDeMensajes() {
+	private static void leerBandejaDeUsuario(Usuario usuario) {
 		List<String>mensajes = usuario.getMensajes();
 		
 		if(mensajes.isEmpty()){
-			System.out.println("\n***** LA BANDEJA DE MENSAJES SE ENCUENTRA VACIA\n");			
+			imprimirPorPantalla("\n***** LA BANDEJA DE MENSAJES SE ENCUENTRA VACIA\n");			
 			return;
 		}
 		
-		System.out.println("\n***** SE HAN ENCONTRADO COMPRAS POR VALIDAR\n");
+		imprimirPorPantalla("\n***** TIENE MENSAJES:\n");
 		mensajes.stream().forEach(mensaje->imprimirPorPantalla(mensaje));
 	}
-	
-	private static void vaciarBandejaOpcional()
-	{
-		imprimirPorPantalla("Desea vaciar la bandeja? (y=si/n=no)");
-		String respuesta = leerConsola();
-		if(respuesta.equalsIgnoreCase("y")){
-			usuario.vaciarBandeja();
-			imprimirPorPantalla("Los mensajes han sido eliminados");
-		}
-	}
-	
+		
 //	********************* Auxiliares ***********************
 	
 	private static String leerConsola(){
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        
-        String lectura;
-        
-        try{
-        	lectura = reader.readLine();
-        } catch(Exception e){
-        	throw new RuntimeException(e.getCause());
-        }
-        
-		return lectura;  
+		Scanner sc = new Scanner(System.in);
+		return sc.nextLine();        
 	}
 	
 	private static void imprimirPorPantalla(String cadena){
 		System.out.println(cadena);
+	}
+	
+	private static EntityManager entityManager(){
+		return PerThreadEntityManagers.getEntityManager();
 	}
 }

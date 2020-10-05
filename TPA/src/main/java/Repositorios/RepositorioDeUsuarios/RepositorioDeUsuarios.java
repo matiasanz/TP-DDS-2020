@@ -33,13 +33,18 @@ public class RepositorioDeUsuarios {
         return usuarios;
     }
     
-    public Usuario getUsuario(String nombre, String password){
-    	this.autenticarUsuario(nombre,password);
-    	return this.usuarios
+    public Usuario getUsuario(String nombre){
+    	Usuario unUsuario = this.usuarios
     			   .stream()
-    			   .filter(usuario -> usuario.autentica(nombre,password))
+    			   .filter(usuario -> usuario.getUsername().equals(nombre))
     			   .findAny()
     			   .orElse(null);
+    	
+    	if(unUsuario==null){
+    		throw new UsuarioNoExisteException(nombre);
+    	}
+    	
+    	return unUsuario;
     }
     
     public void validarNoRepetido(String username){

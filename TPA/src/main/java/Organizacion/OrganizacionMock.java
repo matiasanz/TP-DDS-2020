@@ -9,7 +9,7 @@ public class OrganizacionMock{
 
 	private static void crearOrganizacionMock(){
 		self = OrganizacionesFactory.organizacionStub();
-		Usuario usuario = self.getUsuarioEspecifico("usuario","Tp2020Dds");
+		Usuario usuario = self.getUsuarioEspecifico("usuario");
 		self.agregarEntidad(EntidadesFactory.entidadConComprasParaUsuario(usuario));
 	}
 	public static Organizacion getInstance(){
