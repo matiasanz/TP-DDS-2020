@@ -23,7 +23,7 @@ public class Compra {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "entidad_id")
     private Entidad entidadRelacionada;
 
@@ -53,7 +53,7 @@ public class Compra {
     @JoinTable(name = "items_por_compra")
     private  List<Item> items;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.MERGE)
     @JoinColumn(name = "compra_id")
     private List<Presupuesto> presupuestosAsociados;
 
