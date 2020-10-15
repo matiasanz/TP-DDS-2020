@@ -12,7 +12,7 @@ public class ReporteMensualDeGastosEjecutable {
         JobDetail job = JobBuilder.newJob(ReporteMensualDeGastos.class).withIdentity("reporteDeGastos", "grupo1").build();
         Trigger triggerReporteMensualDeGastos = TriggerBuilder.newTrigger()
                 .withIdentity("reporteDeGastos", "grupo1")
-                // Ultimo día del mes a las 23:59 PM
+                // Ultimo dia del mes a las 23:59 PM
                 //.withSchedule(cronSchedule("0 59 23 L * ?"))
                 // Cada 10 segundos
                 .withSchedule(cronSchedule("0/10 * * * * ?"))

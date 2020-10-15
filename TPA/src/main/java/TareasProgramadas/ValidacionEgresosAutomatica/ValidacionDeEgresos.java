@@ -17,6 +17,5 @@ public class ValidacionDeEgresos implements Job {
     	
         System.out.println("\n***************************** FIN VALIDADOR DE COMPRAS DIARIO *****************************\n");
 
-        
     }
 }

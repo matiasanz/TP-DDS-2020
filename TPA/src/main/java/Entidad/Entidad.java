@@ -67,32 +67,7 @@ public abstract class Entidad {
 
     public List<Compra> getComprasPendientesDeValidacion() {
     	return compras.getComprasPendientesDeAprobacion();
-    }
-  
-    public Map<String, Double> obtenerGastosRealizados(LocalDate fechaInicio) {
-        
-    	RepositorioDeCompras comprasDelMes = compras.repositorioDelMes(fechaInicio);
-    	List<String> etiquetasDelMes = comprasDelMes.getEtiquetas();
-
-        Map<String, Double> gastosRealizados = new HashMap<>();
-
-        for(String etiqueta : etiquetasDelMes){
-        	Double valor = this._calcularValorCompras(comprasDelMes.comprasConEtiqueta(etiqueta));        	
-            gastosRealizados.put(etiqueta, valor);
-        }
-         
-        List<Compra> sinEtiquetar = comprasDelMes.comprasSinEtiquetar();
-        if(!sinEtiquetar.isEmpty()){        	
-        	gastosRealizados.put("Sin Etiquetar", this._calcularValorCompras(sinEtiquetar));
-        }
-        
-        return gastosRealizados;
-    }
-        
-    private double _calcularValorCompras(List<Compra> unasCompras){
-    	return unasCompras.stream().map(c -> c.getValorTotal())
-    			.reduce(BigDecimal.ZERO, BigDecimal::add).doubleValue();
-    }
+    }        
 
 	public void setId(Long id) {
 		this.id = id;
@@ -104,5 +79,8 @@ public abstract class Entidad {
 
 	public void setNombreFicticio(String nombreFicticio) {
 		this.nombreFicticio = nombreFicticio;
+	}
+	public RepositorioDeCompras getComprasDelMes(LocalDate fecha){
+		return compras.repositorioDelMes(fecha);
 	}
 }

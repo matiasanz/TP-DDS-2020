@@ -103,8 +103,4 @@ public class TestCompra {
         assertEquals(etiqueta1,compra.getEtiquetas().get(0));
     }
     
-    @Test
-    public void compraEsPersistible(){
-
-    }
 }

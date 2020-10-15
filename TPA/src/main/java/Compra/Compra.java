@@ -1,7 +1,6 @@
 package Compra;
 
 import Entidad.Entidad;
-import Entidad.EntidadJuridica;
 import MedioDePago.MedioDePago;
 import Moneda.CodigoMoneda;
 import Moneda.Moneda;
@@ -27,10 +26,7 @@ public class Compra {
     @JoinColumn(name = "entidad_id")
     private Entidad entidadRelacionada;
 
-//    @ManyToOne //TODO sacar
-//    @JoinColumn(name = "proveedor_id")
-//    private Proveedor proveedor;
-
+    //TODO
     //private Documento documentoComercial;
 
     @Column(name = "fecha_operacion")
@@ -47,15 +43,15 @@ public class Compra {
 
     @Column(name = "indicador_de_aprobacion")
     @Enumerated(EnumType.ORDINAL)
-    private Estado indicadorDeAprobacion;
+    private Estado indicadorDeAprobacion = Estado.PENDIENTEDEAPROBACION;
 
     @ManyToMany
     @JoinTable(name = "items_por_compra")
-    private  List<Item> items;
+    private  List<Item> items = new ArrayList<>();;
 
     @OneToMany(cascade=CascadeType.MERGE)
     @JoinColumn(name = "compra_id")
-    private List<Presupuesto> presupuestosAsociados;
+    private List<Presupuesto> presupuestosAsociados = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "validadores_por_compra",
@@ -64,40 +60,31 @@ public class Compra {
     private  List<Usuario> usuariosValidadores;
 
     @Transient
-    private  ValidadorDeCompra validadorDeCompra;
+    private  ValidadorDeCompra validadorDeCompra = new ValidadorDeCompra();
 
     @ElementCollection
     @CollectionTable(name = "etiquetas", joinColumns=@JoinColumn(name = "compra_id"))
     @Column(name = "etiqueta")
-    private List<String> etiquetas;
+    private List<String> etiquetas = new ArrayList<>();
     
-    public Compra() {
-    	
-    }
+    public Compra() {}
     
     public Compra(RepositorioDeMonedas repositorioDeMonedas,
-                  EntidadJuridica entidad,
-                  Proveedor proveedor,
+                  Entidad entidad,
+                  /*DocumentoCompercial documentoComercial,*/
                   LocalDate fecha,
                   MedioDePago medioDePago,
                   CodigoMoneda codigoMoneda,
                   int cantidadMinimaDePresupuestos,
                   List<Usuario> usuariosValidadores) {
-		
-		this.validadorDeCompra = new ValidadorDeCompra();
+
         this.entidadRelacionada = entidad;
-        //TODO Sacar al proveedor, en el getter hacer que se lo vaya a buscar al presupuesto elegido
-//        this.proveedor = proveedor;
-        //this.documentoComercial = documentoComercial;
+        //this.documentoComercial = documentoComercial; //TODO importante entrega 2
         this.fechaOperacion = fecha;
         this.medioDePago = medioDePago;
         this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
         this.moneda = repositorioDeMonedas.getMoneda(codigoMoneda);
-        this.indicadorDeAprobacion = Estado.PENDIENTEDEAPROBACION;
-        this.items = new ArrayList<>();
-        this.presupuestosAsociados = new ArrayList<>();
         this.usuariosValidadores = usuariosValidadores;
-        this.etiquetas = new ArrayList<>();
     }
 
 	//Items ***********************************
@@ -131,6 +118,7 @@ public class Compra {
     public void setPresupuestoElegido(Presupuesto presupuesto) {
         Presupuesto presupuestoAElegir = presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.equals(presupuesto)).findFirst().orElseThrow(NoHayPresupuestosException::new);
         presupuestoAElegir.setElegido(true);
+        this.setItems(presupuestoAElegir.getItems()); //TODO
     }
     
     
@@ -226,7 +214,7 @@ public class Compra {
     	return medioDePago;
     }
 
-//    public Proveedor getProveedor() { return proveedor; }
+    public Proveedor getProveedor() { return getPresupuestoElegido().getProveedorAsociado(); }
 
 	public void setId(Long id) {
 		this.id = id;

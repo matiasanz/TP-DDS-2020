@@ -45,7 +45,7 @@ public class TestCategoria {
         proveedor = EntidadesFactory.personaHumana();
         medioDePago = new PagoEnEfectivo();
         item = ItemsFactory.itemNValuadoEn(4,40);
-        compra = new Compra(repositorioDeMonedas, entidadJuridica, proveedor, LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, null);
+        compra = new Compra(repositorioDeMonedas, entidadJuridica, LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, null);
         compra.agregarItem(item);
     }
 

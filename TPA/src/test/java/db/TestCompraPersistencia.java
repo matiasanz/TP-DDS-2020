@@ -55,7 +55,6 @@ public class TestCompraPersistencia extends AbstractPersistenceTest implements W
 
 		Compra compraInsertada = new Compra(new RepositorioDeMonedasMock(),
 				null,
-				unProveedor,
 				LocalDate.of(2020, 7, 19),
 				new PagoEnEfectivo(),
 				CodigoMoneda.ARS,
