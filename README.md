@@ -6,7 +6,10 @@
 ![DER](/Diagramas/Der.PNG)
 
 ### Diagramas de clases:
+* Base de datos:
 ![UML Repositorios](/Diagramas/uml_repos.PNG)
+
+* Tareas programadas:
 ![UML Tareas Programadas](/Diagramas/uml_tareasProgramadas.PNG) 
 
 # Entrega 4
