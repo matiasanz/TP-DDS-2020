@@ -2,7 +2,7 @@ package Entidad;
 
 import Categoria.Categoria;
 import Compra.Compra;
-import Repositorios.RepositorioDeCompras;
+import Repositorios.RepositorioDeComprasMemoria;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -18,7 +18,7 @@ public abstract class Entidad {
     private Long id;
 
     @Transient
-    private  RepositorioDeCompras compras;
+    private  RepositorioDeComprasMemoria compras;
 
     @Column(name = "nombre_ficticio")
     private String nombreFicticio;
@@ -32,7 +32,7 @@ public abstract class Entidad {
         
     }
     public Entidad(String nombreFicticio){
-        this.compras = new RepositorioDeCompras(new ArrayList<>());
+        this.compras = new RepositorioDeComprasMemoria(new ArrayList<>());
         this.categorias = new ArrayList<>();
         this.nombreFicticio = nombreFicticio;
     }
@@ -80,7 +80,7 @@ public abstract class Entidad {
 	public void setNombreFicticio(String nombreFicticio) {
 		this.nombreFicticio = nombreFicticio;
 	}
-	public RepositorioDeCompras getComprasDelMes(LocalDate fecha){
+	public RepositorioDeComprasMemoria getComprasDelMes(LocalDate fecha){
 		return compras.repositorioDelMes(fecha);
 	}
 }

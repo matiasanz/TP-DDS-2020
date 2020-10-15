@@ -1,8 +1,7 @@
 package TareasProgramadas.ReporteMensualGastos;
 
-import Factory.EntidadesFactory;
 import Organizacion.OrganizacionMock;
-import Repositorios.RepositorioDeCompras;
+import Repositorios.RepositorioDeComprasMemoria;
 import Repositorios.RepositorioDeEntidades;
 
 import org.quartz.Job;
@@ -42,7 +41,7 @@ public class ReporteMensualDeGastos implements Job {
     
     public static Map<String, Double> generarReporteDeGastos(Entidad unaEntidad, LocalDate fechaInicio) {
 
-    	RepositorioDeCompras comprasDelMes = unaEntidad.getComprasDelMes(fechaInicio);
+    	RepositorioDeComprasMemoria comprasDelMes = unaEntidad.getComprasDelMes(fechaInicio);
     	List<String> etiquetasDelMes = comprasDelMes.getEtiquetas();
     	Map<String, Double> gastosRealizados = new HashMap<>();
     

@@ -5,7 +5,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 
@@ -18,6 +21,7 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import Entidad.Entidad;
 import Factory.EntidadesFactory;
 import Factory.UsuariosFactory;
+import TareasProgramadas.ReporteMensualGastos.ReporteMensualDeGastos;
 
 public class TestRepoEntidades
 {
@@ -55,6 +59,21 @@ public class TestRepoEntidades
 			repoEntidades.agregar(EntidadesFactory.getEntidadConCompras());	
 			assertEquals(3, repoEntidades.getAll().size());
 			assertEntidad(entidadJuridicaOSS, repoEntidades.getAll().get(2));
+		}
+		
+		@Test
+		public void reporteDeGastosParaEntidadesPersistidas(){
+			repoEntidades.agregar(EntidadesFactory.getEntidadConCompras());
+			
+			LocalDate fecha = LocalDate.of(2020,07,02);
+			List<Map<String, Double>> reportesGenerados = new ArrayList<>();
+			repoEntidades.getAll().forEach(e->reportesGenerados.add(ReporteMensualDeGastos.generarReporteDeGastos(e,fecha)));
+			
+			assertEquals(3, reportesGenerados.size());
+			Map<String, Double> gastos = reportesGenerados.get(0);
+			assertEquals(0, gastos.size());
+			
+			//(...)
 		}
 		
 		//Auxiliar

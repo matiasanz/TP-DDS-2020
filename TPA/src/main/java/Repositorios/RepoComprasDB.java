@@ -30,8 +30,8 @@ public class RepoComprasDB extends RepoDB<Compra>{
                 .collect(Collectors.toList());
     }
         
-    public RepositorioDeCompras repositorioDelMes(LocalDate fecha){
-    	return new RepositorioDeCompras(comprasDelMes(fecha));
+    public RepositorioDeComprasMemoria repositorioDelMes(LocalDate fecha){
+    	return new RepositorioDeComprasMemoria(comprasDelMes(fecha));
     }
    
     public List<Compra> comprasSinEtiquetar(){

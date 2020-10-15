@@ -6,11 +6,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RepositorioDeCompras {
+public class RepositorioDeComprasMemoria {
 
     public List<Compra> compras;
 
-    public RepositorioDeCompras(List<Compra> compras) {
+    public RepositorioDeComprasMemoria(List<Compra> compras) {
         this.compras = compras;
     }
     
@@ -29,8 +29,8 @@ public class RepositorioDeCompras {
     	compras.add(compra);
     }
     
-    public RepositorioDeCompras repositorioDelMes(LocalDate fecha){
-    	return new RepositorioDeCompras(comprasDelMes(fecha));
+    public RepositorioDeComprasMemoria repositorioDelMes(LocalDate fecha){
+    	return new RepositorioDeComprasMemoria(comprasDelMes(fecha));
     }
     
     public List<Compra> comprasDelMes(LocalDate fechaInicio) {
