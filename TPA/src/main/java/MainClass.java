@@ -74,8 +74,7 @@ public class MainClass{
 	private static String leerConsola(){
 		Scanner sc = new Scanner(System.in);
 		String lectura = sc.nextLine();
-		sc.close();
-		
+
 		return lectura;
 	}
 	
