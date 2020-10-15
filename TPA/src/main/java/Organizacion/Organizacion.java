@@ -31,15 +31,19 @@ public class Organizacion {
         return repositorioDeUsuarios;
     }
 
+    public RepositorioDeEntidades getRepoEntidades(){
+    	return repositorioDeEntidades;
+    }
+    
     public Usuario getUsuarioEspecifico(String nombreDeUsuario) {
     	return repositorioDeUsuarios.getUsuario(nombreDeUsuario);
     }
     
     public List<Entidad> getEntidades() {
-        return repositorioDeEntidades.getEntidades();
+        return repositorioDeEntidades.getAll();
     }
 
-    public void agregarEntidad(EntidadJuridica entidad) {
+    public void agregarEntidad(Entidad entidad) {
         repositorioDeEntidades.agregarEntidad(entidad);
     }
 

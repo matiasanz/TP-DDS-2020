@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioDeEntidades {
+	
     private List<Entidad> entidades = new ArrayList<>();
 
-    public List<Entidad> getEntidades() {
+    public List<Entidad> getAll() {
         return entidades;
     }
     public void agregarEntidad(Entidad entidad) {

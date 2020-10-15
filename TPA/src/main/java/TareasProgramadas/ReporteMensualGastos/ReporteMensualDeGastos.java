@@ -1,7 +1,9 @@
 package TareasProgramadas.ReporteMensualGastos;
 
 import Factory.EntidadesFactory;
+import Organizacion.OrganizacionMock;
 import Repositorios.RepositorioDeCompras;
+import Repositorios.RepositorioDeEntidades;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -17,21 +19,27 @@ import java.util.Map;
 
 public class ReporteMensualDeGastos implements Job {
 
-	public static Entidad entidad = EntidadesFactory.getEntidadConCompras();
-	// = new RepoComprasDb();
+	public static RepositorioDeEntidades repoEntidades = OrganizacionMock.getInstance().getRepoEntidades();
+//	= new RepoEntidadesDB();
 	
     public void execute(JobExecutionContext context) {
 
         LocalDate fechaActual = LocalDate.of(2020, 07, 31); // LocalDate.now() 
 
-        Map<String, Double> resultadoReporte = generarReporteDeGastos(entidad, fechaActual);
-
         System.out.println("INICIO EJECUCION REPORTE MENSUAL DE GASTOS");
-        for (Map.Entry<String, Double> gasto : resultadoReporte.entrySet()) {
-            imprimirGasto(gasto.getKey(), gasto.getValue());
-        }
-    }
 
+        for(Entidad unaEntidad: repoEntidades.getAll()){
+        	System.out.println(">> " + unaEntidad.getNombreFicticio());
+        	Map<String, Double> resultadoReporte = generarReporteDeGastos(unaEntidad, fechaActual);
+        	
+        	if(resultadoReporte.isEmpty()) 
+        		System.out.println("No se reportaron gastos");
+        	else
+        		imprimirResultadoReporte(resultadoReporte);
+        }
+        
+    }
+    
     public static Map<String, Double> generarReporteDeGastos(Entidad unaEntidad, LocalDate fechaInicio) {
 
     	RepositorioDeCompras comprasDelMes = unaEntidad.getComprasDelMes(fechaInicio);
@@ -50,6 +58,12 @@ public class ReporteMensualDeGastos implements Job {
         }
         
         return gastosRealizados;
+    }
+
+    private void imprimirResultadoReporte(Map<String, Double> resultadoReporte){
+    	for (Map.Entry<String, Double> gasto : resultadoReporte.entrySet()) {
+    		imprimirGasto(gasto.getKey(), gasto.getValue());
+    	}
     }
     
     private static double calcularValorCompras(List<Compra> unasCompras){

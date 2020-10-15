@@ -7,6 +7,10 @@ import static org.quartz.CronScheduleBuilder.cronSchedule;
 
 public class ReporteMensualDeGastosEjecutable {
 
+    public static void main(String[] args) throws SchedulerException {
+        configurarReporteMensualDeGastos();
+    }
+	
     private static void configurarReporteMensualDeGastos() throws SchedulerException {
 
         JobDetail job = JobBuilder.newJob(ReporteMensualDeGastos.class).withIdentity("reporteDeGastos", "grupo1").build();
@@ -22,9 +26,5 @@ public class ReporteMensualDeGastosEjecutable {
         scheduler.start();
         scheduler.scheduleJob(job, triggerReporteMensualDeGastos);
 
-    }
-
-    public static void main(String[] args) throws SchedulerException {
-        configurarReporteMensualDeGastos();
     }
 }
