@@ -5,8 +5,9 @@
 ### Diagrama de Entidad-Relación:
 ![DER](/Diagramas/Der.PNG)
 
-### Diagrama de clases:
-![DiagramaUML](/Diagramas/diagrama_e3_correccion.png) 
+### Diagramas de clases:
+![UML Repositorios](/Diagramas/uml_repos.PNG)
+![UML Tareas Programadas](/Diagramas/uml_tareasProgramadas.PNG) 
 
 # Entrega 4
 
@@ -18,5 +19,5 @@
 * Persistencia
   
 ## Entregables requeridos
-[x] Modelo de datos
-[x] Implementación en código fuente y su disponibilidad en github
+- [x] Modelo de datos
+- [x] Implementación en código fuente y su disponibilidad en github
