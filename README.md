@@ -7,11 +7,11 @@
 
 ### Diagramas de clases:
 
->>> Base de datos:
+1. Base de datos:
 
 ![UML Repositorios](/Diagramas/uml_repos.PNG)
 
->>> Tareas programadas:
+2. Tareas programadas:
 
 ![UML Tareas Programadas](/Diagramas/uml_tareasProgramadas.PNG) 
 
