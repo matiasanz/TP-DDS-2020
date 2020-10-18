@@ -113,7 +113,6 @@
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>2.4.0</version>
-            <scope>test</scope>
         </dependency>
         
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->

@@ -20,6 +20,21 @@ public class Usuario {
     @Column(name = "Mensajes")
     private List<String> bandejaDeMensajes = new ArrayList<>();
 
+    public Usuario() {
+
+    }
+
+    public Usuario(String username, String contrasenia) {
+
+        ValidadorUsuario validacion = new ValidadorUsuario();
+
+        this.username = username;
+
+        validacion.validarContrasenia(contrasenia, username);
+        this.contrasenia = contrasenia;
+
+    }
+
     public String getUsername() {
         return username;
     }
@@ -35,22 +50,14 @@ public class Usuario {
     public Long getId(){
     	return id;
     }
-    
-    //Constructor
-    
-    public Usuario() {
-    	
+
+
+    public List<String> getBandejaDeMensajes() {
+        return bandejaDeMensajes;
     }
-    
-    public Usuario(String username, String contrasenia) {
 
-        ValidadorUsuario validacion = new ValidadorUsuario();
-
-        this.username = username;
-
-        validacion.validarContrasenia(contrasenia, username);
-        this.contrasenia = contrasenia;
-
+    public void setBandejaDeMensajes(List<String> bandejaDeMensajes) {
+        this.bandejaDeMensajes = bandejaDeMensajes;
     }
 
     public void cambiarContrasenia(String contrasenia) {
@@ -63,9 +70,7 @@ public class Usuario {
     }
     
     public void notificarEvento(String mensaje){
-    	synchronized(bandejaDeMensajes){    		
-    		bandejaDeMensajes.add(mensaje);
-    	}
+    	bandejaDeMensajes.add(mensaje);
     }
 
     public boolean equals(Usuario otroUsuario){
@@ -83,21 +88,11 @@ public class Usuario {
     }
     
     public void vaciarBandeja(){
-    	synchronized(bandejaDeMensajes){
-    		bandejaDeMensajes.clear();
-    	}
+    	bandejaDeMensajes.clear();
     }
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public List<String> getBandejaDeMensajes() {
-		return bandejaDeMensajes;
-	}
-
-	public void setBandejaDeMensajes(List<String> bandejaDeMensajes) {
-		this.bandejaDeMensajes = bandejaDeMensajes;
 	}
 
 }
