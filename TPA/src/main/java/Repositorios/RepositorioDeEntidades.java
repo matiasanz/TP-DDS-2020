@@ -12,7 +12,7 @@ public class RepositorioDeEntidades {
     public List<Entidad> getAll() {
         return entidades;
     }
-    public void agregarEntidad(Entidad entidad) {
+    public void agregar(Entidad entidad) {
         entidades.add(entidad);
     }
 }

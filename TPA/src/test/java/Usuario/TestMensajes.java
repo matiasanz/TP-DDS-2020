@@ -4,6 +4,7 @@ import org.junit.Test;
 import Compra.Compra;
 import Factory.ComprasFactory;
 import Factory.UsuariosFactory;
+import TareasProgramadas.ValidacionEgresosAutomatica.ValidacionDeEgresos;
 
 import static org.junit.Assert.*;
 
@@ -41,7 +42,7 @@ public class TestMensajes {
     	Compra compra = ComprasFactory.compraParaUsuario(usuario1);
     	compra.agregarUsuarioValidador(usuario2);
     	
-    	compra.validar();
+    	ValidacionDeEgresos.validarCompra(compra);
     	
     	assertEquals(1, usuario2.getMensajes().size());    	
     	
@@ -52,8 +53,8 @@ public class TestMensajes {
     
     @Test
     public void usuarioRecibeMasDeUnaNotificacion(){
-    	ComprasFactory.compraParaUsuario(usuario1).validar();
-    	ComprasFactory.compraParaUsuario(usuario1).validar();
+    	ValidacionDeEgresos.validarCompra(ComprasFactory.compraParaUsuario(usuario1));
+    	ValidacionDeEgresos.validarCompra(ComprasFactory.compraParaUsuario(usuario1));
     	
     	assertEquals(2, usuario1.getMensajes().size());
     }

@@ -5,7 +5,6 @@ import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import Factory.UsuariosFactory;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
@@ -20,30 +19,27 @@ public class MainClass{
 	private static EntityTransaction transaccion = entityManager().getTransaction();
 
     public static void main(String[] args){
-
-		agregarDatosADB();
+    	imprimirPorPantalla("****************** GeSoc: Gestion de Proyectos Sociales *************************"
+    	+ "\n >> Desea registrarse? (y/n)");
+    	
+    	if(leerConsola().equals("y")) {
+    		registrarUsuario();
+    	}
 
 		Usuario usuario = iniciarSesion();
 
         leerBandejaDeUsuario(usuario);
 
         finalizarSesion();
-
+        
+        main(null);
     }
-
-	private static void agregarDatosADB() {
-		transaccion.begin();
-		Usuario usuario = UsuariosFactory.usuarioStub();
-		usuario.setBandejaDeMensajes(Arrays.asList("Un mensaje", "Otro mensaje"));
-		usuarios.agregar(usuario);
-		transaccion.commit();
-	}
 
 	private static Usuario iniciarSesion(){
 		imprimirPorPantalla("\n***************************** Inicio de sesion *****************************\n");
 		imprimirPorPantalla("Ingrese usuario");
 		String usuarioIngresado = /*"usuario";*/leerConsola();
-		imprimirPorPantalla("Ingrese contraseï¿½a");
+		imprimirPorPantalla("Ingrese contraseña");
         String passwordIngresada = /*"Tp2020Dds";*/leerConsola();
 
         Usuario usuario;
@@ -52,9 +48,11 @@ public class MainClass{
         	transaccion.begin();
         	usuario = usuarios.getUsuario(usuarioIngresado);
         	usuario.autenticar(passwordIngresada);
+        	transaccion.commit();
         }
 
         catch(UsuarioNoExisteException | ErrorDeAutenticacionException unaExcepcion) {
+        	transaccion.rollback();
         	throw new IngresoFallidoException();
         }
 
@@ -62,6 +60,29 @@ public class MainClass{
         return usuario;
 	}
 
+	private static void registrarUsuario() {
+		imprimirPorPantalla("\n***************************** Registrarse gratis *****************************\n");
+		imprimirPorPantalla("Ingrese nuevo usuario");
+		String usuarioIngresado = /*"usuario";*/ leerConsola();
+		imprimirPorPantalla("Ingrese nueva contraseña");
+        String passwordIngresada = /*"Tp2020Dds";*/leerConsola();
+        
+        Usuario usuario;
+        
+        try{
+        	usuario = new Usuario(usuarioIngresado, passwordIngresada);
+    		transaccion.begin();
+    		usuario.setBandejaDeMensajes(Arrays.asList("Le damos la bienvenida a nuestro sistema", "Otro mensaje"));
+    		usuarios.agregar(usuario);
+    		transaccion.commit();
+    		imprimirPorPantalla(" >> Ha sido registrado correctamente\n");
+        
+        } catch(RuntimeException e){
+        	imprimirPorPantalla("Error: " + e.getMessage() + "\n");
+        	registrarUsuario();
+        }
+	}
+	
 	private static void finalizarSesion(){
 		imprimirPorPantalla("\n***************************** Fin de sesion *****************************\n");
 	}
@@ -78,6 +99,8 @@ public class MainClass{
 		mensajes.stream().forEach(mensaje->imprimirPorPantalla(mensaje));
 	}
 
+	// Auxiliares **********************
+	
 	private static String leerConsola(){
 		Scanner sc = new Scanner(System.in);
 		String lectura = sc.nextLine();

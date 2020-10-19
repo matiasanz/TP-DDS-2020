@@ -2,6 +2,7 @@ package Repositorios;
 
 import Compra.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +11,9 @@ public class RepositorioDeComprasMemoria {
 
     public List<Compra> compras;
 
+    public RepositorioDeComprasMemoria(){
+    	compras = new ArrayList<>();
+    }
     public RepositorioDeComprasMemoria(List<Compra> compras) {
         this.compras = compras;
     }
@@ -25,7 +29,7 @@ public class RepositorioDeComprasMemoria {
                 .collect(Collectors.toList());
     }
     
-    public void agregarCompra(Compra compra) {
+    public void agregar(Compra compra) {
     	compras.add(compra);
     }
     

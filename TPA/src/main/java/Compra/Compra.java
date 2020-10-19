@@ -152,7 +152,7 @@ public class Compra {
     }
     
     public void validar() {
-        validadorDeCompra.validarCompra(this);
+        validadorDeCompra.validar(this);
     }
 
 //Usuarios validadores *****************

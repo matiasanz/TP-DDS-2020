@@ -58,7 +58,7 @@ public abstract class Entidad {
 
     public void agregarCompra(Compra compra) {
         getCategorias().forEach(categoria -> categoria.notificarCompraAgregada(compra.getValorTotal(), this.getValorTodasLasCompras()));
-        compras.agregarCompra(compra);
+        compras.agregar(compra);
     }
 
     public BigDecimal getValorTodasLasCompras() {

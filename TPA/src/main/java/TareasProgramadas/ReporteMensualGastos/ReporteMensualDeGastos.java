@@ -1,11 +1,13 @@
 package TareasProgramadas.ReporteMensualGastos;
 
 import Organizacion.OrganizacionMock;
+import Repositorios.RepoEntidadesDB;
 import Repositorios.RepositorioDeComprasMemoria;
 import Repositorios.RepositorioDeEntidades;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import Compra.Compra;
 import Entidad.Entidad;
@@ -16,16 +18,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityTransaction;
+
 public class ReporteMensualDeGastos implements Job {
 
-	public static RepositorioDeEntidades repoEntidades = OrganizacionMock.getInstance().getRepoEntidades();
-//	= new RepoEntidadesDB();
+//	public static RepoEntidadesDB repoEntidades = new RepoEntidadesDB();
+	public static RepositorioDeEntidades repoEntidades = new RepositorioDeEntidades();
+	
+	private static EntityTransaction transaccion = PerThreadEntityManagers.getEntityManager().getTransaction();
 	
     public void execute(JobExecutionContext context) {
 
-        LocalDate fechaActual = LocalDate.of(2020, 07, 31); // LocalDate.now() 
+    	agregarDatosADB(); //
+    	LocalDate fechaActual = LocalDate.of(2020, 07, 31); // LocalDate.now() 
 
-        System.out.println("INICIO EJECUCION REPORTE MENSUAL DE GASTOS");
+        System.out.println("****** INICIO EJECUCION REPORTE MENSUAL DE GASTOS ******");
+        transaccion.begin();
 
         for(Entidad unaEntidad: repoEntidades.getAll()){
         	System.out.println(">> " + unaEntidad.getNombreFicticio());
@@ -37,6 +45,15 @@ public class ReporteMensualDeGastos implements Job {
         		imprimirResultadoReporte(resultadoReporte);
         }
         
+        transaccion.commit();       
+        System.out.println("********* FIN EJECUCION REPORTE MENSUAL DE GASTOS ******\n\n");
+    }
+    
+    private static void agregarDatosADB(){
+        transaccion.begin();
+    	List<Entidad> entidadesMock = OrganizacionMock.getInstance().getRepoEntidades().getAll();
+    	entidadesMock.forEach(e->repoEntidades.agregar(e));
+    	transaccion.commit();
     }
     
     public static Map<String, Double> generarReporteDeGastos(Entidad unaEntidad, LocalDate fechaInicio) {

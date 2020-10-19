@@ -1,5 +1,6 @@
 package Compra;
 import Proveedor.Proveedor;
+import TareasProgramadas.ValidacionEgresosAutomatica.ValidacionDeEgresos;
 import Usuario.Usuario;
 import Direccion.Direccion;
 import Presupuesto.*;
@@ -12,7 +13,6 @@ import Entidad.OrganizacionSectorSocial;
 import Factory.ComprasFactory;
 import Factory.DireccionesFactory;
 import Factory.ItemsFactory;
-import Factory.UsuariosFactory;
 import MedioDePago.PagoEnEfectivo;
 
 import static org.junit.Assert.assertEquals;
@@ -54,7 +54,7 @@ public class TestCompra {
 
     @Test
     public void fallaCantidadDePresupuestos() {
-    	compra.validar();
+    	ValidacionDeEgresos.validarCompra(compra);
         assertEquals(compra.getIndicadorDeAprobacion(), Estado.RECHAZADA);
     }
 
@@ -70,7 +70,7 @@ public class TestCompra {
     	//Los agrego a la compra
     	compra.agregarPresupuesto(presupuesto);
     	//Hago la validacion
-    	compra.validar();
+    	ValidacionDeEgresos.validarCompra(compra);
         assertEquals(compra.getIndicadorDeAprobacion(), Estado.RECHAZADA);
     }
 
@@ -92,7 +92,7 @@ public class TestCompra {
     	compra.agregarPresupuesto(presupuesto2);
     	compra.setPresupuestoElegido(presupuesto1);
     	//Hago la validacion
-    	compra.validar();
+    	ValidacionDeEgresos.validarCompra(compra);
         assertEquals(Estado.RECHAZADA, compra.getIndicadorDeAprobacion());
     }
     
