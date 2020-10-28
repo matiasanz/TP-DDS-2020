@@ -14,7 +14,9 @@ public class Routes {
 
         Spark.port(8080);
         
-        DebugScreen.enableDebugScreen();
+        //Muestra en el navegador el stack trace en caso de excepcion no manejada.
+        //TODO el dia de la entrega, dejar comentada esta linea
+        DebugScreen.enableDebugScreen(); 
         
         Spark.staticFileLocation("/public");
 
