@@ -1,5 +1,6 @@
 package Main;
 
+import Controladores.EntidadesController;
 import Controladores.HomeController;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -16,7 +17,9 @@ public class Routes {
 
         HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
         HomeController homeController = new HomeController();
+        EntidadesController entidadesController = new EntidadesController();
 
         Spark.get("/", (request, response) -> homeController.getHome(), engine);
+        Spark.get("/entidades", (request, response) -> entidadesController.getOptions(), engine);
     }
 }
