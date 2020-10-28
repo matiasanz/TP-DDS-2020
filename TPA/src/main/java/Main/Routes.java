@@ -21,5 +21,6 @@ public class Routes {
 
         Spark.get("/", (request, response) -> homeController.getHome(), engine);
         Spark.get("/entidades", (request, response) -> entidadesController.getOptions(), engine);
+        Spark.get("/entidades/porCategoria", entidadesController::getConsultorasPorCategoria, engine);
     }
 }

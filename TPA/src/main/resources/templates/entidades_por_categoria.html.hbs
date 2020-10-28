@@ -1,0 +1,42 @@
+{{# partial "titulo" }}
+    <title>GeSoc - Entidades por categoría</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+      <a href="/">Inicio</a>
+      <a href="/compras">Compras</a>
+      <a class="active" href="/entidades">Entidades</a>
+      <a href="/mensajes">Mensajes</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+    <section>
+        <h2>Entidades por categoría</h2>
+
+        <form action="/consultoras" method="GET">
+            Seleccione la categoría deseada
+            <input type="number" name="filtro" placeholder="ID de categoría">
+            <input type="submit" value="Buscar">
+        </form>
+
+        <div>
+            <span>ID:</span><span>{{id}}</span>
+        </div>
+        <div>
+            <span>Nombre:</span><span>{{nombre}}</span>
+        </div>
+
+        <ul>
+            {{#entidades}}
+                <li>
+                <a>{{id}}</a>
+                <a>{{nombreFicticio}}</a>
+                </li>
+            {{/entidades}}
+        </ul>
+    </section>
+{{/partial}}
+
+{{> layout.html.hbs }}
