@@ -32,7 +32,7 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 	
 	@Test (expected = UsuarioNoExisteException.class)
 	public void seIngresanDatosIncorrectosYNoEncuentraNingunUsuario(){
-		repo.getUsuario("Juan Carlos");
+		repo.getByUsername("Juan Carlos");
 	}
 
 	@Test
@@ -43,7 +43,7 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 	@Test
 	public void usuarioSeRecuperaDeBD(){
 
-		Usuario recuperado = repo.getUsuario(usuario.getUsername());
+		Usuario recuperado = repo.getByUsername(usuario.getUsername());
 	
 		assertNotNull(recuperado);
 		assertEquals(usuario, recuperado);

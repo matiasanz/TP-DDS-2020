@@ -1,7 +1,10 @@
 package Main;
 
 import Controladores.HomeController;
+import Controladores.UserController;
+import spark.ModelAndView;
 import spark.Spark;
+import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Routes {
@@ -10,13 +13,23 @@ public class Routes {
         System.out.println("Iniciando servidor");
 
         Spark.port(8080);
+        
+        DebugScreen.enableDebugScreen();
+        
         Spark.staticFileLocation("/public");
 
         new Bootstrap().run();
 
         HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
         HomeController homeController = new HomeController();
+        UserController loginController = new UserController();
 
         Spark.get("/", (request, response) -> homeController.getHome(), engine);
+        
+        Spark.post("/login",(request, response) -> loginController.login(request, response));
+        
+        Spark.get("/menu",(request, response) -> homeController.getUserMenu(request,response));
+                
+        System.out.println("Servidor iniciado correctamente");
     }
 }

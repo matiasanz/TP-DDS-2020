@@ -34,6 +34,23 @@ public class MainClass{
         
         main(null);
     }
+    
+//    public static void main(String[] args){
+//    	imprimirPorPantalla("****************** GeSoc: Gestion de Proyectos Sociales *************************"
+//    	+ "\n >> Desea registrarse? (y/n)");
+//    	
+//    	if(leerConsola().equals("y")) {
+//    		registrarUsuario();
+//    	}
+//
+//		Usuario usuario = iniciarSesion();
+//
+//        leerBandejaDeUsuario(usuario);
+//
+//        finalizarSesion();
+//        
+//        main(null);
+//    }
 
 	private static Usuario iniciarSesion(){
 		imprimirPorPantalla("\n***************************** Inicio de sesion *****************************\n");
@@ -46,7 +63,7 @@ public class MainClass{
 
         try{
         	transaccion.begin();
-        	usuario = usuarios.getUsuario(usuarioIngresado);
+        	usuario = usuarios.getByUsername(usuarioIngresado);
         	usuario.autenticar(passwordIngresada);
         	transaccion.commit();
         }
