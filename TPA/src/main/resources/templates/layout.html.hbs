@@ -1,24 +1,33 @@
 <html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" type="text/css" href="main.css">
+        {{# block "titulo" }}
+        {{/block}}
+        <title>GeSoc - Inicio</title>
 
-<head>
-	<link rel="stylesheet" type="text/css" href="/main.css">
-    {{# block "titulo" }}
-    {{/block}}
-</head>
+    </head>
 
-<body>
-    <nav>
-        <a href="/">NAV1</a>
-        <a href="/consultoras">NAV2</a>
-    </nav>
-	<main>
-		<h1>GESOC</h1>
-            {{# block "contenido" }}
+    <body>
+        <div class="cuerpo">
+            <header style="margin-bottom:15px;">
+                <a href="/"><img style="align-self:auto" src="https://imgur.com/YmIiNbe.png"></a>
+            </header>
+
+
+            {{# block "nav"}}
             {{/block}}
-	</main>
-	<footer class="fondo-gris">
-        FOOTER
-	</footer>
-</body>
+
+            <main>
+                {{# block "contenido" }}
+                {{/block}}
+            </main>
+
+            <div class="footer">
+                Copyright 2020 © GeSoc
+            </div>
+        </div>
+    </body>
 
 </html>

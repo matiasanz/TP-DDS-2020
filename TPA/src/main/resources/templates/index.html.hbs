@@ -1,6 +1,16 @@
 {{# partial "titulo" }}
-    <title>GESOC - Home</title>
+    <title>GeSoc - Inicio</title>
 {{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+      <a class="active" href="/">Inicio</a>
+      <a href="/compras">Compras</a>
+      <a href="/entidades">Entidades</a>
+      <a href="/mensajes">Mensajes</a>
+    </div>
+{{/partial}}
+
 
 <section id="Inicio de sesion">
    	<p>Iniciar sesion</p>
@@ -10,8 +20,11 @@
           <input type="submit" value="Enter">
           
           
+          
     </form>
 </section>
+
+
 
 
 {{# partial "contenido" }}
@@ -28,7 +41,6 @@
 			a jóvenes y adultos que necesitan orientación y capacitación para mejorar su formación con el fin de
 			conseguir un empleo.
 		</p>
-
 		<p>
 			Leandro es el presidente de esta Fundación y junto con Belén, coordinadora de proyectos, Ignacio,
 			coordinador de comunicación y Analía, coordinadora de administración, realizan las tareas de
