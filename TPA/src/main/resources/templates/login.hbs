@@ -5,10 +5,18 @@
 
 {{# partial "contenido" }}
     <section class="fondo-gris">
+    <section id="Inicio de sesion">
+   	<p>Iniciar sesion</p>
+  	<form action="/login" method="POST">
+          <input type="text" name="username" placeholder="Username" required="required">
+          <input type="text" name="password" placeholder="Password" required="required">
+          <input type="submit" value="Enter">
+          
+          
+          
+    </form>
+</section>
     
-    	
-    
-        <h2>¡Bienvenido {{username}}!</h2>
         <p> 
         	HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

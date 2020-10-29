@@ -1,4 +1,4 @@
-   package Controladores;
+package Controladores;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -18,12 +18,12 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
 	
     public ModelAndView getHome() {
         Map<String, Object> modelo = new HashMap<>();
-        return new ModelAndView(modelo, "index.html.hbs");
+        return new ModelAndView(modelo, "login.hbs");
     }
 
 	public ModelAndView getUserMenu(Request request, Response response){
-		Usuario modelo = new UserController().reconocerUsuario(request); //Dudoso, lo puse aca en realidad para dejarle al otro solo lo relativo a la autenticacion
-		return new ModelAndView(modelo, "menu_usuario.html.hbs");
+		Usuario modelo = new UserController().reconocerUsuario(request);
+		return new ModelAndView(modelo, "index.html.hbs");
 	}
     
 }
