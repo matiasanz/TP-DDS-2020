@@ -14,6 +14,7 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 public class HomeController implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
 
 	private final String ARCHIVO_LOGIN = "login.html.hbs";
+	private Autenticador autenticador = new Autenticador();
 	
     public ModelAndView getHome(Request request, Response response) {
         return getHome(request, response, "");
@@ -21,7 +22,7 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
     
     public ModelAndView getHome(Request request, Response response, String mensaje) {
     	
-    	if(usuarioYaAutenticado(request)){
+    	if(autenticador.usuarioYaAutenticado(request)){
     		response.redirect("/menu");
     	}
     	        					
@@ -33,10 +34,6 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
 		modelo.put("mensaje", mensaje);
 
 		return modelo;
-    }
-    
-    private boolean usuarioYaAutenticado(Request request){
-    	return request.cookie("uid") != null;
     }
     
 }

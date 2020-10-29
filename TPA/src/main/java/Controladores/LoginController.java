@@ -13,7 +13,8 @@ public class LoginController
 {	
 	private RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
 	private int ERROR_CREDENCIALES = 401;
-	private String USER_ID = "uid";
+	
+	Autenticador autenticador = new Autenticador();
 	
 	public ModelAndView getLoginPage(Request pedido, Response respuesta){
 		return getLoginPage(pedido, respuesta, "");
@@ -39,12 +40,11 @@ public class LoginController
        	Usuario usuario = repoUsuarios.getByUsername( body.get("username") );
        	usuario.autenticar( body.get("password") );    	
        	
-       	response.cookie(USER_ID,   (usuario.getId().toString())   ); //Agregar operacion para no pasarle el id del usuario, agregarle algun logaritmo, algo biyectivo.
+       	autenticador.guardarCredenciales(response, usuario);
     }
     
     public ModelAndView logout(Response response){
-    	response.removeCookie(USER_ID);
-    	response.redirect("/");
+    	autenticador.logout(response);
     	return null;
     }
 }

@@ -11,9 +11,10 @@ import spark.Response;
 public class BandejaController
 {
 	private final String ARCHIVO_MENSAJES = "mensajes.html.hbs";
+	Autenticador autenticador = new Autenticador();
 	
 	public ModelAndView getBandejaDeMensajes(Request request, Response response){
-		Usuario usuario = new MenuController().reconocerUsuario(request);			
+		Usuario usuario = autenticador.reconocerUsuario(request);			
 		return new ModelAndView( crearModelo(usuario) , ARCHIVO_MENSAJES);		
 	}
 	
