@@ -1,5 +1,6 @@
 package Main;
 
+import Controladores.CompraController;
 import Controladores.HomeController;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -11,6 +12,7 @@ public class Routes {
 
         Spark.port(8080);
         Spark.staticFileLocation("/public");
+        Spark.staticFileLocation("/js");
 
         new Bootstrap().run();
 
@@ -18,5 +20,9 @@ public class Routes {
         HomeController homeController = new HomeController();
 
         Spark.get("/", (request, response) -> homeController.getHome(), engine);
+
+        CompraController compraController = new CompraController();
+        Spark.get("/compras/nueva", (request, response) -> compraController.getPaginaComra(), engine);
+        Spark.post("/compras", (request, response) -> compraController.crearCompra(request, response), engine);
     }
 }

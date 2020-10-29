@@ -1,0 +1,72 @@
+{{# partial "titulo" }}
+    <title>GESOC - Home</title>
+{{/partial}}
+
+
+{{# partial "contenido" }}
+    <style>
+        table, td {
+            border: 1px solid black;
+            }
+
+            tr {
+            height: 20px;
+            }
+
+
+    </style>
+    <script type="text/javascript" src="/cargar-compra.js"></script>
+    <section class="fondo-gris">
+        <h2>Cargar Compra</h2>
+        <form id="frm_compra" action="/compras" method="POST">
+            <label for="fname">Fecha de la Operación:</label>
+            <input type="date" name="txt_fechaOperacion"><br>
+            <label for="fname">Descripción:</label>
+            <input type="text" name="txt_fechaOperacion"><br>
+            <!-- <label for="fname">Cantidad mínima de presupuestos:</label><br>
+            <input type="number" name=""><br> -->
+            <label for="fname">Moneda:</label>
+            <input type="text" name="txt_moneda"><br>
+            <h3> Presupuesto </h3>
+            <div id="div_presupuesto">
+                <div id="div_presupuesto_proveedores">
+                    <label for="fname">Proveedores</label>
+                    <select id="ddl_proveedores">
+                        {{#proveedores}}
+                            {{#if dni}}
+                                <option> {{nombre }} {{appellido}}</option>
+                            {{else}}
+                                <option> {{razonSocial }} </option>
+                            {{/if}}
+                        {{/proveedores}}
+                    </select> <br>
+                </div>
+                <div id="div_presupuesto_items">
+                    <h3> Items </h3>
+                    <table id="tbl_items">
+                        <thead>
+                        <tr>
+                            <th> Cantidad</th>
+                            <th> Descripcion</th>
+                            <th> Valor Unitario</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <input id="cantidad_items" name="cantidad_items" type="hidden" value="0">
+        </form>
+        <button id="btn_agregar_items" onclick="agregarItem()">Agregar Item</button>
+        <button id="btn_eliminar_items" onclick="eliminarItem()" disabled>Eliminar Item</button>
+        <br>
+        <br>
+        <br>
+        <button id="btn_guardar_compra" type="submit" form="frm_compra" disabled>Guardar Compra</button>
+
+    </section>
+
+            <!-- {{/partial}}
+
+{{> layout.html.hbs }} -->
