@@ -93,4 +93,11 @@ public class Usuario {
 		this.id = id;
 	}
 
+	public void setUsername(String nombre){
+		username = nombre;
+	}
+	
+	public void setContrasenia(String password){
+		contrasenia = password;
+	}
 }

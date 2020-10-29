@@ -12,6 +12,7 @@ import spark.Response;
 public class LoginController
 {	
 	private RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
+	private int ERROR_CREDENCIALES = 401;
 	
 	public ModelAndView getLoginPage(Request pedido, Response respuesta){
 		return getLoginPage(pedido, respuesta, "");
@@ -25,13 +26,15 @@ public class LoginController
 	    }
 			
 	    catch(UsuarioNoExisteException | ErrorDeAutenticacionException e) {
-	    	String mensajeDeError = "El usuario y/o la contraseña ingresada son incorrectos";
-			return new HomeController().getHome(respuesta, 400, mensajeDeError);
+	    	respuesta.status(ERROR_CREDENCIALES);
+			return new HomeController().getHome(pedido, respuesta,
+					"El usuario y/o la contraseña ingresada son incorrectos");
 		}
     }
-       
+    
     public void iniciarSesion(Request request, Response response){
     	Map<String,String> body = Controllers.getBody(request);
+    	System.out.println("********** "+ body.toString());
     
        	Usuario usuario = repoUsuarios.getByUsername( body.get("username") );
        	usuario.autenticar( body.get("password") );    	

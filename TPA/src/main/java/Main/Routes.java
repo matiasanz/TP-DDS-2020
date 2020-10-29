@@ -28,7 +28,7 @@ public class Routes {
 
         new Bootstrap().run();
 
-        Spark.get("/", (request, response) -> homeController.getHome(response), engine);
+        Spark.get("/", (request, response) -> homeController.getHome(request, response), engine);
         
         Spark.post("/login",(request, response) -> loginController.getLoginPage(request, response), engine);
         
