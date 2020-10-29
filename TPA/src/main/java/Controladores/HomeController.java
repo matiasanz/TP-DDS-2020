@@ -49,7 +49,7 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
 			
 	    catch(UsuarioNoExisteException | ErrorDeAutenticacionException e) {
 	    	respuesta.status(ERROR_CREDENCIALES);
-			return new HomeController().getHome(pedido, respuesta,
+			return getHome(pedido, respuesta,
 					"El usuario y/o la contraseña ingresada son incorrectos");
 		}
     }
