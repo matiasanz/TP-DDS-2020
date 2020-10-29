@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
+import Exceptions.ErrorDeAutenticacionException;
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
-    //private Tipo tipo; //administrador o validador
-
     @Id
     @GeneratedValue
     private Long id ;
@@ -20,17 +20,16 @@ public class Usuario {
     @Column(name = "Mensajes")
     private List<String> bandejaDeMensajes = new ArrayList<>();
 
+    @Enumerated
+    private TipoUsuario tipo;
+    
     public Usuario() {}
 
-    public Usuario(String username, String contrasenia) {
-
-        ValidadorUsuario validacion = new ValidadorUsuario();
-
-        this.username = username;
-
-        validacion.validarContrasenia(contrasenia, username);
+    public Usuario(String username, String contrasenia, TipoUsuario tipoUsuario) {
+    	new ValidadorUsuario().validarContrasenia(contrasenia, username);
+    	this.username = username;
         this.contrasenia = contrasenia;
-
+        this.tipo = tipoUsuario;
     }
 
     public String getUsername() {
@@ -49,6 +48,9 @@ public class Usuario {
     	return id;
     }
 
+    public TipoUsuario getTipo(){
+    	return tipo;
+    }
 
     public List<String> getBandejaDeMensajes() {
         return bandejaDeMensajes;
@@ -71,6 +73,14 @@ public class Usuario {
     	bandejaDeMensajes.add(mensaje);
     }
 
+    public void autenticar(String password){
+    	if(!contrasenia.equals(password)) {
+    		throw new ErrorDeAutenticacionException();
+    	}
+    }
+
+    
+    //Deprecated
     public boolean equals(Usuario otroUsuario){
         return this.autentica(otroUsuario.getUsername(),otroUsuario.getContrasenia());
     }
@@ -78,12 +88,7 @@ public class Usuario {
     public boolean autentica(String username, String password){
         return this.username.equals(username) && this.contrasenia.equals(password);
     }
-    
-    public void autenticar(String password){
-    	if(!contrasenia.equals(password)) {
-    		throw new ErrorDeAutenticacionException();
-    	}
-    }
+    //******************************
     
     public void vaciarBandeja(){
     	bandejaDeMensajes.clear();
@@ -99,5 +104,10 @@ public class Usuario {
 	
 	public void setContrasenia(String password){
 		contrasenia = password;
+	}
+
+	public void setTipo(TipoUsuario nuevoTipo)
+	{
+		tipo = nuevoTipo;
 	}
 }

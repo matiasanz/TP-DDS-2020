@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import Exceptions.BloqueoDeAgregarEntidadesBaseException;
+
 @Entity
 @DiscriminatorValue("NEB")
 public class ValidadorNoMasEntidadesbase extends Validador{

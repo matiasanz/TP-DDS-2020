@@ -16,6 +16,7 @@ import Proveedor.Proveedor;
 import Entidad.Clasificacion;
 import Entidad.Empresa;
 import Entidad.OrganizacionSectorSocial;
+import Exceptions.UsuarioYaExisteException;
 
 import static org.junit.Assert.assertEquals;
 import java.math.BigDecimal;

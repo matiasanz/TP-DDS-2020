@@ -8,9 +8,10 @@ import javax.persistence.EntityTransaction;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import Exceptions.ErrorDeAutenticacionException;
+import Exceptions.UsuarioNoExisteException;
 import Organizacion.IngresoFallidoException;
-import Repositorios.RepositorioDeUsuarios.UsuarioNoExisteException;
-import Usuario.ErrorDeAutenticacionException;
+import Usuario.TipoUsuario;
 import Usuario.Usuario;
 
 public class MainClass{
@@ -67,7 +68,7 @@ public class MainClass{
         Usuario usuario;
         
         try{
-        	usuario = new Usuario(usuarioIngresado, passwordIngresada);
+        	usuario = new Usuario(usuarioIngresado, passwordIngresada, TipoUsuario.ESTANDAR);
     		transaccion.begin();
     		usuario.setBandejaDeMensajes(Arrays.asList("Le damos la bienvenida a nuestro sistema", "Otro mensaje"));
     		usuarios.agregar(usuario);

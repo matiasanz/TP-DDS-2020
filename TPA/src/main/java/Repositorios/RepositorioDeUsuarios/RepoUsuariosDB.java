@@ -1,7 +1,8 @@
 package Repositorios.RepositorioDeUsuarios;
 import javax.persistence.NoResultException;
 
-import Organizacion.UsuarioYaExisteException;
+import Exceptions.UsuarioNoExisteException;
+import Exceptions.UsuarioYaExisteException;
 import Repositorios.RepoDB;
 import Usuario.Usuario;
 

@@ -11,9 +11,9 @@ import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import Exceptions.ErrorDeAutenticacionException;
+import Exceptions.UsuarioNoExisteException;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
-import Repositorios.RepositorioDeUsuarios.UsuarioNoExisteException;
-import Usuario.ErrorDeAutenticacionException;
 import Usuario.Usuario;
 
 public class HomeController implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {

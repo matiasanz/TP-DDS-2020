@@ -1,4 +1,4 @@
-package Usuario;
+package Exceptions;
 
 public class ContraseniaTieneNombreDeUsuarioIncluidoException extends RuntimeException {
 

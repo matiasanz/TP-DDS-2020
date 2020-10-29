@@ -8,11 +8,11 @@ import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
+import Exceptions.UsuarioNoExisteException;
+import Exceptions.UsuarioYaExisteException;
 import Factory.UsuariosFactory;
 import Organizacion.IngresoFallidoException;
-import Organizacion.UsuarioYaExisteException;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
-import Repositorios.RepositorioDeUsuarios.UsuarioNoExisteException;
 import Usuario.Usuario;
 
 public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest implements WithGlobalEntityManager {

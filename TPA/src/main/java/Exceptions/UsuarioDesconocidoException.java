@@ -1,4 +1,4 @@
-package Repositorios.RepositorioDeUsuarios;
+package Exceptions;
 
 public class UsuarioDesconocidoException extends RuntimeException
 {

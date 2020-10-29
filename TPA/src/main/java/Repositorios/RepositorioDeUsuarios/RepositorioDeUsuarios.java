@@ -1,11 +1,13 @@
 package Repositorios.RepositorioDeUsuarios;
 
 import Organizacion.IngresoFallidoException;
-import Organizacion.UsuarioYaExisteException;
 import Usuario.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Exceptions.UsuarioNoExisteException;
+import Exceptions.UsuarioYaExisteException;
 
 public class RepositorioDeUsuarios {
     List<Usuario> usuarios = new ArrayList<Usuario>();
