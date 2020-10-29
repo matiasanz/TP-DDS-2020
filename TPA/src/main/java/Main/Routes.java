@@ -36,6 +36,8 @@ public class Routes {
         
         Spark.get("/mensajes",(request, response) -> bandejaController.getBandejaDeMensajes(request,response), engine);
                 
+        Spark.get("/logout",(request, response)->loginController.logout(response), engine);
+        
         System.out.println("Servidor iniciado correctamente");
     }
 }

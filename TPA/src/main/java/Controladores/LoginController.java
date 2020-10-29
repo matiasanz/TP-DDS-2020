@@ -13,6 +13,7 @@ public class LoginController
 {	
 	private RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
 	private int ERROR_CREDENCIALES = 401;
+	private String USER_ID = "uid";
 	
 	public ModelAndView getLoginPage(Request pedido, Response respuesta){
 		return getLoginPage(pedido, respuesta, "");
@@ -34,11 +35,16 @@ public class LoginController
     
     public void iniciarSesion(Request request, Response response){
     	Map<String,String> body = Controllers.getBody(request);
-    	System.out.println("********** "+ body.toString());
     
        	Usuario usuario = repoUsuarios.getByUsername( body.get("username") );
        	usuario.autenticar( body.get("password") );    	
        	
-       	response.cookie("uid",   (usuario.getId().toString())   ); //Agregar operacion para no pasarle el id del usuario, agregarle algun logaritmo, algo biyectivo.
+       	response.cookie(USER_ID,   (usuario.getId().toString())   ); //Agregar operacion para no pasarle el id del usuario, agregarle algun logaritmo, algo biyectivo.
+    }
+    
+    public ModelAndView logout(Response response){
+    	response.removeCookie(USER_ID);
+    	response.redirect("/");
+    	return null;
     }
 }
