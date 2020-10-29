@@ -29,7 +29,11 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
     }
     
     public ModelAndView getHome(Request request, Response response, String mensaje) {	        					
-        return new ModelAndView( generarModelo(mensaje) , ARCHIVO_LOGIN);
+        if(autenticador.sesionEnCurso(request)){
+        	response.redirect("/menu");
+        }
+    	
+    	return new ModelAndView( generarModelo(mensaje) , ARCHIVO_LOGIN);
     }
     
     private Map<String, Object> generarModelo(String mensaje){
