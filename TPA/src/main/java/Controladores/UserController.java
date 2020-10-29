@@ -16,17 +16,21 @@ public class UserController
 {
 	private RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
 	    
-    public ModelAndView login(Request pedido, Response respuesta) {
+	public ModelAndView login(Request pedido, Response respuesta){
+		return login(pedido, respuesta, "");
+	}
+	
+    public ModelAndView login(Request pedido, Response respuesta, String mensaje) {
 	    try{    
 	    	iniciarSesion(pedido,respuesta);
 	    	respuesta.redirect("/menu");	
+	    	return null;
 	    }
 			
-	    catch(UsuarioNoExisteException | ErrorDeAutenticacionException __) {
-			respuesta.redirect("/", 400); //Agregar mensaje de error
+	    catch(UsuarioNoExisteException | ErrorDeAutenticacionException e) {
+	    	String mensajeDeError = "El usuario y/o la contraseña ingresada son incorrectos";
+			return new HomeController().getHome(respuesta, 400, mensajeDeError);
 		}
-
-	    return null;
     }
 
         

@@ -20,9 +20,7 @@ public class Usuario {
     @Column(name = "Mensajes")
     private List<String> bandejaDeMensajes = new ArrayList<>();
 
-    public Usuario() {
-
-    }
+    public Usuario() {}
 
     public Usuario(String username, String contrasenia) {
 
