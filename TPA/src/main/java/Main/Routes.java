@@ -30,7 +30,7 @@ public class Routes {
         
         Spark.post("/login",(request, response) -> loginController.login(request, response));
         
-        Spark.get("/menu",(request, response) -> homeController.getUserMenu(request,response));
+        Spark.get("/menu",(request, response) -> homeController.getUserMenu(request,response), engine);
                 
         System.out.println("Servidor iniciado correctamente");
     }
