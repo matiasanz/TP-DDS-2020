@@ -1,5 +1,6 @@
 package Controladores;
 
+import Exceptions.NingunaSesionAbiertaException;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
 import Usuario.Usuario;
 import spark.Request;
@@ -18,7 +19,7 @@ public class Autenticador
     }
 
     private void validarSesionEnCurso(Request pedido){
-    	if(!sesionEnCurso(pedido)) throw new RuntimeException("Sesion finalizada");
+    	if(!sesionEnCurso(pedido)) throw new NingunaSesionAbiertaException();
     }
     
     public void logout(Response response){
