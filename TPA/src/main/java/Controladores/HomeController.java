@@ -22,7 +22,7 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
     
     public ModelAndView getHome(Request request, Response response, String mensaje) {
     	
-    	if(autenticador.usuarioYaAutenticado(request)){
+    	if(autenticador.sesionEnCurso(request)){
     		response.redirect("/menu");
     	}
     	        					

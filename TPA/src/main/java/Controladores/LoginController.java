@@ -45,6 +45,7 @@ public class LoginController
     
     public ModelAndView logout(Response response){
     	autenticador.logout(response);
+    	response.redirect("/");
     	return null;
     }
 }
