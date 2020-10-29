@@ -16,9 +16,19 @@ public class MenuController
 			Usuario modelo = autenticador.reconocerUsuario(request);
 			return new ModelAndView(modelo, ARCHIVO_INDEX);
     	}
+    	
     	catch(NingunaSesionAbiertaException e){
-    		response.redirect("/");
-    		return null;
+    		return redirectToHome(response);
     	}
 	}
+
+    public ModelAndView logout(Request request, Response response){
+    	autenticador.quitarCredenciales(request, response);
+    	return redirectToHome(response);
+    }
+    
+    private ModelAndView redirectToHome(Response response){
+    	response.redirect("/");
+    	return null;
+    }
 }

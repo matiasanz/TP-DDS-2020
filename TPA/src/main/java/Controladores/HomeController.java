@@ -11,21 +11,24 @@ import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
+import Repositorios.RepositorioDeUsuarios.UsuarioNoExisteException;
+import Usuario.ErrorDeAutenticacionException;
+import Usuario.Usuario;
+
 public class HomeController implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
 
 	private final String ARCHIVO_LOGIN = "login.html.hbs";
+	private int ERROR_CREDENCIALES = 401;
+	private RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
 	private Autenticador autenticador = new Autenticador();
-	
+
+	//Pagina de inicio de sesion
     public ModelAndView getHome(Request request, Response response) {
         return getHome(request, response, "");
     }
     
-    public ModelAndView getHome(Request request, Response response, String mensaje) {
-    	
-    	if(autenticador.sesionEnCurso(request)){
-    		response.redirect("/menu");
-    	}
-    	        					
+    public ModelAndView getHome(Request request, Response response, String mensaje) {	        					
         return new ModelAndView( generarModelo(mensaje) , ARCHIVO_LOGIN);
     }
     
@@ -35,5 +38,28 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
 
 		return modelo;
     }
+	
+    //Datos ingresados
+    public ModelAndView tryLogin(Request pedido, Response respuesta) {
+	    try{    
+	    	iniciarSesion(pedido,respuesta);
+	    	respuesta.redirect("/menu");	
+	    	return null;
+	    }
+			
+	    catch(UsuarioNoExisteException | ErrorDeAutenticacionException e) {
+	    	respuesta.status(ERROR_CREDENCIALES);
+			return new HomeController().getHome(pedido, respuesta,
+					"El usuario y/o la contraseña ingresada son incorrectos");
+		}
+    }
     
+    public void iniciarSesion(Request request, Response response){
+    	Map<String,String> body = Controllers.getBody(request);
+    
+       	Usuario usuario = repoUsuarios.getByUsername( body.get("username") );
+       	usuario.autenticar( body.get("password") );    	
+       	
+       	autenticador.guardarCredenciales(response, usuario);       		
+    }    
 }

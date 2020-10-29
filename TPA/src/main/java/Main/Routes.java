@@ -2,7 +2,6 @@ package Main;
 
 import Controladores.BandejaController;
 import Controladores.HomeController;
-import Controladores.LoginController;
 import Controladores.MenuController;
 import spark.Spark;
 import spark.debug.DebugScreen;
@@ -11,7 +10,6 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 public class Routes {
 	private static HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 	private static HomeController homeController = new HomeController();
-	private static LoginController loginController = new LoginController();
 	private static MenuController menuController = new MenuController();
 	private static BandejaController bandejaController = new BandejaController();
 	
@@ -30,13 +28,13 @@ public class Routes {
 
         Spark.get("/", (request, response) -> homeController.getHome(request, response), engine);
         
-        Spark.post("/login",(request, response) -> loginController.getLoginPage(request, response), engine);
+        Spark.post("/login",(request, response) -> homeController.tryLogin(request, response), engine);
         
         Spark.get("/menu",(request, response) -> menuController.getUserMenu(request,response), engine);
         
         Spark.get("/mensajes",(request, response) -> bandejaController.getBandejaDeMensajes(request,response), engine);
                 
-        Spark.get("/logout",(request, response)->loginController.logout(response), engine);
+        Spark.get("/logout",(request, response)->menuController.logout(request, response), engine);
         
         System.out.println("Servidor iniciado correctamente");
     }
