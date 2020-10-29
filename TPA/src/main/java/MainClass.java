@@ -17,7 +17,7 @@ public class MainClass{
 
 	private static RepoUsuariosDB usuarios = new RepoUsuariosDB();
 	private static EntityTransaction transaccion = entityManager().getTransaction();
-
+    
     public static void main(String[] args){
     	imprimirPorPantalla("****************** GeSoc: Gestion de Proyectos Sociales *************************"
     	+ "\n >> Desea registrarse? (y/n)");
@@ -34,23 +34,6 @@ public class MainClass{
         
         main(null);
     }
-    
-//    public static void main(String[] args){
-//    	imprimirPorPantalla("****************** GeSoc: Gestion de Proyectos Sociales *************************"
-//    	+ "\n >> Desea registrarse? (y/n)");
-//    	
-//    	if(leerConsola().equals("y")) {
-//    		registrarUsuario();
-//    	}
-//
-//		Usuario usuario = iniciarSesion();
-//
-//        leerBandejaDeUsuario(usuario);
-//
-//        finalizarSesion();
-//        
-//        main(null);
-//    }
 
 	private static Usuario iniciarSesion(){
 		imprimirPorPantalla("\n***************************** Inicio de sesion *****************************\n");
@@ -62,14 +45,11 @@ public class MainClass{
         Usuario usuario;
 
         try{
-        	transaccion.begin();
         	usuario = usuarios.getByUsername(usuarioIngresado);
         	usuario.autenticar(passwordIngresada);
-        	transaccion.commit();
         }
 
         catch(UsuarioNoExisteException | ErrorDeAutenticacionException unaExcepcion) {
-        	transaccion.rollback();
         	throw new IngresoFallidoException();
         }
 

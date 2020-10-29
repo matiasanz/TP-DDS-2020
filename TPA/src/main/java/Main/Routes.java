@@ -1,37 +1,40 @@
 package Main;
 
+import Controladores.BandejaController;
 import Controladores.HomeController;
-import Controladores.UserController;
+import Controladores.LoginController;
+import Controladores.MenuController;
 import spark.Spark;
 import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Routes {
-
+	private static HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
+	private static HomeController homeController = new HomeController();
+	private static LoginController loginController = new LoginController();
+	private static MenuController menuController = new MenuController();
+	private static BandejaController bandejaController = new BandejaController();
+	
     public static void main(String[] args) {
         System.out.println("Iniciando servidor");
 
         Spark.port(8080);
         
-        //TODO el dia de la entrega, dejar comentada esta linea
-        //Muestra el stack trace en el navegador, en caso de excepcion no manejada.
+        //Esta linea muestra el stack trace en el navegador, en caso de excepcion no manejada.
+        //TODO comentar el dia de la entrega
         DebugScreen.enableDebugScreen(); 
         
         Spark.staticFileLocation("/public");
 
         new Bootstrap().run();
 
-        HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
-        HomeController homeController = new HomeController();
-        UserController loginController = new UserController();
-
         Spark.get("/", (request, response) -> homeController.getHome(response), engine);
         
-        Spark.post("/login",(request, response) -> loginController.login(request, response), engine);
+        Spark.post("/login",(request, response) -> loginController.getLoginPage(request, response), engine);
         
-        Spark.get("/menu",(request, response) -> homeController.getUserMenu(request,response), engine);
+        Spark.get("/menu",(request, response) -> menuController.getUserMenu(request,response), engine);
         
-        Spark.get("/mensajes",(request, response) -> homeController.getBandejaDeMensajes(request,response), engine);
+        Spark.get("/mensajes",(request, response) -> bandejaController.getBandejaDeMensajes(request,response), engine);
                 
         System.out.println("Servidor iniciado correctamente");
     }

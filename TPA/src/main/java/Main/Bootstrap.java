@@ -26,7 +26,10 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     }
     
     private void mockearUsuarios(){
+    	String contrasenia = "Tp2020Dds";
+    	
     	RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();    	
-    	repoUsuarios.agregar(new Usuario("usuario", "Tp2020Dds"));
+    	repoUsuarios.agregar(new Usuario("usuario", contrasenia));
+    	repoUsuarios.agregar(new Usuario("beto", contrasenia));
     }
 }
