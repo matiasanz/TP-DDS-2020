@@ -3,17 +3,21 @@ package Controladores;
 import Compra.Compra;
 import Direccion.Direccion;
 import Factory.DireccionesFactory;
+import Moneda.CodigoMoneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
 import Repositorios.RepoComprasDB;
 import Repositorios.RepoEntidadesDB;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMock;
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,15 +28,14 @@ import Direccion.Pais;
 
 public class CompraController {
 
-    private RepoEntidadesDB repositorioEntidades = new RepoEntidadesDB();
-    private RepoComprasDB repositorioCompras = new RepoComprasDB();
-    private Proveedor proveedorFisico = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", DireccionesFactory.direccionStub());
-    private Proveedor proveedorJuridico = Proveedor.PersonaJuridica("Una razón social", new Direccion(new RepositorioDeLocacionesMock(), "Una calle", 2, 2, "1874", Pais.AR));
+    private final RepoEntidadesDB repositorioEntidades = new RepoEntidadesDB();
+    private final RepoComprasDB repositorioCompras = new RepoComprasDB();
+    private final RepositorioDeMonedas repositorioDeMonedas = new RepositorioDeMonedasMeli();
 
+    private final Proveedor proveedorFisico = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", DireccionesFactory.direccionStub());
+    private final Proveedor proveedorJuridico = Proveedor.PersonaJuridica("Una razón social", new Direccion(new RepositorioDeLocacionesMock(), "Una calle", 2, 2, "1874", Pais.AR));
 
-    public ModelAndView getPaginaComra() {
-
-        Map<String, Object> modelo = new HashMap<>();
+    private ModelAndView _inicializarPagina(Map<String, Object> modelo) {
         List<Proveedor> provedores = new ArrayList<>();
         provedores.add(proveedorFisico);
         provedores.add(proveedorJuridico);
@@ -40,25 +43,40 @@ public class CompraController {
         return new ModelAndView(modelo, "cargar-compra.html.hbs");
     }
 
+    public ModelAndView getPaginaComra() {
+        return _inicializarPagina(new HashMap<>());
+    }
+
     public ModelAndView crearCompra(Request request, Response response) {
 
-        Compra compra = _CrearCompra(request);
+        Map<String, Object> modelo = new HashMap<>();
 
         try {
-            repositorioCompras.agregar(compra);
+            Compra compra = _CrearCompra(request);
+            repositorioCompras.agregarEnTransaccion(compra);
+            modelo.put("resultado", "Compra salvada con exito!");
         } catch (Exception e) {
             response.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
-
+            modelo.put("resultado", "Error - " + e.getMessage());
         }
-        return null;
+
+        return _inicializarPagina(modelo);
     }
 
     private Compra _CrearCompra(Request request) {
-        List<Presupuesto> presupuestos = new ArrayList<>();
-        presupuestos.add(_crearPresupuesto(request));
 
+        LocalDate fechaOperacion = LocalDate.parse(request.queryParams("txt_fechaOperacion"));
+        CodigoMoneda codigoMoneda = CodigoMoneda.valueOf(request.queryParams("txt_moneda"));
 
-        return null;
+        Presupuesto presupuesto = _crearPresupuesto(request);
+
+        Compra compra = new Compra(repositorioDeMonedas, null, fechaOperacion, null, codigoMoneda, 0, null);
+        compra.agregarPresupuesto(presupuesto);
+        compra.setPresupuestoElegido(presupuesto);
+
+        compra.validar();
+
+        return compra;
     }
 
     private Presupuesto _crearPresupuesto(Request request) {
@@ -76,6 +94,5 @@ public class CompraController {
         }
 
         return new Presupuesto(items, proveedorFisico);
-        //System.out.println("items " + items);
     }
 }

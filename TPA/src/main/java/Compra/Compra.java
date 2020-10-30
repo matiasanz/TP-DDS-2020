@@ -45,11 +45,10 @@ public class Compra {
     @Enumerated(EnumType.ORDINAL)
     private Estado indicadorDeAprobacion = Estado.PENDIENTEDEAPROBACION;
 
-    @ManyToMany
-    @JoinTable(name = "items_por_compra")
+    @Transient
     private  List<Item> items = new ArrayList<>();;
 
-    @OneToMany(cascade=CascadeType.MERGE)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "compra_id")
     private List<Presupuesto> presupuestosAsociados = new ArrayList<>();
 
