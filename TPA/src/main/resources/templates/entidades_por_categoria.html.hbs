@@ -15,26 +15,16 @@
     <section>
         <h2>Entidades por categoría</h2>
 
-        <form action="/consultoras" method="GET">
+        <form action="/entidades/porCategoria" method="GET">
             Seleccione la categoría deseada
             <input type="number" name="filtro" placeholder="ID de categoría">
             <input type="submit" value="Buscar">
         </form>
 
-        <div>
-            <span>ID:</span><span>{{id}}</span>
-        </div>
-        <div>
-            <span>Nombre:</span><span>{{nombre}}</span>
-        </div>
-
         <ul>
-            {{#entidades}}
-                <li>
-                <a>{{id}}</a>
-                <a>{{nombreFicticio}}</a>
-                </li>
-            {{/entidades}}
+            {{#categorias}}
+                <li><a href="/entidades/porCategoria/{{id}}">{{nombre}}</a></li>
+            {{/categorias}}
         </ul>
     </section>
 {{/partial}}

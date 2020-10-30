@@ -7,6 +7,7 @@ import Repositorios.RepositorioDeEntidades;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.TemplateEngine;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,17 +20,36 @@ public class EntidadesController {
         return new ModelAndView(modelo, "entidades_base.html.hbs");
     }
 
-    public ModelAndView getConsultorasPorCategoria(Request request, Response response) {
+    public ModelAndView getCategoriasAElegir(Request request, Response response) {
+
+        String categoriaBuscada = request.queryParams("filtro");
         Map<String, Object> modelo = new HashMap<>();
 
-        String categoriaBuscadaString = request.queryParams("filtro");
-        if (categoriaBuscadaString != null) {
-            Long id = Long.parseLong(categoriaBuscadaString);
-            Categoria categoria = RepositorioDeCategorias.instancia.findById(id);
-            List<Entidad> entidades = RepositorioDeEntidades.instancia.listarPorCategoria(id);
+        List<Categoria> categorias = categoriaBuscada != null?
+                RepositorioDeCategorias.instancia.getCategoriasByName(categoriaBuscada) :
+                RepositorioDeCategorias.instancia.getCategorias();
+
+        modelo.put("categorias", categorias);
+
+        return new ModelAndView(modelo,"entidades_por_categoria.html.hbs");
+    }
+
+    public Object getEntidadesPorCategoria(Request request, Response response, TemplateEngine engine){
+        try{
+            Categoria categoria = RepositorioDeCategorias.instancia.findById(Long.parseLong(request.params(":id")));
+            List<Entidad> entidades = RepositorioDeEntidades.instancia.listarPorCategoria(Long.parseLong(request.params(":id")));
+
+            Map<String, Object> modelo = new HashMap<>();
             modelo.put("categoria", categoria);
             modelo.put("entidades", entidades);
+
+            return engine.render(new ModelAndView(modelo, "entidades_por_categoria_elegida.html.hbs"));
+
+            //TODO CREAR ESTE HTML QUE MUESTRA LA INFO DE LA CATEGORIA Y DEBAJO UNA LISTA DE LAS ENTIDADES
+
+        } catch(NumberFormatException e) {
+            response.status(400);
+            return "Bad Request";
         }
-        return new ModelAndView(modelo,"entidades_por_categoria.html.hbs");
     }
 }

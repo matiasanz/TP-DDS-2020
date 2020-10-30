@@ -13,6 +13,20 @@ public class RepositorioDeCategorias implements WithGlobalEntityManager {
         return entityManager().find(Categoria.class, id);
     }
 
+    public List<Categoria> getCategorias(){
+        return entityManager().createQuery("FROM Categoria", Categoria.class).getResultList();
+    }
+
+    public List<Categoria> getCategoriasByName(String categoriaBuscada) {
+        return entityManager() //
+                .createQuery("from Categoria c where c.nombre like :nombre", Categoria.class) //
+                .setParameter("nombre", "%" + categoriaBuscada + "%") //
+                .getResultList();
+    }
+
+
+    ////
+
     List<Categoria> categorias;
 
     public void agregarCategoria(Categoria categoria){
@@ -22,5 +36,4 @@ public class RepositorioDeCategorias implements WithGlobalEntityManager {
     public void removerCategoria(Categoria categoria){
         categorias.remove(categoria);
     }
-
 }
