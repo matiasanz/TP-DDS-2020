@@ -5,6 +5,5 @@ public enum CodigoMoneda {
     COP, CRC, DOP, EUR,
     MXN, PAB, PEN, USD,
     UYU, VEF, GTQ, BOB,
-    HNL, NIO, PYG, CUC,
-    AUD
+    HNL, NIO, PYG, CUC
 }

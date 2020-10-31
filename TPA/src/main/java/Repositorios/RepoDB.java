@@ -18,13 +18,6 @@ public abstract class RepoDB<T>{
 	public void agregar(T elemento){
 		entityManager().persist(elemento);
 	}
-
-	public void agregarEnTransaccion(T elemento){
-		EntityTransaction trans = entityManager().getTransaction();
-		trans.begin();
-		entityManager().persist(elemento);
-		trans.commit();
-	}
 	
 	public void eliminarA(T elemento){
 		entityManager().remove(elemento);

@@ -14,10 +14,4 @@ public class TestRepositorioDeMonedasMeli {
 		Assert.assertEquals(CodigoMoneda.ARS, moneda.getCodigo());
 		Assert.assertEquals("Peso argentino", moneda.getDescripcion());
 	}
-
-	@Test(expected = MonedaNoEncontradaException.class)
-	public void noEncuentroMonedaEnAPI() {
-		RepositorioDeMonedasMeli repositorio = new RepositorioDeMonedasMeli();
-		repositorio.getMoneda(CodigoMoneda.AUD);
-	}
 }

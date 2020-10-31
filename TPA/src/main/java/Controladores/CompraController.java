@@ -1,16 +1,19 @@
 package Controladores;
 
 import Compra.Compra;
-import Direccion.Direccion;
-import Factory.DireccionesFactory;
+import Compra.Item;
+import Entidad.Entidad;
+import MedioDePago.MedioDePago;
 import Moneda.CodigoMoneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
 import Repositorios.RepoComprasDB;
 import Repositorios.RepoEntidadesDB;
-import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMock;
-import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
+import Repositorios.RepositorioDeProveedoresDB;
+import Repositorios.RepositorioMedioDePagoDB;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -23,24 +26,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Compra.Item;
-import Direccion.Pais;
-
-public class CompraController {
+public class CompraController extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
     private final RepoEntidadesDB repositorioEntidades = new RepoEntidadesDB();
     private final RepoComprasDB repositorioCompras = new RepoComprasDB();
-    private final RepositorioDeMonedas repositorioDeMonedas = new RepositorioDeMonedasMeli();
-
-    private final Proveedor proveedorFisico = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", DireccionesFactory.direccionStub());
-    private final Proveedor proveedorJuridico = Proveedor.PersonaJuridica("Una razón social", new Direccion(new RepositorioDeLocacionesMock(), "Una calle", 2, 2, "1874", Pais.AR));
+    private final RepositorioDeMonedasMeli repositorioDeMonedas = new RepositorioDeMonedasMeli();
+    private final RepositorioDeProveedoresDB repositorioDeProveedores = new RepositorioDeProveedoresDB();
+    private final RepositorioMedioDePagoDB repositorioMedioDePago = new RepositorioMedioDePagoDB();
 
     private ModelAndView _inicializarPagina(Map<String, Object> modelo) {
-        List<Proveedor> provedores = new ArrayList<>();
-        provedores.add(proveedorFisico);
-        provedores.add(proveedorJuridico);
-        modelo.put("proveedores", provedores);
-        return new ModelAndView(modelo, "cargar-compra.html.hbs");
+        modelo.put("proveedores", repositorioDeProveedores.getAll());
+        modelo.put("mediosDePago", repositorioMedioDePago.getAll());
+        modelo.put("entidades", repositorioEntidades.getAll());
+        modelo.put("monedas", repositorioDeMonedas.getAllMonedas());
+
+        return new ModelAndView(modelo, "compra-nueva.html.hbs");
     }
 
     public ModelAndView getPaginaComra() {
@@ -53,7 +53,8 @@ public class CompraController {
 
         try {
             Compra compra = _CrearCompra(request);
-            repositorioCompras.agregarEnTransaccion(compra);
+            withTransaction(() -> repositorioCompras.agregar(compra));
+            //TO-DO: redireccionar a /compra/:id al salvar (Agus)
             modelo.put("resultado", "Compra salvada con exito!");
         } catch (Exception e) {
             response.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
@@ -66,11 +67,13 @@ public class CompraController {
     private Compra _CrearCompra(Request request) {
 
         LocalDate fechaOperacion = LocalDate.parse(request.queryParams("txt_fechaOperacion"));
-        CodigoMoneda codigoMoneda = CodigoMoneda.valueOf(request.queryParams("txt_moneda"));
+        CodigoMoneda codigoMoneda = CodigoMoneda.valueOf(request.queryParams("ddl_moneda"));
+        MedioDePago medioDePago = repositorioMedioDePago.findById(Long.parseLong(request.queryParams("ddl_medio_de_pago")));
+        Entidad entidadRelacionada = repositorioEntidades.findById(Long.parseLong(request.queryParams("ddl_entidad")));
 
         Presupuesto presupuesto = _crearPresupuesto(request);
 
-        Compra compra = new Compra(repositorioDeMonedas, null, fechaOperacion, null, codigoMoneda, 0, null);
+        Compra compra = new Compra(repositorioDeMonedas, entidadRelacionada, fechaOperacion, medioDePago, codigoMoneda, 0, null);
         compra.agregarPresupuesto(presupuesto);
         compra.setPresupuestoElegido(presupuesto);
 
@@ -93,6 +96,7 @@ public class CompraController {
             items.add(item);
         }
 
-        return new Presupuesto(items, proveedorFisico);
+        Proveedor proveedor = repositorioDeProveedores.findById(Long.parseLong(request.queryParams("ddl_proveedores")));
+        return new Presupuesto(items, proveedor);
     }
 }

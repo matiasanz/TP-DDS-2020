@@ -112,7 +112,7 @@ public class ComprasFactory {
     }
 
     public static Compra compraConNPresupuestosMinimos(int cantidadMinimaDePresupuestos) {
-        EntidadJuridica unaEntidad = new Empresa("Razon SRL", "Kwik-E-Mart", "4517", DireccionesFactory.direccionStub(), 1, new ArrayList<>(), Clasificacion.PEQUENIA);
+        EntidadJuridica unaEntidad = new Empresa("Razon SRL", "Kwik-E-Mart", "4517", DireccionesFactory.direccionStub9DeJulio(), 1, new ArrayList<>(), Clasificacion.PEQUENIA);
         LocalDate fechaActual = LocalDate.now();
         List<Usuario> usuarios = new ArrayList<>();
         usuarios.add(UsuariosFactory.usuarioStub());

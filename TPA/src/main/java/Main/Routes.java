@@ -12,7 +12,6 @@ public class Routes {
 
         Spark.port(8080);
         Spark.staticFileLocation("/public");
-        Spark.staticFileLocation("/js");
 
         new Bootstrap().run();
 

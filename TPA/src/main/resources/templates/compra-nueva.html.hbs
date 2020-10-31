@@ -1,5 +1,5 @@
 {{# partial "titulo" }}
-    <title>GESOC - Home</title>
+    <title>GESOC - Nueva Compra</title>
 {{/partial}}
 
 
@@ -15,27 +15,55 @@
 
 
 
+
+
+
     </style>
-    <script type="text/javascript" src="/cargar-compra.js"></script>
+    <script type="text/javascript" src="/js/cargar-compra.js"></script>
     <section class="fondo-gris">
         <h2>Cargar Compra</h2>
         <form id="frm_compra" action="/compras" method="POST">
-            <label for="fname">Fecha de la Operación:</label>
-            <input type="date" name="txt_fechaOperacion" required ><br>
-            <label for="fname">Descripción:</label>
-            <input type="text" name="txt_fechaOperacion" required ><br>
-            <label for="fname">Codigo de Moneda: </label>
-            <input type="text" name="txt_moneda" required><br>
+            <label>Fecha de la Operación</label>
+
+            <input type="date" name="txt_fechaOperacion" required><br>
+
+            <div id="entidadRelacionada" >
+                <label>Entidad Relacionada</label>
+                <select name="ddl_entidad" required>
+                    {{#entidades}}
+                        <option value={{id}}> {{nombreFicticio }} </option>
+                    {{/entidades}}
+                </select> <br>
+            </div>
+            <div id="mediosDePago">
+
+                <label>Medio de Pago</label>
+                <select name="ddl_medio_de_pago" required>
+                    {{#mediosDePago}}
+                        <option value={{id}}> {{descripcion }} </option>
+                    {{/mediosDePago}}
+                </select> <br>
+            </div>
+
+            <div id="monedas">
+                <label>Moneda</label required>
+                <select name="ddl_moneda">
+                    {{#monedas}}
+                        <option value={{codigo}}> {{descripcion }} </option>
+                    {{/monedas}}
+                </select> <br>
+            </div>
+
             <h3> Presupuesto </h3>
             <div id="div_presupuesto">
                 <div id="div_presupuesto_proveedores">
                     <label for="fname">Proveedores</label>
-                    <select id="ddl_proveedores">
+                    <select name="ddl_proveedores" required>
                         {{#proveedores}}
                             {{#if dni}}
-                                <option> {{nombre }} {{appellido}}</option>
+                                <option value={{id}}> {{nombre }} {{appellido}}</option>
                             {{else}}
-                                <option> {{razonSocial }} </option>
+                                <option value={{id}}> {{razonSocial }} </option>
                             {{/if}}
                         {{/proveedores}}
                     </select> <br>
@@ -62,10 +90,10 @@
         <br>
         <br>
         <button id="btn_guardar_compra" type="submit" form="frm_compra" disabled>Guardar Compra</button>
-        <div> <h3> {{resultado}} </h3> </div>
+        <div><h3> {{resultado}} </h3></div>
 
     </section>
 
-            <!-- {{/partial}}
+{{/partial}}
 
-{{> layout.html.hbs }} -->
+{{> layout.html.hbs }}
