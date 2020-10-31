@@ -1,9 +1,9 @@
 package Moneda;
 
 public enum CodigoMoneda {
-    ARS, BRL, CLF, CLP,
+    ARS, BRL, USD, CLP,
     COP, CRC, DOP, EUR,
-    MXN, PAB, PEN, USD,
+    MXN, PAB, PEN, CLF,
     UYU, VEF, GTQ, BOB,
     HNL, NIO, PYG, CUC,
     AUD

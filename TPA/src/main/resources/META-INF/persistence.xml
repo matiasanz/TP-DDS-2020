@@ -24,16 +24,34 @@
         <class>Categoria.ValidadorNoMasEntidadesbase</class>
 
         <properties>
-	        <property name="hibernate.archive.autodetection" value="class"/>
-            <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" /> 
-            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-db" /> 
-            <property name="hibernate.connection.username" value="sa" /> 
-            <property name="hibernate.connection.password" value="" /> 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
-            <property name="hibernate.show_sql" value="true" /> 
-            <property name="hibernate.format_sql" value="true" /> 
-            <property name="use_sql_comments" value="true" /> 
-            <property name="hibernate.hbm2ddl.auto" value="update" /> 
+
+            <!-- CONEXION HSQL -->
+
+             <property name="hibernate.archive.autodetection" value="class"/>
+             <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />
+             <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-db" />
+             <property name="hibernate.connection.username" value="sa" />
+             <property name="hibernate.connection.password" value="" />
+             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+             <property name="hibernate.show_sql" value="true" />
+             <property name="hibernate.format_sql" value="true" />
+             <property name="use_sql_comments" value="true" />
+             <property name="hibernate.hbm2ddl.auto" value="update" />
+
+            <!-- CONEXION SQL SEVER
+            <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+
+            <property name="hibernate.connection.url"
+                      value="jdbc:sqlserver://HP-430-WIN10;DatabaseName=gesoc;integratedSecurity=true;"/>
+            <property name="database" value="SQL_SERVER"/>
+
+            <property name="hibernate.connection.username" value="Emi"/>
+            <property name="hibernate.connection.password" value=""/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="use_sql_comments" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/> -->
         </properties>
           
     </persistence-unit> 

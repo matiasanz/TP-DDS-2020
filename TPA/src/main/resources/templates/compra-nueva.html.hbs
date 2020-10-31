@@ -1,0 +1,99 @@
+{{# partial "titulo" }}
+    <title>GESOC - Nueva Compra</title>
+{{/partial}}
+
+
+{{# partial "contenido" }}
+    <style>
+        table, td {
+            border: 1px solid black;
+            }
+
+            tr {
+            height: 20px;
+            }
+
+
+
+
+
+
+    </style>
+    <script type="text/javascript" src="/js/cargar-compra.js"></script>
+    <section class="fondo-gris">
+        <h2>Cargar Compra</h2>
+        <form id="frm_compra" action="/compras" method="POST">
+            <label>Fecha de la Operación</label>
+
+            <input type="date" name="txt_fechaOperacion" required><br>
+
+            <div id="entidadRelacionada" >
+                <label>Entidad Relacionada</label>
+                <select name="ddl_entidad" required>
+                    {{#entidades}}
+                        <option value={{id}}> {{nombreFicticio }} </option>
+                    {{/entidades}}
+                </select> <br>
+            </div>
+            <div id="mediosDePago">
+
+                <label>Medio de Pago</label>
+                <select name="ddl_medio_de_pago" required>
+                    {{#mediosDePago}}
+                        <option value={{id}}> {{descripcion }} </option>
+                    {{/mediosDePago}}
+                </select> <br>
+            </div>
+
+            <div id="monedas">
+                <label>Moneda</label required>
+                <select name="ddl_moneda">
+                    {{#monedas}}
+                        <option value={{codigo}}> {{descripcion }} </option>
+                    {{/monedas}}
+                </select> <br>
+            </div>
+
+            <h3> Presupuesto </h3>
+            <div id="div_presupuesto">
+                <div id="div_presupuesto_proveedores">
+                    <label for="fname">Proveedores</label>
+                    <select name="ddl_proveedores" required>
+                        {{#proveedores}}
+                            {{#if dni}}
+                                <option value={{id}}> {{nombre }} {{appellido}}</option>
+                            {{else}}
+                                <option value={{id}}> {{razonSocial }} </option>
+                            {{/if}}
+                        {{/proveedores}}
+                    </select> <br>
+                </div>
+                <div id="div_presupuesto_items">
+                    <h3> Items </h3>
+                    <table id="tbl_items">
+                        <thead>
+                        <tr>
+                            <th> Cantidad</th>
+                            <th> Descripcion</th>
+                            <th> Valor Unitario</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <input id="cantidad_items" name="cantidad_items" type="hidden" value="0">
+        </form>
+        <button id="btn_agregar_items" onclick="agregarItem()">Agregar Item</button>
+        <button id="btn_eliminar_items" onclick="eliminarItem()" disabled>Eliminar Item</button>
+        <br>
+        <br>
+        <button id="btn_guardar_compra" type="submit" form="frm_compra" disabled>Guardar Compra</button>
+        <div><h3> {{resultado}} </h3></div>
+
+    </section>
+
+{{/partial}}
+
+{{> layout.html.hbs }}

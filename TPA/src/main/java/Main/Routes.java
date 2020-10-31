@@ -1,6 +1,7 @@
 package Main;
 
 import Controladores.BandejaController;
+import Controladores.CompraController;
 import Controladores.HomeController;
 import Controladores.MenuController;
 import spark.Spark;
@@ -12,7 +13,8 @@ public class Routes {
 	private static HomeController homeController = new HomeController();
 	private static MenuController menuController = new MenuController();
 	private static BandejaController bandejaController = new BandejaController();
-	
+    private static CompraController compraController = new CompraController();
+
     public static void main(String[] args) {
         System.out.println("Iniciando servidor");
 
@@ -35,7 +37,11 @@ public class Routes {
         Spark.get("/mensajes",(request, response) -> bandejaController.getBandejaDeMensajes(request,response), engine);
                 
         Spark.get("/logout",(request, response)->menuController.logout(request, response), engine);
-        
+
+        Spark.get("/compras/nueva", (request, response) -> compraController.getPaginaComra(), engine);
+
+        Spark.post("/compras", (request, response) -> compraController.crearCompra(request, response), engine);
+
         System.out.println("Servidor iniciado correctamente");
     }
 }

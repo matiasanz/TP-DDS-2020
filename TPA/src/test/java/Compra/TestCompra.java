@@ -1,7 +1,6 @@
 package Compra;
 import Proveedor.Proveedor;
 import TareasProgramadas.ValidacionEgresosAutomatica.ValidacionDeEgresos;
-import Usuario.Usuario;
 import Direccion.Direccion;
 import Presupuesto.*;
 import org.junit.Before;
@@ -35,7 +34,7 @@ public class TestCompra {
     public void init() {
         entidadesBase = new ArrayList<>();
         entidad = new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", direccion, 845, entidadesBase);
-        proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", DireccionesFactory.direccionStub());
+        proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", DireccionesFactory.direccionStub9DeJulio());
         medioDePago = new PagoEnEfectivo();
         item1 = ItemsFactory.itemValuadoEn(50.0);
         item2 = ItemsFactory.itemValuadoEn(40.5);
