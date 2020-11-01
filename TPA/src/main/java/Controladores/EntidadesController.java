@@ -4,17 +4,19 @@ import Categoria.Categoria;
 import Entidad.Entidad;
 import Repositorios.RepositorioDeCategorias;
 import Repositorios.RepositorioDeEntidades;
+import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class EntidadesController {
+public class EntidadesController implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
     public ModelAndView getOptions() {
         Map<String, Object> modelo = new HashMap<>();
 
@@ -105,8 +107,10 @@ public class EntidadesController {
             }
 
             if (!entidad.getCategorias().contains(categoria)){
-                entidad.agregarCategoria(categoria);
-                RepositorioDeEntidades.instancia.save(entidad);
+                withTransaction(() -> {
+                    entidad.agregarCategoria(categoria);
+                    RepositorioDeEntidades.instancia.save(entidad);
+                });
                 modelo.put("mensajeAccion", "La categoría " + categoria.getNombre() + " fue asociada correctamente.");
             }
 
@@ -132,8 +136,10 @@ public class EntidadesController {
             }
 
             List<Categoria> categoriasNuevas = entidad.getCategorias();
-            categoriasNuevas.remove(categoria);
-            entidad.setCategorias(categoriasNuevas);
+            withTransaction(() -> {
+                categoriasNuevas.remove(categoria);
+                entidad.setCategorias(categoriasNuevas);
+            });
 
             RepositorioDeEntidades.instancia.save(entidad);
             modelo.put("mensajeAccion", "La categoría " + categoria.getNombre() + " fue desasociada correctamente.");
