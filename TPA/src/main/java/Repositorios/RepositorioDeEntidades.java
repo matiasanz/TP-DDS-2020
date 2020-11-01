@@ -43,7 +43,6 @@ public class RepositorioDeEntidades implements WithGlobalEntityManager {
         entidades.add(entidad);
     }
 
-    @Transactional
     public void save(Entidad entidad) {
         entityManager().persist(entidad);
     }
