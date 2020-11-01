@@ -40,6 +40,8 @@ public class Routes {
 
         Spark.get("/compras/nueva", (request, response) -> compraController.getPaginaComrasNueva(), engine);
 
+        Spark.get("/compras/ver", (request, response) -> compraController.getPaginaVerCompras(request, response), engine);
+
         Spark.get("/compras", (request, response) -> compraController.getPaginaComprasMenu(request, response), engine);
 
         Spark.post("/compras", (request, response) -> compraController.crearCompra(request, response), engine);
