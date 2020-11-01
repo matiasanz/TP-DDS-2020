@@ -61,6 +61,6 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
     public void iniciarSesion(Request request, Response response){
        	Usuario usuario = repoUsuarios.getByUsername(request.queryParams("username"));
        	usuario.autenticar(request.queryParams("password"));
-       	autenticador.guardarCredenciales(response, usuario);
+       	autenticador.guardarCredenciales(request, usuario);
     }    
 }
