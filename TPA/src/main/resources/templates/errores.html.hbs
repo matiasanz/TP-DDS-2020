@@ -1,0 +1,23 @@
+{{# partial "titulo" }}
+    <title>GeSoc - Error ocurrido</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+      <a href="/">Inicio</a>
+      <a href="/compras">Compras</a>
+      <a href="/entidades">Entidades</a>
+      <a href="/mensajes">Mensajes</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+    <section>
+        {{#mensajeError}}
+            <h1 style="text-align:center;">{{mensajeError}}</h1>
+        {{/mensajeError}}
+    </section>
+
+{{/partial}}
+
+{{> layout.html.hbs }}

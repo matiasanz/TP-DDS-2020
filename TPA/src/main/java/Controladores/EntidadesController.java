@@ -36,21 +36,26 @@ public class EntidadesController {
 
     public ModelAndView getEntidadesPorCategoria(Request request, Response response){
         try{
+            Map<String, Object> modelo = new HashMap<>();
+
             Categoria categoria = RepositorioDeCategorias.instancia.findById(Long.parseLong(request.params(":id")));
+
+            if (categoria == null){
+                modelo.put("mensajeError", "Error 404 - Categoría no encontrada");
+                return new ModelAndView(modelo, "errores.html.hbs");
+            }
             List<Entidad> entidades = RepositorioDeEntidades.instancia.listarPorCategoria(Long.parseLong(request.params(":id")));
 
-            Map<String, Object> modelo = new HashMap<>();
             modelo.put("categoria", categoria);
             modelo.put("entidades", entidades);
 
             return new ModelAndView(modelo, "entidades_por_categoria_elegida.html.hbs");
 
-            //TODO CREAR ESTE HTML QUE MUESTRA LA INFO DE LA CATEGORIA Y DEBAJO UNA LISTA DE LAS ENTIDADES
-
         } catch(NumberFormatException e) {
             response.status(400);
-            //return "Bad Request";
-            return new ModelAndView(new HashMap<>(), "entidades_por_categoria_elegida.html.hbs");
+            Map<String, Object> modelo = new HashMap<>();
+            modelo.put("mensajeError", "Error 400 - Tipo de ID incorrecto");
+            return new ModelAndView(modelo, "errores.html.hbs");
         }
     }
 }
