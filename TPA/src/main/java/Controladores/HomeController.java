@@ -21,7 +21,7 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
 	private final String ARCHIVO_LOGIN = "login.html.hbs";
 	private int ERROR_CREDENCIALES = 401;
 	private RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
-	private Autenticador autenticador = new Autenticador();
+	private Autenticador autenticador = Autenticador.getInstance();
 
 	//Pagina de inicio de sesion
     public ModelAndView getHome(Request request, Response response) {

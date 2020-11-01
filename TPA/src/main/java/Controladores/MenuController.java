@@ -8,7 +8,7 @@ import spark.Response;
 public class MenuController
 {
 	private final String ARCHIVO_INDEX = "index.html.hbs";
-	Autenticador autenticador = new Autenticador();
+	Autenticador autenticador = Autenticador.getInstance();
 	
     public ModelAndView getUserMenu(Request request, Response response){
     	Usuario modelo = autenticador.reconocerUsuario(request, response);

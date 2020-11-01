@@ -9,10 +9,16 @@ import spark.Request;
 import spark.Response;
 
 public class Autenticador
-{
+{	
 	private List<Usuario> usuariosLogueados = new LinkedList<>();
 	String USER_ID = "uid"; //Cookie que "persiste" al usuario
 	String LOGIN_URI = "/";
+
+	public static Autenticador instance = new Autenticador();
+	
+	public static Autenticador getInstance(){
+		return instance;
+	}
 	
 	public void guardarCredenciales(Request request, Usuario usuario)	{
 		request.session().attribute(USER_ID, usuario.getId());

@@ -10,7 +10,7 @@ import spark.Response;
 public class BandejaController
 {
 	private final String ARCHIVO_MENSAJES = "mensajes.html.hbs";
-	Autenticador autenticador = new Autenticador();
+	Autenticador autenticador = Autenticador.getInstance();
 	
 	public ModelAndView getBandejaDeMensajes(Request request, Response response){
 		Usuario usuario = autenticador.reconocerUsuario(request, response);			
