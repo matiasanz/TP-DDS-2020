@@ -19,8 +19,8 @@
 
 
     </style>
-    <script type="text/javascript" src="/js/cargar-compra.js"></script>
-    <section class="fondo-gris">
+    <script type="text/javascript" src="/js/compras-nueva.js"></script>
+    <section>
         <h2>Cargar Compra</h2>
         <form id="frm_compra" action="/compras" method="POST">
             <label>Fecha de la Operación</label>
@@ -46,7 +46,7 @@
             </div>
 
             <div id="monedas">
-                <label>Moneda</label required>
+                <label>Moneda </label>
                 <select name="ddl_moneda">
                     {{#monedas}}
                         <option value={{codigo}}> {{descripcion }} </option>
@@ -57,7 +57,7 @@
             <h3> Presupuesto </h3>
             <div id="div_presupuesto">
                 <div id="div_presupuesto_proveedores">
-                    <label for="fname">Proveedores</label>
+                    <label for="fname">Proveedor</label>
                     <select name="ddl_proveedores" required>
                         {{#proveedores}}
                             {{#if dni}}

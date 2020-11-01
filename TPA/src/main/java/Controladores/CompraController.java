@@ -35,19 +35,12 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
     private final RepositorioDeProveedoresDB repositorioDeProveedores = new RepositorioDeProveedoresDB();
     private final RepositorioMedioDePagoDB repositorioMedioDePago = new RepositorioMedioDePagoDB();
 
-    private ModelAndView _inicializarPagina(Map<String, Object> modelo) {
-        modelo.put("proveedores", repositorioDeProveedores.getAll());
-        modelo.put("mediosDePago", repositorioMedioDePago.getAll());
-        modelo.put("entidades", repositorioEntidades.getAll());
-
-        List<CodigoMoneda> monedasMasUtilizadas = Moneda.codigosMoneda().subList(0,3);
-        modelo.put("monedas", repositorioDeMonedas.getMonedas(monedasMasUtilizadas));
-
-        return new ModelAndView(modelo, "compra-nueva.html.hbs");
+    public ModelAndView getPaginaComrasNueva() {
+        return inicializarPaginaComprasNueva(new HashMap<>());
     }
 
-    public ModelAndView getPaginaComra() {
-        return _inicializarPagina(new HashMap<>());
+    public ModelAndView getPaginaComprasMenu(Request request, Response response) {
+        return new ModelAndView(new HashMap<>(), "compras-menu.html.hbs");
     }
 
     public ModelAndView crearCompra(Request request, Response response) {
@@ -55,7 +48,7 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
         Map<String, Object> modelo = new HashMap<>();
 
         try {
-            Compra compra = _CrearCompra(request);
+            Compra compra = crearCompra(request);
             withTransaction(() -> repositorioCompras.agregar(compra));
             //TO-DO: redireccionar a /compra/:id al salvar (Agus)
             modelo.put("resultado", "Compra salvada con exito!");
@@ -64,17 +57,28 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
             modelo.put("resultado", "Error - " + e.getMessage());
         }
 
-        return _inicializarPagina(modelo);
+        return inicializarPaginaComprasNueva(modelo);
     }
 
-    private Compra _CrearCompra(Request request) {
+    private ModelAndView inicializarPaginaComprasNueva(Map<String, Object> modelo) {
+        modelo.put("proveedores", repositorioDeProveedores.getAll());
+        modelo.put("mediosDePago", repositorioMedioDePago.getAll());
+        modelo.put("entidades", repositorioEntidades.getAll());
+
+        List<CodigoMoneda> monedasMasUtilizadas = Moneda.codigosMoneda().subList(0,3);
+        modelo.put("monedas", repositorioDeMonedas.getMonedas(monedasMasUtilizadas));
+
+        return new ModelAndView(modelo, "compras-nueva.html.hbs");
+    }
+
+    private Compra crearCompra(Request request) {
 
         LocalDate fechaOperacion = LocalDate.parse(request.queryParams("txt_fechaOperacion"));
         CodigoMoneda codigoMoneda = CodigoMoneda.valueOf(request.queryParams("ddl_moneda"));
         MedioDePago medioDePago = repositorioMedioDePago.findById(Long.parseLong(request.queryParams("ddl_medio_de_pago")));
         Entidad entidadRelacionada = repositorioEntidades.findById(Long.parseLong(request.queryParams("ddl_entidad")));
 
-        Presupuesto presupuesto = _crearPresupuesto(request);
+        Presupuesto presupuesto = crearPresupuesto(request);
 
         Compra compra = new Compra(repositorioDeMonedas, entidadRelacionada, fechaOperacion, medioDePago, codigoMoneda, 0, null);
         compra.agregarPresupuesto(presupuesto);
@@ -85,7 +89,7 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
         return compra;
     }
 
-    private Presupuesto _crearPresupuesto(Request request) {
+    private Presupuesto crearPresupuesto(Request request) {
 
         List<Item> items = new ArrayList<>();
         int cantidadItems = Integer.parseInt(request.queryParams("cantidad_items"));
@@ -102,4 +106,5 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
         Proveedor proveedor = repositorioDeProveedores.findById(Long.parseLong(request.queryParams("ddl_proveedores")));
         return new Presupuesto(items, proveedor);
     }
+
 }

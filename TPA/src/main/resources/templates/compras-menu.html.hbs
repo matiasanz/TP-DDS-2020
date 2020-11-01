@@ -1,0 +1,23 @@
+{{# partial "titulo" }}
+    <title>GeSoc - Compras</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+        <a href="/">Inicio</a>
+        <a class="active" href="/compras">Compras</a>
+        <a href="/entidades">Entidades</a>
+        <a href="/mensajes">Mensajes</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+    <section>
+
+        <button class="botonSameTamanio" onclick="location.href='/compras/nueva'">Crear Compra</button>
+
+    </section>
+
+{{/partial}}
+
+{{> layout.html.hbs }}

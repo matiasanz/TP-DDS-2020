@@ -38,7 +38,9 @@ public class Routes {
                 
         Spark.get("/logout",(request, response)->menuController.logout(request, response), engine);
 
-        Spark.get("/compras/nueva", (request, response) -> compraController.getPaginaComra(), engine);
+        Spark.get("/compras/nueva", (request, response) -> compraController.getPaginaComrasNueva(), engine);
+
+        Spark.get("/compras", (request, response) -> compraController.getPaginaComprasMenu(request, response), engine);
 
         Spark.post("/compras", (request, response) -> compraController.crearCompra(request, response), engine);
 
