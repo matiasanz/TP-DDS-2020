@@ -16,7 +16,6 @@ public class Routes {
 	private static HomeController homeController = new HomeController();
 	private static MenuController menuController = new MenuController();
 	private static BandejaController bandejaController = new BandejaController();
-    private static CompraController compraController = new CompraController();
 
     public static void main(String[] args) {
         //Cargamos la cache
@@ -33,24 +32,31 @@ public class Routes {
 
         new Bootstrap().run();
 
-        Spark.get("/", (request, response) -> homeController.getHome(request, response), engine);
+        Spark.get("/", homeController::getHome, engine);
         
-        Spark.post("/login",(request, response) -> homeController.tryLogin(request, response), engine);
+        Spark.post("/login", homeController::tryLogin, engine);
         
-        Spark.get("/menu",(request, response) -> menuController.getUserMenu(request,response), engine);
+        Spark.get("/menu", menuController::getUserMenu, engine);
         
-        Spark.get("/mensajes",(request, response) -> bandejaController.getBandejaDeMensajes(request,response), engine);
+        Spark.get("/mensajes", bandejaController::getBandejaDeMensajes, engine);
                 
-        Spark.get("/logout",(request, response)->menuController.logout(request, response), engine);
+        Spark.get("/logout", menuController::logout, engine);
 
-        Spark.get("/compras/nueva", (request, response) -> compraController.getPaginaComrasNueva(), engine);
-
-        Spark.get("/compras/ver", (request, response) -> compraController.getPaginaVerCompras(request, response), engine);
-
-        Spark.get("/compras", (request, response) -> compraController.getPaginaComprasMenu(request, response), engine);
-
-        Spark.post("/compras", (request, response) -> compraController.crearCompra(request, response), engine);
-
+        comprasRoutes();
+        
         System.out.println("Servidor iniciado correctamente");
+    }
+        
+    private static void comprasRoutes(){
+        CompraController compraController = new CompraController();
+    	
+        Spark.get("/compras", compraController::getPaginaComprasMenu, engine);
+        
+        Spark.get("/compras/nueva", compraController::getPaginaComprasNueva, engine);
+
+        Spark.post("/compras", compraController::crearCompra, engine);
+
+        Spark.get("/compras/ver", compraController::getPaginaVerCompras, engine);
+
     }
 }
