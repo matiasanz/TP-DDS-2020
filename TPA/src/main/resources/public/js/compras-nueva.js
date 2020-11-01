@@ -24,11 +24,17 @@ function agregarItem() {
   cantidad_items.value = document.getElementById("tbl_items").rows.length- 1;
 
   _crearCelda(row, "number", "txt_valor");
+  var txt_valor = document.getElementById("txt_valor_" + cantidad_items.value);
+  txt_valor.setAttribute("step","any");
   _crearCelda(row, "text", "txt_descripcion");
   _crearCelda(row, "number", "txt_cantidad");
 
   var txt_valor = document.getElementById("txt_valor_" + cantidad_items.value);
   txt_valor.setAttribute("step","any");
+  txt_valor.setAttribute("min", "1");
+
+  var txt_cantidad = document.getElementById("txt_cantidad_" + cantidad_items.value);
+  txt_cantidad.setAttribute("min", "1");
 
   _habilitarBotones(false);
 }
