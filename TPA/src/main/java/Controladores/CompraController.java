@@ -60,13 +60,16 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
         return inicializarPaginaComprasNueva(modelo);
     }
 
+    public ModelAndView getPaginaVerCompras(Request request, Response response) {
+        return new ModelAndView(new HashMap<>(), "compras-ver-todas.html.hbs");
+    }
+
     private ModelAndView inicializarPaginaComprasNueva(Map<String, Object> modelo) {
         modelo.put("proveedores", repositorioDeProveedores.getAll());
         modelo.put("mediosDePago", repositorioMedioDePago.getAll());
         modelo.put("entidades", repositorioEntidades.getAll());
 
-        List<CodigoMoneda> monedasMasUtilizadas = Moneda.codigosMoneda().subList(0,3);
-        modelo.put("monedas", repositorioDeMonedas.getMonedas(monedasMasUtilizadas));
+        modelo.put("monedas", repositorioDeMonedas.getMonedas(Moneda.codigosMoneda()));
 
         return new ModelAndView(modelo, "compras-nueva.html.hbs");
     }
