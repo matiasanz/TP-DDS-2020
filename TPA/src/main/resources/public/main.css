@@ -28,6 +28,18 @@ img {
     max-width: 35%;
 }
 
+table, td {
+    border: 1px solid black;
+}
+
+tr {
+   height: 20px;
+}
+
+th {
+   width:180px;
+}
+
 @keyframes colorize {
     0% {
         -webkit-filter: grayscale(100%);
