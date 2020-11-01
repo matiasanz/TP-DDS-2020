@@ -8,10 +8,12 @@ import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 import Usuario.Usuario;
+import Usuario.Mensaje;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +47,10 @@ public class Compra {
     @Enumerated(EnumType.ORDINAL)
     private Estado indicadorDeAprobacion = Estado.PENDIENTEDEAPROBACION;
 
-    @ManyToMany
-    @JoinTable(name = "items_por_compra")
+    @Transient
     private  List<Item> items = new ArrayList<>();;
 
-    @OneToMany(cascade=CascadeType.MERGE)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "compra_id")
     private List<Presupuesto> presupuestosAsociados = new ArrayList<>();
 
@@ -166,7 +167,7 @@ public class Compra {
     }
     
     public void notificarUsuarios(String mensaje){
-    	usuariosValidadores.stream().forEach(unUsuario->unUsuario.notificarEvento(mensaje));
+    	usuariosValidadores.stream().forEach(unUsuario->unUsuario.notificarEvento(new Mensaje(LocalDateTime.now(), mensaje)));
     }
 
 //Etiqueta ****************

@@ -2,16 +2,22 @@
     <title>GeSoc - Home</title>
 {{/partial}}
 
+{{# partial "nav"}}
+    <div class="topnav">
+        <a class="active" href="/login">Login</a>
+    </div>
+{{/partial}}
 
 {{# partial "contenido" }}
 	<section class="fondo-gris">
 	    <section id="Inicio de sesion">
-		   	<p>Iniciar sesion</p>
+		   	<h2>Iniciar sesión</h2>
 		  	<form action="/login" method="POST">
 		          <input type="text" name="username" placeholder="Username" required="required">
 		          <input type="password" name="password" placeholder="Password" required="required">
-		          <input type="submit" value="Enter">
-		          *{{mensaje}}                    
+		          <input type="submit" value="Iniciar Sesión">
+		          <br>
+		          <h2>{{mensaje}}</h2>
 		    </form>
 		</section>	
 	</section>

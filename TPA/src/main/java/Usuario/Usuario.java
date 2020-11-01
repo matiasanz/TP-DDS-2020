@@ -11,14 +11,14 @@ import Exceptions.ErrorDeAutenticacionException;
 public class Usuario {
     @Id
     @GeneratedValue
-    private Long id ;
+    private Long id;
 
     private String username;
     private String contrasenia;
 
-    @ElementCollection
-    @Column(name = "Mensajes")
-    private List<String> bandejaDeMensajes = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "mensajes_por_usuario")
+    private List<Mensaje> bandejaDeMensajes = new ArrayList<>();
 
     @Enumerated
     private TipoUsuario tipo;
@@ -40,10 +40,6 @@ public class Usuario {
         return contrasenia;
     }
 
-    public List<String> getMensajes(){
-    	return bandejaDeMensajes;
-    }
-
     public Long getId(){
     	return id;
     }
@@ -52,11 +48,11 @@ public class Usuario {
     	return tipo;
     }
 
-    public List<String> getBandejaDeMensajes() {
+    public List<Mensaje> getBandejaDeMensajes() {
         return bandejaDeMensajes;
     }
 
-    public void setBandejaDeMensajes(List<String> bandejaDeMensajes) {
+    public void setBandejaDeMensajes(List<Mensaje> bandejaDeMensajes) {
         this.bandejaDeMensajes = bandejaDeMensajes;
     }
 
@@ -69,7 +65,7 @@ public class Usuario {
 
     }
     
-    public void notificarEvento(String mensaje){
+    public void notificarEvento(Mensaje mensaje){
     	bandejaDeMensajes.add(mensaje);
     }
 

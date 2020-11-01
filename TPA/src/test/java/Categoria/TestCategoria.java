@@ -8,7 +8,6 @@ import Exceptions.BloqueoDeAgregarEntidadesBaseException;
 import Exceptions.EntidadJuridicaBloqueadaException;
 import Exceptions.MontoMaximoExcedidoException;
 import Factory.CategoriasFactory;
-import Factory.ComprasFactory;
 import Factory.DireccionesFactory;
 import Factory.EntidadesFactory;
 import Factory.ItemsFactory;
@@ -40,7 +39,7 @@ public class TestCategoria {
     public void init() {
         repositorioDeMonedas = new RepositorioDeMonedasMock();
 
-        DireccionesFactory.direccionStub();
+        DireccionesFactory.direccionStub9DeJulio();
         entidadJuridica = EntidadesFactory.empresaMedianaTramo2();
         entidadBase = EntidadesFactory.baseRandom();
         categoria = CategoriasFactory.ong();

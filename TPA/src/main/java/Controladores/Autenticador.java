@@ -28,11 +28,9 @@ public class Autenticador
 	public void quitarCredenciales(Request request, Response response){
 		Usuario usuario = reconocerUsuario(request, response);
 		usuariosLogueados.remove(usuario);
-
 		request.session().removeAttribute(USER_ID);
     }
 	
-	//Metodo pensado para una vez que el usuario se autentico, reconocerlo por un id, que quedaria guardado en una cookie
 	public Usuario reconocerUsuario(Request pedido, Response respuesta){
 		Usuario usuario = null;
 		Long id = pedido.session().attribute(USER_ID);

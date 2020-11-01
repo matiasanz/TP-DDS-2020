@@ -25,7 +25,15 @@ img {
     animation: colorize 1s cubic-bezier(0, 0, .78, .36) 1;
     background: transparent;
     display: flex;
-    max-width: 35%;
+    max-width: 30%;
+}
+
+table, td {
+    border: 1px solid black;
+}
+
+th {
+   width:180px;
 }
 
 @keyframes colorize {
@@ -70,4 +78,8 @@ img {
 .topnav a.active {
     background-color: #1c4c74;
     color: white;
+}
+
+.mismaFila {
+    display: inline;
 }

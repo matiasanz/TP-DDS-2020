@@ -3,11 +3,32 @@
 {{/partial}}
 
 
-{{# partial "contenido" }}
-    <section class="fondo-gris">
-    <section id="Inicio de sesion">
-   	<p>Ud tiene {{tamanioBandeja}} mensajes</p>          
+{{# partial "nav"}}
+    <div class="topnav">
+        <a href="/menu">Inicio</a>
+        <a href="/compras">Compras</a>
+        <a href="/entidades">Entidades</a>
+        <a class="active" href="/mensajes">Mensajes</a>
+        <a href="/logout">Salir</a>
+    </div>
+{{/partial}}
 
+{{# partial "contenido" }}
+    <section>
+        <div id="Inicio de sesion">
+            <p>Usted tiene {{tamanioBandeja}} mensajes:</p>
+            <ul>
+            	{{#mensajes}}
+
+            		<li>
+            		    <span>Mensaje: {{value}}</span> <br>
+                        <span>Fecha: {{fecha}}</span>
+            		</li>
+            		
+            	{{/mensajes}}
+            </ul>
+        </div>
+    </section>
 {{/partial}}
 
 {{> layout.html.hbs }}

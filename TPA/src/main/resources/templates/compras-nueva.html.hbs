@@ -1,0 +1,104 @@
+{{# partial "titulo" }}
+    <title>GESOC - Nueva Compra</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+        <a href="/">Inicio</a>
+        <a class="active" href="/compras">Compras</a>
+        <a href="/entidades">Entidades</a>
+        <a href="/mensajes">Mensajes</a>
+        <a href="/logout">Salir</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+    <script type="text/javascript" src="/js/compras-nueva.js"></script>
+    <section>
+        <h2>Cargar Compra</h2>
+        <h2 style="color:green"> {{resultado}} </h2>
+        <form id="frm_compra" action="/compras" method="POST">
+            <div id="fecha" class="mismaFila">
+                <label>Fecha de la Operación</label>
+                <input type="date" name="txt_fechaOperacion" required>
+
+                <label>Entidad Relacionada</label>
+                <select name="ddl_entidad" required>
+                    {{#entidades}}
+                        <option value={{id}}> {{nombreFicticio }} </option>
+                    {{/entidades}}
+                </select>
+            </div>
+            <br>
+            <div id="mediosDePago" class="mismaFila">
+
+                <label>Medio de Pago</label>
+                <select name="ddl_medio_de_pago" required>
+                    {{#mediosDePago}}
+                        <option value={{id}}> {{descripcion }} </option>
+                    {{/mediosDePago}}
+                </select>
+
+                <label>Moneda </label>
+                <select name="ddl_moneda">
+                    {{#monedas}}
+                        <option value={{codigo}}> {{descripcion }} </option>
+                    {{/monedas}}
+                </select>
+            </div>
+
+            <h4> Presupuesto </h4>
+            <div id="div_presupuesto">
+                <div id="div_presupuesto_proveedores">
+                    <label for="fname">Proveedor</label>
+                    <select name="ddl_proveedores" required>
+                        {{#proveedores}}
+                            {{#if dni}}
+                                <option value={{id}}> {{nombre }} {{appellido}}</option>
+                            {{else}}
+                                <option value={{id}}> {{razonSocial }} </option>
+                            {{/if}}
+                        {{/proveedores}}
+                    </select>
+                </div>
+                <div id="div_presupuesto_items">
+                    <h4> Items </h4>
+                    <table id="tbl_items">
+                        <thead>
+                        <tr>
+                            <th> Cantidad</th>
+                            <th> Descripcion</th>
+                            <th> Valor Unitario</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <input name="txt_cantidad_1" type="number" min="1" required>
+                            </td>
+                            <td>
+                                <input name="txt_descripcion_1" type="text" required>
+                            </td>
+                            <td>
+                                <input name="txt_valor_1" type="number" min="1" step="any" required>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <input id="cantidad_items" name="cantidad_items" type="hidden" value="1">
+        </form>
+        <button id="btn_agregar_items" onclick="agregarItem()" class="botonSameTamanio">Agregar Item</button>
+        <button id="btn_eliminar_items" onclick="eliminarItem()" disabled class="botonSameTamanio">Eliminar Item
+        </button>
+        <br>
+        <br>
+        <button id="btn_guardar_compra" type="submit" form="frm_compra" class="botonSameTamanio">Guardar
+            Compra
+        </button>
+    </section>
+
+{{/partial}}
+
+{{> layout.html.hbs }}
