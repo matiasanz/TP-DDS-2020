@@ -4,11 +4,14 @@ import Controladores.BandejaController;
 import Controladores.CompraController;
 import Controladores.HomeController;
 import Controladores.MenuController;
+import Moneda.Moneda;
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import spark.Spark;
 import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Routes {
+    private static RepositorioDeMonedasMeli repositorioDeMonedasMeli = new RepositorioDeMonedasMeli();
 	private static HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 	private static HomeController homeController = new HomeController();
 	private static MenuController menuController = new MenuController();
@@ -16,6 +19,8 @@ public class Routes {
     private static CompraController compraController = new CompraController();
 
     public static void main(String[] args) {
+        //Cargamos la cache
+        repositorioDeMonedasMeli.getMonedas(Moneda.codigosMoneda());
         System.out.println("Iniciando servidor");
 
         Spark.port(8080);

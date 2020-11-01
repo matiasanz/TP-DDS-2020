@@ -69,8 +69,7 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
         modelo.put("mediosDePago", repositorioMedioDePago.getAll());
         modelo.put("entidades", repositorioEntidades.getAll());
 
-        List<CodigoMoneda> monedasMasUtilizadas = Moneda.codigosMoneda().subList(0,3);
-        modelo.put("monedas", repositorioDeMonedas.getMonedas(monedasMasUtilizadas));
+        modelo.put("monedas", repositorioDeMonedas.getMonedas(Moneda.codigosMoneda()));
 
         return new ModelAndView(modelo, "compras-nueva.html.hbs");
     }
