@@ -2,6 +2,14 @@
     <title>GESOC - Nueva Compra</title>
 {{/partial}}
 
+{{# partial "nav"}}
+    <div class="topnav">
+        <a href="/">Inicio</a>
+        <a class="active" href="/compras">Compras</a>
+        <a href="/entidades">Entidades</a>
+        <a href="/mensajes">Mensajes</a>
+    </div>
+{{/partial}}
 
 {{# partial "contenido" }}
     <script type="text/javascript" src="/js/compras-nueva.js"></script>
@@ -65,13 +73,13 @@
                         <tbody>
                         <tr>
                             <td>
-                                <input name="txt_cantidad_1" type="number" min="1">
+                                <input name="txt_cantidad_1" type="number" min="1" required>
                             </td>
                             <td>
-                                <input name="txt_descripcion_1" type="text">
+                                <input name="txt_descripcion_1" type="text" required>
                             </td>
                             <td>
-                                <input name="txt_valor_1" type="number" min="1" step="any">
+                                <input name="txt_valor_1" type="number" min="1" step="any" required>
                             </td>
                         </tr>
                         </tbody>
