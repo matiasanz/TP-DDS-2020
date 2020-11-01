@@ -29,8 +29,10 @@ public class BandejaController
 	private Map<String, Object> crearModelo(Usuario usuarioAutenticado){
 		Map<String, Object> modelo = new HashMap<>();
 		modelo.put("tamanioBandeja", usuarioAutenticado.getBandejaDeMensajes().size());
-		
+		modelo.put("mensajes", usuarioAutenticado.getBandejaDeMensajes());
 		return modelo;
 	}
+	
+	
 
 }
