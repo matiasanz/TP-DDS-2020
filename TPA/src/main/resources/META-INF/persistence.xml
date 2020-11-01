@@ -12,6 +12,7 @@
         <class>Presupuesto.Presupuesto</class>
         <class>Compra.Item</class>
         <class>Usuario.Usuario</class>
+        <class>Usuario.Mensaje</class>
         <class>Entidad.Entidad</class>
         <class>Entidad.EntidadBase</class>
         <class>Entidad.EntidadJuridica</class>

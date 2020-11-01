@@ -8,6 +8,7 @@ import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 import Usuario.Usuario;
+import Usuario.Mensaje;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -165,7 +166,7 @@ public class Compra {
     }
     
     public void notificarUsuarios(String mensaje){
-    	usuariosValidadores.stream().forEach(unUsuario->unUsuario.notificarEvento(mensaje));
+    	usuariosValidadores.stream().forEach(unUsuario->unUsuario.notificarEvento(new Mensaje(LocalDate.now(), mensaje)));
     }
 
 //Etiqueta ****************
