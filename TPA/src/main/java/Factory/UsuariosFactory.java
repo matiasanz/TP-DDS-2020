@@ -1,9 +1,13 @@
 package Factory;
 
 import Usuario.TipoUsuario;
+import Usuario.Usuario;
+import Usuario.Mensaje;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import Usuario.Usuario;
 
 public class UsuariosFactory {
 	public static Usuario usuarioStub() {
@@ -12,9 +16,9 @@ public class UsuariosFactory {
 
 	public static Usuario sinValidaciones(String username, String password)	{
 		
-		List<String> bandejaDeMensajes=new ArrayList<>();
-		bandejaDeMensajes.add("este es un mensaje");
-		bandejaDeMensajes.add("este es otro mensaje");
+		List<Mensaje> bandejaDeMensajes = new ArrayList<>();
+		bandejaDeMensajes.add(new Mensaje(LocalDateTime.now(), "Este es un mensaje"));
+		bandejaDeMensajes.add(new Mensaje(LocalDateTime.now().minusMonths(2), "Este es otro mensaje"));
 		Usuario usuarioNoValidado = new Usuario();
 		usuarioNoValidado.setUsername(username);
 		usuarioNoValidado.setContrasenia(password);

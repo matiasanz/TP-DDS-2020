@@ -16,14 +16,14 @@
 {{# partial "contenido" }}
     <section>
         <div id="Inicio de sesion">
-            <p>Ud tiene {{tamanioBandeja}} mensajes</p>
+            <p>Usted tiene {{tamanioBandeja}} mensajes:</p>
             <ul>
             	{{#mensajes}}
-            		
+
             		<li>
-            		<span>{{this}}</span>
+            		    <span>Mensaje: {{value}}</span> <br>
+                        <span>Fecha: {{fecha}}</span>
             		</li>
-            		
             		
             	{{/mensajes}}
             </ul>

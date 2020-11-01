@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -13,6 +15,7 @@ import Exceptions.UsuarioNoExisteException;
 import Organizacion.IngresoFallidoException;
 import Usuario.TipoUsuario;
 import Usuario.Usuario;
+import Usuario.Mensaje;
 
 public class MainClass{
 
@@ -40,7 +43,7 @@ public class MainClass{
 		imprimirPorPantalla("\n***************************** Inicio de sesion *****************************\n");
 		imprimirPorPantalla("Ingrese usuario");
 		String usuarioIngresado = /*"usuario";*/leerConsola();
-		imprimirPorPantalla("Ingrese contraseña");
+		imprimirPorPantalla("Ingrese contraseÃ±a");
         String passwordIngresada = /*"Tp2020Dds";*/leerConsola();
 
         Usuario usuario;
@@ -62,7 +65,7 @@ public class MainClass{
 		imprimirPorPantalla("\n***************************** Registrarse gratis *****************************\n");
 		imprimirPorPantalla("Ingrese nuevo usuario");
 		String usuarioIngresado = /*"usuario";*/ leerConsola();
-		imprimirPorPantalla("Ingrese nueva contraseña");
+		imprimirPorPantalla("Ingrese nueva contraseÃ±a");
         String passwordIngresada = /*"Tp2020Dds";*/leerConsola();
         
         Usuario usuario;
@@ -70,7 +73,9 @@ public class MainClass{
         try{
         	usuario = new Usuario(usuarioIngresado, passwordIngresada, TipoUsuario.ESTANDAR);
     		transaccion.begin();
-    		usuario.setBandejaDeMensajes(Arrays.asList("Le damos la bienvenida a nuestro sistema", "Otro mensaje"));
+    		usuario.setBandejaDeMensajes(Arrays.asList(
+    				new Mensaje(LocalDateTime.now(), "Le damos la bienvenida a nuestro sistema"),
+					new Mensaje(LocalDateTime.now(), "Otro mensaje")));
     		usuarios.agregar(usuario);
     		transaccion.commit();
     		imprimirPorPantalla(" >> Ha sido registrado correctamente\n");
@@ -86,7 +91,7 @@ public class MainClass{
 	}
 
 	private static void leerBandejaDeUsuario(Usuario usuario) {
-		List<String>mensajes = usuario.getMensajes();
+		List<Mensaje>mensajes = usuario.getBandejaDeMensajes();
 
 		if(mensajes.isEmpty()){
 			imprimirPorPantalla("\n***** LA BANDEJA DE MENSAJES SE ENCUENTRA VACIA\n");
@@ -94,7 +99,7 @@ public class MainClass{
 		}
 
 		imprimirPorPantalla("\n***** TIENE MENSAJES:\n");
-		mensajes.stream().forEach(mensaje->imprimirPorPantalla(mensaje));
+		mensajes.stream().forEach(mensaje -> imprimirPorPantalla(mensaje.getValue()));
 	}
 
 	// Auxiliares **********************
