@@ -31,7 +31,7 @@
                 {{#categoriasSinAsociar}}
                     <li>
                         <span>{{nombre}}</span>
-                        <form action="/entidades/{{idEntidad}}/agregarCategoria/{{id}}" method="post">
+                        <form action="/entidades/{{idEntidad}}/agregarCategoria/{{id}}" method="POST">
                             <input type="submit" value="Asociar">
                         </form>
                     </li>
@@ -43,7 +43,7 @@
                 {{#categoriasAsociadas}}
                     <li>
                         <span>{{nombre}}</span>
-                         <form action="/entidades/{{idEntidad}}/eliminarCategoria/{{id}}" method="post">
+                         <form action="/entidades/{{idEntidad}}/eliminarCategoria/{{id}}" method="POST">
                             <input type="submit" value="Desasociar">
                         </form>
                     </li>

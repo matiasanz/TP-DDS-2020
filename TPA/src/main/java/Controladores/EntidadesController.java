@@ -81,13 +81,12 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
             Entidad entidad = RepositorioDeEntidades.instancia.findById(Long.parseLong(request.params(":id")));
 
             if (entidad == null){
+                response.status(404);
                 modelo.put("mensajeError", "Error 404 - Entidad no encontrada");
                 return new ModelAndView(modelo, "errores.html.hbs");
             }
 
-            getCategoriasDeEntidad(modelo, entidad);
-
-            return new ModelAndView(modelo, "entidades_a_asociar_elegida.html.hbs");
+            return getModelConCategoriasAsociadasYSinAsociar(modelo, entidad);
 
         } catch(NumberFormatException e) {
             return new ModelAndView(devolverBadRequestSiIdTipoErroneo(response), "errores.html.hbs");
@@ -102,21 +101,18 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
             Categoria categoria = RepositorioDeCategorias.instancia.findById(Long.parseLong(request.params(":idCategoria")));
 
             if (entidad == null || categoria == null){
+                response.status(404);
                 modelo.put("mensajeError", "Error 404 - Entidad y/o categoría no encontrada");
                 return new ModelAndView(modelo, "errores.html.hbs");
             }
 
             if (!entidad.getCategorias().contains(categoria)){
-                withTransaction(() -> {
-                    entidad.agregarCategoria(categoria);
-                    RepositorioDeEntidades.instancia.save(entidad);
-                });
+                entidad.agregarCategoria(categoria);
+                withTransaction(() -> { RepositorioDeEntidades.instancia.save(entidad); });
                 modelo.put("mensajeAccion", "La categoría " + categoria.getNombre() + " fue asociada correctamente.");
             }
 
-            getCategoriasDeEntidad(modelo, entidad);
-
-            return new ModelAndView(modelo, "entidades_a_asociar_elegida.html.hbs");
+            return getModelConCategoriasAsociadasYSinAsociar(modelo, entidad);
 
         } catch(NumberFormatException e) {
             return new ModelAndView(devolverBadRequestSiIdTipoErroneo(response), "errores.html.hbs");
@@ -131,37 +127,20 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
             Categoria categoria = RepositorioDeCategorias.instancia.findById(Long.parseLong(request.params(":idCategoria")));
 
             if (entidad == null || categoria == null){
+                response.status(404);
                 modelo.put("mensajeError", "Error 404 - Entidad y/o categoría no encontrada");
                 return new ModelAndView(modelo, "errores.html.hbs");
             }
 
-            List<Categoria> categoriasNuevas = entidad.getCategorias();
-            withTransaction(() -> {
-                categoriasNuevas.remove(categoria);
-                entidad.setCategorias(categoriasNuevas);
-            });
-
-            RepositorioDeEntidades.instancia.save(entidad);
+            entidad.eliminarCategoria(categoria);
+            withTransaction(() -> { RepositorioDeEntidades.instancia.save(entidad); });
             modelo.put("mensajeAccion", "La categoría " + categoria.getNombre() + " fue desasociada correctamente.");
 
-            getCategoriasDeEntidad(modelo, entidad);
-
-            return new ModelAndView(modelo, "entidades_a_asociar_elegida.html.hbs");
+            return getModelConCategoriasAsociadasYSinAsociar(modelo, entidad);
 
         } catch(NumberFormatException e) {
             return new ModelAndView(devolverBadRequestSiIdTipoErroneo(response), "errores.html.hbs");
         }
-    }
-
-    private void getCategoriasDeEntidad(Map<String, Object> modelo, Entidad entidad) {
-        List<Categoria> categoriasAsociadas = RepositorioDeEntidades.instancia.findById(entidad.getId()).getCategorias();
-        List<Categoria> categoriasSinAsociar = RepositorioDeCategorias.instancia.getCategorias().
-                stream().filter(c -> !categoriasAsociadas.contains(c)).collect(Collectors.toList());
-
-        modelo.put("categoriasAsociadas", categoriasAsociadas);
-        modelo.put("categoriasSinAsociar", categoriasSinAsociar);
-        modelo.put("idEntidad", entidad.getId());
-        modelo.put("entidad", entidad);
     }
 
     private Map<String, Object> devolverBadRequestSiIdTipoErroneo(Response response) {
@@ -169,5 +148,17 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
         Map<String, Object> modelo = new HashMap<>();
         modelo.put("mensajeError", "Error 400 - Tipo de ID incorrecto");
         return modelo;
+    }
+
+    private ModelAndView getModelConCategoriasAsociadasYSinAsociar(Map<String, Object> modelo, Entidad entidad) {
+        List<Categoria> categoriasAsociadas = entidad.getCategorias();
+        List<Categoria> categoriasSinAsociar = RepositorioDeCategorias.instancia.getCategorias().
+                stream().filter(c -> !categoriasAsociadas.contains(c)).collect(Collectors.toList());
+
+        modelo.put("categoriasAsociadas", categoriasAsociadas);
+        modelo.put("categoriasSinAsociar", categoriasSinAsociar);
+        modelo.put("idEntidad", entidad.getId());
+        modelo.put("entidad", entidad);
+        return new ModelAndView(modelo, "entidades_a_asociar_elegida.html.hbs");
     }
 }

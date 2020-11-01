@@ -18,12 +18,11 @@ public class Routes {
         HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
         HomeController homeController = new HomeController();
         EntidadesController entidadesController = new EntidadesController();
-
         Spark.get("/", (request, response) -> homeController.getHome(), engine);
         Spark.get("/entidades", (request, response) -> entidadesController.getOptions(), engine);
 
-        Spark.get("/entidades/porCategoria", entidadesController::getCategoriasAElegir, engine);
-        Spark.get("/entidades/porCategoria/:id", entidadesController::getEntidadesPorCategoria, engine);
+        Spark.get("/entidades/categorias", entidadesController::getCategoriasAElegir, engine);
+        Spark.get("/entidades/categorias/:id", entidadesController::getEntidadesPorCategoria, engine);
 
         Spark.get("/entidades/asociarCategoria", entidadesController::getEntidadesAAsociar, engine);
         Spark.get("/entidades/:id/categorias", entidadesController::getEntidadYCategorias, engine);

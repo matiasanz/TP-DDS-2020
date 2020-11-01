@@ -55,6 +55,7 @@ public abstract class Entidad {
         categorias.add(categoria);
     }
 
+    public void eliminarCategoria(Categoria categoria) { categorias.remove(categoria); }
 // Compras ****************
     public List<Compra> getCompras() {
     	return compras.getCompras();
