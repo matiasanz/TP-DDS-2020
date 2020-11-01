@@ -3,7 +3,6 @@ package Repositorios;
 import Entidad.*;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,5 +44,6 @@ public class RepositorioDeEntidades implements WithGlobalEntityManager {
 
     public void save(Entidad entidad) {
         entityManager().persist(entidad);
+        entityManager().flush();
     }
 }
