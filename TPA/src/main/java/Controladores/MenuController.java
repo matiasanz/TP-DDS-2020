@@ -1,6 +1,5 @@
 package Controladores;
 
-import Exceptions.NingunaSesionAbiertaException;
 import Usuario.Usuario;
 import spark.ModelAndView;
 import spark.Request;
@@ -12,23 +11,14 @@ public class MenuController
 	Autenticador autenticador = new Autenticador();
 	
     public ModelAndView getUserMenu(Request request, Response response){
-    	try{
-			Usuario modelo = autenticador.reconocerUsuario(request);
-			return new ModelAndView(modelo, ARCHIVO_INDEX);
-    	}
-    	
-    	catch(NingunaSesionAbiertaException e){
-    		return redirectToHome(response);
-    	}
+    	Usuario modelo = autenticador.reconocerUsuario(request, response);
+		return new ModelAndView(modelo, ARCHIVO_INDEX);
 	}
 
     public ModelAndView logout(Request request, Response response){
     	autenticador.quitarCredenciales(request, response);
-    	return redirectToHome(response);
-    }
-    
-    private ModelAndView redirectToHome(Response response){
     	response.redirect("/");
     	return null;
     }
+    
 }

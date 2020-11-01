@@ -2,8 +2,6 @@ package Controladores;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import Exceptions.NingunaSesionAbiertaException;
 import Usuario.Usuario;
 import spark.ModelAndView;
 import spark.Request;
@@ -15,15 +13,8 @@ public class BandejaController
 	Autenticador autenticador = new Autenticador();
 	
 	public ModelAndView getBandejaDeMensajes(Request request, Response response){
-		try{
-			Usuario usuario = autenticador.reconocerUsuario(request);			
-			return new ModelAndView( crearModelo(usuario) , ARCHIVO_MENSAJES);		
-		} 
-		
-		catch(NingunaSesionAbiertaException e){
-			response.redirect("/");
-			return null;
-		}
+		Usuario usuario = autenticador.reconocerUsuario(request, response);			
+		return new ModelAndView( crearModelo(usuario) , ARCHIVO_MENSAJES);		
 	}
 	
 	private Map<String, Object> crearModelo(Usuario usuarioAutenticado){
@@ -32,5 +23,4 @@ public class BandejaController
 		
 		return modelo;
 	}
-
 }
