@@ -54,16 +54,13 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
 	    catch(UsuarioNoExisteException | ErrorDeAutenticacionException e) {
 	    	respuesta.status(ERROR_CREDENCIALES);
 			return getHome(pedido, respuesta,
-					"El usuario y/o la contraseña ingresada son incorrectos");
+					"El usuario y/o la contraseï¿½a ingresada son incorrectos");
 		}
     }
     
     public void iniciarSesion(Request request, Response response){
-    	Map<String,String> body = Controllers.getBody(request);
-    
-       	Usuario usuario = repoUsuarios.getByUsername( body.get("username") );
-       	usuario.autenticar( body.get("password") );    	
-       	
-       	autenticador.guardarCredenciales(response, usuario);       		
+       	Usuario usuario = repoUsuarios.getByUsername(request.queryParams("username"));
+       	usuario.autenticar(request.queryParams("password"));
+       	autenticador.guardarCredenciales(response, usuario);
     }    
 }
