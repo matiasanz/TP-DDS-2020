@@ -8,11 +8,10 @@
     <section>
         <h2>Cargar Compra</h2>
         <form id="frm_compra" action="/compras" method="POST">
-            <label>Fecha de la Operación</label>
+            <div id="fecha" class="mismaFila">
+                <label>Fecha de la Operación</label>
+                <input type="date" name="txt_fechaOperacion" required>
 
-            <input type="date" name="txt_fechaOperacion" required>
-
-            <div id="entidadRelacionada" >
                 <label>Entidad Relacionada</label>
                 <select name="ddl_entidad" required>
                     {{#entidades}}
@@ -20,7 +19,8 @@
                     {{/entidades}}
                 </select>
             </div>
-            <div id="mediosDePago">
+            
+            <div id="mediosDePago" class="mismaFila">
 
                 <label>Medio de Pago</label>
                 <select name="ddl_medio_de_pago" required>
@@ -28,9 +28,7 @@
                         <option value={{id}}> {{descripcion }} </option>
                     {{/mediosDePago}}
                 </select>
-            </div>
 
-            <div id="monedas">
                 <label>Moneda </label>
                 <select name="ddl_moneda">
                     {{#monedas}}
@@ -39,7 +37,7 @@
                 </select>
             </div>
 
-            <h3> Presupuesto </h3>
+            <h4> Presupuesto </h4>
             <div id="div_presupuesto">
                 <div id="div_presupuesto_proveedores">
                     <label for="fname">Proveedor</label>
@@ -54,7 +52,7 @@
                     </select>
                 </div>
                 <div id="div_presupuesto_items">
-                    <h3> Items </h3>
+                    <h4> Items </h4>
                     <table id="tbl_items">
                         <thead>
                         <tr>
@@ -71,10 +69,13 @@
             <input id="cantidad_items" name="cantidad_items" type="hidden" value="0">
         </form>
         <button id="btn_agregar_items" onclick="agregarItem()" class="botonSameTamanio">Agregar Item</button>
-        <button id="btn_eliminar_items" onclick="eliminarItem()" disabled class="botonSameTamanio">Eliminar Item</button>
+        <button id="btn_eliminar_items" onclick="eliminarItem()" disabled class="botonSameTamanio">Eliminar Item
+        </button>
         <br>
         <br>
-        <button id="btn_guardar_compra" type="submit" form="frm_compra" disabled class="botonSameTamanio">Guardar Compra</button>
+        <button id="btn_guardar_compra" type="submit" form="frm_compra" disabled class="botonSameTamanio">Guardar
+            Compra
+        </button>
         <div><h3> {{resultado}} </h3></div>
 
     </section>

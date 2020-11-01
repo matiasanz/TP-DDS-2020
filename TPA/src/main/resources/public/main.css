@@ -32,10 +32,6 @@ table, td {
     border: 1px solid black;
 }
 
-tr {
-   height: 20px;
-}
-
 th {
    width:180px;
 }
@@ -82,4 +78,8 @@ th {
 .topnav a.active {
     background-color: #1c4c74;
     color: white;
+}
+
+.mismaFila {
+    display=inline;
 }
