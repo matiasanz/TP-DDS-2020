@@ -34,7 +34,7 @@ public class EntidadesController {
         return new ModelAndView(modelo,"entidades_por_categoria.html.hbs");
     }
 
-    public Object getEntidadesPorCategoria(Request request, Response response, TemplateEngine engine){
+    public ModelAndView getEntidadesPorCategoria(Request request, Response response){
         try{
             Categoria categoria = RepositorioDeCategorias.instancia.findById(Long.parseLong(request.params(":id")));
             List<Entidad> entidades = RepositorioDeEntidades.instancia.listarPorCategoria(Long.parseLong(request.params(":id")));
@@ -43,13 +43,14 @@ public class EntidadesController {
             modelo.put("categoria", categoria);
             modelo.put("entidades", entidades);
 
-            return engine.render(new ModelAndView(modelo, "entidades_por_categoria_elegida.html.hbs"));
+            return new ModelAndView(modelo, "entidades_por_categoria_elegida.html.hbs");
 
             //TODO CREAR ESTE HTML QUE MUESTRA LA INFO DE LA CATEGORIA Y DEBAJO UNA LISTA DE LAS ENTIDADES
 
         } catch(NumberFormatException e) {
             response.status(400);
-            return "Bad Request";
+            //return "Bad Request";
+            return new ModelAndView(new HashMap<>(), "entidades_por_categoria_elegida.html.hbs");
         }
     }
 }

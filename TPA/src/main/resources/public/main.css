@@ -49,7 +49,18 @@ img {
     color: #fff;
 }
 
+.botonAtras{
+    width:30%;
+    display:block;
+    margin: 10px auto auto;
+    padding: 10px 10px;
+    border-radius: 4px;
+    background-color: rgb(30, 78, 115);
+    color: #fff;
+}
+
 .botonSameTamanio:hover{color:#000!important;background-color:#ccc!important}
+.botonAtras:hover{color:#000!important;background-color:#ccc!important}
 
 .footer {
     padding-top: 10px;

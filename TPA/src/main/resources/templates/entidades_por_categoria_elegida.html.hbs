@@ -1,0 +1,37 @@
+{{# partial "titulo" }}
+    <title>GeSoc - Entidades por categoría</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+      <a href="/">Inicio</a>
+      <a href="/compras">Compras</a>
+      <a class="active" href="/entidades">Entidades</a>
+      <a href="/mensajes">Mensajes</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+    <section>
+
+        <button class="botonAtras" onclick="location.href='/entidades/porCategoria'">Atras</button>
+
+        {{#categoria}}
+        <h2>Categoría elegida: {{nombre}}</h2>
+        {{/categoria}}
+
+        <h3>Entidades asociadas:</h3>
+
+        <ul>
+            {{#entidades}}
+                <li>
+                    <span>ID: </span><span>{{id}}</span>
+                    <br>
+                    <span>Nombre de entidad: </span><span>{{nombreFicticio}}</span>
+                </li>
+            {{/entidades}}
+        </ul>
+    </section>
+{{/partial}}
+
+{{> layout.html.hbs }}

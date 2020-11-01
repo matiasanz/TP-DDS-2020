@@ -12,10 +12,9 @@ public class RepositorioDeEntidades implements WithGlobalEntityManager {
 
     public List<Entidad> listarPorCategoria(long categoriaId) {
         return entityManager()//
-                .createQuery("from Entidad" +
-                        "JOIN entidades_por_categorias as E" +
-                        "ON E.entidades_id = id " +
-                        "WHERE E.categorias_id = " + categoriaId, Entidad.class) //
+                .createQuery("select e from Entidad e" +
+                        " JOIN e.categorias c" +
+                        " WHERE c.id = " + categoriaId, Entidad.class) //
                 .getResultList();
     }
 

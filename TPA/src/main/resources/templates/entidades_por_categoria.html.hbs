@@ -13,11 +13,12 @@
 
 {{# partial "contenido" }}
     <section>
+
         <h2>Entidades por categoría</h2>
 
         <form action="/entidades/porCategoria" method="GET">
             Seleccione la categoría deseada
-            <input type="number" name="filtro" placeholder="ID de categoría">
+            <input type="text" name="filtro" placeholder="Nombre de categoría">
             <input type="submit" value="Buscar">
         </form>
 
@@ -26,7 +27,9 @@
                 <li><a href="/entidades/porCategoria/{{id}}">{{nombre}}</a></li>
             {{/categorias}}
         </ul>
+
     </section>
+
 {{/partial}}
 
 {{> layout.html.hbs }}
