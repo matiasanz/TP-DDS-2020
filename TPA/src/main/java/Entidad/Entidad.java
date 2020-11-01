@@ -46,7 +46,11 @@ public abstract class Entidad {
     public List<Categoria> getCategorias() {
         return categorias;
     }
-    
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+
     public void agregarCategoria(Categoria categoria){
         categorias.add(categoria);
     }
