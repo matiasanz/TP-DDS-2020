@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -73,8 +74,8 @@ public class MainClass{
         	usuario = new Usuario(usuarioIngresado, passwordIngresada, TipoUsuario.ESTANDAR);
     		transaccion.begin();
     		usuario.setBandejaDeMensajes(Arrays.asList(
-    				new Mensaje(LocalDate.now(), "Le damos la bienvenida a nuestro sistema"),
-					new Mensaje(LocalDate.now(), "Otro mensaje")));
+    				new Mensaje(LocalDateTime.now(), "Le damos la bienvenida a nuestro sistema"),
+					new Mensaje(LocalDateTime.now(), "Otro mensaje")));
     		usuarios.agregar(usuario);
     		transaccion.commit();
     		imprimirPorPantalla(" >> Ha sido registrado correctamente\n");

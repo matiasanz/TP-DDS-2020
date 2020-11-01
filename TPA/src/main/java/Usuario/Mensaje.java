@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "mensajes")
@@ -14,11 +14,11 @@ public class Mensaje {
     @GeneratedValue
     private Long id;
 
-    private LocalDate fecha;
+    private LocalDateTime fecha;
 
     private String value;
 
-    public Mensaje(LocalDate fecha, String value) {
+    public Mensaje(LocalDateTime fecha, String value) {
         this.fecha = fecha;
         this.value = value;
     }
@@ -27,11 +27,11 @@ public class Mensaje {
 
     }
 
-    public LocalDate getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 

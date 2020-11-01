@@ -16,10 +16,10 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 
     public void run() {
         withTransaction(() -> {
-            mockearUsuarios();
             crearProveedores();
             crearMediosDePago();
             crearEntidades();
+            mockearUsuarios();
         });
     }
 

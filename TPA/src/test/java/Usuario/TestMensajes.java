@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TestMensajes {
 	
@@ -30,7 +31,7 @@ public class TestMensajes {
     public void unUsuarioRecibeYEliminaMensajes(){
     	String notificacion = "Alerta alerta, estas por romper la dieta";
     	
-    	usuario1.notificarEvento(new Mensaje(LocalDate.now(), notificacion));
+    	usuario1.notificarEvento(new Mensaje(LocalDateTime.now(), notificacion));
     	assertMensajeUnico(usuario1,notificacion);
     	
     	usuario1.vaciarBandeja();

@@ -16,8 +16,8 @@ public class Usuario {
     private String username;
     private String contrasenia;
 
-    @OneToMany
-    @JoinTable(name = "entidades_por_entidad_juridica")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "mensajes_por_usuario")
     private List<Mensaje> bandejaDeMensajes = new ArrayList<>();
 
     @Enumerated
