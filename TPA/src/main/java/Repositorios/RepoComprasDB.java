@@ -15,6 +15,10 @@ public class RepoComprasDB extends RepoDB<Compra>{
 		return "Compra";
 	}
 
+	public Compra getCompra(Long id) {
+		return this.getAll().stream().filter(compra -> compra.getId().equals(id)).collect(Collectors.toList()).get(0);
+	}
+	
     @SuppressWarnings("unchecked")
 	public List<Compra> getComprasPendientesDeAprobacion() {
         return createQuery("where indicadorDeAprobacion = :estado")
@@ -22,7 +26,6 @@ public class RepoComprasDB extends RepoDB<Compra>{
         		.getResultList();
     }
 
-    @SuppressWarnings("unchecked")
 	public List<Compra> comprasDelMes(LocalDate fechaInicio) {
        return this.getAll()
                 .stream()

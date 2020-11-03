@@ -88,6 +88,8 @@ public class Compra {
         this.usuariosValidadores = usuariosValidadores;
     }
 
+    
+    
 	//Items ***********************************
 
     public List<Item> getItems() {

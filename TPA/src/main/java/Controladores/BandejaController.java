@@ -17,7 +17,7 @@ public class BandejaController
 	public ModelAndView getBandejaDeMensajes(Request request, Response response){
 		try{
 			Usuario usuario = autenticador.reconocerUsuario(request);			
-			return new ModelAndView( crearModelo(usuario) , ARCHIVO_MENSAJES);		
+			return new ModelAndView(crearModelo(usuario) , ARCHIVO_MENSAJES);		
 		} 
 		
 		catch(NingunaSesionAbiertaException e){
