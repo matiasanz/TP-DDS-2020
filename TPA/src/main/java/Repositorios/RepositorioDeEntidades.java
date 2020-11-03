@@ -11,7 +11,8 @@ public class RepositorioDeEntidades implements WithGlobalEntityManager {
     public static RepositorioDeEntidades instancia = new RepositorioDeEntidades();
 
     public Entidad findById(Long id) {
-        return entityManager().find(Entidad.class, id);
+        Entidad entidad = entityManager().find(Entidad.class, id);
+        return entidad;
     }
 
     public List<Entidad> getEntidades(){
@@ -44,6 +45,5 @@ public class RepositorioDeEntidades implements WithGlobalEntityManager {
 
     public void save(Entidad entidad) {
         entityManager().persist(entidad);
-        entityManager().flush();
     }
 }

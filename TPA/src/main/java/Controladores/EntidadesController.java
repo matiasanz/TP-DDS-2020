@@ -107,8 +107,10 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
             }
 
             if (!entidad.getCategorias().contains(categoria)){
-                entidad.agregarCategoria(categoria);
-                withTransaction(() -> { RepositorioDeEntidades.instancia.save(entidad); });
+                withTransaction(() -> {
+                    entidad.agregarCategoria(categoria);
+                    RepositorioDeEntidades.instancia.save(entidad);
+                } );
                 modelo.put("mensajeAccion", "La categoría " + categoria.getNombre() + " fue asociada correctamente.");
             }
 
@@ -132,8 +134,10 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
                 return new ModelAndView(modelo, "errores.html.hbs");
             }
 
-            entidad.eliminarCategoria(categoria);
-            withTransaction(() -> { RepositorioDeEntidades.instancia.save(entidad); });
+            withTransaction(() -> {
+                entidad.eliminarCategoria(categoria);
+                RepositorioDeEntidades.instancia.save(entidad);
+            } );
             modelo.put("mensajeAccion", "La categoría " + categoria.getNombre() + " fue desasociada correctamente.");
 
             return getModelConCategoriasAsociadasYSinAsociar(modelo, entidad);
@@ -160,5 +164,17 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
         modelo.put("idEntidad", entidad.getId());
         modelo.put("entidad", entidad);
         return new ModelAndView(modelo, "entidades_a_asociar_elegida.html.hbs");
+    }
+
+    public ModelAndView getCreadorDeEntidad() {
+
+        List<Categoria> categoriasDisponibles = RepositorioDeCategorias.instancia.getCategorias();
+
+        /* TODO: A la hora de crear la entidad:
+        - Se elige el tipo de entidad -> A raíz de esto nacen tres formularios distintos
+        - Permite elegir los valores y en el caso de la categoría debe permitir ir a un ABM para crear
+         */
+
+        return new ModelAndView(new HashMap<>(), "entidades_nueva.html");
     }
 }

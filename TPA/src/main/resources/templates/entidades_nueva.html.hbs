@@ -1,0 +1,56 @@
+{{# partial "titulo" }}
+    <title>GeSoc - Asociar categorias</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+      <a href="/">Inicio</a>
+      <a href="/compras">Compras</a>
+      <a class="active" href="/entidades">Entidades</a>
+      <a href="/mensajes">Mensajes</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+    <section>
+
+        {{#mensajeAccion}}
+            <h2 style="text-align:center;">{{mensajeAccion}}</h2>
+        {{/mensajeAccion}}
+
+        {{#entidad}}
+        <h2>Crear entidad</h2>
+        {{/entidad}}
+
+        {{#idEntidad}}
+
+            <h3>Categorías sin asociar:</h3>
+            <ul>
+                {{#categoriasSinAsociar}}
+                    <li>
+                        <span>{{nombre}}</span>
+                        <form action="/entidades/{{idEntidad}}/agregarCategoria/{{id}}" method="POST">
+                            <input type="submit" value="Asociar">
+                        </form>
+                    </li>
+                {{/categoriasSinAsociar}}
+            </ul>
+
+            <h3>Categorías asociadas:</h3>
+            <ul>
+                {{#categoriasAsociadas}}
+                    <li>
+                        <span>{{nombre}}</span>
+                         <form action="/entidades/{{idEntidad}}/eliminarCategoria/{{id}}" method="POST">
+                            <input type="submit" value="Desasociar">
+                        </form>
+                    </li>
+                {{/categoriasAsociadas}}
+            </ul>
+
+        {{/idEntidad}}
+
+    </section>
+{{/partial}}
+
+{{> layout.html.hbs }}

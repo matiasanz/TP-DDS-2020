@@ -2,8 +2,11 @@ package Main;
 
 import Controladores.EntidadesController;
 import Controladores.HomeController;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
+
+import static spark.Spark.after;
 
 public class Routes {
 
@@ -28,5 +31,13 @@ public class Routes {
         Spark.get("/entidades/:id/categorias", entidadesController::getEntidadYCategorias, engine);
         Spark.post("/entidades/:id/agregarCategoria/:idCategoria", entidadesController::agregarCategoriaAEntidad, engine);
         Spark.post("/entidades/:id/eliminarCategoria/:idCategoria", entidadesController::eliminarCategoriaDeEntidad, engine);
+
+        Spark.get("/entidades/nueva", (request, response) -> entidadesController.getCreadorDeEntidad(), engine);
+
+        after((request, response) -> {
+            PerThreadEntityManagers.getEntityManager();
+            PerThreadEntityManagers.closeEntityManager();
+        });
+
     }
 }
