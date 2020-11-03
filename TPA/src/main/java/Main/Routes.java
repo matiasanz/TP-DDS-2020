@@ -4,8 +4,6 @@ import Controladores.BandejaController;
 import Controladores.CompraController;
 import Controladores.HomeController;
 import Controladores.MenuController;
-import Moneda.Moneda;
-import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import spark.Spark;
 import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -15,6 +13,7 @@ public class Routes {
 	private static HomeController homeController = new HomeController();
 	private static MenuController menuController = new MenuController();
 	private static BandejaController bandejaController = new BandejaController();
+	private static CompraController compraController = new CompraController();
 
     public static void main(String[] args) {
         System.out.println("Iniciando servidor");
@@ -45,7 +44,6 @@ public class Routes {
     }
         
     private static void comprasRoutes(){
-        CompraController compraController = new CompraController();
     	
         Spark.get("/compras", compraController::getPaginaComprasMenu, engine);
         

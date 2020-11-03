@@ -4,6 +4,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,6 @@ import Usuario.Usuario;
 public class HomeController implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
 
 	private final String ARCHIVO_LOGIN = "login.html.hbs";
-	private int ERROR_CREDENCIALES = 401;
 	private RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
 	private Autenticador autenticador = Autenticador.getInstance();
 
@@ -43,18 +43,18 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
 		return modelo;
     }
 	
-    //Datos ingresados
     public ModelAndView tryLogin(Request pedido, Response respuesta) {
 	    try{    
 	    	iniciarSesion(pedido,respuesta);
+	    	respuesta.status(HttpURLConnection.HTTP_ACCEPTED);
 	    	respuesta.redirect("/menu");	
 	    	return null;
 	    }
 			
 	    catch(UsuarioNoExisteException | ErrorDeAutenticacionException e) {
-	    	respuesta.status(ERROR_CREDENCIALES);
+	    	respuesta.status(HttpURLConnection.HTTP_PROXY_AUTH);
 			return getHome(pedido, respuesta,
-					"**El usuario y/o la contraseña ingresada son incorrectos");
+					"**El usuario y/o la contraseÃ±a ingresada son incorrectos");
 		}
     }
     

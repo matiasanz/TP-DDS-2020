@@ -16,19 +16,19 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 	private static RepositorioDeMonedasMeli repositorioDeMonedasMeli = new RepositorioDeMonedasMeli();
 	
 	public static void main(String[] args) {
-        //Cargamos la cache
-        repositorioDeMonedasMeli.getMonedas(Moneda.codigosMoneda());
-    	
         new Bootstrap().run();
     }
 
     public void run() {
-        withTransaction(() -> {
-            crearProveedores();
-            crearMediosDePago();
-            crearEntidades();
-            mockearUsuarios();
-        });
+    	//Cargamos la cache
+    	repositorioDeMonedasMeli.getMonedas(Moneda.codigosMoneda());
+
+    	withTransaction(() -> {
+    		crearProveedores();
+    		crearMediosDePago();
+    		crearEntidades();
+    		mockearUsuarios();
+    	});
     }
 
     private void mockearUsuarios() {

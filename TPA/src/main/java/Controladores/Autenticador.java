@@ -1,5 +1,6 @@
 package Controladores;
 
+import java.net.HttpURLConnection;
 import java.util.LinkedList;
 import java.util.List;
 import Exceptions.NingunaSesionAbiertaException;
@@ -41,6 +42,7 @@ public class Autenticador
 		}
 		
 		catch(NingunaSesionAbiertaException | UsuarioNoExisteException e){
+			respuesta.status(HttpURLConnection.HTTP_PROXY_AUTH);
 			respuesta.redirect(LOGIN_URI);
 		}
 		
