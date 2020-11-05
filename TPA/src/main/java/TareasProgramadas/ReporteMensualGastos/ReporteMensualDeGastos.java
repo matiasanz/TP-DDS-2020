@@ -22,13 +22,14 @@ import javax.persistence.EntityTransaction;
 
 public class ReporteMensualDeGastos implements Job {
 
-//	public static RepoEntidadesDB repoEntidades = new RepoEntidadesDB();
-	public static RepositorioDeEntidades repoEntidades = new RepositorioDeEntidades();
+	public static RepoEntidadesDB repoEntidades = new RepoEntidadesDB();
+//	public static RepositorioDeEntidades repoEntidades = new RepositorioDeEntidades();
 	
 	private static EntityTransaction transaccion = PerThreadEntityManagers.getEntityManager().getTransaction();
 	
     public void execute(JobExecutionContext context) {
 
+    	 System.out.println("****** Hago insert ******");
     	agregarDatosADB(); //
     	LocalDate fechaActual = LocalDate.of(2020, 07, 31); // LocalDate.now() 
 

@@ -6,6 +6,11 @@ import Direccion.Pais;
 import Entidad.Entidad;
 import Entidad.*;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
+import Factory.EntidadesFactory;
+import Factory.MedioDePagoFactory;
+import Factory.ProveedoresFactory;
+import Factory.UsuariosFactory;
+import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -35,6 +40,10 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 
 
         withTransaction(() -> {
+            crearProveedores();
+            crearMediosDePago();
+            crearEntidades();
+            mockearUsuarios();
             persist(ong);
             persist(corporacion);
             persist(industriaAlimenticia);
@@ -43,4 +52,26 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
         });
     }
 
+    private void mockearUsuarios() {
+        RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
+        repoUsuarios.agregar(UsuariosFactory.usuarioStub());
+        repoUsuarios.agregar(UsuariosFactory.sinValidaciones("beto", "123"));
+    }
+
+    private void crearEntidades() {
+        persist(EntidadesFactory.empresaMedianaTramo2());
+        persist(EntidadesFactory.getEntidadJuridica());
+    }
+
+    private void crearProveedores() {
+        persist(ProveedoresFactory.ProveedorJuanPerez());
+        persist(ProveedoresFactory.ProveedorMaster());
+        persist(ProveedoresFactory.ProveedorOne());
+    }
+
+    private void crearMediosDePago() {
+        persist(MedioDePagoFactory.effectivo());
+        persist(MedioDePagoFactory.tarjetaDeCreditoVisa());
+        persist(MedioDePagoFactory.tarjetaDeDebito());
+    }
 }

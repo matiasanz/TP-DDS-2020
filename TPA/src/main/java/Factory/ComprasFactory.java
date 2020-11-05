@@ -46,6 +46,13 @@ public class ComprasFactory {
         compraMarzo2018Amoblamiento.setPresupuestoElegido(presupuestoElegido);
         return compraMarzo2018Amoblamiento;
     }
+
+    public static Compra getCompraFebrero2017SinEtiquetaNiPresupuestos() {
+        Compra compraFebrero2017SinEtiqueta = new Compra(repositorioDeMonedas, null, LocalDate.of(2017, 2, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, new ArrayList<Usuario>());
+        List<Item> items = Arrays.asList(item50);
+        return compraFebrero2017SinEtiqueta;
+    }
+
     public static Compra getCompraFebrero2017SinEtiqueta() {
         Compra compraFebrero2017SinEtiqueta = new Compra(repositorioDeMonedas, null, LocalDate.of(2017, 2, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, new ArrayList<Usuario>());
         List<Item> items = Arrays.asList(item50);
@@ -83,9 +90,6 @@ public class ComprasFactory {
         Compra compra19Julio2020Amoblamiento = new Compra(repositorioDeMonedas, null, LocalDate.of(2020, 7, 19), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, new ArrayList<Usuario>());
         compra19Julio2020Amoblamiento.agregarItem(item9Con50);
         compra19Julio2020Amoblamiento.agregarEtiqueta("Amoblamiento");
-        Presupuesto presupuestoElegido = presupuestoConItems(Arrays.asList(item9Con50));
-        compra19Julio2020Amoblamiento.agregarPresupuesto(presupuestoElegido);
-        compra19Julio2020Amoblamiento.setPresupuestoElegido(presupuestoElegido);
         return compra19Julio2020Amoblamiento;
     }
     public static Compra getCompra12Julio2020SinEtiqueta() {
@@ -108,7 +112,7 @@ public class ComprasFactory {
     }
 
     public static Compra compraConNPresupuestosMinimos(int cantidadMinimaDePresupuestos) {
-        EntidadJuridica unaEntidad = new Empresa("Razon SRL", "Kwik-E-Mart", "4517", DireccionesFactory.direccionStub(), 1, new ArrayList<>(), Clasificacion.PEQUENIA);
+        EntidadJuridica unaEntidad = new Empresa("Razon SRL", "Kwik-E-Mart", "4517", DireccionesFactory.direccionStub9DeJulio(), 1, new ArrayList<>(), Clasificacion.PEQUENIA);
         LocalDate fechaActual = LocalDate.now();
         List<Usuario> usuarios = new ArrayList<>();
         usuarios.add(UsuariosFactory.usuarioStub());

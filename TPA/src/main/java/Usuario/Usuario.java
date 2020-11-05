@@ -4,35 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
+import Exceptions.ErrorDeAutenticacionException;
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
-    //private Tipo tipo; //administrador o validador
-
     @Id
     @GeneratedValue
-    private Long id ;
+    private Long id;
 
     private String username;
     private String contrasenia;
 
-    @ElementCollection
-    @Column(name = "Mensajes")
-    private List<String> bandejaDeMensajes = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "mensajes_por_usuario")
+    private List<Mensaje> bandejaDeMensajes = new ArrayList<>();
 
-    public Usuario() {
+    @Enumerated
+    private TipoUsuario tipo;
+    
+    public Usuario() {}
 
-    }
-
-    public Usuario(String username, String contrasenia) {
-
-        ValidadorUsuario validacion = new ValidadorUsuario();
-
-        this.username = username;
-
-        validacion.validarContrasenia(contrasenia, username);
+    public Usuario(String username, String contrasenia, TipoUsuario tipoUsuario) {
+    	new ValidadorUsuario().validarContrasenia(contrasenia, username);
+    	this.username = username;
         this.contrasenia = contrasenia;
-
+        this.tipo = tipoUsuario;
     }
 
     public String getUsername() {
@@ -43,20 +40,19 @@ public class Usuario {
         return contrasenia;
     }
 
-    public List<String> getMensajes(){
-    	return bandejaDeMensajes;
-    }
-
     public Long getId(){
     	return id;
     }
 
+    public TipoUsuario getTipo(){
+    	return tipo;
+    }
 
-    public List<String> getBandejaDeMensajes() {
+    public List<Mensaje> getBandejaDeMensajes() {
         return bandejaDeMensajes;
     }
 
-    public void setBandejaDeMensajes(List<String> bandejaDeMensajes) {
+    public void setBandejaDeMensajes(List<Mensaje> bandejaDeMensajes) {
         this.bandejaDeMensajes = bandejaDeMensajes;
     }
 
@@ -69,10 +65,18 @@ public class Usuario {
 
     }
     
-    public void notificarEvento(String mensaje){
+    public void notificarEvento(Mensaje mensaje){
     	bandejaDeMensajes.add(mensaje);
     }
 
+    public void autenticar(String password){
+    	if(!contrasenia.equals(password)) {
+    		throw new ErrorDeAutenticacionException();
+    	}
+    }
+
+    
+    //Deprecated
     public boolean equals(Usuario otroUsuario){
         return this.autentica(otroUsuario.getUsername(),otroUsuario.getContrasenia());
     }
@@ -80,12 +84,7 @@ public class Usuario {
     public boolean autentica(String username, String password){
         return this.username.equals(username) && this.contrasenia.equals(password);
     }
-    
-    public void autenticar(String password){
-    	if(!contrasenia.equals(password)) {
-    		throw new ErrorDeAutenticacionException();
-    	}
-    }
+    //******************************
     
     public void vaciarBandeja(){
     	bandejaDeMensajes.clear();
@@ -95,4 +94,16 @@ public class Usuario {
 		this.id = id;
 	}
 
+	public void setUsername(String nombre){
+		username = nombre;
+	}
+	
+	public void setContrasenia(String password){
+		contrasenia = password;
+	}
+
+	public void setTipo(TipoUsuario nuevoTipo)
+	{
+		tipo = nuevoTipo;
+	}
 }

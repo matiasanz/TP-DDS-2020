@@ -18,7 +18,7 @@ public class TestProveedorPersistencia extends AbstractPersistenceTest implement
 
 	@Test
 	public void personaFisicaSePersisteCorrectamente(){
-		Proveedor proveedorInsertado = Proveedor.PersonaFisica(1,3,"Pocho","Saldivar", DireccionesFactory.direccionStub());
+		Proveedor proveedorInsertado = Proveedor.PersonaFisica(1,3,"Pocho","Saldivar", DireccionesFactory.direccionStub9DeJulio());
 		assertNull(proveedorInsertado.getId());
 		
 		entityManager().persist(proveedorInsertado);
@@ -33,7 +33,7 @@ public class TestProveedorPersistencia extends AbstractPersistenceTest implement
 	
 	@Test
 	public void personaFisicaSePersisteCorrectamentes(){
-		Proveedor proveedorInsertado = Proveedor.PersonaFisica(1,3,"Pocho","Saldivar", DireccionesFactory.direccionStub());
+		Proveedor proveedorInsertado = Proveedor.PersonaFisica(1,3,"Pocho","Saldivar", DireccionesFactory.direccionStub9DeJulio());
 		assertNull(proveedorInsertado.getId());
 		
 		EntityManager entityManager = entityManager();
@@ -52,7 +52,7 @@ public class TestProveedorPersistencia extends AbstractPersistenceTest implement
 	
 	@Test
 	public void personaJuridicaSePersisteCorrectamentes(){
-		Proveedor proveedorInsertado = Proveedor.PersonaJuridica("Hermanos Saldivar", DireccionesFactory.direccionStub());
+		Proveedor proveedorInsertado = Proveedor.PersonaJuridica("Hermanos Saldivar", DireccionesFactory.direccionStub9DeJulio());
 		assertNull(proveedorInsertado.getId());
 		
 		EntityManager entityManager = entityManager();

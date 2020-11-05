@@ -25,7 +25,15 @@ img {
     animation: colorize 1s cubic-bezier(0, 0, .78, .36) 1;
     background: transparent;
     display: flex;
-    max-width: 15%;
+    max-width: 20%;
+}
+
+table, td {
+    border: 1px solid black;
+}
+
+th {
+   width:180px;
 }
 
 @keyframes colorize {
@@ -102,4 +110,8 @@ img {
 
 .divCategorias .submitButton {
     overflow: hidden;
+}
+
+.mismaFila {
+    display: inline;
 }

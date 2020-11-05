@@ -1,4 +1,4 @@
-package Categoria;
+package Exceptions;
 
 public class MontoMaximoExcedidoException extends RuntimeException {
 }

@@ -3,7 +3,9 @@ package Repositorios;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
@@ -12,7 +14,7 @@ public abstract class RepoDB<T>{
 	public	List<T> getAll(){
 		return createQuery().getResultList();
 	}
-	
+
 	public void agregar(T elemento){
 		entityManager().persist(elemento);
 	}
