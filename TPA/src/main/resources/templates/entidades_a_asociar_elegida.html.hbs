@@ -30,10 +30,15 @@
             <ul>
                 {{#categoriasSinAsociar}}
                     <li>
-                        <span>{{nombre}}</span>
-                        <form action="/entidades/{{idEntidad}}/agregarCategoria/{{id}}" method="POST">
-                            <input type="submit" value="Asociar">
-                        </form>
+                        <div class="divCategorias">
+                            <div class="nombreCategoria"><span style="float: left; margin-right: 5px;">{{nombre}}</span></div>
+                            <div class="submitButton">
+                                <form action="/entidades/{{idEntidad}}/agregarCategoria" method="POST">
+                                    <input type="hidden" name="idCategoria" value={{id}}>
+                                    <input type="submit" value="Asociar">
+                                </form>
+                            </div>
+                        </div>
                     </li>
                 {{/categoriasSinAsociar}}
             </ul>
@@ -42,10 +47,15 @@
             <ul>
                 {{#categoriasAsociadas}}
                     <li>
-                        <span>{{nombre}}</span>
-                         <form action="/entidades/{{idEntidad}}/eliminarCategoria/{{id}}" method="POST">
-                            <input type="submit" value="Desasociar">
-                        </form>
+                        <div class="divCategorias">
+                            <div class="nombreCategoria"><span style="float: left; margin-right: 5px;">{{nombre}}</span></div>
+                            <div class="submitButton">
+                                <form action="/entidades/{{idEntidad}}/eliminarCategoria" method="POST">
+                                    <input type="hidden" name="idCategoria" value={{id}}>
+                                    <input type="submit" value="Desasociar">
+                                </form>
+                            </div>
+                        </div>
                     </li>
                 {{/categoriasAsociadas}}
             </ul>

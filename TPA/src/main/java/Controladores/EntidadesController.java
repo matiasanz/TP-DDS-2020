@@ -44,6 +44,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
             Categoria categoria = RepositorioDeCategorias.instancia.findById(Long.parseLong(request.params(":id")));
 
             if (categoria == null){
+                response.status(404);
                 modelo.put("mensajeError", "Error 404 - Categoría no encontrada");
                 return new ModelAndView(modelo, "errores.html.hbs");
             }
@@ -98,7 +99,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
             Map<String, Object> modelo = new HashMap<>();
 
             Entidad entidad = RepositorioDeEntidades.instancia.findById(Long.parseLong(request.params(":id")));
-            Categoria categoria = RepositorioDeCategorias.instancia.findById(Long.parseLong(request.params(":idCategoria")));
+            Categoria categoria = RepositorioDeCategorias.instancia.findById(Long.parseLong(request.queryParams("idCategoria")));
 
             if (entidad == null || categoria == null){
                 response.status(404);
@@ -126,7 +127,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
             Map<String, Object> modelo = new HashMap<>();
 
             Entidad entidad = RepositorioDeEntidades.instancia.findById(Long.parseLong(request.params(":id")));
-            Categoria categoria = RepositorioDeCategorias.instancia.findById(Long.parseLong(request.params(":idCategoria")));
+            Categoria categoria = RepositorioDeCategorias.instancia.findById(Long.parseLong(request.queryParams("idCategoria")));
 
             if (entidad == null || categoria == null){
                 response.status(404);
