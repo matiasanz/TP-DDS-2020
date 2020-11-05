@@ -23,10 +23,11 @@ public class Mensaje {
         this.value = value;
     }
 
-    public Mensaje() {
+    public Mensaje() {}
 
-    }
-
+    
+// de aca para abajo getters y setters
+    
     public LocalDateTime getFecha() {
         return fecha;
     }
@@ -41,5 +42,13 @@ public class Mensaje {
 
     public void setValue(String value) {
         this.value = value;
+    }
+    
+    public Long getId(){
+    	return id;
+    }
+    
+    public void setId(Long id){
+    	this.id=id;
     }
 }

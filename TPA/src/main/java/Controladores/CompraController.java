@@ -34,17 +34,20 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
     private final RepositorioDeMonedasMeli repositorioDeMonedas = new RepositorioDeMonedasMeli();
     private final RepositorioDeProveedoresDB repositorioDeProveedores = new RepositorioDeProveedoresDB();
     private final RepositorioMedioDePagoDB repositorioMedioDePago = new RepositorioMedioDePagoDB();
-
-    public ModelAndView getPaginaComrasNueva() {
+    private final Autenticador autenticador = Autenticador.getInstance();
+    
+    public ModelAndView getPaginaComprasNueva(Request request, Response response) {
+    	autenticador.reconocerUsuario(request, response);
         return inicializarPaginaComprasNueva(new HashMap<>());
     }
 
     public ModelAndView getPaginaComprasMenu(Request request, Response response) {
+    	autenticador.reconocerUsuario(request,response);
         return new ModelAndView(new HashMap<>(), "compras-menu.html.hbs");
     }
 
     public ModelAndView crearCompra(Request request, Response response) {
-
+    	autenticador.reconocerUsuario(request,response);
         Map<String, Object> modelo = new HashMap<>();
 
         try {
@@ -61,6 +64,7 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
     }
 
     public ModelAndView getPaginaVerCompras(Request request, Response response) {
+    	autenticador.reconocerUsuario(request,response);
         return new ModelAndView(new HashMap<>(), "compras-ver-todas.html.hbs");
     }
 

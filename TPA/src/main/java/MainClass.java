@@ -49,7 +49,7 @@ public class MainClass{
         Usuario usuario;
 
         try{
-        	usuario = usuarios.getByUsername(usuarioIngresado);
+        	usuario = usuarios.getUsuario(usuarioIngresado);
         	usuario.autenticar(passwordIngresada);
         }
 

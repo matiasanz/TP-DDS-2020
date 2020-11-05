@@ -24,8 +24,6 @@ public class Routes {
     private static final EntidadesController entidadesController = new EntidadesController();
 
     public static void main(String[] args) {
-        //Cargamos la cache
-        repositorioDeMonedasMeli.getMonedas(Moneda.codigosMoneda());
         System.out.println("Iniciando servidor");
 
         Spark.port(8080);
@@ -48,14 +46,30 @@ public class Routes {
 
         Spark.get("/logout", menuController::logout, engine);
 
-        Spark.get("/compras/nueva", (request, response) -> compraController.getPaginaComrasNueva(), engine);
+        comprasRoutes();
+        entidadesRouts();
 
-        Spark.get("/compras/ver", compraController::getPaginaVerCompras, engine);
+        after((request, response) -> {
+            PerThreadEntityManagers.getEntityManager();
+            PerThreadEntityManagers.closeEntityManager();
+        });
+
+        System.out.println("Servidor iniciado correctamente");
+    }
+
+    private static void comprasRoutes(){
 
         Spark.get("/compras", compraController::getPaginaComprasMenu, engine);
 
+        Spark.get("/compras/nueva", compraController::getPaginaComprasNueva, engine);
+
         Spark.post("/compras", compraController::crearCompra, engine);
 
+        Spark.get("/compras/ver", compraController::getPaginaVerCompras, engine);
+
+    }
+
+    private static void entidadesRouts(){
         Spark.get("/entidades", (request, response) -> entidadesController.getOptions(), engine);
 
         Spark.get("/entidades/categorias", entidadesController::getCategoriasAElegir, engine);
@@ -73,11 +87,5 @@ public class Routes {
         Spark.get("/entidades/nueva", (request, response) -> entidadesController.getCreadorDeEntidad(), engine);
 
         //Spark.post("/entidades", entidadesController::crearEntidad, engine);
-
-        after((request, response) -> {
-            PerThreadEntityManagers.getEntityManager();
-            PerThreadEntityManagers.closeEntityManager();
-        });
-        System.out.println("Servidor iniciado correctamente");
     }
 }

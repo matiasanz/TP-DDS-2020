@@ -10,6 +10,8 @@ import Factory.EntidadesFactory;
 import Factory.MedioDePagoFactory;
 import Factory.ProveedoresFactory;
 import Factory.UsuariosFactory;
+import Moneda.Moneda;
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -17,11 +19,22 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
 
-    public static void main(String[] args) {
+	private static RepositorioDeMonedasMeli repositorioDeMonedasMeli = new RepositorioDeMonedasMeli();
+
+	public static void main(String[] args) {
         new Bootstrap().run();
     }
 
     public void run() {
+    	//Cargamos la cache
+    	repositorioDeMonedasMeli.getMonedas(Moneda.codigosMoneda());
+
+    	withTransaction(() -> {
+    		crearProveedores();
+    		crearMediosDePago();
+    		crearEntidades();
+    		mockearUsuarios();
+    	});
 
         Categoria ong = new Categoria("ONG");
         Categoria corporacion = new Categoria("Corporacion");
