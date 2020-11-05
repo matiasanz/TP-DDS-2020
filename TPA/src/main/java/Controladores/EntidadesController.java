@@ -48,7 +48,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
         - Permite elegir los valores y en el caso de la categoría debe permitir ir a un ABM para crear
          */
 
-        return new ModelAndView(new HashMap<>(), "entidades_nueva.html");
+        return new ModelAndView(new HashMap<>(), "entidades_nueva.html.hbs");
     }
 
     public ModelAndView getEntidadesPorCategoria(Request request, Response response){

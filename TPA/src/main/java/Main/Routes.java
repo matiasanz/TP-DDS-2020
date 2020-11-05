@@ -33,6 +33,7 @@ public class Routes {
         Spark.post("/entidades/:id/eliminarCategoria", entidadesController::eliminarCategoriaDeEntidad, engine);
 
         Spark.get("/entidades/nueva", (request, response) -> entidadesController.getCreadorDeEntidad(), engine);
+        //Spark.post("/entidades", entidadesController::crearEntidad, engine);
 
         after((request, response) -> {
             PerThreadEntityManagers.getEntityManager();
