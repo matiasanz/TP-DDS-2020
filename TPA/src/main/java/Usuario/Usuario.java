@@ -18,7 +18,7 @@ public class Usuario {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "mensajes_por_usuario")
-    private List<Mensaje> bandejaDeMensajes = new ArrayList<>();
+    private List<Mensaje> bandejaDeMensajes;
 
     @Enumerated
     private TipoUsuario tipo;

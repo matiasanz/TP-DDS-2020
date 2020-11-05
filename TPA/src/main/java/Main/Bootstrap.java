@@ -1,11 +1,6 @@
 package Main;
 
 import Categoria.Categoria;
-import Direccion.Direccion;
-import Direccion.Pais;
-import Entidad.Entidad;
-import Entidad.*;
-import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
 import Factory.EntidadesFactory;
 import Factory.MedioDePagoFactory;
 import Factory.ProveedoresFactory;
@@ -29,39 +24,12 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     	//Cargamos la cache
     	repositorioDeMonedasMeli.getMonedas(Moneda.codigosMoneda());
 
-    	withTransaction(() -> {
-    		crearProveedores();
-    		crearMediosDePago();
-    		crearEntidades();
-    		mockearUsuarios();
-    	});
-
-        Categoria ong = new Categoria("ONG");
-        Categoria corporacion = new Categoria("Corporacion");
-        Categoria industriaAlimenticia = new Categoria("Industria Alimenticia");
-
-        Direccion direccion = new Direccion(new RepositorioDeLocacionesMeli(), "Altolaguirre", 57, 0, "1874", Pais.AR);
-
-        Entidad entidad1 = new Empresa("Arcos Dorados S.A.", "McDonalds", "20404040401",
-                direccion, 10, null, Clasificacion.MEDIANATRAMO2);
-        entidad1.agregarCategoria(corporacion);
-
-        Entidad entidad2 = new OrganizacionSectorSocial("Comedero Juan Carlos", "Comedero Juan Carlos", "20402545401",
-                direccion, 124, null);
-        entidad2.agregarCategoria(ong);
-        entidad2.agregarCategoria(industriaAlimenticia);
-
-
         withTransaction(() -> {
             crearProveedores();
             crearMediosDePago();
             crearEntidades();
+            crearCategorias();
             mockearUsuarios();
-            persist(ong);
-            persist(corporacion);
-            persist(industriaAlimenticia);
-            persist(entidad1);
-            persist(entidad2);
         });
     }
 
@@ -86,5 +54,11 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
         persist(MedioDePagoFactory.effectivo());
         persist(MedioDePagoFactory.tarjetaDeCreditoVisa());
         persist(MedioDePagoFactory.tarjetaDeDebito());
+    }
+
+    private void crearCategorias() {
+        persist(new Categoria("ONG"));
+        persist(new Categoria("Corporacion"));
+        persist(new Categoria("Industria Alimenticia"));
     }
 }
