@@ -77,4 +77,7 @@ public abstract class EntidadJuridica extends Entidad {
 		this.direccionPostal = direccionPostal;
 	}
 
+	public String getCuit() { return cuit;}
+
+	public void setCuit(String cuit) { this.cuit = cuit; }
 }

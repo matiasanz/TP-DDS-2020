@@ -81,8 +81,13 @@ public class Routes {
 
         Spark.post("/entidades/:id/eliminar-categoria", entidadesController::eliminarCategoriaDeEntidad, engine);
 
-        Spark.get("/entidades/nueva", entidadesController::getCreadorDeEntidad, engine);
+        Spark.get("/entidades/nueva", entidadesController::getCreadorEntidad, engine);
 
-        //Spark.post("/entidades", entidadesController::crearEntidad, engine);
+        Spark.get("/entidades/nueva-base", entidadesController::getCreadorEntidadBase, engine);
+
+        Spark.get("/entidades/nueva-empresa", entidadesController::getCreadorEmpresa, engine);
+
+        Spark.get("/entidades/nueva-org-sector-social", entidadesController::getCreadorOrgSectorSocial, engine);
+
     }
 }

@@ -42,18 +42,51 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
         return new ModelAndView(modelo,"entidades_por_categoria.html.hbs");
     }
 
+    public ModelAndView getCreadorEntidad(Request request, Response response) {
+        autenticador.reconocerUsuario(request, response);
+        return new ModelAndView(new HashMap<>(), "entidades_nueva.html.hbs");
+    }
 
-    public ModelAndView getCreadorDeEntidad(Request request, Response response) {
+    /* TODO: CREADOR BASE
+    - nombre ficticio -> STRING
+    - categorias -> LIST<CATEGORIA>
+    - descripcion -> STRING
+     */
+    public ModelAndView getCreadorEntidadBase(Request request, Response response) {
         autenticador.reconocerUsuario(request, response);
 
-        List<Categoria> categoriasDisponibles = RepositorioDeCategorias.instancia.getCategorias();
+        return null;
+    }
 
-        /* TODO: A la hora de crear la entidad:
-        - Se elige el tipo de entidad -> A raíz de esto nacen tres formularios distintos
-        - Permite elegir los valores y en el caso de la categoría debe permitir ir a un ABM para crear
-         */
+    /* TODO: CREADOR EMPRESA
+    - nombre ficticio
+    - categorias -> LIST<CATEGORIA>
+    - razonSocial -> STRING
+    - cuit -> STRING
+    - direccionPostal -> DIRECCION
+    - codigoIGJ -> INT
+    - entidadesBase -> LIST<ENTIDADBASE>
+    - clasificacion -> ENUM (CLASIFICACION)
+     */
+    public ModelAndView getCreadorEmpresa(Request request, Response response) {
+        autenticador.reconocerUsuario(request, response);
 
-        return new ModelAndView(new HashMap<>(), "entidades_nueva.html.hbs");
+        return null;
+    }
+
+    /* TODO: CREADOR ORGANIZACION DEL SECTOR SOCIAL
+    - nombre ficticio
+    - categorias -> LIST<CATEGORIA>
+    - razonSocial -> STRING
+    - cuit -> STRING
+    - direccionPostal -> DIRECCION
+    - codigoIGJ -> INT
+    - entidadesBase -> LIST<ENTIDADBASE>
+     */
+    public ModelAndView getCreadorOrgSectorSocial(Request request, Response response) {
+        autenticador.reconocerUsuario(request, response);
+
+        return null;
     }
 
     public ModelAndView getEntidadesPorCategoria(Request request, Response response){
