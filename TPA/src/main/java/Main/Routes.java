@@ -4,6 +4,7 @@ import Controladores.BandejaController;
 import Controladores.CompraController;
 import Controladores.HomeController;
 import Controladores.MenuController;
+import spark.Response;
 import spark.Spark;
 import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -28,11 +29,9 @@ public class Routes {
 
         new Bootstrap().run();
         
-//        Spark.before((request, response)->{        	
-//        	if(!request.uri().equals("/")){
-//        		Autenticador.getInstance().reconocerUsuario(request, response);
-//        	}
-//        });
+        Spark.before((request, response)->{        	        	
+        	bloquearCache(response);
+        });
         
         Spark.get("/", homeController::getHome, engine);
         
@@ -59,5 +58,9 @@ public class Routes {
 
         Spark.get("/compras/ver", compraController::getPaginaVerCompras, engine);
 
+    }
+    
+    private static void bloquearCache(Response respuesta){
+		respuesta.header("Cache-Control", "no-store, must-revalidate");
     }
 }
