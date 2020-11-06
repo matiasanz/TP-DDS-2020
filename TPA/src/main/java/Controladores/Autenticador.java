@@ -38,6 +38,7 @@ public class Autenticador
 		
 		try{
 			validarSesionEnCurso(pedido);
+			bloquearCache(respuesta);
 			usuario = getUsuarioLogueado(id);
 		}
 		
@@ -63,5 +64,10 @@ public class Autenticador
     public boolean sesionEnCurso(Request request){
     	Long id = request.session().attribute(USER_ID);
     	return  id != null && usuariosLogueados.stream().anyMatch(usuario->usuario.getId().equals(id));
+    }
+    
+    public void bloquearCache(Response respuesta){
+		respuesta.header("Cache-Control","no-cache,no-store,must-revalidate");
+		respuesta.header("Pragma","no-cache");
     }
 }

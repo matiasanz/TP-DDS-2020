@@ -27,11 +27,17 @@ public class Routes {
         Spark.staticFileLocation("/public");
 
         new Bootstrap().run();
-
+        
+//        Spark.before((request, response)->{        	
+//        	if(!request.uri().equals("/")){
+//        		Autenticador.getInstance().reconocerUsuario(request, response);
+//        	}
+//        });
+        
         Spark.get("/", homeController::getHome, engine);
         
         Spark.post("/login", homeController::tryLogin, engine);
-        
+                
         Spark.get("/menu", menuController::getUserMenu, engine);
         
         Spark.get("/mensajes", bandejaController::getBandejaDeMensajes, engine);
