@@ -7,14 +7,10 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-public class BandejaController
-{
-	private final String ARCHIVO_MENSAJES = "mensajes.html.hbs";
-	Autenticador autenticador = Autenticador.getInstance();
-	
+public class BandejaController {
 	public ModelAndView getBandejaDeMensajes(Request request, Response response){
-		Usuario usuario = autenticador.reconocerUsuario(request, response);			
-		return new ModelAndView( crearModelo(usuario) , ARCHIVO_MENSAJES);		
+		Usuario usuario = Autenticador.getInstance().reconocerUsuario(request, response);
+		return new ModelAndView(crearModelo(usuario) , "mensajes.html.hbs");
 	}
 	
 	private Map<String, Object> crearModelo(Usuario usuarioAutenticado){

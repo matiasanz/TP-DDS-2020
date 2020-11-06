@@ -1,0 +1,30 @@
+{{# partial "titulo" }}
+    <title>GeSoc - Crear categoria</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+      <a href="/">Inicio</a>
+      <a href="/compras">Compras</a>
+      <a class="active" href="/entidades">Entidades</a>
+      <a href="/mensajes">Mensajes</a>
+      <a href="/logout">Salir</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+    <section>
+
+        <button class="botonAtras" onclick="location.href='/entidades'">Atras</button>
+
+
+        {{#mensajeAccion}}
+            <h2 style="text-align:center;">{{mensajeAccion}}</h2>
+        {{/mensajeAccion}}
+
+
+
+    </section>
+{{/partial}}
+
+{{> layout.html.hbs }}

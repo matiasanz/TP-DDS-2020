@@ -25,7 +25,7 @@ img {
     animation: colorize 1s cubic-bezier(0, 0, .78, .36) 1;
     background: transparent;
     display: flex;
-    max-width: 30%;
+    max-width: 17%;
 }
 
 table, td {
@@ -46,6 +46,29 @@ th {
         filter: grayscale(0%);
     }
 }
+
+.botonSameTamanio{
+    width:50%;
+    display:block;
+    margin: 10px auto auto;
+    padding: 10px 10px;
+    border-radius: 4px;
+    background-color: rgb(30, 78, 115);
+    color: #fff;
+}
+
+.botonAtras{
+    width:30%;
+    display:block;
+    margin: 10px auto auto;
+    padding: 10px 10px;
+    border-radius: 4px;
+    background-color: rgb(30, 78, 115);
+    color: #fff;
+}
+
+.botonSameTamanio:hover{color:#000!important;background-color:#ccc!important}
+.botonAtras:hover{color:#000!important;background-color:#ccc!important}
 
 .footer {
     padding-top: 10px;
@@ -78,6 +101,15 @@ th {
 .topnav a.active {
     background-color: #1c4c74;
     color: white;
+}
+
+.divCategorias .nombreCategoria {
+    float: left;
+    margin-right: 5px;
+}
+
+.divCategorias .submitButton {
+    overflow: hidden;
 }
 
 .mismaFila {
