@@ -25,7 +25,7 @@ img {
     animation: colorize 1s cubic-bezier(0, 0, .78, .36) 1;
     background: transparent;
     display: flex;
-    max-width: 20%;
+    max-width: 17%;
 }
 
 table, td {

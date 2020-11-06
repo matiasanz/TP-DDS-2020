@@ -16,7 +16,7 @@ public class Usuario {
     private String username;
     private String contrasenia;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "mensajes_por_usuario")
     private List<Mensaje> bandejaDeMensajes;
 
