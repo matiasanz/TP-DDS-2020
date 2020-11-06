@@ -43,6 +43,7 @@ public class Autenticador
 		
 		catch(NingunaSesionAbiertaException | UsuarioNoExisteException e){
 			respuesta.status(HttpURLConnection.HTTP_PROXY_AUTH);
+			respuesta.cookie("mensaje","La sesion ha expirado");
 			respuesta.redirect(LOGIN_URI);
 		}
 		
