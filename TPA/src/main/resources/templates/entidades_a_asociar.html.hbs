@@ -1,0 +1,37 @@
+{{# partial "titulo" }}
+    <title>GeSoc - Asociar categorias</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+      <a href="/">Inicio</a>
+      <a href="/compras">Compras</a>
+      <a class="active" href="/entidades">Entidades</a>
+      <a href="/mensajes">Mensajes</a>
+      <a href="/logout">Salir</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+    <section>
+
+        <button class="botonAtras" onclick="location.href='/entidades'">Atras</button>
+
+        <h2>Elija la entidad a la que desea asociar categorías</h2>
+
+        <form action="/entidades/asociarCategoria" method="GET">
+            <input type="text" name="filtro" placeholder="Nombre de entidad">
+            <input type="submit" value="Buscar">
+        </form>
+
+        <ul>
+            {{#entidades}}
+                <li><a href="/entidades/{{id}}/categorias">{{nombreFicticio}}</a></li>
+            {{/entidades}}
+        </ul>
+
+    </section>
+
+{{/partial}}
+
+{{> layout.html.hbs }}

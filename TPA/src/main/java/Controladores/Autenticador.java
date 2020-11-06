@@ -50,12 +50,10 @@ public class Autenticador
 	}
 	
 	private Usuario getUsuarioLogueado(Long id){
-    	Usuario usuario = usuariosLogueados.stream()
+		return usuariosLogueados.stream()
     			.filter(u->u.getId().equals(id))
     			.findAny()
     			.orElseThrow(UsuarioNoExisteException::new);
-    	
-    	return usuario;
     }
     
     private void validarSesionEnCurso(Request pedido){
