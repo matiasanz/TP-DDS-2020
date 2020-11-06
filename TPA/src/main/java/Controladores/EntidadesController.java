@@ -44,7 +44,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
 
 
     public ModelAndView getCreadorDeEntidad(Request request, Response response) {
-        autenticador.reconocerUsuario(request, response);
+        //autenticador.reconocerUsuario(request, response);
 
         List<Categoria> categoriasDisponibles = RepositorioDeCategorias.instancia.getCategorias();
 

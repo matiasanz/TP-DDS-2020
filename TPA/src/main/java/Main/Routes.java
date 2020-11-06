@@ -73,13 +73,13 @@ public class Routes {
 
         Spark.get("/entidades/categorias/:id", entidadesController::getEntidadesPorCategoria, engine);
 
-        Spark.get("/entidades/asociarCategoria", entidadesController::getEntidadesAAsociar, engine);
+        Spark.get("/entidades/asociar-categoria", entidadesController::getEntidadesAAsociar, engine);
 
         Spark.get("/entidades/:id/categorias", entidadesController::getEntidadYSusCategorias, engine);
 
-        Spark.post("/entidades/:id/agregarCategoria", entidadesController::agregarCategoriaAEntidad, engine);
+        Spark.post("/entidades/:id/agregar-categoria", entidadesController::agregarCategoriaAEntidad, engine);
 
-        Spark.post("/entidades/:id/eliminarCategoria", entidadesController::eliminarCategoriaDeEntidad, engine);
+        Spark.post("/entidades/:id/eliminar-categoria", entidadesController::eliminarCategoriaDeEntidad, engine);
 
         Spark.get("/entidades/nueva", entidadesController::getCreadorDeEntidad, engine);
 

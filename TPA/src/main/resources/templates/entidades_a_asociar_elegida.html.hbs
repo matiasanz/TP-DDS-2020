@@ -15,7 +15,7 @@
 {{# partial "contenido" }}
     <section>
 
-        <button class="botonAtras" onclick="location.href='/entidades/asociarCategoria'">Atras</button>
+        <button class="botonAtras" onclick="location.href='/entidades/asociar-categoria'">Atras</button>
 
         {{#mensajeAccion}}
             <h2 style="text-align:center;">{{mensajeAccion}}</h2>
@@ -34,7 +34,7 @@
                         <div class="divCategorias">
                             <div class="nombreCategoria"><span style="float: left; margin-right: 5px;">{{nombre}}</span></div>
                             <div class="submitButton">
-                                <form action="/entidades/{{idEntidad}}/agregarCategoria" method="POST">
+                                <form action="/entidades/{{idEntidad}}/agregar-categoria" method="POST">
                                     <input type="hidden" name="idCategoria" value={{id}}>
                                     <input type="submit" value="Asociar">
                                 </form>
@@ -51,7 +51,7 @@
                         <div class="divCategorias">
                             <div class="nombreCategoria"><span style="float: left; margin-right: 5px;">{{nombre}}</span></div>
                             <div class="submitButton">
-                                <form action="/entidades/{{idEntidad}}/eliminarCategoria" method="POST">
+                                <form action="/entidades/{{idEntidad}}/eliminar-categoria" method="POST">
                                     <input type="hidden" name="idCategoria" value={{id}}>
                                     <input type="submit" value="Desasociar">
                                 </form>
