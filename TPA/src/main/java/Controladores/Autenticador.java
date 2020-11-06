@@ -5,15 +5,17 @@ import java.util.LinkedList;
 import java.util.List;
 import Exceptions.NingunaSesionAbiertaException;
 import Exceptions.UsuarioNoExisteException;
+import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
 import Usuario.Usuario;
 import spark.Request;
 import spark.Response;
 
 public class Autenticador
 {	
-	private List<Usuario> usuariosLogueados = new LinkedList<>();
-	String USER_ID = "uid"; //Cookie que "persiste" al usuario
-	String LOGIN_URI = "/";
+	private RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
+	private List<Long> usuariosLogueados = new LinkedList<>();
+	private String USER_ID = "uid"; //Cookie que "persiste" al usuario
+	private String LOGIN_URI = "/";
 
 	public static Autenticador instance = new Autenticador();
 	
@@ -23,12 +25,12 @@ public class Autenticador
 	
 	public void guardarCredenciales(Request request, Usuario usuario)	{
 		request.session().attribute(USER_ID, usuario.getId());
-		usuariosLogueados.add(usuario);
+		usuariosLogueados.add(usuario.getId());
 	}
 	
 	public void quitarCredenciales(Request request, Response response){
 		Usuario usuario = reconocerUsuario(request, response);
-		usuariosLogueados.remove(usuario);
+		usuariosLogueados.remove(usuario.getId());
 		request.session().removeAttribute(USER_ID);
     }
 	
@@ -38,7 +40,7 @@ public class Autenticador
 		
 		try{
 			validarSesionEnCurso(pedido);
-			usuario = getUsuarioLogueado(id);
+			usuario = getUsuario(id);
 		}
 		
 		catch(NingunaSesionAbiertaException | UsuarioNoExisteException e){
@@ -50,8 +52,8 @@ public class Autenticador
 		return usuario;
 	}
 	
-	private Usuario getUsuarioLogueado(Long id){
-		return usuariosLogueados.stream()
+	private Usuario getUsuario(Long id){
+		return repoUsuarios.getAll().stream()
     			.filter(u->u.getId().equals(id))
     			.findAny()
     			.orElseThrow(UsuarioNoExisteException::new);
@@ -63,6 +65,6 @@ public class Autenticador
     
     public boolean sesionEnCurso(Request request){
     	Long id = request.session().attribute(USER_ID);
-    	return  id != null && usuariosLogueados.stream().anyMatch(usuario->usuario.getId().equals(id));
+    	return  id != null && usuariosLogueados.stream().anyMatch(idLogueado->idLogueado.equals(id));
     }
 }

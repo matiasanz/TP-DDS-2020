@@ -22,7 +22,7 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
 	private final String ARCHIVO_LOGIN = "login.html.hbs";
 	private RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
 	private Autenticador autenticador = Autenticador.getInstance();
-	private final String MENSAJE_COOKIE = "mensaje";
+	private final String MENSAJE_TOKEN = "mensaje";
 	
 	//Pagina de inicio de sesion
     public ModelAndView getHome(Request request, Response response) {	        					
@@ -36,9 +36,9 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
     private Map<String, Object> generarModelo(Request pedido, Response respuesta){
         Map<String, Object> modelo = new HashMap<>();
 		
-        String mensaje = pedido.cookie(MENSAJE_COOKIE);
-        modelo.put("mensaje", (mensaje==null? "": mensaje));
-		respuesta.removeCookie(MENSAJE_COOKIE);
+        String mensaje = pedido.cookie(MENSAJE_TOKEN);
+        modelo.put(MENSAJE_TOKEN, (mensaje==null? "": mensaje));
+		respuesta.removeCookie(MENSAJE_TOKEN);
 		
 		return modelo;
     }
@@ -51,7 +51,7 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
 	    
 	    } catch(UsuarioNoExisteException | ErrorDeAutenticacionException e) {
 	    	respuesta.status(HttpURLConnection.HTTP_PROXY_AUTH);
-			respuesta.cookie(MENSAJE_COOKIE, "**El usuario y/o la contraseña ingresada son incorrectos");
+			respuesta.cookie(MENSAJE_TOKEN, "**El usuario y/o la contraseña ingresada son incorrectos");
 			respuesta.redirect("/");
 		}
 	    
