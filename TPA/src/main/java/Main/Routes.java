@@ -5,8 +5,6 @@ import Controladores.CompraController;
 import Controladores.EntidadesController;
 import Controladores.HomeController;
 import Controladores.MenuController;
-import Moneda.Moneda;
-import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
 import spark.debug.DebugScreen;
@@ -15,7 +13,6 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import static spark.Spark.after;
 
 public class Routes {
-    private static final RepositorioDeMonedasMeli repositorioDeMonedasMeli = new RepositorioDeMonedasMeli();
 	private static final HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 	private static final HomeController homeController = new HomeController();
 	private static final MenuController menuController = new MenuController();
