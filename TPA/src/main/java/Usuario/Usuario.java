@@ -1,6 +1,7 @@
 package Usuario;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -18,7 +19,7 @@ public class Usuario {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "mensajes_por_usuario")
-    private List<Mensaje> bandejaDeMensajes;
+    private List<Mensaje> bandejaDeMensajes = new LinkedList<>();
 
     @Enumerated
     private TipoUsuario tipo;
