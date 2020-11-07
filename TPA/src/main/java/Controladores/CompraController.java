@@ -61,6 +61,30 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
         return inicializarPaginaComprasNueva(modelo);
     }
 
+    public ModelAndView agregarEtiqueta(Request request, Response response) {
+        Map<String, Object> modelo = new HashMap<>();
+
+        try {
+            Long idCompra = Long.parseLong(request.params("id"));
+            Compra compra = repositorioCompras.getCompra(idCompra);
+            compra.agregarEtiqueta(response);
+
+            withTransaction(() -> {
+                //Si se puede reemplazar por un actualizar sería más óptimo
+                repositorioCompras.eliminar(compra);
+                repositorioCompras.agregar(compra);
+            });
+
+            modelo.put("resultado", "Etiqueta agregada con éxito!");
+            response.redirect("/compras/ver/" + idCompra);
+        } catch (Exception e) {
+            response.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
+            modelo.put("resultado", "Error - " + e.getMessage());
+        }
+
+        return inicializarPaginaComprasNueva(modelo);
+    }
+
     public ModelAndView getPaginaVerCompra(Request request, Response response) {
     	try {
     		Long idCompra = Long.parseLong(request.params("id"));

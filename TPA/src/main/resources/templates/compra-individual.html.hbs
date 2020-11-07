@@ -41,6 +41,34 @@
 				<p>------------------------------------------------------------------------------</p>
 			</ul>
 		</div>
+
+		<br>
+
+		<div id="nuevas-etiquetas">
+		    <form id="frm_compra" action="/compras" method="POST">
+		        <h4> Presupuesto </h4>
+                <div id="div_presupuesto_items">
+                    <h4> Items </h4>
+                    <table id="tbl_etiquetas">
+                        <thead>
+                            <tr>
+                                <th> Etiqueta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input name="txt_etiqueta_1" type="text" required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            <input id="cantidad_etiquetas" name="cantidad_etiquetas" type="hidden" value="1">
+            <button id="btn_agregar_etiquetas" onclick="agregarEtiqueta()" class="botonSameTamanio">Agregar Etiqueta</button>
+            <button id="btn_eliminar_etiquetas" onclick="eliminarEtiqueta()" disabled class="botonSameTamanio">Eliminar Etiqueta</button>
+		</div>
 	</section>
 {{/partial}}
 
