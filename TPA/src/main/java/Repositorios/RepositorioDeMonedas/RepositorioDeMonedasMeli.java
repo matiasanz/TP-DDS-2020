@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public class RepositorioDeMonedasMeli implements RepositorioDeMonedas {
 
+	private static final RepositorioDeMonedasMeli self = new RepositorioDeMonedasMeli();
     private final MeliApi meliApi;
     private List<Moneda> monedasCache = new ArrayList<>();
 
@@ -20,6 +21,10 @@ public class RepositorioDeMonedasMeli implements RepositorioDeMonedas {
         this.meliApi = new MeliApi();
     }
 
+    public static RepositorioDeMonedasMeli getInstance(){
+    	return self;
+    }
+    
     @Override
     public Moneda getMoneda(CodigoMoneda codigoMoneda) {
 

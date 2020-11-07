@@ -14,15 +14,13 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
 
-	private static RepositorioDeMonedasMeli repositorioDeMonedasMeli = new RepositorioDeMonedasMeli();
-
 	public static void main(String[] args) {
         new Bootstrap().run();
     }
 
     public void run() {
     	//Cargamos la cache
-    	repositorioDeMonedasMeli.getMonedas(Moneda.codigosMoneda());
+    	RepositorioDeMonedasMeli.getInstance().getMonedas(Moneda.codigosMoneda());
 
         withTransaction(() -> {
             crearProveedores();

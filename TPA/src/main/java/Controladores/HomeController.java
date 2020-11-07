@@ -37,8 +37,10 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
         Map<String, Object> modelo = new HashMap<>();
 		
         String mensaje = pedido.cookie(MENSAJE_TOKEN);
-        modelo.put(MENSAJE_TOKEN, (mensaje==null? "": mensaje));
-		respuesta.removeCookie(MENSAJE_TOKEN);
+        if(mensaje!=null){
+        	modelo.put(MENSAJE_TOKEN, mensaje);
+        	respuesta.removeCookie(MENSAJE_TOKEN);        	
+        }
 		
 		return modelo;
     }

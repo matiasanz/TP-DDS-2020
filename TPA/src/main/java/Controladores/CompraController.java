@@ -31,7 +31,7 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
 
     private final RepoEntidadesDB repositorioEntidades = new RepoEntidadesDB();
     private final RepoComprasDB repositorioCompras = new RepoComprasDB();
-    private final RepositorioDeMonedasMeli repositorioDeMonedas = new RepositorioDeMonedasMeli();
+    private final RepositorioDeMonedasMeli repositorioDeMonedas = RepositorioDeMonedasMeli.getInstance();
     private final RepositorioDeProveedoresDB repositorioDeProveedores = new RepositorioDeProveedoresDB();
     private final RepositorioMedioDePagoDB repositorioMedioDePago = new RepositorioMedioDePagoDB();
     private final Autenticador autenticador = Autenticador.getInstance();
