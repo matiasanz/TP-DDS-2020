@@ -78,17 +78,23 @@ public class Routes {
 
         Spark.get("/entidades/categorias/:id", entidadesController::getEntidadesPorCategoria, engine);
 
-        Spark.get("/entidades/asociarCategoria", entidadesController::getEntidadesAAsociar, engine);
+        Spark.get("/entidades/asociar-categoria", entidadesController::getEntidadesAAsociar, engine);
 
         Spark.get("/entidades/:id/categorias", entidadesController::getEntidadYSusCategorias, engine);
 
-        Spark.post("/entidades/:id/agregarCategoria", entidadesController::agregarCategoriaAEntidad, engine);
+        Spark.post("/entidades/:id/agregar-categoria", entidadesController::agregarCategoriaAEntidad, engine);
 
-        Spark.post("/entidades/:id/eliminarCategoria", entidadesController::eliminarCategoriaDeEntidad, engine);
+        Spark.post("/entidades/:id/eliminar-categoria", entidadesController::eliminarCategoriaDeEntidad, engine);
 
-        Spark.get("/entidades/nueva", entidadesController::getCreadorDeEntidad, engine);
+        Spark.get("/entidades/nueva", entidadesController::getCreadorEntidad, engine);
 
-        //Spark.post("/entidades", entidadesController::crearEntidad, engine);
+        Spark.get("/entidades/nueva-base", entidadesController::getCreadorEntidadBase, engine);
+
+        Spark.get("/entidades/nueva-empresa", entidadesController::getCreadorEmpresa, engine);
+
+        Spark.get("/entidades/nueva-org-sector-social", entidadesController::getCreadorOrgSectorSocial, engine);
+
+        Spark.post("/entidades", entidadesController::crearEntidad, engine);
     }
     
     private static void bloquearCache(Response respuesta){

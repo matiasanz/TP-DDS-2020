@@ -31,6 +31,7 @@ public class Usuario {
     	this.username = username;
         this.contrasenia = contrasenia;
         this.tipo = tipoUsuario;
+        this.bandejaDeMensajes = new ArrayList<>();
     }
 
     public String getUsername() {

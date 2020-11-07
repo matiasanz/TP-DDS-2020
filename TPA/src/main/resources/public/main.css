@@ -11,8 +11,14 @@ body {
     font-size: 16px;
     line-height: 1.5;
     margin: 0 auto;
-    padding: 2em 2em 4em;
-    max-width: 1600px;
+    padding: 0 2em 0;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cuerpo {
+    flex: 1 0 auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -26,6 +32,7 @@ img {
     background: transparent;
     display: flex;
     max-width: 17%;
+    padding-top: 1em;
 }
 
 table, td {
@@ -58,9 +65,10 @@ th {
 }
 
 .botonAtras{
-    width:30%;
+    width: 10%;
+    margin-right: 0;
+    margin-left:auto;
     display:block;
-    margin: 10px auto auto;
     padding: 10px 10px;
     border-radius: 4px;
     background-color: rgb(30, 78, 115);
@@ -71,11 +79,9 @@ th {
 .botonAtras:hover{color:#000!important;background-color:#ccc!important}
 
 .footer {
-    padding-top: 10px;
-    padding-bottom: 20px;
-    position: fixed;
-    bottom: 0;
-    width: 85%;
+    flex-shrink: 0;
+    padding-bottom: 1em;
+    padding-top: 3em;
 }
 
 .topnav {
@@ -114,4 +120,26 @@ th {
 
 .mismaFila {
     display: inline;
+}
+
+.botonPequenioIzquierda{
+    width: 20%;
+    display: inline-block;
+}
+
+.required{
+    color:red;
+}
+
+.crear_entidad li {
+    padding: 0;
+    display: block;
+    list-style: none;
+    margin: 5px 0 0 0;
+}
+.crear_entidad .label{
+    margin:0 0 3px 0;
+    padding:0px;
+    display:block;
+    font-weight: bold;
 }

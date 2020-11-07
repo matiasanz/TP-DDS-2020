@@ -13,8 +13,8 @@ public class RepositorioDeCategorias implements WithGlobalEntityManager {
         return entityManager().find(Categoria.class, id);
     }
 
-    public List<Categoria> getCategorias(){
-        return entityManager().createQuery("FROM Categoria", Categoria.class).getResultList();
+    public List<Categoria> findAll(){
+        return entityManager().createQuery("FROM Categoria ORDER BY nombre ASC", Categoria.class).getResultList();
     }
 
     public List<Categoria> getCategoriasByName(String categoriaBuscada) {
