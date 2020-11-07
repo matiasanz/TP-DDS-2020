@@ -1,9 +1,13 @@
 package Controladores;
 
 import Categoria.Categoria;
-import Entidad.Entidad;
+import Direccion.Direccion;
+import Direccion.Pais;
+import Entidad.*;
 import Repositorios.RepositorioDeCategorias;
 import Repositorios.RepositorioDeEntidades;
+import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
+import org.apache.commons.lang3.EnumUtils;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -11,10 +15,9 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class EntidadesController implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
 
@@ -22,9 +25,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
 
     public ModelAndView getEntidadesMenu(Request request, Response response) {
         autenticador.reconocerUsuario(request, response);
-
-        Map<String, Object> modelo = new HashMap<>();
-        return new ModelAndView(modelo, "entidades_base.html.hbs");
+        return new ModelAndView(new HashMap<>(), "entidades_base.html.hbs");
     }
 
     public ModelAndView getCategoriasAElegir(Request request, Response response) {
@@ -35,7 +36,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
 
         List<Categoria> categorias = categoriaBuscada != null?
                 RepositorioDeCategorias.instancia.getCategoriasByName(categoriaBuscada) :
-                RepositorioDeCategorias.instancia.getCategorias();
+                RepositorioDeCategorias.instancia.findAll();
 
         modelo.put("categorias", categorias);
 
@@ -47,46 +48,142 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
         return new ModelAndView(new HashMap<>(), "entidades_nueva.html.hbs");
     }
 
-    /* TODO: CREADOR BASE
-    - nombre ficticio -> STRING
-    - categorias -> LIST<CATEGORIA>
-    - descripcion -> STRING
-     */
     public ModelAndView getCreadorEntidadBase(Request request, Response response) {
-        autenticador.reconocerUsuario(request, response);
+        //autenticador.reconocerUsuario(request, response);
 
-        return null;
+        Map<String, Object> modelo = new HashMap<>();
+        modelo.put("categorias", RepositorioDeCategorias.instancia.findAll());
+
+        return new ModelAndView(modelo, "entidades_nueva_base.html.hbs");
     }
 
-    /* TODO: CREADOR EMPRESA
-    - nombre ficticio
-    - categorias -> LIST<CATEGORIA>
-    - razonSocial -> STRING
-    - cuit -> STRING
-    - direccionPostal -> DIRECCION
-    - codigoIGJ -> INT
-    - entidadesBase -> LIST<ENTIDADBASE>
-    - clasificacion -> ENUM (CLASIFICACION)
-     */
     public ModelAndView getCreadorEmpresa(Request request, Response response) {
-        autenticador.reconocerUsuario(request, response);
-
-        return null;
+        return getCreadorDeJuridicas(request, response,"entidades_nueva_empresa.html.hbs");
     }
 
-    /* TODO: CREADOR ORGANIZACION DEL SECTOR SOCIAL
-    - nombre ficticio
-    - categorias -> LIST<CATEGORIA>
-    - razonSocial -> STRING
-    - cuit -> STRING
-    - direccionPostal -> DIRECCION
-    - codigoIGJ -> INT
-    - entidadesBase -> LIST<ENTIDADBASE>
-     */
     public ModelAndView getCreadorOrgSectorSocial(Request request, Response response) {
-        autenticador.reconocerUsuario(request, response);
+        return getCreadorDeJuridicas(request, response,"entidades_nueva_org-social.html.hbs");
+    }
 
-        return null;
+    private ModelAndView getCreadorDeJuridicas(Request request, Response response, String html){
+        //autenticador.reconocerUsuario(request, response);
+        Map<String, Object> modelo = new HashMap<>();
+
+        List<Entidad> entidadesBase = RepositorioDeEntidades.instancia.getEntidadesBase();
+
+        if (!entidadesBase.isEmpty()) {
+            modelo.put("entidadesBaseNotEmpty", Boolean.TRUE);
+            modelo.put("entidadesBase", entidadesBase);
+        }
+
+        modelo.put("categorias", RepositorioDeCategorias.instancia.findAll());
+        modelo.put("paises", EnumUtils.getEnumList(Pais.class).stream().map(Enum::name).collect(Collectors.toList()));
+
+        return new ModelAndView(modelo, html);
+    }
+
+    public ModelAndView crearEntidad(Request request, Response response) {
+        switch (request.queryParams("tipoEntidad").charAt(0)){
+            case 'B':  return crearEntidadBase(request, response);
+            case 'E':  return crearEmpresa(request, response);
+            case 'S':  return crearOrganizacionSectorSocial(request, response);
+            default: return returnError400(response);
+        }
+    }
+
+    private ModelAndView crearEntidadBase(Request request, Response response){
+        try{
+            String nombre = request.queryParams("nombreFicticio");
+            String descripcion = request.queryParams("descripcion");
+            List<Categoria> categorias = Stream.of(request.queryParams("categoriasId")).map(Long::parseLong)
+                    .map(l -> RepositorioDeCategorias.instancia.findById(l)).collect(Collectors.toList());
+            EntidadBase entidad = new EntidadBase(nombre, descripcion);
+            entidad.setCategorias(categorias);
+
+            withTransaction(() -> RepositorioDeEntidades.instancia.save(entidad));
+            return retornarMenuEntidadesExito();
+
+        } catch(Exception e){
+            return retornarMenuEntidadesFallo(e);
+        }
+    }
+
+    private ModelAndView crearEmpresa(Request request, Response response){
+        try{
+            String nombreFicticio = request.queryParams("nombreFicticio");
+            List<Categoria> categorias = getCategoriasFromRequest(request);
+            String razonSocial = request.queryParams("razonSocial");
+            String cuit = request.queryParams("cuit");
+            Integer codigoIgj = Integer.parseInt(request.queryParams("igj"));
+            Direccion direccion = crearDireccion(request);
+            List<EntidadBase> entidadesRelacionadas = getEntidadesBaseRelacionadasFromRequest(request);
+            Clasificacion clasificacion = Clasificacion.values()[Integer.parseInt(request.queryParams("clasificacion"))];
+
+            Empresa empresa = new Empresa(razonSocial, nombreFicticio, cuit, direccion, codigoIgj, entidadesRelacionadas, clasificacion);
+            empresa.setCategorias(categorias);
+
+            withTransaction(() -> RepositorioDeEntidades.instancia.save(empresa));
+            return retornarMenuEntidadesExito();
+
+        } catch(Exception e){
+            return retornarMenuEntidadesFallo(e);
+        }
+    }
+
+
+    private ModelAndView crearOrganizacionSectorSocial(Request request, Response response){
+        try{
+            String nombreFicticio = request.queryParams("nombreFicticio");
+            List<Categoria> categorias = getCategoriasFromRequest(request);
+            String razonSocial = request.queryParams("razonSocial");
+            String cuit = request.queryParams("cuit");
+            Integer codigoIgj = Integer.parseInt(request.queryParams("igj"));
+            Direccion direccion = crearDireccion(request);
+            List<EntidadBase> entidadesRelacionadas = getEntidadesBaseRelacionadasFromRequest(request);
+
+            OrganizacionSectorSocial org = new OrganizacionSectorSocial(razonSocial, nombreFicticio, cuit, direccion, codigoIgj, entidadesRelacionadas);
+            org.setCategorias(categorias);
+
+            withTransaction(() -> RepositorioDeEntidades.instancia.save(org));
+            return retornarMenuEntidadesExito();
+
+        } catch(Exception e){
+            return retornarMenuEntidadesFallo(e);
+        }
+    }
+
+    private Direccion crearDireccion(Request request){
+        String calle = request.queryParams("calle");
+        Integer altura = Integer.parseInt(request.queryParams("altura"));
+        Integer piso = Integer.parseInt(request.queryParams("altura"));
+        String codigoPostal = request.queryParams("codigoPostal");
+        Pais pais = Pais.valueOf(request.queryParams("pais"));
+        return new Direccion(new RepositorioDeLocacionesMeli(), calle, altura, piso, codigoPostal, pais);
+    }
+
+    private List<Categoria> getCategoriasFromRequest (Request request){
+        return request.queryParams().stream().filter(s -> s.startsWith("categoriasId")).
+                map(request::queryParams).map(Long::parseLong).
+                map(l -> RepositorioDeCategorias.instancia.findById(l)).collect(Collectors.toList());
+    }
+
+    private List<EntidadBase> getEntidadesBaseRelacionadasFromRequest (Request request){
+        return request.queryParams().stream().filter(s -> s.startsWith("entidadesId")).
+                map(request::queryParams).map(Long::parseLong).
+                map(l -> RepositorioDeEntidades.instancia.findBaseById(l)).collect(Collectors.toList());
+    }
+
+    private ModelAndView retornarMenuEntidadesExito(){
+        Map<String, Object> modelo = new HashMap<>();
+        modelo.put("mensajeAccion", "La entidad fue creada con éxito.");
+        modelo.put("categorias", RepositorioDeCategorias.instancia.findAll());
+        return new ModelAndView(modelo,"entidades_nueva.html.hbs");
+    }
+
+    private ModelAndView retornarMenuEntidadesFallo(Exception e){
+        Map<String, Object> modelo = new HashMap<>();
+        modelo.put("mensajeAccion", "Ocurrió un error en la creación de la entidad: " + e.getMessage());
+        return new ModelAndView(modelo,"entidades_nueva.html.hbs");
     }
 
     public ModelAndView getEntidadesPorCategoria(Request request, Response response){
@@ -219,7 +316,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
 
     private ModelAndView getModelConCategoriasAsociadasYSinAsociar(Map<String, Object> modelo, Entidad entidad) {
         List<Categoria> categoriasAsociadas = entidad.getCategorias();
-        List<Categoria> categoriasSinAsociar = RepositorioDeCategorias.instancia.getCategorias().
+        List<Categoria> categoriasSinAsociar = RepositorioDeCategorias.instancia.findAll().
                 stream().filter(c -> !categoriasAsociadas.contains(c)).collect(Collectors.toList());
 
         modelo.put("categoriasAsociadas", categoriasAsociadas);

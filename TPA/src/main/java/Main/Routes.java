@@ -89,5 +89,6 @@ public class Routes {
 
         Spark.get("/entidades/nueva-org-sector-social", entidadesController::getCreadorOrgSectorSocial, engine);
 
+        Spark.post("/entidades", entidadesController::crearEntidad, engine);
     }
 }

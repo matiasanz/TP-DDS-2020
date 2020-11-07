@@ -22,7 +22,7 @@ public class RepositorioDeLocacionesMeli implements RepositorioDeLocaciones {
         try {
             response = meliApi.obtenerLocaciones(codigoPais, codigoPostal);
         } catch (Exception e) {
-            throw new LocacionNoEncontradaException(codigoPais);
+            throw new LocacionNoEncontradaException(codigoPais, codigoPostal);
         }
 
         return parseGetLocationResponse(codigoPais, response.getEntity(String.class));

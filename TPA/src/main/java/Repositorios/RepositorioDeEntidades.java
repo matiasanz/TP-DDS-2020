@@ -15,6 +15,11 @@ public class RepositorioDeEntidades implements WithGlobalEntityManager {
         return entidad;
     }
 
+    public EntidadBase findBaseById(Long id) {
+        EntidadBase entidad = entityManager().find(EntidadBase.class, id);
+        return entidad;
+    }
+
     public List<Entidad> getEntidades(){
         return entityManager().createQuery("from Entidad e", Entidad.class).getResultList();
     }
@@ -23,7 +28,8 @@ public class RepositorioDeEntidades implements WithGlobalEntityManager {
         return entityManager()//
                 .createQuery("select e from Entidad e" +
                         " JOIN e.categorias c" +
-                        " WHERE c.id = " + categoriaId, Entidad.class) //
+                        " WHERE c.id = " + categoriaId +
+                        " ORDER BY e.nombreFicticio ASC", Entidad.class) //
                 .getResultList();
     }
 
@@ -31,6 +37,14 @@ public class RepositorioDeEntidades implements WithGlobalEntityManager {
         return entityManager() //
                 .createQuery("from Entidad e where e.nombreFicticio like :nombre", Entidad.class) //
                 .setParameter("nombre", "%" + entidadBuscada + "%") //
+                .getResultList();
+    }
+
+    public List<Entidad> getEntidadesBase() {
+        return entityManager() //
+                .createQuery("select e " +
+                        "from Entidad e, EntidadBase b " +
+                        "where e.id = b.id", Entidad.class)
                 .getResultList();
     }
 
