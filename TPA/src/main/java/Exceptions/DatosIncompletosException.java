@@ -1,4 +1,4 @@
-package Controladores;
+package Exceptions;
 
 public class DatosIncompletosException extends RuntimeException{
 	

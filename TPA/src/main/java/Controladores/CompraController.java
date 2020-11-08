@@ -3,6 +3,8 @@ package Controladores;
 import Compra.Compra;
 import Compra.Item;
 import Entidad.Entidad;
+import Exceptions.DatosIncompletosException;
+import Exceptions.FechaInvalidaException;
 import MedioDePago.MedioDePago;
 import Moneda.CodigoMoneda;
 import Moneda.Moneda;
