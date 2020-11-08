@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -58,10 +59,7 @@ public class Compra {
     @JoinTable(name = "validadores_por_compra",
             joinColumns = @JoinColumn(name = "compra_id"),
             inverseJoinColumns = @JoinColumn(name = "usuarios_id"))
-    private  List<Usuario> usuariosValidadores;
-
-    @Transient
-    private  ValidadorDeCompra validadorDeCompra = new ValidadorDeCompra();
+    private  List<Usuario> usuariosValidadores = new LinkedList<>();
 
     @ElementCollection
     @CollectionTable(name = "etiquetas", joinColumns=@JoinColumn(name = "compra_id"))
@@ -76,8 +74,7 @@ public class Compra {
                   LocalDate fecha,
                   MedioDePago medioDePago,
                   CodigoMoneda codigoMoneda,
-                  int cantidadMinimaDePresupuestos,
-                  List<Usuario> usuariosValidadores) {
+                  int cantidadMinimaDePresupuestos) {
 
         this.entidadRelacionada = entidad;
         //this.documentoComercial = documentoComercial; //TODO importante entrega 2
@@ -85,7 +82,6 @@ public class Compra {
         this.medioDePago = medioDePago;
         this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
         this.moneda = repositorioDeMonedas.getMoneda(codigoMoneda);
-        this.usuariosValidadores = usuariosValidadores;
     }
 
 	//Items ***********************************
@@ -152,10 +148,6 @@ public class Compra {
         return this.indicadorDeAprobacion == Estado.PENDIENTEDEAPROBACION;
     }
     
-    public void validar() {
-        validadorDeCompra.validar(this);
-    }
-
 //Usuarios validadores *****************
 
     public void agregarUsuarioValidador(Usuario usuario) {

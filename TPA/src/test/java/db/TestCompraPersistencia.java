@@ -58,8 +58,7 @@ public class TestCompraPersistencia extends AbstractPersistenceTest implements W
 				LocalDate.of(2020, 7, 19),
 				new PagoEnEfectivo(),
 				CodigoMoneda.ARS,
-				1,
-				new ArrayList<Usuario>());
+				1);
 
 		Item item = new Item("Una descripcion", 2, new BigDecimal(200));
 		compraInsertada.agregarItem(item);

@@ -12,12 +12,15 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import Compra.Compra;
+import Compra.ValidadorDeCompra;
 import Factory.ComprasFactory;
 import Repositorios.RepoComprasDB;
 import Repositorios.RepositorioDeComprasMemoria;
 
 public class ValidacionDeEgresos implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps, Job {
 
+	private static ValidadorDeCompra validadorDeCompra = new ValidadorDeCompra();
+	
 	public static RepoComprasDB repoCompras = new RepoComprasDB(); 
 		
     public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -45,7 +48,7 @@ public class ValidacionDeEgresos implements WithGlobalEntityManager, EntityManag
 
     	String mensaje;
         try{
-            unaCompra.validar();
+        	validadorDeCompra.validar(unaCompra);
             unaCompra.aprobar();
             mensaje = "-----------<Una Compra ha sido aprobada>----------\n";
         } catch(RuntimeException unaExcepcion){

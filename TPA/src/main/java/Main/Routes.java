@@ -49,7 +49,7 @@ public class Routes {
         Spark.get("/logout", menuController::logout, engine);
 
         comprasRoutes();
-        entidadesRouts();
+        entidadesRoutes();
 
         after((request, response) -> {
             PerThreadEntityManagers.getEntityManager();
@@ -71,7 +71,7 @@ public class Routes {
 
     }
 
-    private static void entidadesRouts(){
+    private static void entidadesRoutes(){
         Spark.get("/entidades", entidadesController::getEntidadesMenu, engine);
 
         Spark.get("/entidades/categorias", entidadesController::getCategoriasAElegir, engine);
