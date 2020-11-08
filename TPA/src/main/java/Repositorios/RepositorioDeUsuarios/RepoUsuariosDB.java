@@ -13,10 +13,10 @@ public class RepoUsuariosDB extends RepoDB<Usuario>{
 		return "Usuario";
 	}
 	
-	public Usuario getByUsername(String nombre){
+	public Usuario getUsuario(String nombre){
 		Usuario usuario; 
 		try{
-			usuario = (Usuario) createQuery("where username = :user")
+			usuario = (Usuario) query("where username = :user")
 				.setParameter("user", nombre)
 				.getSingleResult();
 		} 
@@ -27,22 +27,7 @@ public class RepoUsuariosDB extends RepoDB<Usuario>{
 		
 		return usuario;
 	}
-	
-	public Usuario getByID(Long id){
-		Usuario usuario;  
-		try{
-			usuario = (Usuario) createQuery("where id = :user_id")
-				.setParameter("user_id", id)
-				.getSingleResult();
-		} 
 		
-		catch(NoResultException e){			
-			throw new UsuarioNoExisteException();
-		}
-		
-		return usuario;
-	}
-	
 	@Override
 	public void agregar(Usuario usuario){
 		validarNoRepetido(usuario.getUsername());
@@ -51,7 +36,7 @@ public class RepoUsuariosDB extends RepoDB<Usuario>{
 	
 	public boolean nombreOcupado(String username){
         try{
-        	getByUsername(username);
+        	getUsuario(username);
         	return true;
         } catch (UsuarioNoExisteException e){
         	return false;

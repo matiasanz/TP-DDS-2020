@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.stream.Collectors;
 
 import Compra.Compra;
+import Compra.ValidadorDeCompra;
 import Entidad.Entidad;
 import Entidad.EntidadJuridica;
 import Repositorios.RepositorioDeCategorias;
@@ -16,7 +17,8 @@ public class Organizacion {
     private RepositorioDeCategorias repositorioDeCategorias;
     private RepositorioDeUsuarios repositorioDeUsuarios;
     private RepositorioDeEntidades repositorioDeEntidades;
-
+    private ValidadorDeCompra validadorDeCompra = new ValidadorDeCompra();
+    
     public Organizacion(RepositorioDeUsuarios repoDeUsuarios, RepositorioDeCategorias repoDeCategorias, RepositorioDeEntidades repoDeEntidades) {
         this.repositorioDeUsuarios = repoDeUsuarios;
         this.repositorioDeCategorias = repoDeCategorias;
@@ -65,7 +67,7 @@ public class Organizacion {
     }
 
     public void validarCompras() {
-        this.comprasPendientesDeValidacion().forEach(unaCompra -> unaCompra.validar());
+        this.comprasPendientesDeValidacion().forEach(unaCompra -> validadorDeCompra.validar(unaCompra));
     }
 
     public List<Compra> comprasPendientesDeValidacion() {

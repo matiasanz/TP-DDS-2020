@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +48,7 @@ public class MainClass{
         Usuario usuario;
 
         try{
-        	usuario = usuarios.getByUsername(usuarioIngresado);
+        	usuario = usuarios.getUsuario(usuarioIngresado);
         	usuario.autenticar(passwordIngresada);
         }
 

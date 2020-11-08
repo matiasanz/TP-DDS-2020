@@ -1,24 +1,32 @@
 package Main;
 
+import Categoria.Categoria;
 import Factory.EntidadesFactory;
 import Factory.MedioDePagoFactory;
 import Factory.ProveedoresFactory;
 import Factory.UsuariosFactory;
+import Moneda.Moneda;
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
-    public static void main(String[] args) {
+
+	public static void main(String[] args) {
         new Bootstrap().run();
     }
 
     public void run() {
+    	//Cargamos la cache
+    	RepositorioDeMonedasMeli.getInstance().getMonedas(Moneda.codigosMoneda());
+
         withTransaction(() -> {
             crearProveedores();
             crearMediosDePago();
             crearEntidades();
+            crearCategorias();
             mockearUsuarios();
         });
     }
@@ -44,5 +52,11 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
         persist(MedioDePagoFactory.effectivo());
         persist(MedioDePagoFactory.tarjetaDeCreditoVisa());
         persist(MedioDePagoFactory.tarjetaDeDebito());
+    }
+
+    private void crearCategorias() {
+        persist(new Categoria("ONG"));
+        persist(new Categoria("Corporacion"));
+        persist(new Categoria("Industria Alimenticia"));
     }
 }

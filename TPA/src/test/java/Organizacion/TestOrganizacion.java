@@ -62,11 +62,11 @@ public class TestOrganizacion {
     	Item item2 = new Item("Escritorios", 3, BigDecimal.valueOf(50400));
     	Item item3 = new Item("Sillas",1, BigDecimal.valueOf(34600));
     	
-    	Compra compra1 = new Compra(new RepositorioDeMonedasMock(), entidad1, LocalDate.now() , null, CodigoMoneda.ARS, 3, null);
+    	Compra compra1 = new Compra(new RepositorioDeMonedasMock(), entidad1, LocalDate.now() , null, CodigoMoneda.ARS, 3);
     	compra1.agregarItem(item1);
     	compra1.agregarItem(item2);
     	
-    	Compra compra2 = new Compra(new RepositorioDeMonedasMock(), entidad2, LocalDate.now() , null, CodigoMoneda.ARS, 3, null);
+    	Compra compra2 = new Compra(new RepositorioDeMonedasMock(), entidad2, LocalDate.now() , null, CodigoMoneda.ARS, 3);
     	compra1.agregarItem(item1);
     	compra1.agregarItem(item3);
     	    	

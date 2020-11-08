@@ -3,6 +3,8 @@ package Controladores;
 import Compra.Compra;
 import Compra.Item;
 import Entidad.Entidad;
+import Exceptions.DatosIncompletosException;
+import Exceptions.FechaInvalidaException;
 import MedioDePago.MedioDePago;
 import Modelos.CompraModel;
 import Moneda.CodigoMoneda;
@@ -12,6 +14,7 @@ import Proveedor.Proveedor;
 import Repositorios.RepoComprasDB;
 import Repositorios.RepoEntidadesDB;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
+import Usuario.Usuario;
 import Repositorios.RepositorioDeProveedoresDB;
 import Repositorios.RepositorioMedioDePagoDB;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -23,6 +26,7 @@ import spark.Response;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,51 +37,34 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
 
     private final RepoEntidadesDB repositorioEntidades = new RepoEntidadesDB();
     private final RepoComprasDB repositorioCompras = new RepoComprasDB();
-    private final RepositorioDeMonedasMeli repositorioDeMonedas = new RepositorioDeMonedasMeli();
+    private final RepositorioDeMonedasMeli repositorioDeMonedas = RepositorioDeMonedasMeli.getInstance();
     private final RepositorioDeProveedoresDB repositorioDeProveedores = new RepositorioDeProveedoresDB();
     private final RepositorioMedioDePagoDB repositorioMedioDePago = new RepositorioMedioDePagoDB();
 
-    public ModelAndView getPaginaComprasNueva() {
+    private final Autenticador autenticador = Autenticador.getInstance();
+    
+    public ModelAndView getPaginaComprasNueva(Request request, Response response) {
+    	autenticador.reconocerUsuario(request, response);
         return inicializarPaginaComprasNueva(new HashMap<>());
     }
 
     public ModelAndView getPaginaComprasMenu(Request request, Response response) {
+    	autenticador.reconocerUsuario(request,response);
         return new ModelAndView(new HashMap<>(), "compras-menu.html.hbs");
     }
 
     public ModelAndView crearCompra(Request request, Response response) {
+    	Usuario usuario = autenticador.reconocerUsuario(request,response);
         Map<String, Object> modelo = new HashMap<>();
 
         try {
             Compra compra = crearCompra(request);
             withTransaction(() -> repositorioCompras.agregar(compra));
-            modelo.put("resultado", "Compra salvada con exito!");
+            compra.agregarUsuarioValidador(usuario); //Esto se deberia hacer en otra uri, pero por ahora no lo piden
+            
             response.redirect("/compras/ver");
-        } catch (Exception e) {
-            response.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
-            modelo.put("resultado", "Error - " + e.getMessage());
-        }
 
-        return inicializarPaginaComprasNueva(modelo);
-    }
-
-    public ModelAndView agregarEtiqueta(Request request, Response response) {
-        Map<String, Object> modelo = new HashMap<>();
-
-        try {
-            Long idCompra = Long.parseLong(request.params("id"));
-            Compra compra = repositorioCompras.getCompra(idCompra);
-            compra.agregarEtiqueta(response);
-
-            withTransaction(() -> {
-                //Si se puede reemplazar por un actualizar sería más óptimo
-                repositorioCompras.eliminar(compra);
-                repositorioCompras.agregar(compra);
-            });
-
-            modelo.put("resultado", "Etiqueta agregada con éxito!");
-            response.redirect("/compras/ver/" + idCompra);
-        } catch (Exception e) {
+        } catch (DatosIncompletosException | FechaInvalidaException e) {
             response.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
             modelo.put("resultado", "Error - " + e.getMessage());
         }
@@ -98,7 +85,7 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
     	try {
             return new ModelAndView(this.crearModeloCompra(), "compras-ver-todas.html.hbs");
     	} catch(Exception e) {
-    		return new ModelAndView(new HashMap<>(), "compras-menu.html.hbs");
+    		    return new ModelAndView(new HashMap<>(), "compras-menu.html.hbs");
     	}
     }
 
@@ -111,23 +98,42 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
 
         return new ModelAndView(modelo, "compras-nueva.html.hbs");
     }
-
+    
     private Compra crearCompra(Request request) {
 
-        LocalDate fechaOperacion = LocalDate.parse(request.queryParams("txt_fechaOperacion"));
-        CodigoMoneda codigoMoneda = CodigoMoneda.valueOf(request.queryParams("ddl_moneda"));
+    	LocalDate fechaOperacion = crearFecha(request.queryParams("txt_fechaOperacion"));
+    		
+    	CodigoMoneda codigoMoneda = CodigoMoneda.valueOf(request.queryParams("ddl_moneda"));
         MedioDePago medioDePago = repositorioMedioDePago.findById(Long.parseLong(request.queryParams("ddl_medio_de_pago")));
         Entidad entidadRelacionada = repositorioEntidades.findById(Long.parseLong(request.queryParams("ddl_entidad")));
 
         Presupuesto presupuesto = crearPresupuesto(request);
 
-        Compra compra = new Compra(repositorioDeMonedas, entidadRelacionada, fechaOperacion, medioDePago, codigoMoneda, 0, null);
+        Compra compra = new Compra(repositorioDeMonedas, entidadRelacionada, fechaOperacion, medioDePago, codigoMoneda, 0);
         compra.agregarPresupuesto(presupuesto);
         compra.setPresupuestoElegido(presupuesto);
 
-        compra.validar();
+        validarCargaDeCompra(compra);
+        
+         return compra;
+    }
+    
+    private LocalDate crearFecha(String fechaIngresada)
+	{ 
+    	LocalDate fechaLeida;
+    	
+    	try{
+    		fechaLeida = LocalDate.parse(fechaIngresada);
+    	} catch(DateTimeParseException e){
+    		throw new FechaInvalidaException(fechaIngresada);
+    	}
+    	
+    	return fechaLeida;
+	}
 
-        return compra;
+	private void validarCargaDeCompra(Compra compra){
+    	if(compra.getItems().isEmpty()) throw new DatosIncompletosException("items");
+    	if(compra.getProveedor()==null) throw new DatosIncompletosException("proveedor");
     }
 
     private Presupuesto crearPresupuesto(Request request) {
@@ -151,8 +157,8 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
     private HashMap<String, Object> crearModeloCompra() {
     	HashMap<String, Object> modelo = new HashMap<>();
     	List<CompraModel> compraModel = repositorioCompras.getAll().stream().map(compra -> new CompraModel(compra)).collect(Collectors.toList());
-		modelo.put("compras", compraModel);
-		return modelo;
+		  modelo.put("compras", compraModel);
+		  return modelo;
     }
 
 }

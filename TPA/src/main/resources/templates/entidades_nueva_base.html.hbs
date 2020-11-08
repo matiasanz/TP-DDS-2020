@@ -1,0 +1,48 @@
+{{# partial "titulo" }}
+    <title>GeSoc - Crear entidad base</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+      <a href="/">Inicio</a>
+      <a href="/compras">Compras</a>
+      <a class="active" href="/entidades">Entidades</a>
+      <a href="/mensajes">Mensajes</a>
+      <a href="/logout">Salir</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+    <section>
+
+        <button class="botonAtras" onclick="location.href='/entidades/nueva'">Atras</button>
+
+        <h2>Crear entidad base</h2>
+
+        <form id = "frm_crear_entidad_base" action="/entidades" method="POST">
+            <ul class="crear_entidad">
+                <input type="hidden" name="tipoEntidad" value='B'>
+
+                <li><label class="label">Nombre ficticio<span class="required">*</span></label>
+                <input type="text" name="nombreFicticio" placeholder="Ingrese nombre ficticio" required></li>
+
+                <li><label class="label">Descripción<span class="required">*</span></label>
+                <input type="text" name="descripcion" placeholder="Ingrese descripción" required></li>
+
+                <li>
+                    <label class="label">Categorías a asociar</label>
+                    {{#categorias}}
+                        <input type="checkbox" name="categoriasId{{id}}" id={{id}} value={{id}}>
+                        <label for={{id}}>{{nombre}}</label><br>
+                    {{/categorias}}
+                </li>
+            </ul>
+        </form>
+
+        <button id="btn_crear_entidad_base" type="submit" form="frm_crear_entidad_base"
+            class="botonSameTamanio botonPequenioIzquierda">Guardar entidad</button>
+
+    </section>
+{{/partial}}
+
+{{> layout.html.hbs }}
