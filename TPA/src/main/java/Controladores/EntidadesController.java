@@ -100,7 +100,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
             entidad.setCategorias(categorias);
 
             withTransaction(() -> RepositorioDeEntidades.instancia.save(entidad));
-            return retornarMenuEntidadesExito();
+            return retornarMenuEntidadesExito(response);
 
         } catch(Exception e){
             return retornarMenuEntidadesFallo(e);
@@ -122,7 +122,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
             empresa.setCategorias(categorias);
 
             withTransaction(() -> RepositorioDeEntidades.instancia.save(empresa));
-            return retornarMenuEntidadesExito();
+            return retornarMenuEntidadesExito(response);
 
         } catch(Exception e){
             return retornarMenuEntidadesFallo(e);
@@ -144,7 +144,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
             org.setCategorias(categorias);
 
             withTransaction(() -> RepositorioDeEntidades.instancia.save(org));
-            return retornarMenuEntidadesExito();
+            return retornarMenuEntidadesExito(response);
 
         } catch(Exception e){
             return retornarMenuEntidadesFallo(e);
@@ -172,7 +172,9 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
                 map(l -> RepositorioDeEntidades.instancia.findBaseById(l)).collect(Collectors.toList());
     }
 
-    private ModelAndView retornarMenuEntidadesExito(){
+    private ModelAndView retornarMenuEntidadesExito(Response response){
+        response.status(201);
+
         Map<String, Object> modelo = new HashMap<>();
         modelo.put("mensajeAccion", "La entidad fue creada con éxito.");
         modelo.put("categorias", RepositorioDeCategorias.instancia.findAll());
