@@ -35,8 +35,9 @@ public class Compra {
     @Column(name = "fecha_operacion")
     private  LocalDate fechaOperacion;
 
-    @Transient
-    private  MedioDePago medioDePago;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "medio_de_pago_id")
+    private MedioDePago medioDePago;
 
     @Column(name = "cantidad_minima_de_presupuestos")
     private int cantidadMinimaDePresupuestos;

@@ -69,9 +69,9 @@ public class Routes {
 
         Spark.get("/compras/ver", compraController::getPaginaVerCompras, engine);
       
-        Spark.get("/compras/ver/:id", (request, response) -> compraController.getPaginaVerCompra(request, response), engine);
+        Spark.get("/compras/ver/:id", compraController::getPaginaVerCompra, engine);
 
-        Spark.patch("/compras/:id/etiqueta/nueva", (request, response) -> compraController.agregarEtiqueta(request, response), engine);
+        //Spark.patch("/compras/:id/etiqueta/nueva", (request, response) -> compraController.agregarEtiqueta(request, response), engine);
 
     }
 

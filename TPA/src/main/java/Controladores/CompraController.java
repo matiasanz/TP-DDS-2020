@@ -62,18 +62,19 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
             withTransaction(() -> repositorioCompras.agregar(compra));
             compra.agregarUsuarioValidador(usuario); //Esto se deberia hacer en otra uri, pero por ahora no lo piden
             
-            response.redirect("/compras/ver");
+            response.redirect("/compras/ver/" + compra.getId());
+            return null;
 
         } catch (DatosIncompletosException | FechaInvalidaException e) {
             response.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
             modelo.put("resultado", "Error - " + e.getMessage());
+            return inicializarPaginaComprasNueva(modelo);
         }
-
-        return inicializarPaginaComprasNueva(modelo);
     }
 
     public ModelAndView getPaginaVerCompra(Request request, Response response) {
-    	try {
+        autenticador.reconocerUsuario(request, response);
+        try {
     		Long idCompra = Long.parseLong(request.params("id"));
             return new ModelAndView(new CompraModel(repositorioCompras.getCompra(idCompra)), "compra-individual.html.hbs");
     	} catch(Exception e) {
@@ -82,7 +83,8 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
     }
     
     public ModelAndView getPaginaVerCompras(Request request, Response response) {
-    	try {
+        autenticador.reconocerUsuario(request, response);
+        try {
             return new ModelAndView(this.crearModeloCompra(), "compras-ver-todas.html.hbs");
     	} catch(Exception e) {
     		    return new ModelAndView(new HashMap<>(), "compras-menu.html.hbs");
@@ -156,9 +158,9 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
     
     private HashMap<String, Object> crearModeloCompra() {
     	HashMap<String, Object> modelo = new HashMap<>();
-    	List<CompraModel> compraModel = repositorioCompras.getAll().stream().map(compra -> new CompraModel(compra)).collect(Collectors.toList());
-		  modelo.put("compras", compraModel);
-		  return modelo;
+    	List<CompraModel> compraModel = repositorioCompras.getAll().stream().map(CompraModel::new).collect(Collectors.toList());
+    	modelo.put("compras", compraModel);
+    	return modelo;
     }
 
 }
