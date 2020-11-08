@@ -49,7 +49,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
     }
 
     public ModelAndView getCreadorEntidadBase(Request request, Response response) {
-        //autenticador.reconocerUsuario(request, response);
+        autenticador.reconocerUsuario(request, response);
 
         Map<String, Object> modelo = new HashMap<>();
         modelo.put("categorias", RepositorioDeCategorias.instancia.findAll());
@@ -66,7 +66,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
     }
 
     private ModelAndView getCreadorDeJuridicas(Request request, Response response, String html){
-        //autenticador.reconocerUsuario(request, response);
+        autenticador.reconocerUsuario(request, response);
         Map<String, Object> modelo = new HashMap<>();
 
         List<Entidad> entidadesBase = RepositorioDeEntidades.instancia.getEntidadesBase();
@@ -95,8 +95,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
         try{
             String nombre = request.queryParams("nombreFicticio");
             String descripcion = request.queryParams("descripcion");
-            List<Categoria> categorias = Stream.of(request.queryParams("categoriasId")).map(Long::parseLong)
-                    .map(l -> RepositorioDeCategorias.instancia.findById(l)).collect(Collectors.toList());
+            List<Categoria> categorias = getCategoriasFromRequest(request);
             EntidadBase entidad = new EntidadBase(nombre, descripcion);
             entidad.setCategorias(categorias);
 
