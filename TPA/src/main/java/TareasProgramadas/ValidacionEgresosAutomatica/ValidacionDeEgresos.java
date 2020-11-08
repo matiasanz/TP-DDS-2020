@@ -6,40 +6,39 @@ import javax.persistence.EntityTransaction;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import Compra.Compra;
 import Factory.ComprasFactory;
 import Repositorios.RepoComprasDB;
 import Repositorios.RepositorioDeComprasMemoria;
 
-public class ValidacionDeEgresos implements Job {
+public class ValidacionDeEgresos implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps, Job {
 
-	public static RepositorioDeComprasMemoria repoCompras = new RepositorioDeComprasMemoria();
-//	public static RepoComprasDB repoCompras = new RepoComprasDB(); 
-	
-	private static EntityTransaction transaccion = PerThreadEntityManagers.getEntityManager().getTransaction();
-	
+	public static RepoComprasDB repoCompras = new RepoComprasDB(); 
+		
     public void execute(JobExecutionContext context) throws JobExecutionException {
-    	agregarDatosADB(); //
+//    	agregarDatosADB(); //
 
-    	System.out.println("\n***************************** INICIO VALIDADOR DE COMPRAS DIARIO *****************************\n");
-    
-    	transaccion.begin();
-    	
-    	List<Compra> comprasAValidar = repoCompras.getComprasPendientesDeAprobacion();    	
-    	comprasAValidar.forEach(c->validarCompra(c));
-    	
-    	transaccion.commit();
+    	withTransaction(()->{    		
 
-    	System.out.println("\n***************************** " + comprasAValidar.size() + " COMPRAS FUERON VALIDADAS *****************************\n");
+    		System.out.println("\n***************************** INICIO VALIDADOR DE COMPRAS DIARIO *****************************\n");
+    		List<Compra> comprasAValidar = repoCompras.getComprasPendientesDeAprobacion();    	
+    		comprasAValidar.forEach(c->validarCompra(c));
+    		System.out.println("\n***************************** " + comprasAValidar.size() + " COMPRAS FUERON VALIDADAS *****************************\n");
+
+    	});
+
     }
     
-    private static void agregarDatosADB(){
-    	transaccion.begin();
-    	repoCompras.agregar(ComprasFactory.getCompra19Julio2020Amoblamiento());
-        repoCompras.agregar(ComprasFactory.getCompraFebrero2017SinEtiqueta());
-        transaccion.commit();
+    private void agregarDatosADB(){
+    	withTransaction(()->{
+    		repoCompras.agregar(ComprasFactory.getCompra19Julio2020Amoblamiento());
+    		repoCompras.agregar(ComprasFactory.getCompraFebrero2017SinEtiqueta());
+    	});
     }
     
     public static void validarCompra(Compra unaCompra){

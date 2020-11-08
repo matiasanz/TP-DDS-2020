@@ -17,7 +17,7 @@ public class RepoComprasDB extends RepoDB<Compra>{
 
     @SuppressWarnings("unchecked")
 	public List<Compra> getComprasPendientesDeAprobacion() {
-        return createQuery("where indicadorDeAprobacion = :estado")
+        return query("where indicadorDeAprobacion = :estado")
         		.setParameter("estado", Estado.PENDIENTEDEAPROBACION)
         		.getResultList();
     }

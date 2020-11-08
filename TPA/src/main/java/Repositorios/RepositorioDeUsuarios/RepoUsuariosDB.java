@@ -16,7 +16,7 @@ public class RepoUsuariosDB extends RepoDB<Usuario>{
 	public Usuario getUsuario(String nombre){
 		Usuario usuario; 
 		try{
-			usuario = (Usuario) createQuery("where username = :user")
+			usuario = (Usuario) query("where username = :user")
 				.setParameter("user", nombre)
 				.getSingleResult();
 		} 
