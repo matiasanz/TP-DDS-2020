@@ -95,8 +95,7 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
         try{
             String nombre = request.queryParams("nombreFicticio");
             String descripcion = request.queryParams("descripcion");
-            List<Categoria> categorias = Stream.of(request.queryParams("categoriasId")).map(Long::parseLong)
-                    .map(l -> RepositorioDeCategorias.instancia.findById(l)).collect(Collectors.toList());
+            List<Categoria> categorias = getCategoriasFromRequest(request);
             EntidadBase entidad = new EntidadBase(nombre, descripcion);
             entidad.setCategorias(categorias);
 
