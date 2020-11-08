@@ -13,7 +13,24 @@
 {{/partial}}
 
 {{# partial "contenido" }}
-
+	<section>
+		<div id="compras">
+			<ul>
+				{{#compras}}
+					<p>------------------------------------------------------------------------------</p>
+					<li>
+						ID Compra: {{id}} <br>
+						Fecha: {{fecha}} <br>
+						Precio Total: {{precio}} <br>
+						Moneda: {{moneda}} <br>
+						Medio de Pago: {{medioDePago}} <br>
+						<a href="/compras/ver/{{id}}"><button>Ver</button></a>
+					</li>
+					<p>------------------------------------------------------------------------------</p>
+				{{/compras}}
+			</ul>
+		</div>
+	</section>
 {{/partial}}
 
 {{> layout.html.hbs }}

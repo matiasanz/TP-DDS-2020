@@ -1,0 +1,75 @@
+{{# partial "titulo" }}
+    <title>GESOC - Nueva Compra</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+        <a href="/">Inicio</a>
+        <a class="active" href="/compras">Compras</a>
+        <a href="/entidades">Entidades</a>
+        <a href="/mensajes">Mensajes</a>
+        <a href="/logout">Salir</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+	<section>
+		<div id="compras">
+			<ul>
+				<p>------------------------------------------------------------------------------</p>
+				<li>
+					ID Compra: {{id}} <br>
+					Fecha: {{fecha}} <br>
+					Precio Total: {{precio}} <br>
+					Moneda: {{moneda}} <br>
+					Medio de Pago: {{medioDePago}} <br>
+					Items:
+						<ul>
+							{{#items}}
+								<p>------------------------------------------------------------------------------</p>
+								<li>
+									Descripción: {{descripcion}} <br>
+									Cantidad: {{cantidad}} <br>
+									Valor Unitario: {{valorUnitario}} 
+								</li>
+								<p>------------------------------------------------------------------------------</p>
+							{{/items}}
+						</ul>
+						<br>
+					Etiquetas: {{etiquetas}}
+				</li>
+				<p>------------------------------------------------------------------------------</p>
+			</ul>
+		</div>
+
+		<br>
+
+		<div id="nuevas-etiquetas">
+		    <form id="frm_compra" action="/compras" method="POST">
+		        <h4> Presupuesto </h4>
+                <div id="div_presupuesto_items">
+                    <h4> Items </h4>
+                    <table id="tbl_etiquetas">
+                        <thead>
+                            <tr>
+                                <th> Etiqueta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input name="txt_etiqueta_1" type="text" required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            <input id="cantidad_etiquetas" name="cantidad_etiquetas" type="hidden" value="1">
+            <button id="btn_agregar_etiquetas" onclick="agregarEtiqueta()" class="botonSameTamanio">Agregar Etiqueta</button>
+            <button id="btn_eliminar_etiquetas" onclick="eliminarEtiqueta()" disabled class="botonSameTamanio">Eliminar Etiqueta</button>
+		</div>
+	</section>
+{{/partial}}
+
+{{> layout.html.hbs }}

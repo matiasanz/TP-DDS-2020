@@ -84,6 +84,8 @@ public class Compra {
         this.moneda = repositorioDeMonedas.getMoneda(codigoMoneda);
     }
 
+    
+    
 	//Items ***********************************
 
     public List<Item> getItems() {

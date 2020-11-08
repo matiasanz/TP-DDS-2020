@@ -68,6 +68,10 @@ public class Routes {
         Spark.post("/compras", compraController::crearCompra, engine);
 
         Spark.get("/compras/ver", compraController::getPaginaVerCompras, engine);
+      
+        Spark.get("/compras/ver/:id", (request, response) -> compraController.getPaginaVerCompra(request, response), engine);
+
+        Spark.patch("/compras/:id/etiqueta/nueva", (request, response) -> compraController.agregarEtiqueta(request, response), engine);
 
     }
 
@@ -98,6 +102,6 @@ public class Routes {
     }
     
     private static void bloquearCache(Response respuesta){
-		respuesta.header("Cache-Control", "no-store, must-revalidate");
+		  respuesta.header("Cache-Control", "no-store, must-revalidate");
     }
 }
