@@ -14,6 +14,7 @@
 
 {{# partial "contenido" }}
 	<section>
+		<script type="text/javascript" src="/js/compras-nueva.js"></script>
 		<div id="compras">
 			<ul>
 				<p>------------------------------------------------------------------------------</p>
@@ -45,10 +46,10 @@
 		<br>
 
 		<div id="nuevas-etiquetas">
-		    <form id="frm_compra" action="/compras" method="POST">
-		        <h4> Presupuesto </h4>
-                <div id="div_presupuesto_items">
-                    <h4> Items </h4>
+		    <form id="frm_compra" action="/compras/{{id}}/etiqueta/nueva" method="POST">
+		        <h4> Agregar Etiquetas </h4>
+                <div id="div_compra_etiquetas">
+                    <h4> Etiquetas </h4>
                     <table id="tbl_etiquetas">
                         <thead>
                             <tr>
@@ -59,13 +60,16 @@
                             <tr>
                                 <td>
                                     <input name="txt_etiqueta_1" type="text" required>
+                                    <input id="cantidad_etiquetas" name="cantidad_etiquetas" type="hidden" value="1">
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <div id="div_submit_form">
+                	<input type="submit" value="Agregar Etiquetas">
+                </div>
             </form>
-            <input id="cantidad_etiquetas" name="cantidad_etiquetas" type="hidden" value="1">
             <button id="btn_agregar_etiquetas" onclick="agregarEtiqueta()" class="botonSameTamanio">Agregar Etiqueta</button>
             <button id="btn_eliminar_etiquetas" onclick="eliminarEtiqueta()" disabled class="botonSameTamanio">Eliminar Etiqueta</button>
 		</div>

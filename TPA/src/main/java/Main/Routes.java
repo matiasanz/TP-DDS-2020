@@ -71,7 +71,7 @@ public class Routes {
       
         Spark.get("/compras/ver/:id", compraController::getPaginaVerCompra, engine);
 
-        //Spark.patch("/compras/:id/etiqueta/nueva", (request, response) -> compraController.agregarEtiqueta(request, response), engine);
+        Spark.post("/compras/:id/etiqueta/nueva", compraController::agregarEtiqueta, engine);
 
     }
 
