@@ -17,9 +17,8 @@
 		<script type="text/javascript" src="/js/compras-nueva.js"></script>
 		<div id="compras">
 			<ul>
-				<p>------------------------------------------------------------------------------</p>
+                <hr size="1px" color="black" />
 				<li>
-					ID Compra: {{id}} <br>
 					Fecha: {{fecha}} <br>
 					Precio Total: {{precio}} <br>
 					Moneda: {{moneda}} <br>
@@ -27,19 +26,17 @@
 					Items:
 						<ul>
 							{{#items}}
-								<p>------------------------------------------------------------------------------</p>
-								<li>
+                                <li>
 									Descripción: {{descripcion}} <br>
 									Cantidad: {{cantidad}} <br>
 									Valor Unitario: {{valorUnitario}} 
 								</li>
-								<p>------------------------------------------------------------------------------</p>
 							{{/items}}
 						</ul>
 						<br>
 					Etiquetas: {{etiquetas}}
 				</li>
-				<p>------------------------------------------------------------------------------</p>
+                <hr size="1px" color="black"  />
 			</ul>
 		</div>
 
