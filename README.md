@@ -2,6 +2,21 @@
 
 ## Resolución Entrega 5: interfaz de usuario
 
+## Objetivo de la entrega
+* Dotar a nuestra aplicación de una interfaz de usuario que nos permita interactuar con él. 
+
+## Alcance
+* Interfaz de usuario
+
+## Requerimientos detallados
+Se deberá construir una interfaz gráfica que permita, mínimamente:
+- [x] la autenticación de usuario
+- [x] la carga de operaciones de egresos
+- [x] la carga de entidades
+- [x] la asociación de entidades a categorías
+- [x] la visualización de entidades por categoría
+- [x] la visualización de la bandeja de mensajes definida en la entrega 2
+
 ### Wireframe:
 1. Pagina de login
 ![login](/Wireframe/login.png)
@@ -24,21 +39,6 @@
 3. Tareas programadas:
 
 ![UML Tareas Programadas](/Diagramas/uml_tareasProgramadas.PNG) 
-
-## Objetivo de la entrega
-* Dotar a nuestra aplicación de una interfaz de usuario que nos permita interactuar con él. 
-
-## Alcance
-* Interfaz de usuario
-
-## Requerimientos detallados
-Se deberá construir una interfaz gráfica que permita, mínimamente:
-- [x] la autenticación de usuario
-- [x] la carga de operaciones de egresos
-- [x] la carga de entidades
-- [x] la asociación de entidades a categorías
-- [x] la visualización de entidades por categoría
-- [x] la visualización de la bandeja de mensajes definida en la entrega 2
 
 
 ## Entregables requeridos
