@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "dinero_en_cuenta")
 @DiscriminatorValue("D")
 public class DineroEnCuenta extends MedioDePago {
 	private String titular;
