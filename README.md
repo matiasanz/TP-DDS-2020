@@ -32,10 +32,6 @@ Se deberá construir una interfaz gráfica que permita, mínimamente:
 1. Controllers:
 ![UML Controllers](/Diagramas/uml_controllers.png)
 
-2. Base de datos:
-
-![UML Repositorios](/Diagramas/uml_repos.PNG)
-
 ## Entregables requeridos
 - [x] Modelo de objetos, datos y arquitectura actualizados
 - [x] Implementación de código fuente completa para los ítems de los cuales se solicita interfaz gráfica
