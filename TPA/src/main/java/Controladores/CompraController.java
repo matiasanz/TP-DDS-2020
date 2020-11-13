@@ -84,11 +84,7 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
     
     public ModelAndView getPaginaVerCompras(Request request, Response response) {
         autenticador.reconocerUsuario(request, response);
-        try {
-            return new ModelAndView(this.crearModeloCompra(), "compras-ver-todas.html.hbs");
-    	} catch(Exception e) {
-    		    return new ModelAndView(new HashMap<>(), "compras-menu.html.hbs");
-    	}
+        return new ModelAndView(this.crearModeloCompra(), "compras-ver-todas.html.hbs");
     }
     
     public ModelAndView agregarEtiqueta(Request request, Response response) {
@@ -163,6 +159,7 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
 	private void validarCargaDeCompra(Compra compra){
     	if(compra.getItems().isEmpty()) throw new DatosIncompletosException("items");
     	if(compra.getProveedor()==null) throw new DatosIncompletosException("proveedor");
+    	if(compra.getMedioDePago()==null) throw new DatosIncompletosException("medio de pago");
     }
 
     private Presupuesto crearPresupuesto(Request request) {
