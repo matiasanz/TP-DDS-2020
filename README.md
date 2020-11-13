@@ -36,11 +36,6 @@ Se deberá construir una interfaz gráfica que permita, mínimamente:
 
 ![UML Repositorios](/Diagramas/uml_repos.PNG)
 
-3. Tareas programadas:
-
-![UML Tareas Programadas](/Diagramas/uml_tareasProgramadas.PNG) 
-
-
 ## Entregables requeridos
 - [x] Modelo de objetos, datos y arquitectura actualizados
 - [x] Implementación de código fuente completa para los ítems de los cuales se solicita interfaz gráfica
