@@ -1,7 +1,8 @@
 package Repositorios.RepositorioDeUsuarios;
 import javax.persistence.NoResultException;
 
-import Organizacion.UsuarioYaExisteException;
+import Exceptions.UsuarioNoExisteException;
+import Exceptions.UsuarioYaExisteException;
 import Repositorios.RepoDB;
 import Usuario.Usuario;
 
@@ -15,7 +16,7 @@ public class RepoUsuariosDB extends RepoDB<Usuario>{
 	public Usuario getUsuario(String nombre){
 		Usuario usuario; 
 		try{
-			usuario = (Usuario) createQuery("where username = :user")
+			usuario = (Usuario) query("where username = :user")
 				.setParameter("user", nombre)
 				.getSingleResult();
 		} 
@@ -26,7 +27,7 @@ public class RepoUsuariosDB extends RepoDB<Usuario>{
 		
 		return usuario;
 	}
-	
+		
 	@Override
 	public void agregar(Usuario usuario){
 		validarNoRepetido(usuario.getUsername());

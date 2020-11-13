@@ -7,7 +7,10 @@ import Repositorios.RepositorioDeEntidades;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
+import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import Compra.Compra;
 import Entidad.Entidad;
@@ -20,40 +23,39 @@ import java.util.Map;
 
 import javax.persistence.EntityTransaction;
 
-public class ReporteMensualDeGastos implements Job {
+public class ReporteMensualDeGastos implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps, Job {
 
-//	public static RepoEntidadesDB repoEntidades = new RepoEntidadesDB();
-	public static RepositorioDeEntidades repoEntidades = new RepositorioDeEntidades();
-	
-	private static EntityTransaction transaccion = PerThreadEntityManagers.getEntityManager().getTransaction();
-	
+	public static RepositorioDeEntidades repoEntidades = RepositorioDeEntidades.instancia;
+		
     public void execute(JobExecutionContext context) {
 
-    	agregarDatosADB(); //
-    	LocalDate fechaActual = LocalDate.of(2020, 07, 31); // LocalDate.now() 
+//    	agregarDatosADB(); //
+    	LocalDate fechaActual = LocalDate.now(); //LocalDate.of(2020, 07, 31);
 
         System.out.println("****** INICIO EJECUCION REPORTE MENSUAL DE GASTOS ******");
-        transaccion.begin();
 
-        for(Entidad unaEntidad: repoEntidades.getAll()){
-        	System.out.println(">> " + unaEntidad.getNombreFicticio());
-        	Map<String, Double> resultadoReporte = generarReporteDeGastos(unaEntidad, fechaActual);
+        withTransaction(()->{
         	
-        	if(resultadoReporte.isEmpty()) 
-        		System.out.println("No se reportaron gastos");
-        	else
-        		imprimirResultadoReporte(resultadoReporte);
-        }
+        	for(Entidad unaEntidad: repoEntidades.getAll()){
+        		System.out.println(">> " + unaEntidad.getNombreFicticio());
+        		Map<String, Double> resultadoReporte = generarReporteDeGastos(unaEntidad, fechaActual);
+        		
+        		if(resultadoReporte.isEmpty()) 
+        			System.out.println("No se reportaron gastos");
+        		else
+        			imprimirResultadoReporte(resultadoReporte);
+        	}
         
-        transaccion.commit();       
+        });
+        
         System.out.println("********* FIN EJECUCION REPORTE MENSUAL DE GASTOS ******\n\n");
     }
     
-    private static void agregarDatosADB(){
-        transaccion.begin();
-    	List<Entidad> entidadesMock = OrganizacionMock.getInstance().getRepoEntidades().getAll();
-    	entidadesMock.forEach(e->repoEntidades.agregar(e));
-    	transaccion.commit();
+    private void agregarDatosADB(){
+        withTransaction(()->{
+        	List<Entidad> entidadesMock = OrganizacionMock.getInstance().getRepoEntidades().getAll();
+        	entidadesMock.forEach(e->repoEntidades.agregar(e));        	
+        });
     }
     
     public static Map<String, Double> generarReporteDeGastos(Entidad unaEntidad, LocalDate fechaInicio) {

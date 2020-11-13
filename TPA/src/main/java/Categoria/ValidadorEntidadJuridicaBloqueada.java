@@ -1,6 +1,7 @@
 package Categoria;
 
 import Entidad.EntidadJuridica;
+import Exceptions.EntidadJuridicaBloqueadaException;
 
 import javax.persistence.*;
 

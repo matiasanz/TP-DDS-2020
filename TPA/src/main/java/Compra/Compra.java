@@ -8,11 +8,14 @@ import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedas;
 import Usuario.Usuario;
+import Usuario.Mensaje;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -32,8 +35,9 @@ public class Compra {
     @Column(name = "fecha_operacion")
     private  LocalDate fechaOperacion;
 
-    @Transient
-    private  MedioDePago medioDePago;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "medio_de_pago_id")
+    private MedioDePago medioDePago;
 
     @Column(name = "cantidad_minima_de_presupuestos")
     private int cantidadMinimaDePresupuestos;
@@ -45,11 +49,10 @@ public class Compra {
     @Enumerated(EnumType.ORDINAL)
     private Estado indicadorDeAprobacion = Estado.PENDIENTEDEAPROBACION;
 
-    @ManyToMany
-    @JoinTable(name = "items_por_compra")
+    @Transient
     private  List<Item> items = new ArrayList<>();;
 
-    @OneToMany(cascade=CascadeType.MERGE)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "compra_id")
     private List<Presupuesto> presupuestosAsociados = new ArrayList<>();
 
@@ -57,10 +60,7 @@ public class Compra {
     @JoinTable(name = "validadores_por_compra",
             joinColumns = @JoinColumn(name = "compra_id"),
             inverseJoinColumns = @JoinColumn(name = "usuarios_id"))
-    private  List<Usuario> usuariosValidadores;
-
-    @Transient
-    private  ValidadorDeCompra validadorDeCompra = new ValidadorDeCompra();
+    private  List<Usuario> usuariosValidadores = new LinkedList<>();
 
     @ElementCollection
     @CollectionTable(name = "etiquetas", joinColumns=@JoinColumn(name = "compra_id"))
@@ -75,8 +75,7 @@ public class Compra {
                   LocalDate fecha,
                   MedioDePago medioDePago,
                   CodigoMoneda codigoMoneda,
-                  int cantidadMinimaDePresupuestos,
-                  List<Usuario> usuariosValidadores) {
+                  int cantidadMinimaDePresupuestos) {
 
         this.entidadRelacionada = entidad;
         //this.documentoComercial = documentoComercial; //TODO importante entrega 2
@@ -84,13 +83,18 @@ public class Compra {
         this.medioDePago = medioDePago;
         this.cantidadMinimaDePresupuestos = cantidadMinimaDePresupuestos;
         this.moneda = repositorioDeMonedas.getMoneda(codigoMoneda);
-        this.usuariosValidadores = usuariosValidadores;
     }
 
+    
+    
 	//Items ***********************************
 
     public List<Item> getItems() {
-        return items;
+    	try{
+    		return getPresupuestoElegido().getItems();
+    	} catch( NoHayPresupuestoElegidoException e){
+    		return items;
+    	}
     }
     
     public void agregarItem(Item item) {
@@ -98,7 +102,7 @@ public class Compra {
     }
     
     public BigDecimal getValorTotal() {
-        return items.stream().map(Item::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return getItems().stream().map(Item::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
     
 //Presupuesto *****************************
@@ -151,10 +155,6 @@ public class Compra {
         return this.indicadorDeAprobacion == Estado.PENDIENTEDEAPROBACION;
     }
     
-    public void validar() {
-        validadorDeCompra.validar(this);
-    }
-
 //Usuarios validadores *****************
 
     public void agregarUsuarioValidador(Usuario usuario) {
@@ -166,7 +166,7 @@ public class Compra {
     }
     
     public void notificarUsuarios(String mensaje){
-    	usuariosValidadores.stream().forEach(unUsuario->unUsuario.notificarEvento(mensaje));
+    	usuariosValidadores.stream().forEach(unUsuario->unUsuario.notificarEvento(new Mensaje(LocalDateTime.now(), mensaje)));
     }
 
 //Etiqueta ****************

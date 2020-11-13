@@ -1,0 +1,50 @@
+{{# partial "titulo" }}
+    <title>GeSoc - Inicio</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+      <a class="active" href="/menu">Inicio</a>
+      <a href="/compras">Compras</a>
+      <a href="/entidades">Entidades</a>
+      <a href="/mensajes">Mensajes</a>
+      <a href="/logout">Salir</a>
+    </div>
+{{/partial}}
+
+    
+
+
+
+{{# partial "contenido" }}
+    <section class="fondo-gris">
+    
+        <h2>¡Bienvenido {{username}}!</h2>
+        
+        <h2>Acerca de nosotros</h2>
+        <p> 
+        	Fundación Proyecto Emprender (PROEM) es una organización sin fines de lucro fundada en el año 2003.
+			Su visión reside en contribuir a la obtención del pleno empleo en la República Argentina. En dicho sentido,
+			su misión es acompañar la preparación laboral de las personas, promover el desarrollo y generación de
+			emprendimientos y fortalecer organizaciones productivas ya constituidas. PROEM promueve la inclusión
+			social a través del trabajo. La Fundación acoge a toda persona que necesite apoyo, asesoramiento y/o
+			acompañamiento en proyectar sus ideas como herramientas para generar un trabajo autónomo, así como
+			a jóvenes y adultos que necesitan orientación y capacitación para mejorar su formación con el fin de
+			conseguir un empleo.
+		</p>
+		<p>
+			Leandro es el presidente de esta Fundación y junto con Belén, coordinadora de proyectos, Ignacio,
+			coordinador de comunicación y Analía, coordinadora de administración, realizan las tareas de
+			administración y gestión de la entidad con el mayor de sus esfuerzos. Como muchas ONGs y Pymes,
+			cuenta con un equipo de trabajo no muy grande, sin especialistas en su staff relacionados con el
+			aprovechamiento de recursos tecnológicos ni desarrollo de software y, aunque cuentan con un contador de
+			la Fundación, no posee herramientas que reduzcan las dificultades de la gestión de sus actividades en el
+			día a día. Con el objetivo de acompañar la resolución de sus problemáticas cotidianas en la gestión se
+			evalúa la posibilidad de implementar un sistema de información de contabilidad de gestión.
+        </p>
+
+    </section>
+
+{{/partial}}
+
+{{> layout.html.hbs }}

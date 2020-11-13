@@ -33,11 +33,11 @@ public class ComprasFactory {
     private static Proveedor proveedor = Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", direccion);
 
 	public static Compra compraSinEtiquetas(EntidadJuridica entidad, Proveedor proveedor, MedioDePago medioDePago){
-        return new Compra(new RepositorioDeMonedasMock(), entidad,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1, new LinkedList<Usuario>());
+        return new Compra(new RepositorioDeMonedasMock(), entidad,  LocalDate.now(), medioDePago, CodigoMoneda.ARS, 1);
 	}
 	
     public static Compra getCompraMarzo2018Amoblamiento() {
-        Compra compraMarzo2018Amoblamiento = new Compra(repositorioDeMonedas, null, LocalDate.of(2018, 3, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, new ArrayList<Usuario>());
+        Compra compraMarzo2018Amoblamiento = new Compra(repositorioDeMonedas, null, LocalDate.of(2018, 3, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1);
         compraMarzo2018Amoblamiento.agregarEtiqueta("Amoblamiento");
         List<Item> items = Arrays.asList(item50, item9Con50);
         Presupuesto presupuestoElegido = presupuestoConItems(items);
@@ -46,8 +46,13 @@ public class ComprasFactory {
         compraMarzo2018Amoblamiento.setPresupuestoElegido(presupuestoElegido);
         return compraMarzo2018Amoblamiento;
     }
+
+    public static Compra getCompraFebrero2017SinEtiquetaNiPresupuestos() {
+        return new Compra(repositorioDeMonedas, null, LocalDate.of(2017, 2, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1);
+    }
+
     public static Compra getCompraFebrero2017SinEtiqueta() {
-        Compra compraFebrero2017SinEtiqueta = new Compra(repositorioDeMonedas, null, LocalDate.of(2017, 2, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, new ArrayList<Usuario>());
+        Compra compraFebrero2017SinEtiqueta = new Compra(repositorioDeMonedas, null, LocalDate.of(2017, 2, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1);
         List<Item> items = Arrays.asList(item50);
       
         Presupuesto presupuestoElegido = presupuestoConItems(items);
@@ -58,7 +63,7 @@ public class ComprasFactory {
         return compraFebrero2017SinEtiqueta;
     }
     public static Compra getCompraJulio2020JuanPerez() {
-    	Compra compraJulio2020JuanPerez = new Compra(repositorioDeMonedas, null, LocalDate.of(2020, 7, 16), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, new ArrayList<Usuario>());
+    	Compra compraJulio2020JuanPerez = new Compra(repositorioDeMonedas, null, LocalDate.of(2020, 7, 16), new PagoEnEfectivo(), CodigoMoneda.ARS, 1);
 
         List<Item> items = Arrays.asList(item40Con50, item9Con50, item9Con50, item9Con50);	
        
@@ -69,7 +74,7 @@ public class ComprasFactory {
         return compraJulio2020JuanPerez;
     }
     public static Compra getCompra1Julio2020Amoblamiento() {
-        Compra compra1Julio2020Amoblamiento = new Compra(repositorioDeMonedas, null, LocalDate.of(2020, 7, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, new ArrayList<Usuario>());
+        Compra compra1Julio2020Amoblamiento = new Compra(repositorioDeMonedas, null, LocalDate.of(2020, 7, 1), new PagoEnEfectivo(), CodigoMoneda.ARS, 1);
         
         List<Item> items = Arrays.asList(item40Con50);
         Presupuesto presupuestoElegido = presupuestoConItems(items);
@@ -80,16 +85,13 @@ public class ComprasFactory {
         return compra1Julio2020Amoblamiento;
     }
     public static Compra getCompra19Julio2020Amoblamiento() {
-        Compra compra19Julio2020Amoblamiento = new Compra(repositorioDeMonedas, null, LocalDate.of(2020, 7, 19), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, new ArrayList<Usuario>());
+        Compra compra19Julio2020Amoblamiento = new Compra(repositorioDeMonedas, null, LocalDate.of(2020, 7, 19), new PagoEnEfectivo(), CodigoMoneda.ARS, 1);
         compra19Julio2020Amoblamiento.agregarItem(item9Con50);
         compra19Julio2020Amoblamiento.agregarEtiqueta("Amoblamiento");
-        Presupuesto presupuestoElegido = presupuestoConItems(Arrays.asList(item9Con50));
-        compra19Julio2020Amoblamiento.agregarPresupuesto(presupuestoElegido);
-        compra19Julio2020Amoblamiento.setPresupuestoElegido(presupuestoElegido);
         return compra19Julio2020Amoblamiento;
     }
     public static Compra getCompra12Julio2020SinEtiqueta() {
-        Compra compra12Julio2020SinEtiqueta = new Compra(repositorioDeMonedas, null, LocalDate.of(2020, 7, 12), new PagoEnEfectivo(), CodigoMoneda.ARS, 1, new ArrayList<Usuario>());
+        Compra compra12Julio2020SinEtiqueta = new Compra(repositorioDeMonedas, null, LocalDate.of(2020, 7, 12), new PagoEnEfectivo(), CodigoMoneda.ARS, 1);
         compra12Julio2020SinEtiqueta.agregarItem(item9Con50);
         Presupuesto presupuestoElegido = presupuestoConItems(Arrays.asList(item9Con50));
         compra12Julio2020SinEtiqueta.agregarPresupuesto(presupuestoElegido);
@@ -108,16 +110,15 @@ public class ComprasFactory {
     }
 
     public static Compra compraConNPresupuestosMinimos(int cantidadMinimaDePresupuestos) {
-        EntidadJuridica unaEntidad = new Empresa("Razon SRL", "Kwik-E-Mart", "4517", DireccionesFactory.direccionStub(), 1, new ArrayList<>(), Clasificacion.PEQUENIA);
+        EntidadJuridica unaEntidad = new Empresa("Razon SRL", "Kwik-E-Mart", "4517", DireccionesFactory.direccionStub9DeJulio(), 1, new ArrayList<>(), Clasificacion.PEQUENIA);
         LocalDate fechaActual = LocalDate.now();
-        List<Usuario> usuarios = new ArrayList<>();
-        usuarios.add(UsuariosFactory.usuarioStub());
         Compra unaCompra = new Compra(new RepositorioDeMonedasMeli(),
                                       unaEntidad,
                                       fechaActual,
                                       new DineroEnCuenta(),
                                       CodigoMoneda.ARS,
-                                      cantidadMinimaDePresupuestos, usuarios);
+                                      cantidadMinimaDePresupuestos);
+        unaCompra.agregarUsuarioValidador(UsuariosFactory.usuarioStub());
         unaCompra.agregarItem(ItemsFactory.bebida(4, 120));
         return unaCompra;
     }

@@ -1,0 +1,26 @@
+{{# partial "titulo" }}
+    <title>GeSoc - Entidades</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+      <a href="/">Inicio</a>
+      <a href="/compras">Compras</a>
+      <a class="active" href="/entidades">Entidades</a>
+      <a href="/mensajes">Mensajes</a>
+      <a href="/logout">Salir</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+    <section>
+
+        <button class="botonSameTamanio" onclick="location.href='/entidades/nueva'">Crear entidad</button>
+        <button class="botonSameTamanio" onclick="location.href='/entidades/asociar-categoria'">Asociar entidad a categoría</button>
+        <button class="botonSameTamanio" onclick="location.href='/entidades/categorias'">Ver entidades por categoría</button>
+
+    </section>
+
+{{/partial}}
+
+{{> layout.html.hbs }}

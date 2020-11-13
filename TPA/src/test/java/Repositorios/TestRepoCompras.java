@@ -20,7 +20,7 @@ public class TestRepoCompras extends AbstractPersistenceTest implements WithGlob
 
     RepoComprasDB repoCompras = new RepoComprasDB();
     Compra compraJulioEtiqueta = ComprasFactory.getCompra19Julio2020Amoblamiento();
-    Compra compraFebrero = ComprasFactory.getCompraFebrero2017SinEtiqueta();
+    Compra compraFebrero = ComprasFactory.getCompraFebrero2017SinEtiquetaNiPresupuestos();
     Compra compraJulioSinEtiqueta = getCompraJulioSinEtiquetas();
 
     LocalDate fechaJulio2020 = LocalDate.of(2020, 07, 1);

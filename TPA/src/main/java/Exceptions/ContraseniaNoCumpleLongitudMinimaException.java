@@ -1,4 +1,4 @@
-package Usuario;
+package Exceptions;
 
 public class ContraseniaNoCumpleLongitudMinimaException extends RuntimeException {
 

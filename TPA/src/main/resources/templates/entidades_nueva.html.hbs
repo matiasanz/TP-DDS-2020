@@ -1,0 +1,36 @@
+{{# partial "titulo" }}
+    <title>GeSoc - Crear entidad</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+      <a href="/">Inicio</a>
+      <a href="/compras">Compras</a>
+      <a class="active" href="/entidades">Entidades</a>
+      <a href="/mensajes">Mensajes</a>
+      <a href="/logout">Salir</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+    <section>
+
+        <button class="botonAtras" onclick="location.href='/entidades'">Atras</button>
+
+        {{#mensajeAccion}}
+            <h2 style="text-align:center;">{{mensajeAccion}}</h2>
+        {{/mensajeAccion}}
+
+        <h2>Crear entidad<h2>
+
+            <h3>Seleccione el tipo de entidad a crear:</h3>
+            <div class="mismaFila">
+                <button class="botonSameTamanio botonPequenioIzquierda" onclick="location.href='/entidades/nueva-base'">Entidad base</button>
+                <button class="botonSameTamanio botonPequenioIzquierda" onclick="location.href='/entidades/nueva-empresa'">Empresa</button>
+                <button class="botonSameTamanio botonPequenioIzquierda" onclick="location.href='/entidades/nueva-org-sector-social'">Organización de sector social</button>
+            </div>
+
+    </section>
+{{/partial}}
+
+{{> layout.html.hbs }}

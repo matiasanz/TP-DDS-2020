@@ -1,0 +1,36 @@
+{{# partial "titulo" }}
+    <title>GESOC - Nueva Compra</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+        <a href="/">Inicio</a>
+        <a class="active" href="/compras">Compras</a>
+        <a href="/entidades">Entidades</a>
+        <a href="/mensajes">Mensajes</a>
+        <a href="/logout">Salir</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+	<section>
+		<div id="compras">
+			<ul>
+				{{#compras}}
+					<p>------------------------------------------------------------------------------</p>
+					<li>
+						ID Compra: {{id}} <br>
+						Fecha: {{fecha}} <br>
+						Precio Total: {{precio}} <br>
+						Moneda: {{moneda}} <br>
+						Medio de Pago: {{medioDePago}} <br>
+						<a href="/compras/ver/{{id}}"><button>Ver</button></a>
+					</li>
+					<p>------------------------------------------------------------------------------</p>
+				{{/compras}}
+			</ul>
+		</div>
+	</section>
+{{/partial}}
+
+{{> layout.html.hbs }}

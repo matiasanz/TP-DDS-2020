@@ -14,7 +14,7 @@ import Repositorios.RepositorioDeMonedas.*;
 import Usuario.Usuario;
 
 public class EntidadesFactory{
-	static Direccion direccionStub = DireccionesFactory.direccionStub();
+	static Direccion direccionStub = DireccionesFactory.direccionStub9DeJulio();
 	static RepositorioDeMonedas repositorioDeMonedas = new RepositorioDeMonedasMock();
 	
 	public static EntidadBase baseRandom(){
@@ -27,7 +27,7 @@ public class EntidadesFactory{
 		return Proveedor.PersonaFisica(22222222, 1222222224, "Juan", "Perez", direccionStub);
 	}
 	public static Entidad getEntidadStub(){
-		return new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", DireccionesFactory.direccionStub(), 845, new ArrayList<>());
+		return new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", DireccionesFactory.direccionStub9DeJulio(), 845, new ArrayList<>());
 	}
     public static Entidad getEntidadConCompras() {
         Entidad entidad = EntidadesFactory.getEntidadStub();
@@ -35,7 +35,7 @@ public class EntidadesFactory{
         return entidad;
     }
     public static EntidadJuridica getEntidadJuridica() {
-		return new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", DireccionesFactory.direccionStub(), 845, new ArrayList<>());
+		return new OrganizacionSectorSocial("Entidad de Prueba", "Entidad Real", "1222222224", DireccionesFactory.direccionStub9DeJulio(), 845, new ArrayList<>());
 	}
 	public static EntidadJuridica entidadConComprasParaUsuario(Usuario usuario){
 		EntidadJuridica entidad = getEntidadJuridica();

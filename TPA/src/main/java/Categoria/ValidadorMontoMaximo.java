@@ -1,6 +1,9 @@
 package Categoria;
 
 import javax.persistence.*;
+
+import Exceptions.MontoMaximoExcedidoException;
+
 import java.math.BigDecimal;
 
 @Entity

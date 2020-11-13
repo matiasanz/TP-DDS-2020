@@ -10,6 +10,8 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 
+import java.time.LocalDateTime;
+
 public class TestMensajes {
 	
 	Usuario usuario1 = UsuariosFactory.usuarioStub();
@@ -21,18 +23,18 @@ public class TestMensajes {
 	
 	@Test()
 	public void unUsuarioSeCreaSinNotificaciones(){
-		assert(usuario1.getMensajes().isEmpty());
+		assert(usuario1.getBandejaDeMensajes().isEmpty());
 	}
 	
 	@Test()
     public void unUsuarioRecibeYEliminaMensajes(){
     	String notificacion = "Alerta alerta, estas por romper la dieta";
     	
-    	usuario1.notificarEvento(notificacion);
+    	usuario1.notificarEvento(new Mensaje(LocalDateTime.of(1,1,1,1,1), notificacion));
     	assertMensajeUnico(usuario1,notificacion);
     	
     	usuario1.vaciarBandeja();
-    	assertTrue(usuario1.getMensajes().isEmpty());
+    	assertTrue(usuario1.getBandejaDeMensajes().isEmpty());
     }
 	
     @Test
@@ -44,7 +46,7 @@ public class TestMensajes {
     	
     	ValidacionDeEgresos.validarCompra(compra);
     	
-    	assertEquals(1, usuario2.getMensajes().size());    	
+    	assertEquals(1, usuario2.getBandejaDeMensajes().size());
     	
     	String motivo = "No se ha seleccionado ningun presupuesto";
     	assertMensajeUnico(usuario1, "-----------<Una Compra ha sido rechazada>----------\n"
@@ -56,14 +58,14 @@ public class TestMensajes {
     	ValidacionDeEgresos.validarCompra(ComprasFactory.compraParaUsuario(usuario1));
     	ValidacionDeEgresos.validarCompra(ComprasFactory.compraParaUsuario(usuario1));
     	
-    	assertEquals(2, usuario1.getMensajes().size());
+    	assertEquals(2, usuario1.getBandejaDeMensajes().size());
     }
     
     
     //************ Auxiliares **************
     
     public void assertMensajeUnico(Usuario usuario, String contenido){
-    	assertEquals(1,usuario.getMensajes().size());
-    	assertEquals(contenido,usuario.getMensajes().get(0));
+    	assertEquals(1,usuario.getBandejaDeMensajes().size());
+    	assertEquals(contenido,usuario.getBandejaDeMensajes().get(0).getValue());
     }
 }

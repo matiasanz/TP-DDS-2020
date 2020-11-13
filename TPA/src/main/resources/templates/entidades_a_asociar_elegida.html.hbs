@@ -1,0 +1,69 @@
+{{# partial "titulo" }}
+    <title>GeSoc - Asociar categorias</title>
+{{/partial}}
+
+{{# partial "nav"}}
+    <div class="topnav">
+      <a href="/">Inicio</a>
+      <a href="/compras">Compras</a>
+      <a class="active" href="/entidades">Entidades</a>
+      <a href="/mensajes">Mensajes</a>
+      <a href="/logout">Salir</a>
+    </div>
+{{/partial}}
+
+{{# partial "contenido" }}
+    <section>
+
+        <button class="botonAtras" onclick="location.href='/entidades/asociar-categoria'">Atras</button>
+
+        {{#mensajeAccion}}
+            <h2 style="text-align:center;">{{mensajeAccion}}</h2>
+        {{/mensajeAccion}}
+
+        {{#entidad}}
+        <h2>Entidad elegida: {{nombreFicticio}}</h2>
+        {{/entidad}}
+
+        {{#idEntidad}}
+
+            <h3>Categorías sin asociar:</h3>
+            <ul>
+                {{#categoriasSinAsociar}}
+                    <li>
+                        <div class="divCategorias">
+                            <div class="nombreCategoria"><span style="float: left; margin-right: 5px;">{{nombre}}</span></div>
+                            <div class="submitButton">
+                                <form action="/entidades/{{idEntidad}}/agregar-categoria" method="POST">
+                                    <input type="hidden" name="idCategoria" value={{id}}>
+                                    <input type="submit" value="Asociar">
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                {{/categoriasSinAsociar}}
+            </ul>
+
+            <h3>Categorías asociadas:</h3>
+            <ul>
+                {{#categoriasAsociadas}}
+                    <li>
+                        <div class="divCategorias">
+                            <div class="nombreCategoria"><span style="float: left; margin-right: 5px;">{{nombre}}</span></div>
+                            <div class="submitButton">
+                                <form action="/entidades/{{idEntidad}}/eliminar-categoria" method="POST">
+                                    <input type="hidden" name="idCategoria" value={{id}}>
+                                    <input type="submit" value="Desasociar">
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                {{/categoriasAsociadas}}
+            </ul>
+
+        {{/idEntidad}}
+
+    </section>
+{{/partial}}
+
+{{> layout.html.hbs }}

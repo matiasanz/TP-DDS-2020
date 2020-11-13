@@ -6,6 +6,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Exceptions.ContraseniaEntreLasDiezMilException;
+import Exceptions.ContraseniaNoCumpleLongitudMinimaException;
+import Exceptions.ContraseniaTieneCaracteresRepetidosException;
+import Exceptions.ContraseniaTieneNombreDeUsuarioIncluidoException;
+import Exceptions.NoEncontroArchivoException;
+
 public class ValidadorUsuario {
 
     void validarContrasenia(String contrasenia,String username) {

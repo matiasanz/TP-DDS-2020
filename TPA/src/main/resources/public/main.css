@@ -1,0 +1,145 @@
+html {
+    background: rgb(30, 78, 115);
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.06);
+    color: #545454;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 auto;
+    padding: 0 2em 0;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cuerpo {
+    flex: 1 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #222;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+img {
+    animation: colorize 1s cubic-bezier(0, 0, .78, .36) 1;
+    background: transparent;
+    display: flex;
+    max-width: 17%;
+    padding-top: 1em;
+}
+
+table, td {
+    border: 1px solid black;
+}
+
+th {
+   width:180px;
+}
+
+@keyframes colorize {
+    0% {
+        -webkit-filter: grayscale(100%);
+        filter: grayscale(100%);
+    }
+    100% {
+        -webkit-filter: grayscale(0%);
+        filter: grayscale(0%);
+    }
+}
+
+.botonSameTamanio{
+    width:50%;
+    display:block;
+    margin: 10px auto auto;
+    padding: 10px 10px;
+    border-radius: 4px;
+    background-color: rgb(30, 78, 115);
+    color: #fff;
+}
+
+.botonAtras{
+    width: 10%;
+    margin-right: 0;
+    margin-left:auto;
+    display:block;
+    padding: 10px 10px;
+    border-radius: 4px;
+    background-color: rgb(30, 78, 115);
+    color: #fff;
+}
+
+.botonSameTamanio:hover{color:#000!important;background-color:#ccc!important}
+.botonAtras:hover{color:#000!important;background-color:#ccc!important}
+
+.footer {
+    flex-shrink: 0;
+    padding-bottom: 1em;
+    padding-top: 3em;
+}
+
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 14px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav a.active {
+    background-color: #1c4c74;
+    color: white;
+}
+
+.divCategorias .nombreCategoria {
+    float: left;
+    margin-right: 5px;
+}
+
+.divCategorias .submitButton {
+    overflow: hidden;
+}
+
+.mismaFila {
+    display: inline;
+}
+
+.botonPequenioIzquierda{
+    width: 20%;
+    display: inline-block;
+}
+
+.required{
+    color:red;
+}
+
+.crear_entidad li {
+    padding: 0;
+    display: block;
+    list-style: none;
+    margin: 5px 0 0 0;
+}
+.crear_entidad .label{
+    margin:0 0 3px 0;
+    padding:0px;
+    display:block;
+    font-weight: bold;
+}
