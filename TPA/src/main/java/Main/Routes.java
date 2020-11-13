@@ -51,10 +51,10 @@ public class Routes {
         comprasRoutes();
         entidadesRoutes();
 
-//        after((request, response) -> {
-//            PerThreadEntityManagers.getEntityManager();
-//            PerThreadEntityManagers.closeEntityManager();
-//        });
+        after((request, response) -> {
+            PerThreadEntityManagers.getEntityManager();
+            PerThreadEntityManagers.closeEntityManager();
+        });
 
         System.out.println("Servidor iniciado correctamente");
     }

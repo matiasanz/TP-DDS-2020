@@ -49,7 +49,8 @@ public class Compra {
     @Enumerated(EnumType.ORDINAL)
     private Estado indicadorDeAprobacion = Estado.PENDIENTEDEAPROBACION;
 
-    @Transient
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name = "compra_id")
     private  List<Item> items = new ArrayList<>();;
 
     @OneToMany(cascade=CascadeType.ALL)
