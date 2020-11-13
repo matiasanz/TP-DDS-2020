@@ -49,8 +49,7 @@ public class Compra {
     @Enumerated(EnumType.ORDINAL)
     private Estado indicadorDeAprobacion = Estado.PENDIENTEDEAPROBACION;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name = "compra_id")
+    @Transient
     private  List<Item> items = new ArrayList<>();;
 
     @OneToMany(cascade=CascadeType.ALL)
@@ -91,7 +90,11 @@ public class Compra {
 	//Items ***********************************
 
     public List<Item> getItems() {
-        return items;
+    	try{
+    		return getPresupuestoElegido().getItems();
+    	} catch( NoHayPresupuestoElegidoException e){
+    		return items;
+    	}
     }
     
     public void agregarItem(Item item) {
@@ -99,7 +102,7 @@ public class Compra {
     }
     
     public BigDecimal getValorTotal() {
-        return items.stream().map(Item::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return getItems().stream().map(Item::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
     
 //Presupuesto *****************************
