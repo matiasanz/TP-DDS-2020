@@ -40,7 +40,6 @@ public class Autenticador
 		
 		catch(NingunaSesionAbiertaException | UsuarioNoExisteException e){
 			respuesta.status(HttpURLConnection.HTTP_PROXY_AUTH);
-			System.out.println("\n\n uri: " + pedido.uri() + "\n");
 			respuesta.cookie("mensaje","Para acceder al contenido, primero debe identificarse");
 			respuesta.redirect(LOGIN_URI);
 		}
