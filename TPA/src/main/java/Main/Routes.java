@@ -22,8 +22,6 @@ public class Routes {
     private static final CompraController compraController = new CompraController();
     private static final EntidadesController entidadesController = new EntidadesController();
 
-    private static final String LOGIN_URI="/";
-
     public static void main(String[] args) {
         System.out.println("Iniciando servidor");
 
@@ -39,8 +37,8 @@ public class Routes {
         
         Spark.before((request, response)->{        	        	
         	bloquearCacheNavegador(response);
-        	
-        	if(!uriExceptuadaDeReautenticar( request.uri()) ){
+
+        	if(!uriExceptuadaDeReautenticar( request.uri() )){
         		Autenticador.instance.reautenticar(request,response);        		
         	}
         });
@@ -57,7 +55,7 @@ public class Routes {
     }
 
     private static void usuarioRoutes(){
-        Spark.get(LOGIN_URI, homeController::getHome, engine);
+        Spark.get("/", homeController::getHome, engine);
     	
     	Spark.post("/login", homeController::tryLogin, engine);
 
@@ -115,7 +113,9 @@ public class Routes {
     }
 
     private static boolean uriExceptuadaDeReautenticar(String uri){
-    	return uri.equals(LOGIN_URI);
+    	return uri.equals("/main.css") 
+    		|| uri.equals("/")
+    		|| uri.equals("/login");
     }
     
     private static void closeEntityManager(){

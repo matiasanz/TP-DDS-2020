@@ -11,7 +11,6 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import Exceptions.UsuarioNoExisteException;
 import Exceptions.UsuarioYaExisteException;
 import Factory.UsuariosFactory;
-import Organizacion.IngresoFallidoException;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
 import Usuario.Usuario;
 

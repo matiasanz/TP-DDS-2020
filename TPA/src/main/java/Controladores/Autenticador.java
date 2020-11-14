@@ -13,7 +13,7 @@ import spark.Response;
 public class Autenticador
 {	
 	private RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
-	private List<Long> usuariosLogueados = new LinkedList<>();
+	private List<Long> sesionesEnCurso = new LinkedList<>();
 	private String USER_ID = "uid"; //Cookie que "persiste" al usuario
 	private String LOGIN_URI = "/";
 
@@ -21,12 +21,12 @@ public class Autenticador
 	
 	public void guardarCredenciales(Request request, Usuario usuario)	{
 		request.session().attribute(USER_ID, usuario.getId());
-		usuariosLogueados.add(usuario.getId());
+		sesionesEnCurso.add(usuario.getId());
 	}
 	
 	public void quitarCredenciales(Request request, Response response){
 		Usuario usuario = getUsuario(request, response);
-		usuariosLogueados.remove(usuario.getId());
+		sesionesEnCurso.remove(usuario.getId());
 		request.session().removeAttribute(USER_ID);
     }
 	
@@ -40,6 +40,7 @@ public class Autenticador
 		
 		catch(NingunaSesionAbiertaException | UsuarioNoExisteException e){
 			respuesta.status(HttpURLConnection.HTTP_PROXY_AUTH);
+			System.out.println("\n\n uri: " + pedido.uri() + "\n");
 			respuesta.cookie("mensaje","Para acceder al contenido, primero debe identificarse");
 			respuesta.redirect(LOGIN_URI);
 		}
@@ -56,6 +57,6 @@ public class Autenticador
     
     public boolean sesionEnCurso(Request request){
     	Long id = request.session().attribute(USER_ID);
-    	return  id != null && usuariosLogueados.stream().anyMatch(idLogueado->idLogueado.equals(id));
+    	return  id != null && sesionesEnCurso.stream().anyMatch(idLogueado->idLogueado.equals(id));
     }
 }
