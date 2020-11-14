@@ -1,5 +1,6 @@
 package Main;
 
+import Controladores.Autenticador;
 import Controladores.BandejaController;
 import Controladores.CompraController;
 import Controladores.EntidadesController;
@@ -21,6 +22,8 @@ public class Routes {
     private static final CompraController compraController = new CompraController();
     private static final EntidadesController entidadesController = new EntidadesController();
 
+    private static final String LOGIN_URI="/";
+
     public static void main(String[] args) {
         System.out.println("Iniciando servidor");
 
@@ -32,34 +35,40 @@ public class Routes {
 
         Spark.staticFileLocation("/public");
 
-        new Bootstrap().run();
+        Bootstrap.main(args);
         
         Spark.before((request, response)->{        	        	
-        	bloquearCache(response);
+        	bloquearCacheNavegador(response);
+        	
+        	if(!uriExceptuadaDeReautenticar( request.uri()) ){
+        		Autenticador.instance.reautenticar(request,response);        		
+        	}
         });
         
-        Spark.get("/", homeController::getHome, engine);
+        usuarioRoutes();
 
-        Spark.post("/login", homeController::tryLogin, engine);
+        comprasRoutes();
+        
+        entidadesRoutes();
+
+        after((request, response) -> closeEntityManager() );
+
+        System.out.println("Servidor iniciado correctamente");
+    }
+
+    private static void usuarioRoutes(){
+        Spark.get(LOGIN_URI, homeController::getHome, engine);
+    	
+    	Spark.post("/login", homeController::tryLogin, engine);
 
         Spark.get("/menu", menuController::getUserMenu, engine);
 
         Spark.get("/mensajes", bandejaController::getBandejaDeMensajes, engine);
 
         Spark.get("/logout", menuController::logout, engine);
-
-        comprasRoutes();
-        entidadesRoutes();
-
-        after((request, response) -> {
-            PerThreadEntityManagers.getEntityManager();
-            PerThreadEntityManagers.closeEntityManager();
-        });
-
-        System.out.println("Servidor iniciado correctamente");
     }
-
-    private static void comprasRoutes(){
+    
+	private static void comprasRoutes(){
 
         Spark.get("/compras", compraController::getPaginaComprasMenu, engine);
 
@@ -101,7 +110,16 @@ public class Routes {
         Spark.post("/entidades", entidadesController::crearEntidad, engine);
     }
     
-    private static void bloquearCache(Response respuesta){
+    private static void bloquearCacheNavegador(Response respuesta){
 		  respuesta.header("Cache-Control", "no-store, must-revalidate");
+    }
+
+    private static boolean uriExceptuadaDeReautenticar(String uri){
+    	return uri.equals(LOGIN_URI);
+    }
+    
+    private static void closeEntityManager(){
+    	PerThreadEntityManagers.getEntityManager();
+        PerThreadEntityManagers.closeEntityManager();
     }
 }

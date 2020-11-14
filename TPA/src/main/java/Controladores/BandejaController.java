@@ -9,7 +9,7 @@ import spark.Response;
 
 public class BandejaController {
 	public ModelAndView getBandejaDeMensajes(Request request, Response response){
-		Usuario usuario = Autenticador.getInstance().reconocerUsuario(request, response);
+		Usuario usuario = Autenticador.instance.getUsuario(request, response);
 		return new ModelAndView(crearModelo(usuario) , "mensajes.html.hbs");
 	}
 	

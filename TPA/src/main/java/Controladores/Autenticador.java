@@ -19,28 +19,23 @@ public class Autenticador
 
 	public static Autenticador instance = new Autenticador();
 	
-	public static Autenticador getInstance(){
-		return instance;
-	}
-	
 	public void guardarCredenciales(Request request, Usuario usuario)	{
 		request.session().attribute(USER_ID, usuario.getId());
 		usuariosLogueados.add(usuario.getId());
 	}
 	
 	public void quitarCredenciales(Request request, Response response){
-		Usuario usuario = reconocerUsuario(request, response);
+		Usuario usuario = getUsuario(request, response);
 		usuariosLogueados.remove(usuario.getId());
 		request.session().removeAttribute(USER_ID);
     }
 	
-	public Usuario reconocerUsuario(Request pedido, Response respuesta){
-		Usuario usuario = null;
+	public void reautenticar(Request pedido, Response respuesta){
 		Long id = pedido.session().attribute(USER_ID);
 		
 		try{
 			validarSesionEnCurso(pedido);
-			usuario = getUsuario(id);
+			repoUsuarios.getUsuario(id);
 		}
 		
 		catch(NingunaSesionAbiertaException | UsuarioNoExisteException e){
@@ -48,15 +43,11 @@ public class Autenticador
 			respuesta.cookie("mensaje","Para acceder al contenido, primero debe identificarse");
 			respuesta.redirect(LOGIN_URI);
 		}
-		
-		return usuario;
 	}
-	
-	private Usuario getUsuario(Long id){
-		return repoUsuarios.getAll().stream()
-    			.filter(u->u.getId().equals(id))
-    			.findAny()
-    			.orElseThrow(UsuarioNoExisteException::new);
+		
+	public Usuario getUsuario(Request request, Response response){
+		Long id = request.session().attribute(USER_ID);
+		return repoUsuarios.getUsuario(id);
     }
     
     private void validarSesionEnCurso(Request pedido){

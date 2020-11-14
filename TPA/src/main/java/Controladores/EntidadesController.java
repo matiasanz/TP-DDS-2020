@@ -21,16 +21,11 @@ import java.util.stream.Stream;
 
 public class EntidadesController implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
 
-    private final Autenticador autenticador = Autenticador.getInstance();
-
     public ModelAndView getEntidadesMenu(Request request, Response response) {
-        autenticador.reconocerUsuario(request, response);
         return new ModelAndView(new HashMap<>(), "entidades_base.html.hbs");
     }
 
     public ModelAndView getCategoriasAElegir(Request request, Response response) {
-        autenticador.reconocerUsuario(request, response);
-
         String categoriaBuscada = request.queryParams("filtro");
         Map<String, Object> modelo = new HashMap<>();
 
@@ -44,12 +39,10 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
     }
 
     public ModelAndView getCreadorEntidad(Request request, Response response) {
-        autenticador.reconocerUsuario(request, response);
         return new ModelAndView(new HashMap<>(), "entidades_nueva.html.hbs");
     }
 
     public ModelAndView getCreadorEntidadBase(Request request, Response response) {
-        autenticador.reconocerUsuario(request, response);
 
         Map<String, Object> modelo = new HashMap<>();
         modelo.put("categorias", RepositorioDeCategorias.instancia.findAll());
@@ -66,7 +59,6 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
     }
 
     private ModelAndView getCreadorDeJuridicas(Request request, Response response, String html){
-        autenticador.reconocerUsuario(request, response);
         Map<String, Object> modelo = new HashMap<>();
 
         List<Entidad> entidadesBase = RepositorioDeEntidades.instancia.getEntidadesBase();
@@ -188,7 +180,6 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
     }
 
     public ModelAndView getEntidadesPorCategoria(Request request, Response response){
-        autenticador.reconocerUsuario(request, response);
 
         try{
             Map<String, Object> modelo = new HashMap<>();
@@ -213,7 +204,6 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
     }
 
     public ModelAndView getEntidadesAAsociar(Request request, Response response) {
-        autenticador.reconocerUsuario(request, response);
 
         String nombreEntidad = request.queryParams("filtro");
         Map<String, Object> modelo = new HashMap<>();
@@ -228,7 +218,6 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
     }
 
     public ModelAndView getEntidadYSusCategorias(Request request, Response response) {
-        autenticador.reconocerUsuario(request, response);
 
         try{
             Map<String, Object> modelo = new HashMap<>();
@@ -247,7 +236,6 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
     }
 
     public ModelAndView agregarCategoriaAEntidad(Request request, Response response) {
-        autenticador.reconocerUsuario(request, response);
 
         try{
             Entidad entidad = RepositorioDeEntidades.instancia.findById(Long.parseLong(request.params(":id")));
@@ -275,7 +263,6 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
     }
 
     public ModelAndView eliminarCategoriaDeEntidad(Request request, Response response) {
-        autenticador.reconocerUsuario(request, response);
 
         try{
             Entidad entidad = RepositorioDeEntidades.instancia.findById(Long.parseLong(request.params(":id")));
