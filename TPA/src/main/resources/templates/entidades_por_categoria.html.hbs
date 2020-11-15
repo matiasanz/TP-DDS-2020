@@ -18,18 +18,20 @@
         <button class="botonAtras" onclick="location.href='/entidades'">Atras</button>
 
         <h2>Entidades por categoría</h2>
+        <h3>Seleccione la categoría deseada:</h3>
+        <div class="divcategoriasSeparacion" style="font-size:large;">
 
-        <form action="/categorias" method="GET">
-            Seleccione la categoría deseada
-            <input type="text" name="filtro" placeholder="Nombre de categoría">
-            <input type="submit" value="Buscar">
-        </form>
+            <form action="/categorias" style="text-align: right; margin-top: 20px; margin-right: 20px;" method="GET">
+                <input type="text" name="filtro" style="font-size:16" placeholder="Nombre de categoría">
+                <input type="submit" style="font-size:16" value="Buscar">
+            </form>
 
-        <ul>
-            {{#categorias}}
-                <li><a href="/categorias/{{id}}">{{nombre}}</a></li>
-            {{/categorias}}
-        </ul>
+            <ul>
+                {{#categorias}}
+                    <li><a href="/categorias/{{id}}">{{nombre}}</a></li>
+                {{/categorias}}
+            </ul>
+        </div>
 
     </section>
 

@@ -18,31 +18,37 @@
         <button class="botonAtras" onclick="location.href='/categorias'">Atras</button>
 
         {{#categoria}}
-        <h2>Categoría elegida: {{nombre}}</h2>
+            <h2>Categoría elegida: {{nombre}}</h2>
         {{/categoria}}
 
-        <h3>Entidades asociadas:</h3>
+        {{#if entidades}}
+            <h3>Entidades asociadas:</h3>
 
-        <table class="tablaEntidades" style="width: 70%; margin: auto;">
-            <tr>
-                <th>Nombre ficticio</th>
-                <th>Información</th>
-            </tr>
-            {{#entidades}}
-            <tr>
-                <td><a>{{nombreFicticio}}</a></td>
-                <td>
-                    {{#if razonSocial}}
-                        <a>Razón social: {{razonSocial}}</a><br>
-                        <a>CUIT: {{cuit}}</a><br>
-                        <a>Código IGJ: {{codigoIGJ}}</a>
-                    {{else}}
-                        <a>Descripción: {{descripcion}}</a>
-                    {{/if}}
-                </td>
-            </tr>
-            {{/entidades}}
-        </table>
+            <table class="tablaEntidades" style="width: 70%; margin: auto;">
+                <tr>
+                    <th>Nombre ficticio</th>
+                    <th>Información</th>
+                </tr>
+                    {{#entidades}}
+                    <tr>
+                        <td><a>{{nombreFicticio}}</a></td>
+                        <td>
+                            {{#if razonSocial}}
+                                <a>Razón social: {{razonSocial}}</a><br>
+                                <a>CUIT: {{cuit}}</a><br>
+                                <a>Código IGJ: {{codigoIGJ}}</a>
+                            {{else}}
+                                <a>Descripción: {{descripcion}}</a>
+                            {{/if}}
+                        </td>
+                    {{/entidades}}
+                </tr>
+
+            </table>
+        {{else}}
+            <h3 style="text-align: center;">No hay entidades asociadas a esta categoría</h3>
+        {{/if}}
+
     </section>
 {{/partial}}
 
