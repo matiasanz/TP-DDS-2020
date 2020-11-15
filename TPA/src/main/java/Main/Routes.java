@@ -85,9 +85,9 @@ public class Routes {
     private static void entidadesRoutes(){
         Spark.get("/entidades", entidadesController::getEntidadesMenu, engine);
 
-        Spark.get("/entidades/categorias", entidadesController::getCategoriasAElegir, engine);
+        Spark.get("/categorias", entidadesController::getCategoriasAElegir, engine);
 
-        Spark.get("/entidades/categorias/:id", entidadesController::getEntidadesPorCategoria, engine);
+        Spark.get("/categorias/:id", entidadesController::getEntidadesPorCategoria, engine);
 
         Spark.get("/entidades/asociar-categoria", entidadesController::getEntidadesAAsociar, engine);
 

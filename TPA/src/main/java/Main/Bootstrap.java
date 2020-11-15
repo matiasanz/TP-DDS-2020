@@ -1,6 +1,7 @@
 package Main;
 
 import Categoria.Categoria;
+import Entidad.EntidadJuridica;
 import Factory.EntidadesFactory;
 import Factory.MedioDePagoFactory;
 import Factory.ProveedoresFactory;
@@ -25,8 +26,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
         withTransaction(() -> {
             crearProveedores();
             crearMediosDePago();
-            crearEntidades();
-            crearCategorias();
+            crearEntidadesYCategorias();
             mockearUsuarios();
         });
     }
@@ -37,8 +37,19 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
         repoUsuarios.agregar(UsuariosFactory.sinValidaciones("beto", "123"));
     }
 
-    private void crearEntidades() {
-        persist(EntidadesFactory.empresaMedianaTramo2());
+    private void crearEntidadesYCategorias() {
+	    Categoria corpo = new Categoria("Corporacion");
+	    Categoria alimentos = new Categoria("Industria Alimenticia");
+
+        persist(new Categoria("ONG"));
+        persist(corpo);
+        persist(alimentos);
+
+	    EntidadJuridica mc = EntidadesFactory.empresaMedianaTramo2();
+	    mc.agregarCategoria(corpo);
+	    mc.agregarCategoria(alimentos);
+
+        persist(mc);
         persist(EntidadesFactory.getEntidadJuridica());
     }
 
@@ -52,11 +63,5 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
         persist(MedioDePagoFactory.effectivo());
         persist(MedioDePagoFactory.tarjetaDeCreditoVisa());
         persist(MedioDePagoFactory.tarjetaDeDebito());
-    }
-
-    private void crearCategorias() {
-        persist(new Categoria("ONG"));
-        persist(new Categoria("Corporacion"));
-        persist(new Categoria("Industria Alimenticia"));
     }
 }

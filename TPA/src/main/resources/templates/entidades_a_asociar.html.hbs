@@ -19,17 +19,33 @@
 
         <h2>Elija la entidad a la que desea asociar categorías</h2>
 
-        <form action="/entidades/asociar-categoria" method="GET">
-            <input type="text" name="filtro" placeholder="Nombre de entidad">
-            <input type="submit" value="Buscar">
-        </form>
+        <div style="margin: auto; width: 70%; font-size: large;">
+            <form action="/entidades/asociar-categoria" style="text-align: right;" method="GET">
+                <input type="text" name="filtro" style="font-size: large;" placeholder="Nombre de entidad">
+                <input type="submit" style="font-size: large;" value="Buscar">
+            </form>
 
-        <ul>
-            {{#entidades}}
-                <li><a href="/entidades/{{id}}/categorias">{{nombreFicticio}}</a></li>
-            {{/entidades}}
-        </ul>
-
+            <table class="tablaEntidades">
+                <tr>
+                    <th>Nombre ficticio</th>
+                    <th>Información</th>
+                </tr>
+                {{#entidades}}
+                <tr>
+                    <td><a href="/entidades/{{id}}/categorias">{{nombreFicticio}}</a></td>
+                    <td>
+                        {{#if razonSocial}}
+                            <a>Razón social: {{razonSocial}}</a><br>
+                            <a>CUIT: {{cuit}}</a><br>
+                            <a>Código IGJ: {{codigoIGJ}}</a>
+                        {{else}}
+                            <a>Descripción: {{descripcion}}</a>
+                        {{/if}}
+                    </td>
+                </tr>
+                {{/entidades}}
+            </table>
+        </div>
     </section>
 
 {{/partial}}

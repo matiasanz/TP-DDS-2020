@@ -167,14 +167,14 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
         response.status(201);
 
         Map<String, Object> modelo = new HashMap<>();
-        modelo.put("mensajeAccion", "La entidad fue creada con éxito.");
+        modelo.put("mensajeExito", "La entidad fue creada con éxito.");
         modelo.put("categorias", RepositorioDeCategorias.instancia.findAll());
         return new ModelAndView(modelo,"entidades_nueva.html.hbs");
     }
 
     private ModelAndView retornarMenuEntidadesFallo(Exception e){
         Map<String, Object> modelo = new HashMap<>();
-        modelo.put("mensajeAccion", "Ocurrió un error en la creación de la entidad: " + e.getMessage());
+        modelo.put("mensajeError", "Ocurrió un error en la creación de la entidad: " + e.getMessage());
         return new ModelAndView(modelo,"entidades_nueva.html.hbs");
     }
 

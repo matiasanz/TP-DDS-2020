@@ -17,51 +17,51 @@
 
         <button class="botonAtras" onclick="location.href='/entidades/asociar-categoria'">Atras</button>
 
-        {{#mensajeAccion}}
-            <h2 style="text-align:center;">{{mensajeAccion}}</h2>
-        {{/mensajeAccion}}
-
         {{#entidad}}
         <h2>Entidad elegida: {{nombreFicticio}}</h2>
         {{/entidad}}
-
         {{#idEntidad}}
-
-            <h3>Categorías sin asociar:</h3>
-            <ul>
-                {{#categoriasSinAsociar}}
-                    <li>
-                        <div class="divCategorias">
-                            <div class="nombreCategoria"><span style="float: left; margin-right: 5px;">{{nombre}}</span></div>
-                            <div class="submitButton">
-                                <form action="/entidades/{{idEntidad}}/agregar-categoria" method="POST">
-                                    <input type="hidden" name="idCategoria" value={{id}}>
-                                    <input type="submit" value="Asociar">
-                                </form>
+            <div class="divcategoriasSeparacion">
+                <h3 class="h3categorias">Categorías sin asociar:</h3>
+                <ul class="ulcategorias">
+                    {{#categoriasSinAsociar}}
+                        <li>
+                            <div class="divCategorias">
+                                <div class="nombreCategoria"><span style="float: left; margin-right: 5px;">{{nombre}}</span></div>
+                                <div class="submitButton">
+                                    <form action="/entidades/{{idEntidad}}/agregar-categoria" method="POST">
+                                        <input type="hidden" name="idCategoria" value={{id}}>
+                                        <input type="submit" value="Asociar">
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                {{/categoriasSinAsociar}}
-            </ul>
-
-            <h3>Categorías asociadas:</h3>
-            <ul>
-                {{#categoriasAsociadas}}
-                    <li>
-                        <div class="divCategorias">
-                            <div class="nombreCategoria"><span style="float: left; margin-right: 5px;">{{nombre}}</span></div>
-                            <div class="submitButton">
-                                <form action="/entidades/{{idEntidad}}/eliminar-categoria" method="POST">
-                                    <input type="hidden" name="idCategoria" value={{id}}>
-                                    <input type="submit" value="Desasociar">
-                                </form>
+                        </li>
+                    {{/categoriasSinAsociar}}
+                </ul>
+            </div>
+            <div class="divcategoriasSeparacion">
+                <h3 class="h3categorias">Categorías asociadas:</h3>
+                <ul class="ulcategorias">
+                    {{#categoriasAsociadas}}
+                        <li>
+                            <div class="divCategorias">
+                                <div class="nombreCategoria"><span style="float: left; margin-right: 5px;">{{nombre}}</span></div>
+                                <div class="submitButton">
+                                    <form action="/entidades/{{idEntidad}}/eliminar-categoria" method="POST">
+                                        <input type="hidden" name="idCategoria" value={{id}}>
+                                        <input type="submit" value="Desasociar">
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                {{/categoriasAsociadas}}
-            </ul>
-
+                        </li>
+                    {{/categoriasAsociadas}}
+                </ul>
+            </div>
         {{/idEntidad}}
+
+        {{#mensajeAccion}}
+            <h2 style="text-align:center; color:green;">{{mensajeAccion}}</h2>
+        {{/mensajeAccion}}
 
     </section>
 {{/partial}}
