@@ -143,3 +143,19 @@ th {
     display:block;
     font-weight: bold;
 }
+
+.tablaEntidades {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.tablaEntidades th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+.tablaEntidades th {
+    background-color: #1c4c74;
+    color: white;
+}
