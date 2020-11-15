@@ -17,10 +17,6 @@
 
         <button class="botonAtras" onclick="location.href='/entidades/asociar-categoria'">Atras</button>
 
-        {{#mensajeAccion}}
-            <h2 style="text-align:center;">{{mensajeAccion}}</h2>
-        {{/mensajeAccion}}
-
         {{#entidad}}
         <h2>Entidad elegida: {{nombreFicticio}}</h2>
         {{/entidad}}
@@ -62,6 +58,10 @@
             </ul>
 
         {{/idEntidad}}
+
+        {{#mensajeAccion}}
+            <h2 style="text-align:center; color:green;">{{mensajeAccion}}</h2>
+        {{/mensajeAccion}}
 
     </section>
 {{/partial}}
