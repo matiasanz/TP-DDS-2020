@@ -15,7 +15,7 @@
 {{# partial "contenido" }}
     <section>
 
-        <button class="botonAtras" onclick="location.href='/entidades/categorias'">Atras</button>
+        <button class="botonAtras" onclick="location.href='/categorias'">Atras</button>
 
         {{#categoria}}
         <h2>Categoría elegida: {{nombre}}</h2>
@@ -23,13 +23,26 @@
 
         <h3>Entidades asociadas:</h3>
 
-        <ul>
+        <table class="tablaEntidades" style="width: 70%; margin: auto;">
+            <tr>
+                <th>Nombre ficticio</th>
+                <th>Información</th>
+            </tr>
             {{#entidades}}
-                <li>
-                    <span>Nombre de entidad: </span><span>{{nombreFicticio}}</span>
-                </li>
+            <tr>
+                <td><a>{{nombreFicticio}}</a></td>
+                <td>
+                    {{#if razonSocial}}
+                        <a>Razón social: {{razonSocial}}</a><br>
+                        <a>CUIT: {{cuit}}</a><br>
+                        <a>Código IGJ: {{codigoIGJ}}</a>
+                    {{else}}
+                        <a>Descripción: {{descripcion}}</a>
+                    {{/if}}
+                </td>
+            </tr>
             {{/entidades}}
-        </ul>
+        </table>
     </section>
 {{/partial}}
 

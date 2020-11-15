@@ -21,8 +21,8 @@
 
         <div style="margin: auto; width: 70%; font-size: large;">
             <form action="/entidades/asociar-categoria" style="text-align: right;" method="GET">
-                <input type="text" name="filtro" placeholder="Nombre de entidad">
-                <input type="submit" value="Buscar">
+                <input type="text" name="filtro" style="font-size: large;" placeholder="Nombre de entidad">
+                <input type="submit" style="font-size: large;" value="Buscar">
             </form>
 
             <table class="tablaEntidades">
@@ -32,7 +32,7 @@
                 </tr>
                 {{#entidades}}
                 <tr>
-                    <td><a href="/entidades/{{id}}/categorias">{{nombreFicticio}}</a><br></td>
+                    <td><a href="/entidades/{{id}}/categorias">{{nombreFicticio}}</a></td>
                     <td>
                         {{#if razonSocial}}
                             <a>Razón social: {{razonSocial}}</a><br>

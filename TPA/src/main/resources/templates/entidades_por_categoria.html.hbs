@@ -19,7 +19,7 @@
 
         <h2>Entidades por categoría</h2>
 
-        <form action="/entidades/categorias" method="GET">
+        <form action="/categorias" method="GET">
             Seleccione la categoría deseada
             <input type="text" name="filtro" placeholder="Nombre de categoría">
             <input type="submit" value="Buscar">
@@ -27,7 +27,7 @@
 
         <ul>
             {{#categorias}}
-                <li><a href="/entidades/categorias/{{id}}">{{nombre}}</a></li>
+                <li><a href="/categorias/{{id}}">{{nombre}}</a></li>
             {{/categorias}}
         </ul>
 

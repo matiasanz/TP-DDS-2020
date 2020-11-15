@@ -147,6 +147,7 @@ th {
 .tablaEntidades {
     border-collapse: collapse;
     width: 100%;
+    font-size: large;
 }
 
 .tablaEntidades th, td {
