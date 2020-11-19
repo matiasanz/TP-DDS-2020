@@ -13,64 +13,63 @@
 {{/partial}}
 
 {{# partial "contenido" }}
-	<section>
-		<script type="text/javascript" src="/js/compras-nueva.js"></script>
-		<div id="compras">
-			<ul>
-                <hr size="1px" color="black" />
-				<li>
-					Fecha: {{fecha}} <br>
-					Precio Total: {{precio}} <br>
-					Moneda: {{moneda}} <br>
-					Medio de Pago: {{medioDePago}} <br>
-					Items:
-						<ul>
-							{{#items}}
-                                <li>
-									Descripción: {{descripcion}} <br>
-									Cantidad: {{cantidad}} <br>
-									Valor Unitario: {{valorUnitario}} 
-								</li>
-							{{/items}}
-						</ul>
-						<br>
-					Etiquetas: {{etiquetas}}
-				</li>
-                <hr size="1px" color="black"  />
-			</ul>
-		</div>
+    <section>
+        <script type="text/javascript" src="/js/compras-nueva.js"></script>
+        <button class="botonAtras" style="width: 16%;" onclick="location.href='/compras'">Volver a menú de compras
+        </button>
+        <div id="compras">
+            <ul>
+                <hr size="1px" color="black"/>
+                <li>
+                    Fecha: {{fecha}} <br>
+                    Precio Total: {{precio}} <br>
+                    Moneda: {{moneda}} <br>
+                    Medio de Pago: {{medioDePago}} <br>
+                    Items:
+                    <ul>
+                        {{#items}}
+                            <li>
+                                Descripción: {{descripcion}} <br>
+                                Cantidad: {{cantidad}} <br>
+                                Valor Unitario: {{valorUnitario}}
+                            </li>
+                        {{/items}}
+                    </ul>
+                    <br>
+                    Etiquetas: {{etiquetas}}
+                </li>
+                <hr size="1px" color="black"/>
+            </ul>
+        </div>
 
-		<br>
+        <br>
 
-		<div id="nuevas-etiquetas">
-		    <form id="frm_compra" action="/compras/{{id}}/etiqueta/nueva" method="POST">
-		        <h4> Agregar Etiquetas </h4>
+        <div id="nuevas-etiquetas">
+            <form id="frm_etiquetas" action="/compras/{{id}}/etiqueta/nueva" method="POST">
+                <h4> Agregar Etiquetas </h4>
                 <div id="div_compra_etiquetas">
-                    <h4> Etiquetas </h4>
                     <table id="tbl_etiquetas">
                         <thead>
-                            <tr>
-                                <th> Etiqueta</th>
-                            </tr>
+                        <tr>
+                            <th> Etiquetas</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <input name="txt_etiqueta_1" type="text" required>
-                                    <input id="cantidad_etiquetas" name="cantidad_etiquetas" type="hidden" value="1">
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <input name="txt_etiqueta_1" type="text" required>
+                                <input id="cantidad_etiquetas" name="cantidad_etiquetas" type="hidden" value="1">
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
-                <div id="div_submit_form">
-                	<input type="submit" value="Agregar Etiquetas">
-                </div>
             </form>
-            <button id="btn_agregar_etiquetas" onclick="agregarEtiqueta()" class="botonSameTamanio">Agregar Etiqueta</button>
-            <button id="btn_eliminar_etiquetas" onclick="eliminarEtiqueta()" disabled class="botonSameTamanio">Eliminar Etiqueta</button>
-		</div>
-	</section>
+            <button id="btn_agregar_etiquetas" onclick="agregarEtiqueta()">Agregar</button>
+            <button id="btn_eliminar_etiquetas" onclick="eliminarEtiqueta()">Eliminar</button>
+            <input type="submit" value="Finalizar y Guardar" class="botonSameTamanio" form="frm_etiquetas">
+        </div>
+    </section>
 {{/partial}}
 
 {{> layout.html.hbs }}
