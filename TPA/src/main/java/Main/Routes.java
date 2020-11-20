@@ -80,6 +80,8 @@ public class Routes {
 
         Spark.post("/compras/:id/etiqueta/nueva", compraController::agregarEtiqueta, engine);
 
+        Spark.post("/compras/:id/eliminar-etiqueta/:etiqueta", compraController::eliminarEtiqueta, engine);
+
     }
 
     private static void entidadesRoutes(){

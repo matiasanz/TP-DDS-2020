@@ -33,8 +33,8 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 
     private void mockearUsuarios() {
         RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
-        repoUsuarios.agregar(UsuariosFactory.usuarioStub());
-        repoUsuarios.agregar(UsuariosFactory.sinValidaciones("beto", "123"));
+        repoUsuarios.salvar(UsuariosFactory.usuarioStub());
+        repoUsuarios.salvar(UsuariosFactory.sinValidaciones("beto", "123"));
     }
 
     private void crearEntidadesYCategorias() {

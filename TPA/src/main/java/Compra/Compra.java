@@ -179,6 +179,10 @@ public class Compra {
         etiquetas.add(etiqueta);
     }
 
+    public void eliminarEtiqueta (String etiqueta){
+        etiquetas.remove(etiqueta);
+    }
+
     public boolean contieneEtiqueta (String etiqueta){
         return etiquetas.contains(etiqueta);
     }

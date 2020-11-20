@@ -35,8 +35,20 @@
                             </li>
                         {{/items}}
                     </ul>
-                    <br>
-                    Etiquetas: {{etiquetas}}
+                    Etiquetas:
+                    <ul>
+                        {{#each etiquetas}}
+                            <li>
+                                <div>
+                                    <form action="/compras/{{id}}/eliminar-etiqueta/{{this}}" method="POST">
+                                        {{this}}
+                                        <input type="submit" value="quitar">
+                                    </form>
+                                </div>
+                            </li>
+                        {{/each}}
+
+                    </ul>
                 </li>
                 <hr size="1px" color="black"/>
             </ul>
@@ -44,14 +56,14 @@
 
         <br>
 
-        <div id="nuevas-etiquetas">
+        <div style="margin: auto;width:50%" id="nuevas-etiquetas">
             <form id="frm_etiquetas" action="/compras/{{id}}/etiqueta/nueva" method="POST">
-                <h4> Agregar Etiquetas </h4>
+                <h2 style="margin: 0 30 10 160"> Agregar Nuevas Etiquetas  </h2>
                 <div id="div_compra_etiquetas">
-                    <table id="tbl_etiquetas">
+                    <table id="tbl_etiquetas" class="tablaEntidades" style="width:30%;margin: 10px auto auto;">
                         <thead>
                         <tr>
-                            <th> Etiquetas</th>
+                            <th style="margin: 0 30 10 203;"> Etiquetas  </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -64,10 +76,14 @@
                         </tbody>
                     </table>
                 </div>
-            </form>
-            <button id="btn_agregar_etiquetas" onclick="agregarEtiqueta()">Agregar</button>
-            <button id="btn_eliminar_etiquetas" onclick="eliminarEtiqueta()">Eliminar</button>
+
+            <div style="10px auto auto">
+                <button id="btn_agregar_etiquetas" onclick="agregarEtiqueta()" style="margin:10 0 20 235";>Agregar
+                </button>
+                <button id="btn_eliminar_etiquetas" onclick="eliminarEtiqueta()" style="margin:10 10 10 10";>Eliminar</button>
+            </div>
             <input type="submit" value="Finalizar y Guardar" class="botonSameTamanio" form="frm_etiquetas">
+            </form>
         </div>
     </section>
 {{/partial}}

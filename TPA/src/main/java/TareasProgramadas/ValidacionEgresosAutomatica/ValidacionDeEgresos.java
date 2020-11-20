@@ -1,13 +1,10 @@
 package TareasProgramadas.ValidacionEgresosAutomatica;
 import java.util.List;
 
-import javax.persistence.EntityTransaction;
-
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
@@ -15,7 +12,6 @@ import Compra.Compra;
 import Compra.ValidadorDeCompra;
 import Factory.ComprasFactory;
 import Repositorios.RepoComprasDB;
-import Repositorios.RepositorioDeComprasMemoria;
 
 public class ValidacionDeEgresos implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps, Job {
 
@@ -39,8 +35,8 @@ public class ValidacionDeEgresos implements WithGlobalEntityManager, EntityManag
     
     private void agregarDatosADB(){
     	withTransaction(()->{
-    		repoCompras.agregar(ComprasFactory.getCompra19Julio2020Amoblamiento());
-    		repoCompras.agregar(ComprasFactory.getCompraFebrero2017SinEtiqueta());
+    		repoCompras.salvar(ComprasFactory.getCompra19Julio2020Amoblamiento());
+    		repoCompras.salvar(ComprasFactory.getCompraFebrero2017SinEtiqueta());
     	});
     }
     

@@ -44,9 +44,9 @@ public class RepoUsuariosDB extends RepoDB<Usuario>{
 	}
 	
 	@Override
-	public void agregar(Usuario usuario){
+	public void salvar(Usuario usuario){
 		validarNoRepetido(usuario.getUsername());
-		super.agregar(usuario);
+		super.salvar(usuario);
 	}
 	
 	public boolean nombreOcupado(String username){
