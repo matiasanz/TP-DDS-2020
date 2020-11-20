@@ -60,7 +60,7 @@ function agregarEtiqueta() {
   var row = table.insertRow(table.rows.length);
 
   var cantidad_etiquetas = document.getElementById("cantidad_etiquetas");
-  cantidad_etiquetas.value = table.rows.length - 1;
+  cantidad_etiquetas.value = document.getElementById("tbl_etiquetas").rows.length- 1;
 
   _crearCeldaEtiqueta(row, "text", "txt_etiqueta");
   var txt_etiqueta = document.getElementById("txt_etiqueta_" + cantidad_etiquetas.value);

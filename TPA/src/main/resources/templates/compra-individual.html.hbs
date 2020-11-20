@@ -70,20 +70,20 @@
                         <tr>
                             <td>
                                 <input name="txt_etiqueta_1" type="text" required>
-                                <input id="cantidad_etiquetas" name="cantidad_etiquetas" type="hidden" value="1">
+
                             </td>
                         </tr>
                         </tbody>
                     </table>
+                    <input id="cantidad_etiquetas" name="cantidad_etiquetas" type="hidden" value="1">
                 </div>
-
+            </form>
             <div style="10px auto auto">
-                <button id="btn_agregar_etiquetas" onclick="agregarEtiqueta()" style="margin:10 0 20 235";>Agregar
-                </button>
+                <button id="btn_agregar_etiquetas" onclick="agregarEtiqueta()" style="margin:10 0 20 235";>Agregar</button>
                 <button id="btn_eliminar_etiquetas" onclick="eliminarEtiqueta()" style="margin:10 10 10 10";>Eliminar</button>
             </div>
             <input type="submit" value="Finalizar y Guardar" class="botonSameTamanio" form="frm_etiquetas">
-            </form>
+
         </div>
     </section>
 {{/partial}}
