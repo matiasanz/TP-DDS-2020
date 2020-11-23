@@ -1,5 +1,5 @@
 {{# partial "titulo" }}
-    <title>GeSoc - Mensajes</title>
+    <title>GeSoc - Bandeja de Entrada</title>
 {{/partial}}
 
 
@@ -8,7 +8,7 @@
         <a href="/menu">Inicio</a>
         <a href="/compras">Compras</a>
         <a href="/entidades">Entidades</a>
-        <a class="active" href="/mensajes">Mensajes</a>
+        <a class="active" href="/mensajes">Bandeja de Entrada</a>
         <a href="/logout">Salir</a>
     </div>
 {{/partial}}
@@ -16,14 +16,16 @@
 {{# partial "contenido" }}
     <section>
         <div id="Inicio de sesion">
-            <p>Usted tiene {{tamanioBandeja}} mensajes:</p>
+            <h2>Usted tiene {{tamanioBandeja}} mensajes:</h2>
             <ul>
             	{{#mensajes}}
-
-            		<li>
-            		    <span>Mensaje: {{value}}</span> <br>
-                        <span>Fecha: {{fecha}}</span>
-            		</li>
+  
+            		<div class="mensajecuadrosuperior">
+        		    <span>Fecha {{fechaamigable}}</span> <br>
+        		    </div>
+        		    <div class="mensajecontenido">
+        		    <span> {{value}}</span> <br>
+        		    </div>
             		
             	{{/mensajes}}
             </ul>

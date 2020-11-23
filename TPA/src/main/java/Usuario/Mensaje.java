@@ -13,14 +13,19 @@ public class Mensaje {
     @Id
     @GeneratedValue
     private Long id;
-
+    
+    
+    private int identificador;
     private LocalDateTime fecha;
+    
+    private String fechaamigable;
 
     private String value;
 
-    public Mensaje(LocalDateTime fecha, String value) {
+    public Mensaje(LocalDateTime fecha, String value,int identificador) {
         this.fecha = fecha;
         this.value = value;
+        this.identificador= identificador;
     }
 
     public Mensaje() {}
@@ -44,6 +49,15 @@ public class Mensaje {
         this.value = value;
     }
     
+    public String getFechaamigable() {
+    	return fecha.getDayOfMonth()+"/"+fecha.getMonthValue()+"/"+fecha.getYear()+"                      "+"Hora "+fecha.getHour()+":"+fecha.getMinute();
+    }
+    
+    public void setFechaamigable(String fechaamigable) {
+    	this.fechaamigable=fechaamigable;
+    }
+    
+    
     public Long getId(){
     	return id;
     }
@@ -51,4 +65,12 @@ public class Mensaje {
     public void setId(Long id){
     	this.id=id;
     }
+    
+    public int getIdentificador() {
+    	return  identificador;
+    }
+    
+    public void setIdentificador() {
+    	this.identificador=identificador;
+    }	
 }

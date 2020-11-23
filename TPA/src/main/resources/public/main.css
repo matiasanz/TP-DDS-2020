@@ -204,3 +204,31 @@ th {
 .elemento_nueva_compra {
     margin: 10 10 10 10;
 }
+
+.mensajecuadrosuperior {
+	
+    background-color: #1c4c74;
+    color:white;
+    text-align: right;
+    padding: 7px 7px;
+    text-decoration: none;
+    font-size: 20px;
+    width:800px;
+    margin:20px auto 0px;
+}
+
+
+.mensajecontenido{
+    background-color: #F4EBC4;
+	color:#222;
+    font-weight: 200;
+    padding: 4px 4px;
+    margin:0 auto;
+    width:804px;
+}
+
+.mensajecontenido:hover{
+	box-shadow:4px 4px #312F2F;
+    margin-bottom: 6px;
+
+}
