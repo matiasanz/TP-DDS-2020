@@ -58,7 +58,7 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
             withTransaction(() -> repositorioCompras.salvar(compra));
             compra.agregarUsuarioValidador(usuario); //Esto se deberia hacer en otra uri, pero por ahora no lo piden
 
-            response.redirect("/compras/ver/" + compra.getId());
+            response.redirect("/compras/" + compra.getId());
             return null;
 
         } catch (DatosIncompletosException | FechaInvalidaException e) {
@@ -98,7 +98,7 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
             });
 
             modelo.put("resultado", "Etiqueta agregada con éxito!");
-            response.redirect("/compras/ver/" + idCompra);
+            response.redirect("/compras/" + idCompra);
         } catch (Exception e) {
             response.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
             modelo.put("resultado", "Error - " + e.getMessage());
@@ -125,7 +125,7 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
             modelo.put("resultado", "Error - " + e.getMessage());
         }
 
-        response.redirect("/compras/ver/" + idCompra);
+        response.redirect("/compras/" + idCompra);
         return null;
     }
 

@@ -204,3 +204,21 @@ th {
 .elemento_nueva_compra {
     margin: 10 10 10 10;
 }
+
+.align-right {
+    text-align: right;
+}
+
+#compras ul {
+	text-align: center;
+	width: 80%;
+	list-style: none;
+}
+
+#compras li {
+	text-align: left;
+}
+
+button {
+	cursor: pointer;
+}

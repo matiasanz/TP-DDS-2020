@@ -5,7 +5,7 @@
 {{# partial "nav"}}
     <div class="topnav">
         <a href="/">Inicio</a>
-        <a class="active" href="/compras">Compras</a>
+        <a class="active" href="/compras/menu">Compras</a>
         <a href="/entidades">Entidades</a>
         <a href="/mensajes">Mensajes</a>
         <a href="/logout">Salir</a>
@@ -15,28 +15,36 @@
 {{# partial "contenido" }}
     <section>
         <script type="text/javascript" src="/js/compras-nueva.js"></script>
-        <button class="botonAtras" style="width: 16%;" onclick="location.href='/compras'">Volver a menú de compras
+        <button class="botonAtras" style="width: 16%;" onclick="location.href='/compras'">Volver a lista de compras
         </button>
-        <div id="compras">
+        <div id="compras" style="text-align: left;">
             <ul>
                 <hr size="1px" color="black"/>
                 <li>
-                    Fecha: {{fecha}} <br>
-                    Precio Total: {{precio}} <br>
-                    Moneda: {{moneda}} <br>
-                    Medio de Pago: {{medioDePago}} <br>
-                    Items:
+                    <strong> Fecha: </strong> {{fecha}} <br>
+                    <strong> Precio Total: </strong> {{precio}} <br>
+                    <strong> Moneda: </strong> {{moneda}} <br>
+                    <strong> Medio de Pago: </strong> {{medioDePago}} <br>
+                    
+                    <br>
+                    <strong> Items: </strong>
                     <ul>
+                    	<hr style="border-top:1px dotted #000;">
                         {{#items}}
                             <li>
-                                Descripción: {{descripcion}} <br>
-                                Cantidad: {{cantidad}} <br>
-                                Valor Unitario: {{valorUnitario}}
+                                <strong> Descripción: </strong> {{descripcion}} <br>
+                                <strong> Cantidad: </strong> {{cantidad}} <br>
+                                <strong> Valor Unitario: </strong> {{valorUnitario}}
                             </li>
+                            <hr style="border-top:1px dotted #000;">
                         {{/items}}
                     </ul>
-                    Etiquetas:
+                    
+                    <br>
+                    
+                    <strong> Etiquetas: </strong>
                     <ul>
+                    	<hr style="border-top:1px dotted #000;">
                         {{#each etiquetas}}
                             <li>
                                 <div>
@@ -46,8 +54,8 @@
                                     </form>
                                 </div>
                             </li>
+                            <hr style="border-top:1px dotted #000;">
                         {{/each}}
-
                     </ul>
                 </li>
                 <hr size="1px" color="black"/>
@@ -57,7 +65,7 @@
         <br>
 
         <div style="margin: auto;width:50%" id="nuevas-etiquetas">
-            <form id="frm_etiquetas" action="/compras/{{id}}/etiqueta/nueva" method="POST">
+            <form id="frm_etiquetas" action="/compras/{{id}}/etiquetas" method="POST">
                 <h2 style="margin: 0 30 10 160"> Agregar Nuevas Etiquetas  </h2>
                 <div id="div_compra_etiquetas">
                     <table id="tbl_etiquetas" class="tablaEntidades" style="width:30%;margin: 10px auto auto;">
@@ -70,7 +78,6 @@
                         <tr>
                             <td>
                                 <input name="txt_etiqueta_1" type="text" required>
-
                             </td>
                         </tr>
                         </tbody>

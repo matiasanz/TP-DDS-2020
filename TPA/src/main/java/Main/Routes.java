@@ -68,17 +68,17 @@ public class Routes {
     
 	private static void comprasRoutes(){
 
-        Spark.get("/compras", compraController::getPaginaComprasMenu, engine);
+        Spark.get("/compras/menu", compraController::getPaginaComprasMenu, engine);
 
         Spark.get("/compras/nueva", compraController::getPaginaComprasNueva, engine);
 
         Spark.post("/compras", compraController::crearCompra, engine);
 
-        Spark.get("/compras/ver", compraController::getPaginaVerCompras, engine);
+        Spark.get("/compras", compraController::getPaginaVerCompras, engine);
       
-        Spark.get("/compras/ver/:id", compraController::getPaginaVerCompra, engine);
+        Spark.get("/compras/:id", compraController::getPaginaVerCompra, engine);
 
-        Spark.post("/compras/:id/etiqueta/nueva", compraController::agregarEtiqueta, engine);
+        Spark.post("/compras/:id/etiquetas", compraController::agregarEtiqueta, engine);
 
         Spark.post("/compras/:id/eliminar-etiqueta/:etiqueta", compraController::eliminarEtiqueta, engine);
 
