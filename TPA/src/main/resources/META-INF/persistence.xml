@@ -34,9 +34,9 @@
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
-            <property name="hbm2ddl.auto" value="update"/>
+            <property name="hbm2ddl.auto" value="create-drop"/>
             <property name="use_sql_comments" value="true"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect" />-->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect" /> -->
 
 
             <!-- CONEXION HSQL
@@ -69,9 +69,7 @@
 
             <!-- CONEXION MYSQL -->
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://bd27ba1421a537:3cb5bec2@us-cdbr-east-02.cleardb.com/heroku_17afa659bd28d2d?reconnect=true"/>
-            <property name="hibernate.connection.username" value="bd27ba1421a537"/>
-            <property name="hibernate.connection.password" value="3cb5bec2"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://b54d4ddc7cb96a:59334987@us-cdbr-east-02.cleardb.com/heroku_ca4e89c4d99b26e?reconnect=true"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
