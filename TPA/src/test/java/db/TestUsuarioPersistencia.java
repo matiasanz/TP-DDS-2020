@@ -1,4 +1,4 @@
-package db;
+/*package db;
 import static org.junit.Assert.*;
 
 import javax.persistence.EntityManager;
@@ -52,4 +52,4 @@ public class TestUsuarioPersistencia extends AbstractPersistenceTest implements 
 	    assertEquals(usuarioRecuperado.getId(), usuarioAInsertar.getId());
 	    assertSame(usuarioRecuperado, usuarioAInsertar);	  
 	  }
-}
+} */

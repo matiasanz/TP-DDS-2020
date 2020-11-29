@@ -1,4 +1,4 @@
-package db;
+/*package db;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -23,44 +23,45 @@ public class TestEntidadPersistencia extends AbstractPersistenceTest implements 
 		Entidad entidadInsertada = EntidadesFactory.baseRandom();
 		testPersistencia(entidadInsertada);
 	}
-	
-	
+
+
 	@Test
 	public void persistenciaEntidadJuridicaEmpresaMediana(){
 		Entidad entidadInsertada = EntidadesFactory.empresaMedianaTramo2();
 		testPersistencia(entidadInsertada);
 	}
-	
+
 	@Test
 	public void persistenciaEntidadJuridicaSectorSocial(){
 		Entidad entidadInsertada = EntidadesFactory.getEntidadJuridica();
 		testPersistencia(entidadInsertada);
 	}
-	
+
 	@Test
 	public void persistenciaEntidadConCompras(){
 		Entidad entidadInsertada = EntidadesFactory.entidadConComprasParaUsuario(UsuariosFactory.usuarioStub());
 		testPersistencia(entidadInsertada);
 	}
-	
+
 	//Auxiliar
-	
-	
+
+
 	private void testPersistencia(Entidad entidadInsertada){
 		assertNull(entidadInsertada.getId());
-		
+
 		EntityManager entityManager = entityManager();
-		
+
 		entityManager.persist(entidadInsertada);
-		
+
 		entityManager.getTransaction().commit();
-		
+
 	    assertNotNull(entidadInsertada.getId());
-		
+
 	    Entidad entidadRecuperada = entityManager().find(Entidad.class, entidadInsertada.getId());
-	
+
 	    assertEquals(entidadInsertada.getId(), entidadInsertada.getId());
 	    assertSame(entidadRecuperada, entidadInsertada);
 	}
 }
 
+*/

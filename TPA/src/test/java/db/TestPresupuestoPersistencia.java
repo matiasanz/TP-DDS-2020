@@ -1,4 +1,4 @@
-package db;
+/*package db;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -55,4 +55,4 @@ public class TestPresupuestoPersistencia extends AbstractPersistenceTest impleme
 	    assertEquals(presupuestoInsertado.getId(), presupuestoInsertado.getId());
 	    assertSame(presupuestoRecuperado, presupuestoInsertado);
 	}
-}
+} */

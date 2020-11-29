@@ -4,69 +4,93 @@
     <groupId>DDSTPAgrupo7</groupId>
     <artifactId>DDSTPAgrupo7</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>3.0.4</version>
                 <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
+                    <appName>gesoc-web-app</appName>
+                    <processTypes>
+                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main.Routes</web>
+                    </processTypes>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>ConsolaValidadoraDeCompras</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <finalName>ConsolaValidadoraDeCompras</finalName>
-                            <archive>
-                                <manifest>
-                                    <mainClass>MainClass</mainClass>
-                                </manifest>
-                            </archive>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>ReporteMensualGastos</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <finalName>ReporteMensualGastos</finalName>
-                            <archive>
-                                <manifest>
-                                    <mainClass>TareasProgramadas.ReporteMensualGastos.ReporteMensualDeGastosEjecutable
-                                    </mainClass>
-                                </manifest>
-                            </archive>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>ValidacionEgresosAutomatica</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <finalName>ValidacionEgresosAutomatica</finalName>
-                            <archive>
-                                <manifest>
-                                    <mainClass>
-                                        TareasProgramadas.ValidacionEgresosAutomatica.ValidacionDeEgresosEjecutable
-                                    </mainClass>
-                                </manifest>
-                            </archive>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
+    <!--<build>
+    <finalName>gesoc</finalName>
+    <plugins>
+    <plugin>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <configuration>
+    <descriptorRefs>
+       <descriptorRef>jar-with-dependencies</descriptorRef>
+    </descriptorRefs>
+    </configuration>
+    <executions>
+    <execution>
+       <id>ConsolaValidadoraDeCompras</id>
+       <phase>package</phase>
+       <goals>
+           <goal>single</goal>
+       </goals>
+       <configuration>
+           <finalName>ConsolaValidadoraDeCompras</finalName>
+           <archive>
+               <manifest>
+                   <mainClass>MainClass</mainClass>
+               </manifest>
+           </archive>
+       </configuration>
+    </execution>
+    <execution>
+       <id>ReporteMensualGastos</id>
+       <phase>package</phase>
+       <goals>
+           <goal>single</goal>
+       </goals>
+       <configuration>
+           <finalName>ReporteMensualGastos</finalName>
+           <archive>
+               <manifest>
+                   <mainClass>TareasProgramadas.ReporteMensualGastos.ReporteMensualDeGastosEjecutable
+                   </mainClass>
+               </manifest>
+           </archive>
+       </configuration>
+    </execution>
+    <execution>
+       <id>ValidacionEgresosAutomatica</id>
+       <phase>package</phase>
+       <goals>
+           <goal>single</goal>
+       </goals>
+       <configuration>
+           <finalName>ValidacionEgresosAutomatica</finalName>
+           <archive>
+               <manifest>
+                   <mainClass>
+                       TareasProgramadas.ValidacionEgresosAutomatica.ValidacionDeEgresosEjecutable
+                   </mainClass>
+               </manifest>
+           </archive>
+       </configuration>
+    </execution>
+    </executions>
+    </plugin>
+    </plugins>
+    </build>-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -114,7 +138,11 @@
             <artifactId>hsqldb</artifactId>
             <version>2.4.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4-1206-jdbc42</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
         <dependency>
             <groupId>org.apache.commons</groupId>

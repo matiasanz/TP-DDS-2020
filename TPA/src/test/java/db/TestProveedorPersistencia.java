@@ -1,4 +1,4 @@
-package db;
+/*package db;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -68,4 +68,4 @@ public class TestProveedorPersistencia extends AbstractPersistenceTest implement
 	    assertEquals(proveedorInsertado.getId(), proveedorInsertado.getId());
 	    assertSame(proveedorRecuperado, proveedorInsertado);
 	}
-}
+} */

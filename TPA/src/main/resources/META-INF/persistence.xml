@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?> 
+<?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
-    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" 
-    version="1.0"> 
-  
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="1.0">
+
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
-    	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
         <class>Compra.Compra</class>
         <class>Presupuesto.Presupuesto</class>
@@ -25,19 +25,40 @@
         <class>Categoria.ValidadorNoMasEntidadesbase</class>
 
         <properties>
+            <!-- CONEXION Postgress -->
 
-            <!-- CONEXION HSQL-->
+            <property name="hibernate.connection.url" value="jdbc:postgresql://ec2-35-171-109-11.compute-1.amazonaws.com:5432/daj8i1ftujf760?username=umcxcyvtqwjbql&amp;password=142c63cd89acf3ae167b08a4ba32080e7c02552ab0ac9f03c33deeab196e1b1d&amp;ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.username" value="umcxcyvtqwjbql"/>
+            <property name="hibernate.connection.password" value="142c63cd89acf3ae167b08a4ba32080e7c02552ab0ac9f03c33deeab196e1b1d"/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="update"/>
 
-             <property name="hibernate.archive.autodetection" value="class"/>
-             <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />
-             <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-db" />
-             <property name="hibernate.connection.username" value="sa" />
-             <property name="hibernate.connection.password" value="" />
-             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
-             <property name="hibernate.show_sql" value="true" />
-             <property name="hibernate.format_sql" value="true" />
-             <property name="use_sql_comments" value="true" />
-             <property name="hibernate.hbm2ddl.auto" value="update" />
+            <!--<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:postgresql://142c63cd89acf3ae167b08a4ba32080e7c02552ab0ac9f03c33deeab196e1b1d@ec2-35-171-109-11.compute-1.amazonaws.com:5432/daj8i1ftujf760" />
+            <property name="hibernate.connection.url" value="jdbc:postgresql://ec2-35-171-109-11.compute-1.amazonaws.com/daj8i1ftujf760:5432/daj8i1ftujf760" />
+            <property name="hibernate.connection.username" value="umcxcyvtqwjbql"/>
+            <property name="hibernate.connection.password" value="142c63cd89acf3ae167b08a4ba32080e7c02552ab0ac9f03c33deeab196e1b1d"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect" />
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="use_sql_comments" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/> -->
+
+            <!-- CONEXION HSQL
+
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />
+            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-db" />
+            <property name="hibernate.connection.username" value="sa" />
+            <property name="hibernate.connection.password" value="" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="use_sql_comments" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="update" /> -->
 
             <!-- CONEXION SQL SEVER
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
@@ -68,7 +89,7 @@
 
 
         </properties>
-          
-    </persistence-unit> 
-  
-</persistence> 
+
+    </persistence-unit>
+
+</persistence>

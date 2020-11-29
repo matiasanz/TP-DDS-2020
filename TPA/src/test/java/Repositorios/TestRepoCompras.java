@@ -1,4 +1,4 @@
-package Repositorios;
+/*package Repositorios;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -79,4 +79,4 @@ public class TestRepoCompras extends AbstractPersistenceTest implements WithGlob
     }
 }
 
-	
+	*/
