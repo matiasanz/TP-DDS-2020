@@ -22,20 +22,28 @@ public class Routes {
     private static final CompraController compraController = new CompraController();
     private static final EntidadesController entidadesController = new EntidadesController();
 
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
+
     public static void main(String[] args) {
         System.out.println("Iniciando servidor");
 
-        Spark.port(8080);
+        Spark.port(getHerokuAssignedPort());
 
         //Esta linea muestra el stack trace en el navegador, en caso de excepcion no manejada.
         //TODO comentar el dia de la entrega
-        DebugScreen.enableDebugScreen();
+        //DebugScreen.enableDebugScreen();
 
         Spark.staticFileLocation("/public");
 
         Bootstrap.main(args);
         
-        Spark.before((request, response)->{        	        	
+        Spark.before((request, response)->{
         	bloquearCacheNavegador(response);
 
         	if(!uriExceptuadaDeReautenticar( request.uri() )){

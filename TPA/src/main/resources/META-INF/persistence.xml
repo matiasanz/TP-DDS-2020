@@ -25,7 +25,7 @@
         <class>Categoria.ValidadorNoMasEntidadesbase</class>
 
         <properties>
-            <!-- CONEXION Postgress -->
+            <!-- CONEXION Postgress
 
             <property name="hibernate.connection.url" value="jdbc:postgresql://ec2-35-171-109-11.compute-1.amazonaws.com:5432/daj8i1ftujf760?username=umcxcyvtqwjbql&amp;password=142c63cd89acf3ae167b08a4ba32080e7c02552ab0ac9f03c33deeab196e1b1d&amp;ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
@@ -35,17 +35,9 @@
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hbm2ddl.auto" value="update"/>
-
-            <!--<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:postgresql://142c63cd89acf3ae167b08a4ba32080e7c02552ab0ac9f03c33deeab196e1b1d@ec2-35-171-109-11.compute-1.amazonaws.com:5432/daj8i1ftujf760" />
-            <property name="hibernate.connection.url" value="jdbc:postgresql://ec2-35-171-109-11.compute-1.amazonaws.com/daj8i1ftujf760:5432/daj8i1ftujf760" />
-            <property name="hibernate.connection.username" value="umcxcyvtqwjbql"/>
-            <property name="hibernate.connection.password" value="142c63cd89acf3ae167b08a4ba32080e7c02552ab0ac9f03c33deeab196e1b1d"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect" />
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.format_sql" value="true"/>
             <property name="use_sql_comments" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/> -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect" />-->
+
 
             <!-- CONEXION HSQL
 
@@ -75,16 +67,16 @@
             <property name="use_sql_comments" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/> -->
 
-            <!-- CONEXION MYSQL
+            <!-- CONEXION MYSQL -->
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tpdds"/>
-            <property name="hibernate.connection.username" value="sa"/>
-            <property name="hibernate.connection.password" value="TpDds1234"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://bd27ba1421a537:3cb5bec2@us-cdbr-east-02.cleardb.com/heroku_17afa659bd28d2d?reconnect=true"/>
+            <property name="hibernate.connection.username" value="bd27ba1421a537"/>
+            <property name="hibernate.connection.password" value="3cb5bec2"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="use_sql_comments" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
 
 
 

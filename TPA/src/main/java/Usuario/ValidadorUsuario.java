@@ -16,10 +16,10 @@ public class ValidadorUsuario {
 
     void validarContrasenia(String contrasenia,String username) {
 
-        validarContraseniaEntreLasDiezMilMasConocidas(contrasenia);
+        /*validarContraseniaEntreLasDiezMilMasConocidas(contrasenia);
         validarLongitudMinima(contrasenia);
         validarCaracteresRepetidos(contrasenia);
-        validarUsuarioSeaDistintoALaContrasenia(contrasenia,username);
+        validarUsuarioSeaDistintoALaContrasenia(contrasenia,username); */
 
     }
 

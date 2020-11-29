@@ -4,7 +4,7 @@
     <groupId>DDSTPAgrupo7</groupId>
     <artifactId>DDSTPAgrupo7</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <build>
         <plugins>
             <plugin>
