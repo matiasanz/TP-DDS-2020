@@ -30,7 +30,7 @@ public class TestMensajes {
     public void unUsuarioRecibeYEliminaMensajes(){
     	String notificacion = "Alerta alerta, estas por romper la dieta";
     	
-    	usuario1.notificarEvento(new Mensaje(LocalDateTime.of(1,1,1,1,1), notificacion));
+    	usuario1.notificarEvento(new Mensaje(LocalDateTime.of(1,1,1,1,1), notificacion,0));
     	assertMensajeUnico(usuario1,notificacion);
     	
     	usuario1.vaciarBandeja();

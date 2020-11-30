@@ -73,8 +73,8 @@ public class MainClass{
         	usuario = new Usuario(usuarioIngresado, passwordIngresada, TipoUsuario.ESTANDAR);
     		transaccion.begin();
     		usuario.setBandejaDeMensajes(Arrays.asList(
-    				new Mensaje(LocalDateTime.now(), "Le damos la bienvenida a nuestro sistema"),
-					new Mensaje(LocalDateTime.now(), "Otro mensaje")));
+    				new Mensaje(LocalDateTime.now(), "Le damos la bienvenida a nuestro sistema",0),
+					new Mensaje(LocalDateTime.now(), "Otro mensaje",0)));
     		usuarios.salvar(usuario);
     		transaccion.commit();
     		imprimirPorPantalla(" >> Ha sido registrado correctamente\n");

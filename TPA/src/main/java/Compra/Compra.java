@@ -166,7 +166,7 @@ public class Compra {
     }
     
     public void notificarUsuarios(String mensaje){
-    	usuariosValidadores.stream().forEach(unUsuario->unUsuario.notificarEvento(new Mensaje(LocalDateTime.now(), mensaje)));
+    	usuariosValidadores.stream().forEach(unUsuario->unUsuario.notificarEvento(new Mensaje(LocalDateTime.now(), mensaje,0)));
     }
 
 //Etiqueta ****************

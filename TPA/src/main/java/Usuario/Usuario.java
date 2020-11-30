@@ -18,6 +18,7 @@ public class Usuario {
     private String contrasenia;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OrderColumn(name="posicion")
     @JoinTable(name = "mensajes_por_usuario")
     private List<Mensaje> bandejaDeMensajes = new LinkedList<>();
 
