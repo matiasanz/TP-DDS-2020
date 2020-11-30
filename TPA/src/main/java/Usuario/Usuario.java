@@ -28,7 +28,6 @@ public class Usuario {
     public Usuario() {}
 
     public Usuario(String username, String contrasenia, TipoUsuario tipoUsuario) {
-    	new ValidadorUsuario().validarContrasenia(contrasenia, username);
     	this.username = username;
         this.contrasenia = contrasenia;
         this.tipo = tipoUsuario;

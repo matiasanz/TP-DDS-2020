@@ -17,22 +17,13 @@ public class ValidadorUsuario {
     void validarContrasenia(String contrasenia,String username) {
 
         validarContraseniaEntreLasDiezMilMasConocidas(contrasenia);
-        validarLongitudMinima(contrasenia);
+        validarContraseniaConLongitudMinima(contrasenia);
         validarCaracteresRepetidos(contrasenia);
-        validarUsuarioSeaDistintoALaContrasenia(contrasenia,username);
+        validarUsuarioNoContenidoEnContrasenia(username, contrasenia);
 
     }
 
-    private boolean evaluarRegex(String regEx, String contrasenia) {
-
-        Pattern pattern = Pattern.compile(regEx);
-        Matcher matcher = pattern.matcher(contrasenia);
-
-        return matcher.find();
-
-    }
-
-    private void validarUsuarioSeaDistintoALaContrasenia(String contrasenia,String username) {
+    public void validarUsuarioNoContenidoEnContrasenia(String username, String contrasenia) {
 
         if (contrasenia.toLowerCase().contains(username.toLowerCase())){
             throw new ContraseniaTieneNombreDeUsuarioIncluidoException();
@@ -40,7 +31,7 @@ public class ValidadorUsuario {
 
     }
 
-    private void validarCaracteresRepetidos(String contrasenia) {
+    public void validarCaracteresRepetidos(String contrasenia) {
 
         // Lanza excepcion si tiene al menos 2 caracteres repetidos
         if(!evaluarRegex("^(?!.*(.)\\1)", contrasenia))
@@ -50,7 +41,7 @@ public class ValidadorUsuario {
 
     }
 
-    private void validarLongitudMinima(String contrasenia) {
+    public void validarContraseniaConLongitudMinima(String contrasenia) {
 
         int LONGITUD_MINIMA_NIST = 8;
 
@@ -60,7 +51,7 @@ public class ValidadorUsuario {
 
     }
 
-    void validarContraseniaEntreLasDiezMilMasConocidas(String contrasenia) {
+    public void validarContraseniaEntreLasDiezMilMasConocidas(String contrasenia) {
 
         File file = new File("10000WorstPasswords.txt");
         try {
@@ -77,5 +68,14 @@ public class ValidadorUsuario {
         } catch (FileNotFoundException e) {
             throw new NoEncontroArchivoException();
         }
+    }
+    
+    private boolean evaluarRegex(String regEx, String contrasenia) {
+
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(contrasenia);
+
+        return matcher.find();
+
     }
 }

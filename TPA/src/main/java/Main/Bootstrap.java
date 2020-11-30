@@ -34,7 +34,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     private void mockearUsuarios() {
         RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
         repoUsuarios.salvar(UsuariosFactory.usuarioStub());
-        repoUsuarios.salvar(UsuariosFactory.sinValidaciones("beto", "123"));
+        repoUsuarios.salvar(UsuariosFactory.usuarioConMensajes());
     }
 
     private void crearEntidadesYCategorias() {
