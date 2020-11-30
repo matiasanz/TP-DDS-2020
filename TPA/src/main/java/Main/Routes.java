@@ -25,11 +25,11 @@ public class Routes {
     public static void main(String[] args) {
         System.out.println("Iniciando servidor");
 
-        Spark.port(8080);
+        Spark.port(getPuertoAsignadoHeroku());
 
         //Esta linea muestra el stack trace en el navegador, en caso de excepcion no manejada.
         //TODO comentar el dia de la entrega
-        DebugScreen.enableDebugScreen();
+        //DebugScreen.enableDebugScreen();
 
         Spark.staticFileLocation("/public");
 
@@ -52,6 +52,14 @@ public class Routes {
         after((request, response) -> closeEntityManager() );
 
         System.out.println("Servidor iniciado correctamente");
+    }
+
+    private static int getPuertoAsignadoHeroku() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 8080; //retorno 8080 por defecto para local
     }
 
     private static void usuarioRoutes(){

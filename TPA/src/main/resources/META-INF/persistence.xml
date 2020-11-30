@@ -25,17 +25,17 @@
         <class>Categoria.ValidadorNoMasEntidadesbase</class>
 
         <properties>
-
-            <!-- HEROKU
+            <!-- HEROKU -->
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://b54d4ddc7cb96a:59334987@us-cdbr-east-02.cleardb.com/heroku_ca4e89c4d99b26e?reconnect=true"/>
+            <property name="hibernate.connection.url"
+                      value="jdbc:mysql://bc405c094bc91b:b6c50860@us-cdbr-east-02.cleardb.com/heroku_2b0f1da87c700d1?reconnect=true"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="true" />
-            <property name="use_sql_comments" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="use_sql_comments" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
 
-            <!-- CONEXION HSQL LOCAL -->
+            <!-- CONEXION HSQL LOCAL
 
              <property name="hibernate.archive.autodetection" value="class"/>
              <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />
@@ -46,7 +46,7 @@
              <property name="hibernate.show_sql" value="true" />
              <property name="hibernate.format_sql" value="true" />
              <property name="use_sql_comments" value="true" />
-             <property name="hibernate.hbm2ddl.auto" value="update" />
+             <property name="hibernate.hbm2ddl.auto" value="update" /> -->
 
             <!-- CONEXION SQL SEVER LOCAL
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
@@ -63,17 +63,15 @@
             <property name="use_sql_comments" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/> -->
 
-            <!-- CONEXION MYSQL LOCAL
+            <!-- CONEXION MYSQL
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tpdds"/>
-            <property name="hibernate.connection.username" value="sa"/>
-            <property name="hibernate.connection.password" value="TpDds1234"/>
+            <property name="hibernate.connection.url"
+                      value="jdbc:mysql://b54d4ddc7cb96a:59334987@us-cdbr-east-02.cleardb.com/heroku_ca4e89c4d99b26e?reconnect=true"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="true" />
-            <property name="use_sql_comments" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->
-
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="use_sql_comments" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/> -->
 
 
         </properties>
