@@ -13,7 +13,6 @@ import spark.Response;
 public class Autenticador
 {	
 	private RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
-	private List<Long> sesionesEnCurso = new LinkedList<>();
 	private String USER_ID = "uid"; //Cookie que "persiste" al usuario
 	private String LOGIN_URI = "/";
 
@@ -21,12 +20,9 @@ public class Autenticador
 	
 	public void guardarCredenciales(Request request, Usuario usuario)	{
 		request.session().attribute(USER_ID, usuario.getId());
-		sesionesEnCurso.add(usuario.getId());
 	}
 	
 	public void quitarCredenciales(Request request, Response response){
-		Usuario usuario = getUsuario(request, response);
-		sesionesEnCurso.remove(usuario.getId());
 		request.session().removeAttribute(USER_ID);
     }
 	
@@ -56,6 +52,6 @@ public class Autenticador
     
     public boolean sesionEnCurso(Request request){
     	Long id = request.session().attribute(USER_ID);
-    	return  id != null && sesionesEnCurso.stream().anyMatch(idLogueado->idLogueado.equals(id));
+    	return  id != null && repoUsuarios.getUsuario(id)!= null;
     }
 }
