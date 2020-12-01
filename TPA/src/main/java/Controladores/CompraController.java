@@ -59,7 +59,7 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
             compra.agregarUsuarioValidador(usuario); //Esto se deberia hacer en otra uri, pero por ahora no lo piden
 
             response.redirect("/compras/" + compra.getId());
-            return null;
+            return inicializarPaginaComprasNueva(modelo);
 
         } catch (DatosIncompletosException | FechaInvalidaException e) {
             response.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
@@ -126,7 +126,7 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
         }
 
         response.redirect("/compras/" + idCompra);
-        return null;
+        return inicializarPaginaComprasNueva(modelo);
     }
 
     private ModelAndView inicializarPaginaComprasNueva(Map<String, Object> modelo) {
