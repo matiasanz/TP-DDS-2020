@@ -57,7 +57,7 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
 			respuesta.redirect("/");
 		}
 	    
-	    return null;
+	    return new ModelAndView(new HashMap<>(), "");
     }
     
     public void iniciarSesion(Request request, Response response){
