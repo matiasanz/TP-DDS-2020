@@ -5,6 +5,8 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.util.HashMap;
+
 public class MenuController
 {
 	private final String ARCHIVO_INDEX = "index.html.hbs";
@@ -18,7 +20,7 @@ public class MenuController
     public ModelAndView logout(Request request, Response response){
     	autenticador.quitarCredenciales(request, response);
     	response.redirect("/");
-    	return null;
+    	return new ModelAndView(new HashMap<>(), "");
     }
     
 }
