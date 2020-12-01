@@ -55,10 +55,10 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
 	    	respuesta.status(HttpURLConnection.HTTP_PROXY_AUTH);
 			respuesta.cookie(MENSAJE_TOKEN, "El usuario y/o la contraseña ingresada son incorrectos");
 			respuesta.redirect("/");
-			return new ModelAndView(new HashMap<>(), "");
+			return new ModelAndView(new HashMap<>(), "/");
 		}
 	    
-	    return new ModelAndView(new HashMap<>(), "");
+	    return new ModelAndView(new HashMap<>(), "/");
     }
     
     public void iniciarSesion(Request request, Response response){

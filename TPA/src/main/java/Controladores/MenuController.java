@@ -20,7 +20,7 @@ public class MenuController
     public ModelAndView logout(Request request, Response response){
     	autenticador.quitarCredenciales(request, response);
     	response.redirect("/");
-    	return new ModelAndView(new HashMap<>(), "");
+    	return new ModelAndView(new HashMap<>(), "/");
     }
     
 }

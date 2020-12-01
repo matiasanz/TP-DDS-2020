@@ -28,7 +28,7 @@
             <!-- HEROKU -->
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
             <property name="hibernate.connection.url"
-                      value="jdbc:mysql://b2d20f5a64d10e:5d608191@us-cdbr-east-02.cleardb.com/heroku_160286a1fa3b79a?reconnect=true"/>
+                      value="jdbc:mysql://ba6aaf62141e85:d800b50a@us-cdbr-east-02.cleardb.com/heroku_1cc7c69986263b6?reconnect=true"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
