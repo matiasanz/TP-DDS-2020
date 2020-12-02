@@ -31,9 +31,7 @@ public class RepoUsuariosDB extends RepoDB<Usuario>{
 	public Usuario getUsuario(Long id){
 		Usuario usuario; 
 		try{
-			usuario = (Usuario) query("where id = :id_user")
-				.setParameter("id_user", id)
-				.getSingleResult();
+			usuario = entityManager().find(Usuario.class, id);
 		} 
 		
 		catch(NoResultException e){			
