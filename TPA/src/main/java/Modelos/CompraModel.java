@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import Compra.Compra;
+import Compra.Estado;
 import Compra.Item;
 
 public class CompraModel {
@@ -14,6 +15,7 @@ public class CompraModel {
 	private BigDecimal precio;
 	private List<Item> items;
 	private List<String> etiquetas;
+	private String estadoDeAprobacion;
 	
 	public CompraModel(Compra compra) {
 		this.id = compra.getId();
@@ -23,6 +25,7 @@ public class CompraModel {
 		this.precio = compra.getValorTotal();
 		this.items = compra.getItems();
 		this.etiquetas = compra.getEtiquetas();
+		this.estadoDeAprobacion=compra.getIndicadorDeAprobacion().toString();
 	}
 
 	public Long getId() {
@@ -39,6 +42,10 @@ public class CompraModel {
 
 	public String getMoneda() {
 		return moneda;
+	}
+	
+	public String getEstadoDeAprobacion() {
+		return estadoDeAprobacion;
 	}
 
 	public BigDecimal getPrecio() {
