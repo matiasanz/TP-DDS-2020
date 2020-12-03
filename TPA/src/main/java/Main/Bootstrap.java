@@ -20,8 +20,6 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     }
 
     public void run() {
-    	//Cargamos la cache
-    	RepositorioDeMonedasMeli.getInstance().getMonedas(Moneda.codigosMoneda());
 
         withTransaction(() -> {
             crearProveedores();
@@ -29,6 +27,9 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
             crearEntidadesYCategorias();
             mockearUsuarios();
         });
+
+        System.out.println("Boostrap complete");
+        System.exit(0);
     }
 
     private void mockearUsuarios() {

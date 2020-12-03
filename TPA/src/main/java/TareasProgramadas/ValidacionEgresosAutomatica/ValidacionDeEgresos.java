@@ -9,7 +9,7 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import Compra.Compra;
 import Compra.ValidadorDeCompra;
 import Factory.ComprasFactory;
-import Repositorios.RepoComprasDB;
+import Repositorios.RepositorioDeCompras.RepoComprasDB;
 
 public class ValidacionDeEgresos implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
 

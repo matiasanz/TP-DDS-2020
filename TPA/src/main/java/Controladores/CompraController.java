@@ -11,7 +11,7 @@ import Moneda.CodigoMoneda;
 import Moneda.Moneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
-import Repositorios.RepoComprasDB;
+import Repositorios.RepositorioDeCompras.RepoComprasDB;
 import Repositorios.RepoEntidadesDB;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import Usuario.Usuario;

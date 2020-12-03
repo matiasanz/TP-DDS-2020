@@ -58,21 +58,6 @@ public class TestRepoEntidades
 			assertEntidad(entidadJuridicaOSS, repoEntidades.getAll().get(2));
 		}
 		
-		@Test
-		public void reporteDeGastosParaEntidadesPersistidas(){
-			repoEntidades.salvar(EntidadesFactory.getEntidadConCompras());
-			
-			LocalDate fecha = LocalDate.of(2020,07,02);
-			List<Map<String, Double>> reportesGenerados = new ArrayList<>();
-			repoEntidades.getAll().forEach(e->reportesGenerados.add(ReporteMensualDeGastos.generarReporteDeGastos(e,fecha)));
-			
-			assertEquals(3, reportesGenerados.size());
-			Map<String, Double> gastos = reportesGenerados.get(0);
-			assertEquals(0, gastos.size());
-			
-			//(...)
-		}
-		
 		//Auxiliar
 		private void assertEntidad(Entidad expected, Entidad actual){
 			assertEquals(expected.getId(), actual.getId());

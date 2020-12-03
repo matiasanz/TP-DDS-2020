@@ -6,6 +6,8 @@ import Controladores.CompraController;
 import Controladores.EntidadesController;
 import Controladores.HomeController;
 import Controladores.MenuController;
+import Moneda.Moneda;
+import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import spark.Response;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
@@ -33,7 +35,11 @@ public class Routes {
 
         Spark.staticFileLocation("/public");
 
-        Bootstrap.main(args);
+        //Cargamos la cache: esto es de la web no es de la DB tiene que estar en este main para que se guarde en la RAM del server
+        RepositorioDeMonedasMeli.getInstance().getMonedas(Moneda.codigosMoneda());
+
+        //Descomentar la llamada al bootstrap para trabajar localmente pero no pushear al repo porque el schema no se debe crear todo el tiempo en el server
+        //Bootstrap.main(args);
         
         Spark.before((request, response)->{        	        	
         	bloquearCacheNavegador(response);

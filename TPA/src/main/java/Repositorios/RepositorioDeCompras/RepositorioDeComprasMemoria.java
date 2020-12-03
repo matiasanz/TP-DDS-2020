@@ -1,4 +1,4 @@
-package Repositorios;
+package Repositorios.RepositorioDeCompras;
 
 import Compra.*;
 import java.time.LocalDate;
@@ -11,9 +11,6 @@ public class RepositorioDeComprasMemoria {
 
     public List<Compra> compras;
 
-    public RepositorioDeComprasMemoria(){
-    	compras = new ArrayList<>();
-    }
     public RepositorioDeComprasMemoria(List<Compra> compras) {
         this.compras = compras;
     }
