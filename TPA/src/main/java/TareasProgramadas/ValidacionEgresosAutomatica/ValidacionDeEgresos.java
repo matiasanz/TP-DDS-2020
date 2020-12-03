@@ -44,11 +44,11 @@ public class ValidacionDeEgresos implements WithGlobalEntityManager, EntityManag
         try {
             validadorDeCompra.validar(unaCompra);
             unaCompra.aprobar();
-            mensaje = "-----------<Una Compra ha sido aprobada>----------\n";
+            mensaje = "La compra #" + unaCompra.getId() + " ha sido aprobada.";
         } catch (RuntimeException unaExcepcion) {
             unaCompra.rechazar();
-            mensaje = "-----------<Una Compra ha sido rechazada>----------\n"
-                    + "[Motivo: " + unaExcepcion.getMessage() + "]";
+            mensaje = "La compra #" + unaCompra.getId() + " ha sido rechazada por el siguiente Motivo: "
+                      + unaExcepcion.getMessage();
         }
 
         unaCompra.notificarUsuarios(mensaje);

@@ -43,14 +43,15 @@ public class TestMensajes {
     	Usuario usuario2 = UsuariosFactory.usuarioStub();    	
     	Compra compra = ComprasFactory.compraParaUsuario(usuario1);
     	compra.agregarUsuarioValidador(usuario2);
+    	compra.setId(new Long(5));
     	
     	ValidacionDeEgresos.validarCompra(compra);
     	
     	assertEquals(1, usuario2.getBandejaDeMensajes().size());
     	
     	String motivo = "No se ha seleccionado ningun presupuesto";
-    	assertMensajeUnico(usuario1, "-----------<Una Compra ha sido rechazada>----------\n"
-        		+ "[Motivo: "+ motivo  + "]");
+    	assertMensajeUnico(usuario1, "La compra #" + compra.getId() + " ha sido rechazada por el siguiente Motivo: "
+        		+ motivo );
     }
     
     @Test
