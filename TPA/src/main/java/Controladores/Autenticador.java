@@ -41,7 +41,7 @@ public class Autenticador
 		}
 	}
 		
-	public Usuario getUsuario(Request request, Response response){
+	public Usuario getUsuario(Request request){
 		Long id = request.session().attribute(USER_ID);
 		return repoUsuarios.getUsuario(id);
     }

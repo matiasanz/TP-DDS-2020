@@ -50,13 +50,11 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
     }
 
     public ModelAndView crearCompra(Request request, Response response) {
-        Usuario usuario = Autenticador.instance.getUsuario(request, response);
         Map<String, Object> modelo = new HashMap<>();
 
         try {
             Compra compra = crearCompra(request);
             withTransaction(() -> repositorioCompras.salvar(compra));
-            compra.agregarUsuarioValidador(usuario); //Esto se deberia hacer en otra uri, pero por ahora no lo piden
 
             response.redirect("/compras/" + compra.getId());
             return new ModelAndView(new HashMap<>(), "/");
@@ -154,6 +152,8 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
         compra.setPresupuestoElegido(presupuesto);
 
         validarCargaDeCompra(compra);
+        Usuario usuario = Autenticador.instance.getUsuario(request);
+        compra.agregarUsuarioValidador(usuario);
 
         return compra;
     }

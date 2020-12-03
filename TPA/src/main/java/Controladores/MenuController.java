@@ -13,7 +13,7 @@ public class MenuController
 	Autenticador autenticador = Autenticador.instance;
 	
     public ModelAndView getUserMenu(Request request, Response response){
-    	Usuario modelo = autenticador.getUsuario(request, response);
+    	Usuario modelo = autenticador.getUsuario(request);
 		return new ModelAndView(modelo, ARCHIVO_INDEX);
 	}
 
