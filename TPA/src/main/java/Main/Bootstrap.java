@@ -29,7 +29,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
         });
 
         System.out.println("Boostrap complete");
-        System.exit(0);
+        //System.exit(0);
     }
 
     private void mockearUsuarios() {
