@@ -144,6 +144,9 @@ public class ComprasFactory {
 		
 		List<Item> items = Arrays.asList(ItemsFactory.bebida(4,59.99), ItemsFactory.itemNValuadoEn(1,27999.99));
 		compra.setPresupuestoElegido(new Presupuesto(items,proveedor));
+		
+		compra.agregarEtiqueta("Festichola");
+		
 		return compra;
 	}
 }

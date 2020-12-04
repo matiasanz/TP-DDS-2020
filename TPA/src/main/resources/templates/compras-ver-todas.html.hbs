@@ -30,16 +30,18 @@
 				<hr>
 				{{#compras}}
 					<li>
-						<strong> ID Compra: </strong> {{id}} <br>
+						<h3> Compra #{{id}} </h3>
+						<strong> Estado: </strong> {{estadoDeAprobacion}} <br>
 						<strong> Fecha: </strong> {{fecha}} <br>
-						<strong> Precio Total: </strong> {{precio}} <br>
+						<strong> Precio Total: </strong> ${{precio}} <br>
 						<strong> Moneda: </strong> {{moneda}} <br>
 						<strong> Medio de Pago: </strong> {{medioDePago}} <br>
 						<strong> Etiquetas: </strong> {{modeloEtiquetas}} <br>
-						<div class="align-right">
-							<a href="/compras/{{id}}"><button class="botonAtras">Ver</button></a>
-						</div>
 					</li>
+					
+					<div class="align-right">
+							<a href="/compras/{{id}}"><button class="botonAtras">Ver</button></a>
+					</div>
 					<hr>
 				{{/compras}}
 			</ul>
