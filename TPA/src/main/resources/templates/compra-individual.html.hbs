@@ -43,7 +43,7 @@
                     
                     <br>
                     
-                    <strong> Etiquetas: </strong>
+                    <strong> Etiquetas: </strong> {{mensajeEtiquetas}}
                     <ul>
                     	<hr style="border-top:1px dotted #000;">
                         {{#each etiquetas}}
@@ -86,11 +86,7 @@
                     <input id="cantidad_etiquetas" name="cantidad_etiquetas" type="hidden" value="1">
                 </div>
             </form>
-            <div style="10px auto auto">
-                <button id="btn_agregar_etiquetas" onclick="agregarEtiqueta()" style="margin:10 0 20 235";>Agregar</button>
-                <button id="btn_eliminar_etiquetas" onclick="eliminarEtiqueta()" style="margin:10 10 10 10";>Eliminar</button>
-            </div>
-            <input type="submit" value="Finalizar y Guardar" class="botonSameTamanio" form="frm_etiquetas">
+            <input type="submit" value="Agregar" class="botonSameTamanio" form="frm_etiquetas">
 
         </div>
     </section>

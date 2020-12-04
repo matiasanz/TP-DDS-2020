@@ -66,7 +66,7 @@ public class Compra {
     @ElementCollection
     @CollectionTable(name = "etiquetas", joinColumns=@JoinColumn(name = "compra_id"))
     @Column(name = "etiqueta")
-    private List<String> etiquetas = new ArrayList<>();
+    private List<String> etiquetas = new LinkedList<>();
 
     public Compra() {}
 
@@ -120,10 +120,11 @@ public class Compra {
         presupuestosAsociados.add(presupuesto);
     }
 
-    public void setPresupuestoElegido(Presupuesto presupuesto) {
-        Presupuesto presupuestoAElegir = presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.equals(presupuesto)).findFirst().orElseThrow(NoHayPresupuestosException::new);
+    public void setPresupuestoElegido(Presupuesto presupuesto) {    	
+    	presupuestosAsociados.remove(presupuesto);
+    	presupuestosAsociados.add(0,presupuesto);
+    	Presupuesto presupuestoAElegir = presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.equals(presupuesto)).findFirst().orElseThrow(NoHayPresupuestosException::new);    		    	
         presupuestoAElegir.setElegido(true);
-        this.setItems(presupuestoAElegir.getItems()); //TODO
     }
 
 

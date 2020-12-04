@@ -1,14 +1,24 @@
 package Main;
 
 import Categoria.Categoria;
+import Compra.Compra;
+import Entidad.Entidad;
 import Entidad.EntidadJuridica;
+import Factory.ComprasFactory;
 import Factory.EntidadesFactory;
 import Factory.MedioDePagoFactory;
 import Factory.ProveedoresFactory;
 import Factory.UsuariosFactory;
+import MedioDePago.PagoEnEfectivo;
+import Moneda.CodigoMoneda;
 import Moneda.Moneda;
+import Repositorios.RepositorioDeEntidades;
+import Repositorios.RepositorioDeCompras.RepoComprasDB;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
+
+import java.time.LocalDate;
+
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -25,17 +35,29 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
             crearProveedores();
             crearMediosDePago();
             crearEntidadesYCategorias();
-            mockearUsuarios();
+            crearCompras();
+            crearUsuarios();
         });
 
         System.out.println("Boostrap complete");
         System.exit(0);
     }
 
-    private void mockearUsuarios() {
+    private void crearUsuarios() {
         RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
         repoUsuarios.salvar(UsuariosFactory.usuarioStub());
         repoUsuarios.salvar(UsuariosFactory.usuarioConMensajes());
+    }
+    
+    private void crearCompras(){
+    	RepoComprasDB compras = new RepoComprasDB();
+    	
+    	Entidad unaEntidad = RepositorioDeEntidades.instancia.getEntidades().get(0);
+    	
+    	if(unaEntidad!=null){
+    		Compra compra = ComprasFactory.compraParaEntidad(unaEntidad);
+    		compras.salvar(compra);
+    	}
     }
 
     private void crearEntidadesYCategorias() {

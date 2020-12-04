@@ -1,11 +1,13 @@
 package Modelos;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
 import Compra.Compra;
 import Compra.Estado;
 import Compra.Item;
+import Factory.EtiquetasFactory;
 
 public class CompraModel {
 	private Long id;
@@ -24,7 +26,8 @@ public class CompraModel {
 		this.moneda = compra.getMoneda().getDescripcion();
 		this.precio = compra.getValorTotal();
 		this.items = compra.getItems();
-		this.etiquetas = compra.getEtiquetas();
+		List<String> etiquetas = compra.getEtiquetas();
+		this.etiquetas = etiquetas;
 		this.estadoDeAprobacion=compra.getIndicadorDeAprobacion().toString();
 	}
 
@@ -58,6 +61,19 @@ public class CompraModel {
 
 	public List<String> getEtiquetas() {
 		return etiquetas;
+	}
+	
+	public String getMensajeEtiquetas(){
+		return etiquetas.isEmpty()? EtiquetasFactory.etiquetaNula(): "";
+	}
+	
+	public String getModeloEtiquetas(){
+		if(etiquetas.isEmpty()){
+			return EtiquetasFactory.etiquetaNula();
+		}
+		
+		String modeloEtiquetas = etiquetas.toString();
+		return modeloEtiquetas.substring(1,modeloEtiquetas.length()-1);
 	}
 	
 }

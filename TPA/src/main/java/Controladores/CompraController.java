@@ -29,7 +29,6 @@ import java.net.HttpURLConnection;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +41,8 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
     private final RepositorioDeMonedasMeli repositorioDeMonedas = RepositorioDeMonedasMeli.getInstance();
     private final RepositorioDeProveedoresDB repositorioDeProveedores = new RepositorioDeProveedoresDB();
     private final RepositorioMedioDePagoDB repositorioMedioDePago = new RepositorioMedioDePagoDB();
-
+    private final String TODAS_ETIQUETAS = "Todas";
+    
     public ModelAndView getPaginaComprasNueva(Request request, Response response) {
         return inicializarPaginaComprasNueva(new HashMap<>());
     }
@@ -78,11 +78,14 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
     }
 
     public ModelAndView getPaginaVerCompras(Request request, Response response) {
-    	String filtroDeEtiqueta=request.queryParams("etiqueta");
-    	List<Compra> compras =(filtroDeEtiqueta==null)?
+    	
+    	String etiquetaFiltro= request.queryParams("etiqueta");
+    	
+    	List<Compra> compras = (etiquetaFiltro==null || etiquetaFiltro.equals(TODAS_ETIQUETAS))?
     			repositorioCompras.getAll() 
-    			:repositorioCompras.comprasConEtiqueta(filtroDeEtiqueta); 
-        return new ModelAndView(this.crearModeloCompra(compras), "compras-ver-todas.html.hbs");
+    		:	repositorioCompras.comprasConEtiqueta(etiquetaFiltro); 
+        
+		return new ModelAndView(crearModeloCompra(compras, etiquetaFiltro), "compras-ver-todas.html.hbs");
     }
 
     public ModelAndView agregarEtiqueta(Request request, Response response) {
@@ -200,11 +203,24 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
         return new Presupuesto(items, proveedor);
     }
 
-    private HashMap<String, Object> crearModeloCompra(List<Compra> compras) {
+    private HashMap<String, Object> crearModeloCompra(List<Compra> compras, String etiqueta) {
         HashMap<String, Object> modelo = new HashMap<>();
         List<CompraModel> compraModel = compras.stream().map(CompraModel::new).collect(Collectors.toList());
+        
         modelo.put("compras", compraModel);
-        modelo.put("etiquetas",CompraHelper.getEtiquetas(compras));
+        List<String> etiquetas = getEtiquetasEmpezandoPor(etiqueta==null? TODAS_ETIQUETAS: etiqueta);
+      
+        modelo.put("etiquetas", etiquetas);
+        
         return modelo;
+    }
+    
+    private List<String> getEtiquetasEmpezandoPor(String etiqueta){
+    	List<String> etiquetas = CompraHelper.getEtiquetas(	repositorioCompras.getAll() );
+    	etiquetas.add(0, TODAS_ETIQUETAS);    		
+    	etiquetas.remove(etiqueta);
+    	etiquetas.add(0, etiqueta);    		
+
+    	return etiquetas;
     }
 }
