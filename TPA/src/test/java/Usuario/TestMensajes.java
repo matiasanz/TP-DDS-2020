@@ -36,22 +36,6 @@ public class TestMensajes {
     	usuario1.vaciarBandeja();
     	assertTrue(usuario1.getBandejaDeMensajes().isEmpty());
     }
-	
-    @Test
-    public void unaCompraSeValidaYNotificaATodosSusUsuarios(){
-    	Usuario usuario1 = UsuariosFactory.usuarioStub();
-    	Usuario usuario2 = UsuariosFactory.usuarioStub();    	
-    	Compra compra = ComprasFactory.compraParaUsuario(usuario1);
-    	compra.agregarUsuarioValidador(usuario2);
-    	
-    	ValidacionDeEgresos.validarCompra(compra);
-    	
-    	assertEquals(1, usuario2.getBandejaDeMensajes().size());
-    	
-    	String motivo = "No se ha seleccionado ningun presupuesto";
-    	assertMensajeUnico(usuario1, "-----------<Una Compra ha sido rechazada>----------\n"
-        		+ "[Motivo: "+ motivo  + "]");
-    }
     
     @Test
     public void usuarioRecibeMasDeUnaNotificacion(){

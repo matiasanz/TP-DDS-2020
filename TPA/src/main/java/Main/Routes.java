@@ -39,7 +39,7 @@ public class Routes {
         RepositorioDeMonedasMeli.getInstance().getMonedas(Moneda.codigosMoneda());
 
         //Descomentar la llamada al bootstrap para trabajar localmente pero no pushear al repo porque el schema no se debe crear todo el tiempo en el server
-        //Bootstrap.main(args);
+        Bootstrap.main(args);
         
         Spark.before((request, response)->{        	        	
         	bloquearCacheNavegador(response);

@@ -11,6 +11,7 @@ import Moneda.CodigoMoneda;
 import Moneda.Moneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
+import Repositorios.RepositorioDeCompras.CompraHelper;
 import Repositorios.RepositorioDeCompras.RepoComprasDB;
 import Repositorios.RepoEntidadesDB;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
@@ -28,6 +29,7 @@ import java.net.HttpURLConnection;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,7 +78,11 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
     }
 
     public ModelAndView getPaginaVerCompras(Request request, Response response) {
-        return new ModelAndView(this.crearModeloCompra(), "compras-ver-todas.html.hbs");
+    	String filtroDeEtiqueta=request.queryParams("etiqueta");
+    	List<Compra> compras =(filtroDeEtiqueta==null)?
+    			repositorioCompras.getAll() 
+    			:repositorioCompras.comprasConEtiqueta(filtroDeEtiqueta); 
+        return new ModelAndView(this.crearModeloCompra(compras), "compras-ver-todas.html.hbs");
     }
 
     public ModelAndView agregarEtiqueta(Request request, Response response) {
@@ -194,10 +200,11 @@ public class CompraController extends AbstractPersistenceTest implements WithGlo
         return new Presupuesto(items, proveedor);
     }
 
-    private HashMap<String, Object> crearModeloCompra() {
+    private HashMap<String, Object> crearModeloCompra(List<Compra> compras) {
         HashMap<String, Object> modelo = new HashMap<>();
-        List<CompraModel> compraModel = repositorioCompras.getAll().stream().map(CompraModel::new).collect(Collectors.toList());
+        List<CompraModel> compraModel = compras.stream().map(CompraModel::new).collect(Collectors.toList());
         modelo.put("compras", compraModel);
+        modelo.put("etiquetas",CompraHelper.getEtiquetas(compras));
         return modelo;
     }
 }
