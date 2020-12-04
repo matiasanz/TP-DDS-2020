@@ -15,6 +15,16 @@
 {{# partial "contenido" }}
 	<section>
         <button class="botonAtras" style="width: 16%;" onclick="location.href='/compras/menu'">Volver a menú de compras</button>
+		<form id="filtro_etiquetas" action="/compras" method="GET">
+		
+		<label> Etiquetas </label>
+		<select name="etiqueta">
+			{{#etiquetas}}
+				<option value={{this}}>{{this}} </option>
+			{{/etiquetas}}
+		</select>
+		<input type = submit value="Filtrar"> 
+		</form>
 		<div id="compras">
 			<ul>
 				<hr>
@@ -25,6 +35,7 @@
 						<strong> Precio Total: </strong> {{precio}} <br>
 						<strong> Moneda: </strong> {{moneda}} <br>
 						<strong> Medio de Pago: </strong> {{medioDePago}} <br>
+						<strong> Etiquetas: </strong> {{etiquetas}} <br>
 						<div class="align-right">
 							<a href="/compras/{{id}}"><button class="botonAtras">Ver</button></a>
 						</div>

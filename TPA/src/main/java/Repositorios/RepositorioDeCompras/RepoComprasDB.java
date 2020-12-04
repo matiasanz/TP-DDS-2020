@@ -38,4 +38,8 @@ public class RepoComprasDB extends RepoDB<Compra> {
     public RepositorioDeComprasMemoria repositorioDelMes(LocalDate fecha){
     	return new RepositorioDeComprasMemoria(comprasDelMes(fecha));
     }
+    
+    public List<Compra> comprasConEtiqueta(String etiqueta){
+ 		 return getAll().stream().filter(c -> c.contieneEtiqueta(etiqueta)).collect(Collectors.toList());
+   }
 }
