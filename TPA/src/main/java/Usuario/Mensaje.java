@@ -1,9 +1,6 @@
 package Usuario;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,26 +10,30 @@ public class Mensaje {
     @Id
     @GeneratedValue
     private Long id;
-    
-    
+
+
     private int identificador;
+    @Transient
     private LocalDateTime fecha;
-    
+
+    @Column(name = "fecha")
     private String fechaamigable;
 
     private String value;
 
-    public Mensaje(LocalDateTime fecha, String value,int identificador) {
+    public Mensaje(LocalDateTime fecha, String value, int identificador) {
         this.fecha = fecha;
         this.value = value;
-        this.identificador= identificador;
+        this.identificador = identificador;
+        this.setFechaamigable(fecha);
     }
 
-    public Mensaje() {}
+    public Mensaje() {
+    }
 
-    
+
 // de aca para abajo getters y setters
-    
+
     public LocalDateTime getFecha() {
         return fecha;
     }
@@ -48,29 +49,35 @@ public class Mensaje {
     public void setValue(String value) {
         this.value = value;
     }
-    
+
     public String getFechaamigable() {
-    	return fecha.getDayOfMonth()+"/"+fecha.getMonthValue()+"/"+fecha.getYear()+"                      "+"Hora "+fecha.getHour()+":"+fecha.getMinute();
+        return this.fechaamigable;
     }
-    
-    public void setFechaamigable(String fechaamigable) {
-    	this.fechaamigable=fechaamigable;
+
+    public String getTiempoAmigable(int horario) {
+        return horario < 10 ? "0" + horario : String.valueOf(horario);
     }
-    
-    
-    public Long getId(){
-    	return id;
+
+    public void setFechaamigable(LocalDateTime fechaCompleta) {
+        this.fechaamigable = fechaCompleta.getDayOfMonth() + "/" + fechaCompleta.getMonthValue() + "/"
+                + fechaCompleta.getYear() + "                      " + "Hora " + getTiempoAmigable(fechaCompleta.getHour()) + ":"
+                + getTiempoAmigable(fechaCompleta.getMinute());
     }
-    
-    public void setId(Long id){
-    	this.id=id;
+
+
+    public Long getId() {
+        return id;
     }
-    
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public int getIdentificador() {
-    	return  identificador;
+        return identificador;
     }
-    
+
     public void setIdentificador() {
-    	this.identificador=identificador;
-    }	
+        this.identificador = identificador;
+    }
 }
