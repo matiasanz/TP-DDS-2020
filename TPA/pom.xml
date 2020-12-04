@@ -8,6 +8,25 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>3.0.4</version>
+                <configuration>
+                    <appName>gesoc-web-app</appName>
+                    <processTypes>
+                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main.Routes</web>
+                        <skipTests>true</skipTests>
+                    </processTypes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <descriptorRefs>
@@ -15,21 +34,6 @@
                     </descriptorRefs>
                 </configuration>
                 <executions>
-                    <execution>
-                        <id>ConsolaValidadoraDeCompras</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <finalName>ConsolaValidadoraDeCompras</finalName>
-                            <archive>
-                                <manifest>
-                                    <mainClass>MainClass</mainClass>
-                                </manifest>
-                            </archive>
-                        </configuration>
-                    </execution>
                     <execution>
                         <id>ReporteMensualGastos</id>
                         <phase>package</phase>
@@ -63,6 +67,21 @@
                             </archive>
                         </configuration>
                     </execution>
+                    <!-- <execution>
+                       <id>ConsolaValidadoraDeCompras</id>
+                       <phase>package</phase>
+                       <goals>
+                           <goal>single</goal>
+                       </goals>
+                       <configuration>
+                           <finalName>ConsolaValidadoraDeCompras</finalName>
+                           <archive>
+                               <manifest>
+                                   <mainClass>MainClass</mainClass>
+                               </manifest>
+                           </archive>
+                       </configuration>
+                    </execution> -->
                 </executions>
             </plugin>
         </plugins>
@@ -88,11 +107,6 @@
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
             <version>2.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>2.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

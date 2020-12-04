@@ -5,9 +5,9 @@
 {{# partial "nav"}}
     <div class="topnav">
       <a href="/">Inicio</a>
-      <a href="/compras">Compras</a>
+      <a href="/compras/menu">Compras</a>
       <a class="active" href="/entidades">Entidades</a>
-      <a href="/mensajes">Mensajes</a>
+      <a href="/mensajes">Bandeja de Entrada</a>
       <a href="/logout">Salir</a>
     </div>
 {{/partial}}
@@ -18,45 +18,46 @@
         <button class="botonAtras" onclick="location.href='/entidades/nueva'">Atras</button>
 
         <h2>Crear empresa</h2>
+        <div class="divcategoriasSeparacion" style="color: black; width: 60%;">
+            <form id = "frm_crear_entidad_empresa" style="font-size:large; margin-bottom: -10px;" action="/entidades" method="POST">
+                <table class="tablaCreacionEntidades">
+                <tr>
+                    <td>
+                        <ul class="crear_entidad">
+                            <input type="hidden" name="tipoEntidad" value='E'>
 
-        <form id = "frm_crear_entidad_empresa" action="/entidades" method="POST">
-            <ul class="crear_entidad">
-                <input type="hidden" name="tipoEntidad" value='E'>
+                            <li><label class="label">Nombre ficticio<span class="required">*</span></label>
+                            <input type="text" name="nombreFicticio" style="font-size: large;" placeholder="Ingrese nombre ficticio" required></li>
 
-                <li><label class="label">Nombre ficticio<span class="required">*</span></label>
-                <input type="text" name="nombreFicticio" placeholder="Ingrese nombre ficticio" required></li>
+                            <li><label class="label">Razon social<span class="required">*</span></label>
+                            <input type="text" name="razonSocial" style="font-size: large;" placeholder="Ingrese razón social" required></li>
 
-                <li><label class="label">Razon social<span class="required">*</span></label>
-                <input type="text" name="razonSocial" placeholder="Ingrese razón social" required></li>
+                            <li><label class="label">CUIT<span class="required">*</span></label>
+                            <input type="number" name="cuit" style="font-size: large;" placeholder="Ingrese CUIT" min="10000000000" max="99999999999" required></li>
 
-                <li><label class="label">CUIT<span class="required">*</span></label>
-                <input type="number" name="cuit" placeholder="Ingrese CUIT" min="10000000000" max="99999999999" required></li>
+                            <li><label class="label">Codigo IGJ<span class="required">*</span></label>
+                            <input type="number" name="igj" style="font-size: large;" placeholder="Ingrese código IGJ" required></li>
 
-                <li><label class="label">Codigo IGJ<span class="required">*</span></label>
-                <input type="number" name="igj" placeholder="Ingrese código IGJ" required></li>
+                            <li><label class="label">Clasificación<span class="required">*</span></label>
+                            <select name="clasificacion" class="field-select" required>
+                                <option value="0">Micro</option>
+                                <option value="1">Pequeña</option>
+                                <option value="2">Mediana Tramo 1</option>
+                                <option value="3">Mediana Tramo 2</option>
+                            </select></li>
+                        </ul>
+                    </td>
 
-                <li><label class="label">Clasificación<span class="required">*</span></label>
-                <select name="clasificacion" class="field-select" required>
-                    <option value="0">Micro</option>
-                    <option value="1">Pequeña</option>
-                    <option value="2">Mediana Tramo 1</option>
-                    <option value="3">Mediana Tramo 2</option>
-                    <!--{{#clasificacion}}
-                        <option value={{codigo}}>{{codigo}}</option>
-                    {{/clasificacion}}-->
-                </select>
-
-                <li><label class="label">Dirección postal</label>
-                    <div>
+                    <td>
                         <ul class="crear_entidad">
                             <li><label class="label">Calle<span class="required">*</span></label>
-                            <input type="text" name="calle" placeholder="Ingrese calle" required></li>
+                            <input type="text" name="calle" style="font-size: large;" placeholder="Ingrese calle" required></li>
                             <li><label class="label">Altura<span class="required">*</span></label>
-                            <input type="number" name="altura" placeholder="Ingrese altura" min="1" required></li>
+                            <input type="number" name="altura" style="font-size: large;" placeholder="Ingrese altura" min="1" required></li>
                             <li><label class="label">Piso</label>
-                            <input type="number" name="piso" placeholder="-" min="0" value="0"></li>
+                            <input type="number" name="piso" style="font-size: large;" placeholder="-" min="0" value="0"></li>
                             <li><label class="label">Código postal<span class="required">*</span></label>
-                            <input type="text" name="codigoPostal" placeholder="Ingrese código postal" required></li>
+                            <input type="text" name="codigoPostal" style="font-size: large;" placeholder="Ingrese código postal" required></li>
 
                             <li><label class="label">País<span class="required">*</span></label>
                             <select name="pais" class="field-select" required>
@@ -64,33 +65,46 @@
                                     <option value={{this}}>{{this}}</option>
                                 {{/paises}}
                             </select>
-
+                            </li>
                         </ul>
-                    </div>
-                </li>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ul class="crear_entidad">
+                            <li>
+                                <label class="label">Categorías a asociar</label>
+                                {{#categorias}}
+                                    <input type="checkbox" name="categoriasId{{id}}" id={{id}} value={{id}}>
+                                    <label for={{id}}>{{nombre}}</label><br>
+                                {{/categorias}}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="crear_entidad">
+                            <li>
+                                {{#entidadesBaseNotEmpty}}
+                                    <label class="label">Entidades base a asociar:</label>
+                                    {{#entidadesBase}}
+                                        <input type="checkbox" name="entidadesBaseId{{id}}" id={{id}} value={{id}}>
+                                        <label for={{id}}>{{nombreFicticio}}</label><br>
+                                    {{/entidadesBase}}
+                                {{/entidadesBaseNotEmpty}}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
-                <li>
-                    <label class="label">Categorías a asociar</label>
-                    {{#categorias}}
-                        <input type="checkbox" name="categoriasId{{id}}" id={{id}} value={{id}}>
-                        <label for={{id}}>{{nombre}}</label><br>
-                    {{/categorias}}
-                </li>
+                </table>
 
-                {{#entidadesBaseNotEmpty}}
-                    <li>
-                        <label class="label">Entidades base a asociar:</label>
-                        {{#entidadesBase}}
-                            <input type="checkbox" name="entidadesBaseId{{id}}" id={{id}} value={{id}}>
-                            <label for={{id}}>{{nombreFicticio}}</label><br>
-                        {{/entidadesBase}}
-                    </li>
-                {{/entidadesBaseNotEmpty}}
-            </ul>
-        </form>
 
-        <button id="btn_crear_entidad_empresa" type="submit" form="frm_crear_entidad_empresa"
-            class="botonSameTamanio botonPequenioIzquierda">Guardar entidad</button>
+            </form>
+
+            <button id="btn_crear_entidad_empresa" type="submit" form="frm_crear_entidad_empresa"
+                class="botonSameTamanio botonGuardarEntidad">Guardar entidad</button>
+        </div>
+
 
     </section>
 {{/partial}}

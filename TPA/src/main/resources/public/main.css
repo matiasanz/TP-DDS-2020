@@ -135,11 +135,116 @@ th {
     padding: 0;
     display: block;
     list-style: none;
-    margin: 5px 0 0 0;
+    margin: 10px 0 0 0;
 }
 .crear_entidad .label{
     margin:0 0 3px 0;
-    padding:0px;
     display:block;
     font-weight: bold;
+}
+
+.crear_entidad {
+    padding: 0px;
+    margin-left:20px;
+}
+
+.tablaEntidades {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: large;
+}
+
+.tablaEntidades th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+    color: black;
+}
+
+.tablaEntidades th {
+    background-color: #1c4c74;
+    color: white;
+}
+
+.h3categorias {
+    padding-left: 20px;
+}
+
+.ulcategorias {
+    padding-left: 50px;
+    font-size: large;
+    color: black;
+}
+
+.divcategoriasSeparacion {
+    width: 50%;
+    margin: auto;
+    border: 2px solid #1c4c74;
+    margin-bottom: 20px;
+}
+
+.botonGuardarEntidad {
+    display: block;
+    margin-bottom: 20px;
+    font-size: large;
+}
+
+.tablaCreacionEntidades {
+    border: 0px;
+    margin: auto;
+    width: 100%;
+    font-size: large;
+}
+
+.tablaCreacionEntidades td {
+    text-align: left;
+    border:0;
+}
+
+.elemento_nueva_compra {
+    margin: 10 10 10 10;
+}
+
+.align-right {
+    text-align: right;
+}
+
+#compras ul {
+	text-align: center;
+	width: 80%;
+	list-style: none;
+}
+
+#compras li {
+	text-align: left;
+}
+
+button {
+	cursor: pointer;
+}
+
+.mensajecuadrosuperior {
+	
+    background-color: #1c4c74;
+    color:white;
+    text-align: right;
+    padding: 7px 7px;
+    text-decoration: none;
+    font-size: 20px;
+    width:800px;
+    margin:20px auto 0px;
+}
+
+.mensajecontenido{
+    background-color: #F4EBC4;
+	color:#222;
+    font-weight: 200;
+    padding: 4px 4px;
+    margin:0 auto;
+    width:804px;
+}
+
+.mensajecontenido:hover{
+	box-shadow:4px 4px #312F2F;
+    margin-bottom: 6px;
 }

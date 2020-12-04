@@ -21,7 +21,7 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
 
 	private final String ARCHIVO_LOGIN = "login.html.hbs";
 	private RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
-	private Autenticador autenticador = Autenticador.getInstance();
+	private Autenticador autenticador = Autenticador.instance;
 	private final String MENSAJE_TOKEN = "mensaje";
 	
 	//Pagina de inicio de sesion
@@ -53,11 +53,11 @@ public class HomeController implements WithGlobalEntityManager, EntityManagerOps
 	    
 	    } catch(UsuarioNoExisteException | ErrorDeAutenticacionException e) {
 	    	respuesta.status(HttpURLConnection.HTTP_PROXY_AUTH);
-			respuesta.cookie(MENSAJE_TOKEN, "**El usuario y/o la contraseña ingresada son incorrectos");
+			respuesta.cookie(MENSAJE_TOKEN, "El usuario y/o la contraseña ingresada son incorrectos");
 			respuesta.redirect("/");
 		}
-	    
-	    return null;
+
+		return new ModelAndView(new HashMap<>(), "/");
     }
     
     public void iniciarSesion(Request request, Response response){

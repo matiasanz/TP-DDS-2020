@@ -1,13 +1,24 @@
 package Main;
 
 import Categoria.Categoria;
+import Compra.Compra;
+import Entidad.Entidad;
+import Entidad.EntidadJuridica;
+import Factory.ComprasFactory;
 import Factory.EntidadesFactory;
 import Factory.MedioDePagoFactory;
 import Factory.ProveedoresFactory;
 import Factory.UsuariosFactory;
+import MedioDePago.PagoEnEfectivo;
+import Moneda.CodigoMoneda;
 import Moneda.Moneda;
+import Repositorios.RepositorioDeEntidades;
+import Repositorios.RepositorioDeCompras.RepoComprasDB;
 import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
+
+import java.time.LocalDate;
+
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -19,26 +30,49 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     }
 
     public void run() {
-    	//Cargamos la cache
-    	RepositorioDeMonedasMeli.getInstance().getMonedas(Moneda.codigosMoneda());
 
         withTransaction(() -> {
             crearProveedores();
             crearMediosDePago();
-            crearEntidades();
-            crearCategorias();
-            mockearUsuarios();
+            crearEntidadesYCategorias();
+            crearCompras();
+            crearUsuarios();
         });
+
+        System.out.println("Boostrap complete");
+        System.exit(0);
     }
 
-    private void mockearUsuarios() {
+    private void crearUsuarios() {
         RepoUsuariosDB repoUsuarios = new RepoUsuariosDB();
-        repoUsuarios.agregar(UsuariosFactory.usuarioStub());
-        repoUsuarios.agregar(UsuariosFactory.sinValidaciones("beto", "123"));
+        repoUsuarios.salvar(UsuariosFactory.usuarioStub());
+        repoUsuarios.salvar(UsuariosFactory.usuarioConMensajes());
+    }
+    
+    private void crearCompras(){
+    	RepoComprasDB compras = new RepoComprasDB();
+    	
+    	Entidad unaEntidad = RepositorioDeEntidades.instancia.getEntidades().get(0);
+    	
+    	if(unaEntidad!=null){
+    		Compra compra = ComprasFactory.compraParaEntidad(unaEntidad);
+    		compras.salvar(compra);
+    	}
     }
 
-    private void crearEntidades() {
-        persist(EntidadesFactory.empresaMedianaTramo2());
+    private void crearEntidadesYCategorias() {
+	    Categoria corpo = new Categoria("Corporacion");
+	    Categoria alimentos = new Categoria("Industria Alimenticia");
+
+        persist(new Categoria("ONG"));
+        persist(corpo);
+        persist(alimentos);
+
+	    EntidadJuridica mc = EntidadesFactory.empresaMedianaTramo2();
+	    mc.agregarCategoria(corpo);
+	    mc.agregarCategoria(alimentos);
+
+        persist(mc);
         persist(EntidadesFactory.getEntidadJuridica());
     }
 
@@ -52,11 +86,5 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
         persist(MedioDePagoFactory.effectivo());
         persist(MedioDePagoFactory.tarjetaDeCreditoVisa());
         persist(MedioDePagoFactory.tarjetaDeDebito());
-    }
-
-    private void crearCategorias() {
-        persist(new Categoria("ONG"));
-        persist(new Categoria("Corporacion"));
-        persist(new Categoria("Industria Alimenticia"));
     }
 }

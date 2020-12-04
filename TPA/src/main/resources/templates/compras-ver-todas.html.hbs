@@ -5,28 +5,44 @@
 {{# partial "nav"}}
     <div class="topnav">
         <a href="/">Inicio</a>
-        <a class="active" href="/compras">Compras</a>
+        <a class="active" href="/compras/menu">Compras</a>
         <a href="/entidades">Entidades</a>
-        <a href="/mensajes">Mensajes</a>
+        <a href="/mensajes">Bandeja de Entrada</a>
         <a href="/logout">Salir</a>
     </div>
 {{/partial}}
 
 {{# partial "contenido" }}
 	<section>
+        <button class="botonAtras" style="width: 16%;" onclick="location.href='/compras/menu'">Volver a menú de compras</button>
+		<form id="filtro_etiquetas" action="/compras" method="GET">
+		
+		<label> Etiquetas </label>
+		<select name="etiqueta">
+			{{#etiquetas}}
+				<option value={{this}}>{{this}} </option>
+			{{/etiquetas}}
+		</select>
+		<input type = submit value="Filtrar"> 
+		</form>
 		<div id="compras">
 			<ul>
+				<hr>
 				{{#compras}}
-					<p>------------------------------------------------------------------------------</p>
 					<li>
-						ID Compra: {{id}} <br>
-						Fecha: {{fecha}} <br>
-						Precio Total: {{precio}} <br>
-						Moneda: {{moneda}} <br>
-						Medio de Pago: {{medioDePago}} <br>
-						<a href="/compras/ver/{{id}}"><button>Ver</button></a>
+						<h3> Compra #{{id}} </h3>
+						<strong> Estado: </strong> {{estadoDeAprobacion}} <br>
+						<strong> Fecha: </strong> {{fecha}} <br>
+						<strong> Precio Total: </strong> ${{precio}} <br>
+						<strong> Moneda: </strong> {{moneda}} <br>
+						<strong> Medio de Pago: </strong> {{medioDePago}} <br>
+						<strong> Etiquetas: </strong> {{modeloEtiquetas}} <br>
 					</li>
-					<p>------------------------------------------------------------------------------</p>
+					
+					<div class="align-right">
+							<a href="/compras/{{id}}"><button class="botonAtras">Ver</button></a>
+					</div>
+					<hr>
 				{{/compras}}
 			</ul>
 		</div>

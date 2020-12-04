@@ -18,7 +18,7 @@ public abstract class RepoDB<T> implements WithGlobalEntityManager, EntityManage
 		return createQuery().getResultList();
 	}
 
-	public void agregar(T elemento){
+	public void salvar(T elemento){
 		entityManager().persist(elemento);
 	}
 	

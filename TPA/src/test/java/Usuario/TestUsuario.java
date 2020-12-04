@@ -9,44 +9,44 @@ import Exceptions.ContraseniaTieneNombreDeUsuarioIncluidoException;
 import static org.junit.Assert.assertEquals;
 public class TestUsuario {
 
-
+	private ValidadorUsuario validador = new ValidadorUsuario();
+	 
+	
     @Test(expected = ContraseniaEntreLasDiezMilException.class)
     public void contraseniaEntreLas10000peores() {
-        new Usuario("guido", "qwerty", null);
+    	validador.validarContraseniaEntreLasDiezMilMasConocidas("qwerty");
     }
 
     @Test(expected = ContraseniaNoCumpleLongitudMinimaException.class)
     public void contraseniaNoCumpleConLongitudMinima() {
-        new Usuario("carlitos", "pepe", null);
+    	validador.validarContraseniaConLongitudMinima("pepe");
     }
 
     @Test(expected = ContraseniaTieneCaracteresRepetidosException.class)
     public void validarCaracteresRepetidosConTresCaracteres() {
-        new Usuario("carlitos", "pepeholappp", null);
+    	validador.validarCaracteresRepetidos("pepeholappp");
     }
 
     @Test(expected = ContraseniaTieneCaracteresRepetidosException.class)
     public void validarCaracteresRepetidosConCuatroCaracteres() {
-        new Usuario("carlitos", "pepeholappppp", null);
+    	validador.validarCaracteresRepetidos("pepeholappppp");
     }
 
     @Test(expected = ContraseniaTieneCaracteresRepetidosException.class)
-    public void validarCaracteresRepetidosConDosCaracteres() {
-        String contraseniaEsperada = "pepeholapp";
-        new Usuario("carlitos", contraseniaEsperada, null);
+    public void validarCaracteresRepetidosConDosCaracteres() {     
+    	validador.validarCaracteresRepetidos("pepeholapp");
     }
     
     @Test(expected = ContraseniaTieneNombreDeUsuarioIncluidoException.class)
     public void validarCaracteresQueIncluyenElNombreDeUsuario() {
-        String contraseniaEsperada = "elmascrackesCarlitos";
-        new Usuario("carlitos", contraseniaEsperada, null);
+    	validador.validarUsuarioNoContenidoEnContrasenia("carlitos", "elmascrackesCarlitos");
     }
 
     @Test()
-    public void validarContraseniaUsandoContraseniaValida() {
+    public void usuarioConContraseniaValidaSeCreaCorrectamente() {
         String contraseniaEsperada = "ASDhdursososososksms";
         Usuario usuario = new Usuario("carlitos", contraseniaEsperada, null);
-
+        validador.validarContrasenia(usuario.getContrasenia(),usuario.getUsername());
 
         assertEquals(usuario.getContrasenia(), contraseniaEsperada);
     }

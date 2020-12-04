@@ -27,11 +27,24 @@ public class RepoUsuariosDB extends RepoDB<Usuario>{
 		
 		return usuario;
 	}
+	
+	public Usuario getUsuario(Long id){
+		Usuario usuario; 
+		try{
+			usuario = entityManager().find(Usuario.class, id);
+		} 
 		
+		catch(NoResultException e){			
+			throw new UsuarioNoExisteException(id);
+		}
+		
+		return usuario;	
+	}
+	
 	@Override
-	public void agregar(Usuario usuario){
+	public void salvar(Usuario usuario){
 		validarNoRepetido(usuario.getUsername());
-		super.agregar(usuario);
+		super.salvar(usuario);
 	}
 	
 	public boolean nombreOcupado(String username){

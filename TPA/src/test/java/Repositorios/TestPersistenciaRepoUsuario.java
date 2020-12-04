@@ -11,7 +11,6 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import Exceptions.UsuarioNoExisteException;
 import Exceptions.UsuarioYaExisteException;
 import Factory.UsuariosFactory;
-import Organizacion.IngresoFallidoException;
 import Repositorios.RepositorioDeUsuarios.RepoUsuariosDB;
 import Usuario.Usuario;
 
@@ -22,7 +21,7 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 	@Before
 	public void init(){
 		this.beginTransaction();
-		repo.agregar(usuario);
+		repo.salvar(usuario);
 	}
 
 	@After
@@ -52,7 +51,7 @@ public class TestPersistenciaRepoUsuario extends AbstractPersistenceTest impleme
 	
 	@Test (expected = UsuarioYaExisteException.class)
 	public void intentoAgregarUnUsuarioRepetidoYFallo(){
-		repo.agregar(usuario);
+		repo.salvar(usuario);
 	}
 	
 	@Test

@@ -5,9 +5,9 @@
 {{# partial "nav"}}
     <div class="topnav">
       <a class="active" href="/menu">Inicio</a>
-      <a href="/compras">Compras</a>
+      <a href="/compras/menu">Compras</a>
       <a href="/entidades">Entidades</a>
-      <a href="/mensajes">Mensajes</a>
+      <a href="/mensajes">Bandeja de Entrada</a>
       <a href="/logout">Salir</a>
     </div>
 {{/partial}}
@@ -17,11 +17,12 @@
 
 
 {{# partial "contenido" }}
-    <section class="fondo-gris">
-    
+
+    <section id="presentacion" class="fondo-gris">    
         <h2>¡Bienvenido {{username}}!</h2>
-        
-        <h2>Acerca de nosotros</h2>
+    </section>
+    <section id="about-us" class="fondo-gris" style="text-align: justify;">        
+        <h3>Acerca de nosotros</h3>
         <p> 
         	Fundación Proyecto Emprender (PROEM) es una organización sin fines de lucro fundada en el año 2003.
 			Su visión reside en contribuir a la obtención del pleno empleo en la República Argentina. En dicho sentido,

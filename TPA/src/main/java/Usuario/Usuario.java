@@ -18,6 +18,7 @@ public class Usuario {
     private String contrasenia;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OrderColumn(name="posicion")
     @JoinTable(name = "mensajes_por_usuario")
     private List<Mensaje> bandejaDeMensajes = new LinkedList<>();
 
@@ -27,7 +28,6 @@ public class Usuario {
     public Usuario() {}
 
     public Usuario(String username, String contrasenia, TipoUsuario tipoUsuario) {
-    	new ValidadorUsuario().validarContrasenia(contrasenia, username);
     	this.username = username;
         this.contrasenia = contrasenia;
         this.tipo = tipoUsuario;

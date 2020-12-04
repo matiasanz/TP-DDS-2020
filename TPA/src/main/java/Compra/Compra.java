@@ -1,6 +1,7 @@
 package Compra;
 
 import Entidad.Entidad;
+import Factory.MensajeFactory;
 import MedioDePago.MedioDePago;
 import Moneda.CodigoMoneda;
 import Moneda.Moneda;
@@ -65,10 +66,10 @@ public class Compra {
     @ElementCollection
     @CollectionTable(name = "etiquetas", joinColumns=@JoinColumn(name = "compra_id"))
     @Column(name = "etiqueta")
-    private List<String> etiquetas = new ArrayList<>();
-    
+    private List<String> etiquetas = new LinkedList<>();
+
     public Compra() {}
-    
+
     public Compra(RepositorioDeMonedas repositorioDeMonedas,
                   Entidad entidad,
                   /*DocumentoCompercial documentoComercial,*/
@@ -85,8 +86,8 @@ public class Compra {
         this.moneda = repositorioDeMonedas.getMoneda(codigoMoneda);
     }
 
-    
-    
+
+
 	//Items ***********************************
 
     public List<Item> getItems() {
@@ -96,15 +97,15 @@ public class Compra {
     		return items;
     	}
     }
-    
+
     public void agregarItem(Item item) {
         this.items.add(item);
     }
-    
+
     public BigDecimal getValorTotal() {
         return getItems().stream().map(Item::getValor).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
-    
+
 //Presupuesto *****************************
 
     public int getCantidadMinimaDePresupuestos() {
@@ -114,27 +115,28 @@ public class Compra {
     public List<Presupuesto> getPresupuestosAsociados() {
         return presupuestosAsociados;
     }
-    
+
     public void agregarPresupuesto(Presupuesto presupuesto) {
         presupuestosAsociados.add(presupuesto);
     }
 
-    public void setPresupuestoElegido(Presupuesto presupuesto) {
-        Presupuesto presupuestoAElegir = presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.equals(presupuesto)).findFirst().orElseThrow(NoHayPresupuestosException::new);
+    public void setPresupuestoElegido(Presupuesto presupuesto) {    	
+    	presupuestosAsociados.remove(presupuesto);
+    	presupuestosAsociados.add(0,presupuesto);
+    	Presupuesto presupuestoAElegir = presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.equals(presupuesto)).findFirst().orElseThrow(NoHayPresupuestosException::new);    		    	
         presupuestoAElegir.setElegido(true);
-        this.setItems(presupuestoAElegir.getItems()); //TODO
     }
-    
-    
+
+
  /* Retorna el presupuesto elegido
     si no hay presupuesto elegido todavía arroja excepcion
  */
     public Presupuesto getPresupuestoElegido() {
         return presupuestosAsociados.stream().filter(unPresupuesto -> unPresupuesto.isElegido()).findFirst().orElseThrow(NoHayPresupuestoElegidoException::new);
     }
-    
+
 //Estado de Aprobacion ***************************
-    
+
     public Estado getIndicadorDeAprobacion() {
         return indicadorDeAprobacion;
     }
@@ -145,38 +147,53 @@ public class Compra {
 
     public void aprobar() {
         this.indicadorDeAprobacion = Estado.APROBADA;
+        this.notificarAprobacion();
     }
 
-    public void rechazar() {
+    private void notificarAprobacion() {
+        this.usuariosValidadores.forEach(u -> u.notificarEvento(MensajeFactory.mensajeDeAprobacion(this)));
+    }
+
+    public void rechazar(String motivoRechazo) {
+
         this.indicadorDeAprobacion = Estado.RECHAZADA;
+        this.notificarRechazo(motivoRechazo);
+    }
+
+    private void notificarRechazo(String motivoRechazo) {
+        this.usuariosValidadores.forEach(u -> u.notificarEvento(MensajeFactory.mensajeDeRechazo(this, motivoRechazo)));
     }
 
     public boolean pendienteDeAprobacion() {
         return this.indicadorDeAprobacion == Estado.PENDIENTEDEAPROBACION;
     }
-    
+
 //Usuarios validadores *****************
 
     public void agregarUsuarioValidador(Usuario usuario) {
     	usuariosValidadores.add(usuario);
     }
-    
+
     public boolean puedeSerValidadaPor(Usuario miUsuario) {
         return usuariosValidadores.contains(miUsuario);
     }
-    
+
     public void notificarUsuarios(String mensaje){
-    	usuariosValidadores.stream().forEach(unUsuario->unUsuario.notificarEvento(new Mensaje(LocalDateTime.now(), mensaje)));
+    	usuariosValidadores.stream().forEach(unUsuario->unUsuario.notificarEvento(new Mensaje(LocalDateTime.now(), mensaje,0)));
     }
 
 //Etiqueta ****************
-    
+
     public List<String> getEtiquetas() {
         return etiquetas;
     }
-    
+
     public void agregarEtiqueta (String etiqueta){
         etiquetas.add(etiqueta);
+    }
+
+    public void eliminarEtiqueta (String etiqueta){
+        etiquetas.remove(etiqueta);
     }
 
     public boolean contieneEtiqueta (String etiqueta){
@@ -186,17 +203,17 @@ public class Compra {
     public boolean etiquetada(){
     	return !etiquetas.isEmpty();
     }
-    
+
 //Otros *******************
 
     public Moneda getMoneda() {
         return this.moneda;
     }
-    
+
     public Long getId(){
 		return id;
 	}
-    
+
     public boolean compraDelMes(LocalDate unaFecha){
         return this.getFechaOperacion().getMonth().getValue() == unaFecha.getMonth().getValue()
                 && getFechaOperacion().getYear() == unaFecha.getYear();
@@ -205,11 +222,11 @@ public class Compra {
     public LocalDate getFechaOperacion() {
         return fechaOperacion;
     }
-    
+
     public Entidad getEntidadRelacionada(){
     	return entidadRelacionada;
     }
-    
+
     public MedioDePago getMedioDePago(){
     	return medioDePago;
     }

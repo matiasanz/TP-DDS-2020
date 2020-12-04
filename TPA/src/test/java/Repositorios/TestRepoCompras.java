@@ -5,6 +5,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+import Repositorios.RepositorioDeCompras.RepoComprasDB;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,8 +28,8 @@ public class TestRepoCompras extends AbstractPersistenceTest implements WithGlob
 
     @Before
     public void start() {
-        repoCompras.agregar(compraJulioEtiqueta);
-        repoCompras.agregar(compraFebrero);
+        repoCompras.salvar(compraJulioEtiqueta);
+        repoCompras.salvar(compraFebrero);
     }
 
     @After
@@ -49,7 +50,7 @@ public class TestRepoCompras extends AbstractPersistenceTest implements WithGlob
     public void comprasDelMesDeJulio() {
 
         compraJulioSinEtiqueta.setFechaOperacion(LocalDate.of(2020, 7, 15));
-        repoCompras.agregar(compraJulioSinEtiqueta);
+        repoCompras.salvar(compraJulioSinEtiqueta);
         List<Compra> comprasDelMes = repoCompras.comprasDelMes(fechaJulio2020);
         assertEquals(2, comprasDelMes.size());
         assertCompra(compraJulioEtiqueta, comprasDelMes.get(0));

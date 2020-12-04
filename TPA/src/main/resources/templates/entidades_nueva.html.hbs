@@ -5,9 +5,9 @@
 {{# partial "nav"}}
     <div class="topnav">
       <a href="/">Inicio</a>
-      <a href="/compras">Compras</a>
+      <a href="/compras/menu">Compras</a>
       <a class="active" href="/entidades">Entidades</a>
-      <a href="/mensajes">Mensajes</a>
+      <a href="/mensajes">Bandeja de Entrada</a>
       <a href="/logout">Salir</a>
     </div>
 {{/partial}}
@@ -15,11 +15,7 @@
 {{# partial "contenido" }}
     <section>
 
-        <button class="botonAtras" onclick="location.href='/entidades'">Atras</button>
-
-        {{#mensajeAccion}}
-            <h2 style="text-align:center;">{{mensajeAccion}}</h2>
-        {{/mensajeAccion}}
+        <button class="botonAtras" style="width: 16%;" onclick="location.href='/entidades'">Volver a menú de entidades</button>
 
         <h2>Crear entidad<h2>
 
@@ -30,6 +26,12 @@
                 <button class="botonSameTamanio botonPequenioIzquierda" onclick="location.href='/entidades/nueva-org-sector-social'">Organización de sector social</button>
             </div>
 
+        {{#mensajeExito}}
+                    <h2 style="text-align:center; color: green; padding-top: 30px;">{{mensajeExito}}</h2>
+        {{/mensajeExito}}
+        {{#mensajeError}}
+                    <h2 style="text-align:center; color: red; padding-top: 30px;">{{mensajeError}}</h2>
+        {{/mensajeError}}
     </section>
 {{/partial}}
 

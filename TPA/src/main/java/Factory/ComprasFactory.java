@@ -13,11 +13,13 @@ import Direccion.Direccion;
 import Direccion.Pais;
 import Entidad.Clasificacion;
 import Entidad.Empresa;
+import Entidad.Entidad;
 import Entidad.EntidadJuridica;
 import MedioDePago.MedioDePago;
 import MedioDePago.PagoEnEfectivo;
 import MedioDePago.DineroEnCuenta;
 import Moneda.CodigoMoneda;
+import Moneda.Moneda;
 import Presupuesto.Presupuesto;
 import Proveedor.Proveedor;
 import Repositorios.RepositorioDeLocaciones.RepositorioDeLocacionesMeli;
@@ -136,4 +138,15 @@ public class ComprasFactory {
     private static Presupuesto presupuestoConItems(List<Item> items){
     	return new Presupuesto(items, proveedor);
     }
+
+	public static Compra compraParaEntidad(Entidad unaEntidad){
+		Compra compra = new Compra(new RepositorioDeMonedasMock(), unaEntidad, LocalDate.of(2020,07,20), new PagoEnEfectivo(), CodigoMoneda.ARS, 0);
+		
+		List<Item> items = Arrays.asList(ItemsFactory.bebida(4,59.99), ItemsFactory.itemNValuadoEn(1,27999.99));
+		compra.setPresupuestoElegido(new Presupuesto(items,proveedor));
+		
+		compra.agregarEtiqueta("Festichola");
+		
+		return compra;
+	}
 }

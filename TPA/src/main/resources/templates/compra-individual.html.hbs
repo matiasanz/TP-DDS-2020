@@ -5,72 +5,92 @@
 {{# partial "nav"}}
     <div class="topnav">
         <a href="/">Inicio</a>
-        <a class="active" href="/compras">Compras</a>
+        <a class="active" href="/compras/menu">Compras</a>
         <a href="/entidades">Entidades</a>
-        <a href="/mensajes">Mensajes</a>
+        <a href="/mensajes">Bandeja de Entrada</a>
         <a href="/logout">Salir</a>
     </div>
 {{/partial}}
 
 {{# partial "contenido" }}
-	<section>
-		<script type="text/javascript" src="/js/compras-nueva.js"></script>
-		<div id="compras">
-			<ul>
-                <hr size="1px" color="black" />
-				<li>
-					Fecha: {{fecha}} <br>
-					Precio Total: {{precio}} <br>
-					Moneda: {{moneda}} <br>
-					Medio de Pago: {{medioDePago}} <br>
-					Items:
-						<ul>
-							{{#items}}
-                                <li>
-									Descripción: {{descripcion}} <br>
-									Cantidad: {{cantidad}} <br>
-									Valor Unitario: {{valorUnitario}} 
-								</li>
-							{{/items}}
-						</ul>
-						<br>
-					Etiquetas: {{etiquetas}}
-				</li>
-                <hr size="1px" color="black"  />
-			</ul>
-		</div>
+    <section>
+        <script type="text/javascript" src="/js/compras-nueva.js"></script>
+        <button class="botonAtras" style="width: 16%;" onclick="location.href='/compras'">Ir a lista de compras
+        </button>
+		<h2> Compra #{{id}} </h2>	
+        <div id="compras" style="text-align: left;">
+            <ul>
+                <hr size="1px" color="black"/>
+                <li>
+                    <strong> Fecha: </strong> {{fecha}} <br>
+                    <strong> Precio Total: </strong> {{precio}} <br>
+                    <strong> Moneda: </strong> {{moneda}} <br>
+                    <strong> Medio de Pago: </strong> {{medioDePago}} <br>
+                    <strong> Estado: </strong> {{estadoDeAprobacion}} <br>
+                    
+                    <br>
+                    <strong> Items: </strong>
+                    <ul>
+                    	<hr style="border-top:1px dotted #000;">
+                        {{#items}}
+                            <li>
+                                <strong> Descripción: </strong> {{descripcion}} <br>
+                                <strong> Cantidad: </strong> {{cantidad}} <br>
+                                <strong> Valor Unitario: </strong> {{valorUnitario}}
+                            </li>
+                            <hr style="border-top:1px dotted #000;">
+                        {{/items}}
+                    </ul>
+                    
+                    <br>
+                    
+                    <strong> Etiquetas: </strong> {{mensajeEtiquetas}}
+                    <ul>
+                    	<hr style="border-top:1px dotted #000;">
+                        {{#each etiquetas}}
+                            <li>
+                                <div>
+                                    <form action="/compras/{{id}}/eliminar-etiqueta/{{this}}" method="POST">
+                                        {{this}}
+                                        <input type="submit" value="quitar">
+                                    </form>
+                                </div>
+                            </li>
+                            <hr style="border-top:1px dotted #000;">
+                        {{/each}}
+                    </ul>
+                </li>
+                <hr size="1px" color="black"/>
+            </ul>
+        </div>
 
-		<br>
+        <br>
 
-		<div id="nuevas-etiquetas">
-		    <form id="frm_compra" action="/compras/{{id}}/etiqueta/nueva" method="POST">
-		        <h4> Agregar Etiquetas </h4>
+        <div style="margin: auto;width:50%" id="nuevas-etiquetas">
+            <form id="frm_etiquetas" action="/compras/{{id}}/etiquetas" method="POST">
+                <h2 style="margin: 0 30 10 160"> Agregar Nuevas Etiquetas  </h2>
                 <div id="div_compra_etiquetas">
-                    <h4> Etiquetas </h4>
-                    <table id="tbl_etiquetas">
+                    <table id="tbl_etiquetas" class="tablaEntidades" style="width:30%;margin: 10px auto auto;">
                         <thead>
-                            <tr>
-                                <th> Etiqueta</th>
-                            </tr>
+                        <tr>
+                            <th style="margin: 0 30 10 203;"> Etiquetas  </th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <input name="txt_etiqueta_1" type="text" required>
-                                    <input id="cantidad_etiquetas" name="cantidad_etiquetas" type="hidden" value="1">
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <input name="txt_etiqueta_1" type="text" required>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
-                </div>
-                <div id="div_submit_form">
-                	<input type="submit" value="Agregar Etiquetas">
+                    <input id="cantidad_etiquetas" name="cantidad_etiquetas" type="hidden" value="1">
                 </div>
             </form>
-            <button id="btn_agregar_etiquetas" onclick="agregarEtiqueta()" class="botonSameTamanio">Agregar Etiqueta</button>
-            <button id="btn_eliminar_etiquetas" onclick="eliminarEtiqueta()" disabled class="botonSameTamanio">Eliminar Etiqueta</button>
-		</div>
-	</section>
+            <input type="submit" value="Agregar" class="botonSameTamanio" form="frm_etiquetas">
+
+        </div>
+    </section>
 {{/partial}}
 
 {{> layout.html.hbs }}

@@ -2,7 +2,7 @@ package Entidad;
 
 import Categoria.Categoria;
 import Compra.Compra;
-import Repositorios.RepositorioDeComprasMemoria;
+import Repositorios.RepositorioDeCompras.RepositorioDeComprasMemoria;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

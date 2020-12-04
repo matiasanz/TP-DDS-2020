@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +18,6 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import Entidad.Entidad;
 import Factory.EntidadesFactory;
-import Factory.UsuariosFactory;
 import TareasProgramadas.ReporteMensualGastos.ReporteMensualDeGastos;
 
 public class TestRepoEntidades
@@ -36,8 +33,8 @@ public class TestRepoEntidades
 		
 	    @Before
 	    public void start() {
-	        repoEntidades.agregar(entidadBaseRandom);
-	        repoEntidades.agregar(entidadJuridicaEmpresa);
+	        repoEntidades.salvar(entidadBaseRandom);
+	        repoEntidades.salvar(entidadJuridicaEmpresa);
 	    }
 
 	    @After
@@ -56,24 +53,9 @@ public class TestRepoEntidades
 		
 		@Test
 		public void persistenciaEntidadConCompras(){
-			repoEntidades.agregar(EntidadesFactory.getEntidadConCompras());	
+			repoEntidades.salvar(EntidadesFactory.getEntidadConCompras());	
 			assertEquals(3, repoEntidades.getAll().size());
 			assertEntidad(entidadJuridicaOSS, repoEntidades.getAll().get(2));
-		}
-		
-		@Test
-		public void reporteDeGastosParaEntidadesPersistidas(){
-			repoEntidades.agregar(EntidadesFactory.getEntidadConCompras());
-			
-			LocalDate fecha = LocalDate.of(2020,07,02);
-			List<Map<String, Double>> reportesGenerados = new ArrayList<>();
-			repoEntidades.getAll().forEach(e->reportesGenerados.add(ReporteMensualDeGastos.generarReporteDeGastos(e,fecha)));
-			
-			assertEquals(3, reportesGenerados.size());
-			Map<String, Double> gastos = reportesGenerados.get(0);
-			assertEquals(0, gastos.size());
-			
-			//(...)
 		}
 		
 		//Auxiliar

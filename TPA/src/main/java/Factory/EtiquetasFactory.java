@@ -9,4 +9,8 @@ public class EtiquetasFactory {
 	public static String etiquetaProveedor(Proveedor unProveedor){
 		return unProveedor.getNombre();
 	}
+	
+	public static String etiquetaNula(){
+		return "Sin etiquetar";
+	}
 }
