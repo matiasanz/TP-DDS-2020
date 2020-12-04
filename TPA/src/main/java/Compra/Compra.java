@@ -61,12 +61,12 @@ public class Compra {
     @JoinTable(name = "validadores_por_compra",
             joinColumns = @JoinColumn(name = "compra_id"),
             inverseJoinColumns = @JoinColumn(name = "usuarios_id"))
-    private  List<Usuario> usuariosValidadores = new ArrayList<>();
+    private  List<Usuario> usuariosValidadores = new LinkedList<>();
 
     @ElementCollection
     @CollectionTable(name = "etiquetas", joinColumns=@JoinColumn(name = "compra_id"))
     @Column(name = "etiqueta")
-    private List<String> etiquetas = new LinkedList<>();
+    private List<String> etiquetas = new ArrayList<>();
 
     public Compra() {}
 
