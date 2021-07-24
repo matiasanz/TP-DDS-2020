@@ -11,6 +11,7 @@ import Repositorios.RepositorioDeMonedas.RepositorioDeMonedasMeli;
 import spark.Response;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
+import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import static spark.Spark.after;
@@ -29,8 +30,7 @@ public class Routes {
         Spark.port(getPuertoAsignadoHeroku());
 
         //Esta linea muestra el stack trace en el navegador, en caso de excepcion no manejada.
-        //TODO comentar el dia de la entrega
-        //DebugScreen.enableDebugScreen();
+        DebugScreen.enableDebugScreen();
 
         Spark.staticFileLocation("/public");
 
@@ -38,7 +38,7 @@ public class Routes {
         RepositorioDeMonedasMeli.getInstance().getMonedas(Moneda.codigosMoneda());
 
         //Descomentar la llamada al bootstrap para trabajar localmente pero no pushear al repo porque el schema no se debe crear todo el tiempo en el server
-//        Bootstrap.main(args);
+        Bootstrap.main(args);
         
         Spark.before((request, response)->{        	        	
         	bloquearCacheNavegador(response);
